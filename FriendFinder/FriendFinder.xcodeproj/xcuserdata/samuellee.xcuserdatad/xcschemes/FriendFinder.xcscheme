@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "98A11CEE1EFA3FD9007050E4"
+               BlueprintIdentifier = "98A11D4E1EFA53F2007050E4"
                BuildableName = "FriendFinder.app"
                BlueprintName = "FriendFinder"
                ReferencedContainer = "container:FriendFinder.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "98A11D021EFA3FDA007050E4"
+               BlueprintIdentifier = "98A11D621EFA53F2007050E4"
                BuildableName = "FriendFinderTests.xctest"
                BlueprintName = "FriendFinderTests"
                ReferencedContainer = "container:FriendFinder.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "98A11CEE1EFA3FD9007050E4"
+            BlueprintIdentifier = "98A11D4E1EFA53F2007050E4"
             BuildableName = "FriendFinder.app"
             BlueprintName = "FriendFinder"
             ReferencedContainer = "container:FriendFinder.xcodeproj">
@@ -65,7 +65,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "98A11CEE1EFA3FD9007050E4"
+            BlueprintIdentifier = "98A11D4E1EFA53F2007050E4"
             BuildableName = "FriendFinder.app"
             BlueprintName = "FriendFinder"
             ReferencedContainer = "container:FriendFinder.xcodeproj">
@@ -84,7 +84,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "98A11CEE1EFA3FD9007050E4"
+            BlueprintIdentifier = "98A11D4E1EFA53F2007050E4"
             BuildableName = "FriendFinder.app"
             BlueprintName = "FriendFinder"
             ReferencedContainer = "container:FriendFinder.xcodeproj">
