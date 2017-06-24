@@ -1,17 +1,20 @@
 //
-//  ButtonController.swift
+//  NextViewController.swift
 //  FriendFinder
 //
-//  Created by Samuel Lee on 6/21/17.
+//  Created by Samuel Lee on 6/23/17.
 //  Copyright © 2017 Samuel Lee and Avishek Ganguli. All rights reserved.
 //
 
 import UIKit
 
-class ButtonController: UIViewController {
+class NextViewController: UIViewController {
 
+    @IBOutlet var NextLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("At Next View Controller")
 
         // Do any additional setup after loading the view.
     }
@@ -32,17 +35,4 @@ class ButtonController: UIViewController {
     }
     */
     
-    @IBAction func goBack(segue: UIStoryboardSegue){
-        print("Button pressed")
-        if let src = segue.source as? NextViewController {
-            print(src.NextLabel.text!)
-        }
-        else {
-            print("wrong cast")
-        }
-        
-    }
-
-    
-
 }

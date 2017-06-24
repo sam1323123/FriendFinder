@@ -14,6 +14,7 @@
 		98A11D5D1EFA53F2007050E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */; };
 		98A11D681EFA53F2007050E4 /* FriendFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D671EFA53F2007050E4 /* FriendFinderTests.swift */; };
 		98A11D731EFA5439007050E4 /* ButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D721EFA5439007050E4 /* ButtonController.swift */; };
+		98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D741EFE0287007050E4 /* NextViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		98A11D671EFA53F2007050E4 /* FriendFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendFinderTests.swift; sourceTree = "<group>"; };
 		98A11D691EFA53F2007050E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A11D721EFA5439007050E4 /* ButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonController.swift; sourceTree = "<group>"; };
+		98A11D741EFE0287007050E4 /* NextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				98A11D591EFA53F2007050E4 /* Assets.xcassets */,
 				98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */,
 				98A11D5E1EFA53F2007050E4 /* Info.plist */,
+				98A11D741EFE0287007050E4 /* NextViewController.swift */,
 			);
 			path = FriendFinder;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98A11D551EFA53F2007050E4 /* ViewController.swift in Sources */,
+				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
 				98A11D731EFA5439007050E4 /* ButtonController.swift in Sources */,
 				98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */,
 			);
