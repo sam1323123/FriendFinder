@@ -24,7 +24,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opJ-Og-OXN">
                                 <rect key="frame" x="115" y="115" width="144" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Press To Segue"/>
                                 <connections>
                                     <segue destination="PYZ-VF-Q0I" kind="presentation" id="4KI-wd-Icf"/>
                                 </connections>
