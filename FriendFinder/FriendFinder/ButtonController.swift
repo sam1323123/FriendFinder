@@ -15,6 +15,18 @@ class ButtonController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        loadAndSetImageBackground()
+    }
+    
+    private func loadAndSetImageBackground() {
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        imageView.image = #imageLiteral(resourceName: "waves")
+        imageView.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.addSubview(imageView)
+        self.view.sendSubview(toBack: imageView)
+        
     }
 
     override func didReceiveMemoryWarning() {
