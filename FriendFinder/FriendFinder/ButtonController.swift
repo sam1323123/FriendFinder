@@ -10,9 +10,15 @@ import UIKit
 
 class ButtonController: UIViewController {
 
+
+    @IBOutlet var username_textfield: UITextField!
+    
+    @IBOutlet var password_texfield: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("View loaded")
 
         // Do any additional setup after loading the view.
         loadAndSetImageBackground()
@@ -26,9 +32,9 @@ class ButtonController: UIViewController {
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         self.view.addSubview(imageView)
         self.view.sendSubview(toBack: imageView)
-        
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,6 +51,8 @@ class ButtonController: UIViewController {
     }
     */
     
+    
+    
     @IBAction func goBack(segue: UIStoryboardSegue){
         print("Button pressed")
         if let src = segue.source as? NextViewController {
@@ -56,6 +64,26 @@ class ButtonController: UIViewController {
         
     }
 
+    
+    /*
+     Method for initial screen login. Linked to the Login/Enter button in 
+     ButtonViewController
+     */
+    @IBAction func loginPressed() {
+        
+        
+        if((self.username_textfield.text != nil) && (self.password_texfield.text != nil)) {
+            
+            //set entered passwords to empty
+            self.username_textfield.text = nil
+            self.password_texfield.text = nil
+            performSegue(withIdentifier: "loginSegue", sender: nil)
+            
+        }
+        
+    }
+    
+    
     
 
 }
