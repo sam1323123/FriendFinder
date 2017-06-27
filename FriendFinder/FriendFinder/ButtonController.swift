@@ -72,9 +72,15 @@ class ButtonController: UIViewController {
     @IBAction func loginPressed() {
         
         
-        if((self.username_textfield.text != nil) && (self.password_texfield.text != nil)) {
+        if let user = self.username_textfield.text , let pass = self.password_texfield.text {
             
             //set entered passwords to empty
+            if(user == "" || pass == "" || user.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
+                || pass.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
+                //if contains whitespace or is empty string
+                print("invalid login args")
+                return
+            }
             self.username_textfield.text = nil
             self.password_texfield.text = nil
             performSegue(withIdentifier: "loginSegue", sender: nil)
