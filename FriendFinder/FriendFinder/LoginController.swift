@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ButtonController: UIViewController {
+class LoginController: UIViewController {
 
 
-    @IBOutlet var username_textfield: UITextField!
+    @IBOutlet weak var username_textfield: UITextField!
     
-    @IBOutlet var password_texfield: UITextField!
+    @IBOutlet weak var password_texfield: UITextField!
     
     
     override func viewDidLoad() {
@@ -25,13 +25,24 @@ class ButtonController: UIViewController {
     }
     
     private func loadAndSetImageBackground() {
-        let width = UIScreen.main.bounds.width
-        let height = UIScreen.main.bounds.height
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        imageView.image = #imageLiteral(resourceName: "waves")
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
-        self.view.addSubview(imageView)
-        self.view.sendSubview(toBack: imageView)
+        //create image view
+        let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImageView.image = #imageLiteral(resourceName: "waves")
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        //add it as background current login view
+        view.addSubview(backgroundImageView)
+        view.sendSubview(toBack: backgroundImageView)
+        
+        
+        // adding NSLayoutConstraints
+        let leadingConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let trailingConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0.0)
+        let bottomConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
+        
     }
     
     
@@ -58,10 +69,6 @@ class ButtonController: UIViewController {
         if let src = segue.source as? NextViewController {
             print(src.NextLabel.text!)
         }
-        else {
-            print("wrong cast")
-        }
-        
     }
 
     
@@ -69,7 +76,7 @@ class ButtonController: UIViewController {
      Method for initial screen login. Linked to the Login/Enter button in 
      ButtonViewController
      */
-    @IBAction func loginPressed() {
+    @IBAction func moveFromLoginScreen() {
         
         
         if let user = self.username_textfield.text , let pass = self.password_texfield.text {
@@ -83,7 +90,7 @@ class ButtonController: UIViewController {
             }
             self.username_textfield.text = nil
             self.password_texfield.text = nil
-            performSegue(withIdentifier: "loginSegue", sender: nil)
+            performSegue(withIdentifier: "Login", sender: nil)
             
         }
         
