@@ -19,6 +19,8 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
+        username_textfield.setBottomBorder()
+        password_texfield.setBottomBorder()
 
         // Do any additional setup after loading the view.
         loadAndSetImageBackground()
@@ -27,7 +29,7 @@ class LoginController: UIViewController {
     private func loadAndSetImageBackground() {
         //create image view
         let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImageView.image = #imageLiteral(resourceName: "waves")
+        backgroundImageView.image = #imageLiteral(resourceName: "high-five-sunset")
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         
         //add it as background current login view
@@ -96,7 +98,29 @@ class LoginController: UIViewController {
         
     }
     
-    
-    
 
+}
+
+
+extension UITextField {
+    func setBottomBorder() {
+        let border = CALayer()
+        let delta = CGFloat(1.0)
+        border.borderColor = UIColor.darkGray.cgColor
+        border.frame = CGRect(x: 0, y: self.frame.size.height - delta, width:  self.frame.size.width, height: delta)
+        
+        border.borderWidth = delta
+        self.layer.addSublayer(border)
+        self.layer.masksToBounds = true
+    }
+    
+    @IBInspectable var placeHolderColor: UIColor? {
+        get {
+            return self.placeHolderColor
+        }
+        
+        set {
+           self.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ? self.placeholder! : "", attributes:[NSForegroundColorAttributeName: newValue ?? UIColor.black])
+        }
+    }
 }
