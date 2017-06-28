@@ -45,8 +45,6 @@ class LoginController: UIViewController {
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
         
-            
-        
     }
     
     
@@ -109,9 +107,7 @@ extension UITextField {
         let border = CALayer()
         let delta = CGFloat(1.0)
         border.borderColor = UIColor.darkGray.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height - delta,
-                              width: UIScreen.main.bounds.width, height: delta)
-        
+        border.frame = CGRect(x: 0, y: self.frame.size.height - delta, width:  UIScreen.main.bounds.width, height: delta)
         border.borderWidth = delta
         self.layer.addSublayer(border)
         self.layer.masksToBounds = true
