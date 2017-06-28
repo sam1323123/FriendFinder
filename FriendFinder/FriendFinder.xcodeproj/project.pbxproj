@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		111B8F1B3ED00CDC52DA2843 /* Pods_FriendFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */; };
+		3933236A940E4DB523CE55A7 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
+		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
 		98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D521EFA53F2007050E4 /* AppDelegate.swift */; };
-		98A11D551EFA53F2007050E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D541EFA53F2007050E4 /* ViewController.swift */; };
+		98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D541EFA53F2007050E4 /* LaunchController.swift */; };
 		98A11D581EFA53F2007050E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98A11D561EFA53F2007050E4 /* Main.storyboard */; };
 		98A11D5A1EFA53F2007050E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98A11D591EFA53F2007050E4 /* Assets.xcassets */; };
 		98A11D5D1EFA53F2007050E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */; };
 		98A11D681EFA53F2007050E4 /* FriendFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D671EFA53F2007050E4 /* FriendFinderTests.swift */; };
-		98A11D731EFA5439007050E4 /* ButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D721EFA5439007050E4 /* ButtonController.swift */; };
+		98A11D731EFA5439007050E4 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D721EFA5439007050E4 /* LoginController.swift */; };
 		98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D741EFE0287007050E4 /* NextViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,9 +31,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01F4749EBE82D52B2E3A3229 /* Pods-FriendFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.release.xcconfig"; sourceTree = "<group>"; };
+		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		98A11D4F1EFA53F2007050E4 /* FriendFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A11D521EFA53F2007050E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		98A11D541EFA53F2007050E4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		98A11D541EFA53F2007050E4 /* LaunchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
 		98A11D571EFA53F2007050E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		98A11D591EFA53F2007050E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		98A11D5C1EFA53F2007050E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,8 +44,12 @@
 		98A11D631EFA53F2007050E4 /* FriendFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FriendFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A11D671EFA53F2007050E4 /* FriendFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendFinderTests.swift; sourceTree = "<group>"; };
 		98A11D691EFA53F2007050E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98A11D721EFA5439007050E4 /* ButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonController.swift; sourceTree = "<group>"; };
+		98A11D721EFA5439007050E4 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		98A11D741EFE0287007050E4 /* NextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
+		B1CC802789C9B2CCC9F1CBDE /* Pods-FriendFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder.debug.xcconfig"; sourceTree = "<group>"; };
+		B682F2A084A89FE2EB12F192 /* Pods-FriendFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder.release.xcconfig"; sourceTree = "<group>"; };
+		D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendFinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3933236A940E4DB523CE55A7 /* Pods_FriendFinder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,18 +65,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				111B8F1B3ED00CDC52DA2843 /* Pods_FriendFinderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2071CADB38D8D9DE538C78A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */,
+				D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		950952CE0180FC83EE0D8C71 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B1CC802789C9B2CCC9F1CBDE /* Pods-FriendFinder.debug.xcconfig */,
+				B682F2A084A89FE2EB12F192 /* Pods-FriendFinder.release.xcconfig */,
+				80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */,
+				01F4749EBE82D52B2E3A3229 /* Pods-FriendFinderTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		98A11D461EFA53F2007050E4 = {
 			isa = PBXGroup;
 			children = (
 				98A11D511EFA53F2007050E4 /* FriendFinder */,
 				98A11D661EFA53F2007050E4 /* FriendFinderTests */,
 				98A11D501EFA53F2007050E4 /* Products */,
+				950952CE0180FC83EE0D8C71 /* Pods */,
+				2071CADB38D8D9DE538C78A7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,12 +116,13 @@
 			isa = PBXGroup;
 			children = (
 				98A11D521EFA53F2007050E4 /* AppDelegate.swift */,
-				98A11D541EFA53F2007050E4 /* ViewController.swift */,
+				98A11D541EFA53F2007050E4 /* LaunchController.swift */,
 				98A11D561EFA53F2007050E4 /* Main.storyboard */,
-				98A11D721EFA5439007050E4 /* ButtonController.swift */,
+				98A11D721EFA5439007050E4 /* LoginController.swift */,
 				98A11D591EFA53F2007050E4 /* Assets.xcassets */,
 				98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */,
 				98A11D5E1EFA53F2007050E4 /* Info.plist */,
+				982351221F036A58005F853F /* GoogleService-Info.plist */,
 				98A11D741EFE0287007050E4 /* NextViewController.swift */,
 			);
 			path = FriendFinder;
@@ -109,9 +144,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98A11D6C1EFA53F2007050E4 /* Build configuration list for PBXNativeTarget "FriendFinder" */;
 			buildPhases = (
+				A4E68232E6C82DAC81216E07 /* [CP] Check Pods Manifest.lock */,
 				98A11D4B1EFA53F2007050E4 /* Sources */,
 				98A11D4C1EFA53F2007050E4 /* Frameworks */,
 				98A11D4D1EFA53F2007050E4 /* Resources */,
+				DC0571731B0E542E1D354FF1 /* [CP] Embed Pods Frameworks */,
+				70A2CF509D0F383AE8CD3A0F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -126,9 +164,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98A11D6F1EFA53F2007050E4 /* Build configuration list for PBXNativeTarget "FriendFinderTests" */;
 			buildPhases = (
+				07294D9DE2D5AA76C24ED902 /* [CP] Check Pods Manifest.lock */,
 				98A11D5F1EFA53F2007050E4 /* Sources */,
 				98A11D601EFA53F2007050E4 /* Frameworks */,
 				98A11D611EFA53F2007050E4 /* Resources */,
+				FD25E2847C571221BEC3FD00 /* [CP] Embed Pods Frameworks */,
+				4F6674CAD088B3ED4979AC14 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98A11D5D1EFA53F2007050E4 /* LaunchScreen.storyboard in Resources */,
+				982351231F036A58005F853F /* GoogleService-Info.plist in Resources */,
 				98A11D5A1EFA53F2007050E4 /* Assets.xcassets in Resources */,
 				98A11D581EFA53F2007050E4 /* Main.storyboard in Resources */,
 			);
@@ -200,14 +242,107 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07294D9DE2D5AA76C24ED902 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4F6674CAD088B3ED4979AC14 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70A2CF509D0F383AE8CD3A0F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4E68232E6C82DAC81216E07 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DC0571731B0E542E1D354FF1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD25E2847C571221BEC3FD00 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		98A11D4B1EFA53F2007050E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98A11D551EFA53F2007050E4 /* ViewController.swift in Sources */,
+				98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */,
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
-				98A11D731EFA5439007050E4 /* ButtonController.swift in Sources */,
+				98A11D731EFA5439007050E4 /* LoginController.swift in Sources */,
 				98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +482,7 @@
 		};
 		98A11D6D1EFA53F2007050E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1CC802789C9B2CCC9F1CBDE /* Pods-FriendFinder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FriendFinder/Info.plist;
@@ -359,6 +495,7 @@
 		};
 		98A11D6E1EFA53F2007050E4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B682F2A084A89FE2EB12F192 /* Pods-FriendFinder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FriendFinder/Info.plist;
@@ -371,6 +508,7 @@
 		};
 		98A11D701EFA53F2007050E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -385,6 +523,7 @@
 		};
 		98A11D711EFA53F2007050E4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01F4749EBE82D52B2E3A3229 /* Pods-FriendFinderTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -416,6 +555,7 @@
 				98A11D6E1EFA53F2007050E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		98A11D6F1EFA53F2007050E4 /* Build configuration list for PBXNativeTarget "FriendFinderTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +564,7 @@
 				98A11D711EFA53F2007050E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
