@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -76,12 +76,14 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="AFH-xo-Ral" firstAttribute="top" secondItem="Sax-3e-ljX" secondAttribute="bottom" constant="20" id="4fh-v5-2U7"/>
+                                    <constraint firstItem="Sax-3e-ljX" firstAttribute="centerX" secondItem="CL1-dp-RSQ" secondAttribute="centerX" id="Ghe-h2-jTe"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="CL1-dp-RSQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="MvH-7j-kRO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CL1-dp-RSQ" secondAttribute="trailing" id="Pgv-IW-Cpn"/>
+                            <constraint firstItem="CL1-dp-RSQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SYc-ev-2EU"/>
                             <constraint firstItem="CL1-dp-RSQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="h6i-7r-HSy"/>
                             <constraint firstItem="CL1-dp-RSQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="lYn-jO-c83"/>
                         </constraints>
