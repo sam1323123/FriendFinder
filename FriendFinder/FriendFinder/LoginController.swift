@@ -11,16 +11,14 @@ import UIKit
 class LoginController: UIViewController {
 
 
-    @IBOutlet weak var username_textfield: UITextField!
+    @IBOutlet weak var username_textfield: BottomBorderTextField!
     
-    @IBOutlet weak var password_texfield: UITextField!
+    @IBOutlet weak var password_texfield: BottomBorderTextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
-        username_textfield.setBottomBorder()
-        password_texfield.setBottomBorder()
 
         // Do any additional setup after loading the view.
         loadAndSetImageBackground()
@@ -95,31 +93,6 @@ class LoginController: UIViewController {
             performSegue(withIdentifier: "Login", sender: nil)
             
         }
-        
     }
-    
 
-}
-
-
-extension UITextField {
-    func setBottomBorder() {
-        let border = CALayer()
-        let delta = CGFloat(1.0)
-        border.borderColor = UIColor.darkGray.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height - delta, width:  UIScreen.main.bounds.width, height: delta)
-        border.borderWidth = delta
-        self.layer.addSublayer(border)
-        self.layer.masksToBounds = true
-    }
-    
-    @IBInspectable var placeHolderColor: UIColor? {
-        get {
-            return self.placeHolderColor
-        }
-        
-        set {
-           self.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ? self.placeholder! : "", attributes:[NSForegroundColorAttributeName: newValue ?? UIColor.black])
-        }
-    }
 }

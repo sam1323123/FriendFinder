@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		111B8F1B3ED00CDC52DA2843 /* Pods_FriendFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */; };
 		3933236A940E4DB523CE55A7 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
+		42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92131F05014100A6421B /* BottomBorderTextField.swift */; };
 		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
 		98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D521EFA53F2007050E4 /* AppDelegate.swift */; };
 		98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D541EFA53F2007050E4 /* LaunchController.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		01F4749EBE82D52B2E3A3229 /* Pods-FriendFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.release.xcconfig"; sourceTree = "<group>"; };
+		42FF92131F05014100A6421B /* BottomBorderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBorderTextField.swift; sourceTree = "<group>"; };
 		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		98A11D4F1EFA53F2007050E4 /* FriendFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +120,7 @@
 				98A11D521EFA53F2007050E4 /* AppDelegate.swift */,
 				98A11D541EFA53F2007050E4 /* LaunchController.swift */,
 				98A11D561EFA53F2007050E4 /* Main.storyboard */,
+				42FF92131F05014100A6421B /* BottomBorderTextField.swift */,
 				98A11D721EFA5439007050E4 /* LoginController.swift */,
 				98A11D591EFA53F2007050E4 /* Assets.xcassets */,
 				98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */,
@@ -340,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */,
 				98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */,
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
 				98A11D731EFA5439007050E4 /* LoginController.swift in Sources */,
