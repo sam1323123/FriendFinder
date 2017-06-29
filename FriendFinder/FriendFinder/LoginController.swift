@@ -10,7 +10,8 @@ import UIKit
 
 class LoginController: UIViewController {
 
-
+    var backgroundImageView : UIImageView = UIImageView()
+    
     @IBOutlet weak var username_textfield: BottomBorderTextField!
     
     @IBOutlet weak var password_texfield: BottomBorderTextField!
@@ -20,14 +21,16 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         print("View loaded")
 
-        // Do any additional setup after loading the view.
+        // do any additional setup after loading the view.
         loadAndSetImageBackground()
     }
     
+    //sets and loads background
     private func loadAndSetImageBackground() {
         //create image view
-        let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
-        backgroundImageView.image = #imageLiteral(resourceName: "high-five-sunset")
+        backgroundImageView.bounds = UIScreen.main.bounds
+        backgroundImageView.contentMode = .redraw
+        backgroundImageView.image = getOrientedImage(basedOn: UIApplication.shared.statusBarOrientation)
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         
         //add it as background current login view
@@ -43,6 +46,21 @@ class LoginController: UIViewController {
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
         
+    }
+    
+     //changes background on rotation
+     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+         coordinator.animate(alongsideTransition: { [weak self] (UIViewControllerTransitionCoordinatorContext) -> Void in
+        let orientation = UIApplication.shared.statusBarOrientation
+        self?.backgroundImageView.image = self?.getOrientedImage(basedOn: orientation)
+        }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
+            print("rotation completed")
+        })
+    }
+
+    //decides background based on orientation
+    func getOrientedImage(basedOn orientation : UIInterfaceOrientation) -> UIImage {
+        return orientation.isPortrait ? #imageLiteral(resourceName: "high-five-sunset-portrait") : #imageLiteral(resourceName: "high-five-sunset-landscape")
     }
     
     

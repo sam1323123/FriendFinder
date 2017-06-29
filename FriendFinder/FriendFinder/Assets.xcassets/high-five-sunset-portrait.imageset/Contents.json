@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "high-five-sunset.jpg",
+      "filename" : "high-five-sunset-portrait.jpeg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "high-five-sunset-1.jpg",
+      "filename" : "high-five-sunset-portrait-1.jpeg",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "high-five-sunset-2.jpg",
+      "filename" : "high-five-sunset-portrait-2.jpeg",
       "scale" : "3x"
     }
   ],
