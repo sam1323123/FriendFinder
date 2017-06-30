@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,12 +21,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.40000000000000002" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bc7-yy-6xb">
+                            <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bc7-yy-6xb">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="CL1-dp-RSQ">
-                                <rect key="frame" x="353.5" y="587" width="317" height="192"/>
+                                <rect key="frame" x="354" y="587" width="317" height="192"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Sax-3e-ljX">
                                         <rect key="frame" x="0.0" y="0.0" width="317" height="92"/>
@@ -47,7 +47,7 @@
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="value" red="0.56451460271301657" green="0.56451460271301657" blue="0.56451460271301657" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                         <real key="value" value="2"/>
@@ -70,7 +70,7 @@
                                                         <real key="value" value="100"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="value" red="0.6105910610658517" green="0.6105910610658517" blue="0.6105910610658517" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                         <real key="value" value="2"/>
@@ -127,6 +127,8 @@
                             <constraint firstItem="bc7-yy-6xb" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="0Fr-k9-VPS"/>
                             <constraint firstItem="CL1-dp-RSQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Hl-Ee-b2e"/>
                             <constraint firstItem="bc7-yy-6xb" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="HcC-pY-xoq"/>
+                            <constraint firstItem="bc7-yy-6xb" firstAttribute="centerX" secondItem="CL1-dp-RSQ" secondAttribute="centerX" id="Mul-SI-Yom"/>
+                            <constraint firstItem="bc7-yy-6xb" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="Yf2-8X-6vG"/>
                             <constraint firstItem="CL1-dp-RSQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nks-ff-kCU"/>
                         </constraints>
                     </view>
