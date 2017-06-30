@@ -33,9 +33,10 @@
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email or Phone Number" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="SvR-YD-tBm" customClass="BottomBorderTextField" customModule="FriendFinder" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="317" height="36"/>
+                                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                         <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,11 +58,11 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 </variation>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="e78-6f-b9b" customClass="BottomBorderTextField" customModule="FriendFinder" customModuleProvider="target">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="e78-6f-b9b" userLabel="Password textfield" customClass="BottomBorderTextField" customModule="FriendFinder" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="56" width="317" height="36"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                         <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -99,7 +100,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                                 </variation>
                                                 <connections>
-                                                    <action selector="moveFromLoginScreen" destination="BYZ-38-t0r" eventType="touchUpInside" id="pdk-0C-6FO"/>
+                                                    <action selector="signupPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="0cJ-vD-Jf3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-t1-hVA">

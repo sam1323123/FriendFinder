@@ -6,15 +6,13 @@ target 'FriendFinder' do
   use_frameworks!
   
   # Pods for FriendFinder
+  
+  #Database
   pod 'Firebase/Core'
 
   #Authentication libraries
-  pod 'FirebaseUI/Auth' 
-  pod 'FirebaseUI/Google'
-  #pod 'FirebaseUI/Facebook'
-  #pod 'FirebaseUI/Twitter'
-  pod 'FirebaseUI/Phone'
-
+  pod 'Firebase'
+pod 'FirebaseUI'
 
 
   target 'FriendFinderTests' do

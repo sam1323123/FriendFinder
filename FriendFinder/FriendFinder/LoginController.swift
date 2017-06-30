@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginController: UIViewController {
 
@@ -14,7 +15,7 @@ class LoginController: UIViewController {
     
     @IBOutlet weak var username_textfield: BottomBorderTextField!
     
-    @IBOutlet weak var password_texfield: BottomBorderTextField!
+    @IBOutlet weak var password_textfield: BottomBorderTextField!
     
     
     override func viewDidLoad() {
@@ -94,23 +95,81 @@ class LoginController: UIViewController {
      Method for initial screen login. Linked to the Login/Enter button in 
      ButtonViewController
      */
-    @IBAction func moveFromLoginScreen() {
+    @IBAction func signupPressed() {
         
-        
-        if let user = self.username_textfield.text , let pass = self.password_texfield.text {
-            
-            //set entered passwords to empty
-            if(user == "" || pass == "" || user.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
-                || pass.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
-                //if contains whitespace or is empty string
-                print("invalid login args")
-                return
+        if let username = username_textfield.text., let pw = password_texfield.text {
+            if (user == "" || pw == "" || user.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
+                || pw.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
+                    //if contains whitespace or is empty string
+                let alertController = UIAlertController(title: "No spaces allowed!", message: "Please remove all spaces from input.", preferredStyle: UIAlertControllerStyle.alert)
+                
+                alertController.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                    print("OK pressed")
+                })
+                present(alertController, animated: true)
             }
+            
+            if (username.isNumeric()) {
+                
+            }
+            //validate username
+            if (!username.validateEmail()) {
+                let alertController = UIAlertController(title: "Email address is invalid!", message: "Please use a valid email address.", preferredStyle: UIAlertControllerStyle.alert)
+                
+                alertController.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                    print("OK pressed")
+                })
+                present(alertController, animated: true)
+            }
+            
+            //validate password
+            if (!pw.validatePassword()) {
+                let alertController = UIAlertController(title: "Password is invalid!", message: "Password must be alphanumeric, contain $,@,$,#,!,%,*,?,& or . and at least 8 characters long.", preferredStyle: UIAlertControllerStyle.alert)
+                
+                alertController.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+                    print("OK pressed")
+                })
+                present(alertController, animated: true)
+            }
+            
+            emailSignup(username, pw)
+            
+
+        
+            //set entered passwords to empty
             self.username_textfield.text = nil
-            self.password_texfield.text = nil
-            performSegue(withIdentifier: "Login", sender: nil)
+            self.password_textfield.text = nil
+            
+            performSegue(withIdentifier: "Signup", sender: nil)
+            
+        }
+    }
+    
+    
+    func emailSignup(_ email_address: String, _ pw: String) {
+        Auth.auth().createUser(withEmail: email_address, password: pw) { (user, error) in
             
         }
     }
 
+}
+
+extension String {
+    
+    func validateEmail() -> Bool {
+        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
+        return emailPredicate.evaluate(with: self)
+    }
+    
+    
+    
+    func validatePassword() -> Bool{
+        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[$@$#!%*?&.])[A-Za-z\\d$@$#!%*?&.]{8,}")
+        return passwordPredicate.evaluate(with: self)
+    }
+    
+    func isNumeric() -> Bool {
+        return Int(self) != nil
+    }
 }
