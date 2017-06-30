@@ -14,12 +14,13 @@ import FirebaseAuthUI
 class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
 
     var window: UIWindow?
-    let authUI = FUIAuth.defaultAuthUI()
+    var authUI: FUIAuth?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        self.authUI = FUIAuth.defaultAuthUI()
         authUI?.delegate = self
         return true
     }
