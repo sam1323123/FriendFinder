@@ -18,7 +18,7 @@ class LoginController: UIViewController {
     @IBOutlet weak var password_textfield: BottomBorderTextField!
     
     //dictionary mapping errors to error messages
-    let errorDict : [AuthErrorCode:(String, String)] = [
+    let signupErrorDict : [AuthErrorCode:(String, String)] = [
         .networkError: (title: "No network!", message: "Please try again after connecting to the network."),
         .userNotFound: (title: "User account not found!", message: "It appears your account has been deleted."),
         .userTokenExpired: (title: "You have been logged out.", message: "Please login again."),
@@ -142,7 +142,7 @@ class LoginController: UIViewController {
     func emailSignup(_ email_address: String, _ pw: String) {
         Auth.auth().createUser(withEmail: email_address, password: pw) { [weak self] (user, error) in
             if let code = AuthErrorCode(rawValue: error!._code) {
-                let tuple = self?.errorDict[code]!
+                let tuple = self?.signupErrorDict[code]!
                 let title = tuple?.0
                 let message = tuple?.0
                 self?.displayAlert(title: title!, message: message!, text: "OK")
