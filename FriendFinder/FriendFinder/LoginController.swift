@@ -97,8 +97,8 @@ class LoginController: UIViewController {
      */
     @IBAction func signupPressed() {
         
-        if let username = username_textfield.text., let pw = password_texfield.text {
-            if (user == "" || pw == "" || user.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
+        if let username = username_textfield.text, let pw = password_textfield.text {
+            if (username == "" || pw == "" || username.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
                 || pw.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
                     //if contains whitespace or is empty string
                 let alertController = UIAlertController(title: "No spaces allowed!", message: "Please remove all spaces from input.", preferredStyle: UIAlertControllerStyle.alert)

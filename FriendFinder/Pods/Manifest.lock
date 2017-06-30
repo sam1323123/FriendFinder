@@ -9,6 +9,8 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.24.0):
     - FBSDKCoreKit
+  - Firebase (4.0.2):
+    - Firebase/Core (= 4.0.2)
   - Firebase/Auth (4.0.2):
     - Firebase/Core
     - FirebaseAuth (= 4.0.0)
@@ -35,11 +37,6 @@ PODS:
   - FirebaseUI/Google (4.1.1):
     - FirebaseUI/Auth
     - GoogleSignIn (~> 4.0)
-  - FirebaseUI/Phone (4.1.1):
-    - FirebaseUI/Auth
-  - FirebaseUI/Twitter (4.1.1):
-    - FirebaseUI/Auth
-    - TwitterKit (~> 2.4)
   - GoogleSignIn (4.0.2):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
@@ -62,17 +59,13 @@ PODS:
   - GTMSessionFetcher/Core (1.1.10)
   - GTMSessionFetcher/Full (1.1.10):
     - GTMSessionFetcher/Core (= 1.1.10)
-  - TwitterCore (3.0.0)
-  - TwitterKit (2.8.1):
-    - TwitterCore (>= 2.8)
 
 DEPENDENCIES:
+  - Firebase
   - Firebase/Core
-  - FirebaseUI/Auth
-  - FirebaseUI/Facebook
-  - FirebaseUI/Google
-  - FirebaseUI/Phone
-  - FirebaseUI/Twitter
+  - FirebaseUI/Auth (~> 4.0)
+  - FirebaseUI/Facebook (~> 4.0)
+  - FirebaseUI/Google (~> 4.0)
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -88,9 +81,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
-  TwitterCore: 8ce250be1eb34633a0e6acc89520d4165ec52c10
-  TwitterKit: 3b6044a7320340326a4098f3e37aa1dbaeb94942
 
-PODFILE CHECKSUM: e30ff8451abd2ed98750e19d4a19b75dae5a2b7a
+PODFILE CHECKSUM: d99a567e6975c10507ec16fa3a805d392753cb32
 
 COCOAPODS: 1.2.1

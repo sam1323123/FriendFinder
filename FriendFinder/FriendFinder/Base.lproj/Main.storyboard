@@ -41,12 +41,6 @@
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                         <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderScale">
-                                                        <real key="value" value="100"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                         <color key="value" red="0.56451460271301657" green="0.56451460271301657" blue="0.56451460271301657" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </userDefinedRuntimeAttribute>
@@ -66,9 +60,6 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                                         <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderScale">
-                                                        <real key="value" value="100"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                         <color key="value" red="0.6105910610658517" green="0.6105910610658517" blue="0.6105910610658517" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -110,9 +101,6 @@
                                                 <variation key="widthClass=regular">
                                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                                 </variation>
-                                                <connections>
-                                                    <action selector="moveFromLoginScreen" destination="BYZ-38-t0r" eventType="touchUpInside" id="4FB-kG-6Wy"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -134,7 +122,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="password_texfield" destination="e78-6f-b9b" id="pXD-lf-RPI"/>
+                        <outlet property="password_textfield" destination="e78-6f-b9b" id="C8n-GL-noN"/>
                         <outlet property="username_textfield" destination="SvR-YD-tBm" id="wSX-lu-dr8"/>
                         <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Login" id="2J9-iR-IPI"/>
                         <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Signup" id="tHf-ux-VtZ"/>
