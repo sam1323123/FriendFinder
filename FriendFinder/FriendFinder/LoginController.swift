@@ -97,7 +97,7 @@ class LoginController: UIViewController {
      */
     @IBAction func signupPressed() {
         
-        if let username = username_textfield.text., let pw = password_texfield.text {
+        if let username = username_textfield.text , let pw = password_texfield.text {
             if (user == "" || pw == "" || user.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
                 || pw.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
                     //if contains whitespace or is empty string
