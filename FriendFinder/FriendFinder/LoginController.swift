@@ -17,7 +17,19 @@ class LoginController: UIViewController {
     
     @IBOutlet weak var password_textfield: BottomBorderTextField!
     
-    
+    //dictionary mapping errors to error messages
+    let errorDict : [AuthErrorCode:(String, String)] = [
+        .networkError: (title: "No network!", message: "Please try again after connecting to the network."),
+        .userNotFound: (title: "User account not found!", message: "It appears your account has been deleted."),
+        .userTokenExpired: (title: "You have been logged out.", message: "Please login again."),
+        .tooManyRequests: (title: "Login error!", message: "Please try again later."),
+        .invalidEmail: (title: "Invalid email address!", message: "Please enter a valid email address"),
+        .emailAlreadyInUse: (title: "Email is already in use!", message: "Please use another email address"),
+        
+    ]
+
+
+    //initializes what will be viewed
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
@@ -25,7 +37,7 @@ class LoginController: UIViewController {
         // do any additional setup after loading the view.
         loadAndSetImageBackground()
     }
-    
+
     //sets and loads background
     private func loadAndSetImageBackground() {
         //create image view
@@ -100,43 +112,24 @@ class LoginController: UIViewController {
         if let username = username_textfield.text, let pw = password_textfield.text {
             if (username == "" || pw == "" || username.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
                 || pw.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
-                    //if contains whitespace or is empty string
-                let alertController = UIAlertController(title: "No spaces allowed!", message: "Please remove all spaces from input.", preferredStyle: UIAlertControllerStyle.alert)
-                
-                alertController.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-                    print("OK pressed")
-                })
-                present(alertController, animated: true)
+                //if contains whitespace or is empty string
+                displayAlert(title: "No spaces allowed!", message: "Please remove all spaces from input.", text: "OK")
+                return
             }
             
             if (username.isNumeric()) {
                 
             }
+            
             //validate username
             if (!username.validateEmail()) {
-                let alertController = UIAlertController(title: "Email address is invalid!", message: "Please use a valid email address.", preferredStyle: UIAlertControllerStyle.alert)
-                
-                alertController.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-                    print("OK pressed")
-                })
-                present(alertController, animated: true)
-            }
-            
-            //validate password
-            if (!pw.validatePassword()) {
-                let alertController = UIAlertController(title: "Password is invalid!", message: "Password must be alphanumeric, contain $,@,$,#,!,%,*,?,& or . and at least 8 characters long.", preferredStyle: UIAlertControllerStyle.alert)
-                
-                alertController.addAction(UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-                    print("OK pressed")
-                })
-                present(alertController, animated: true)
+                displayAlert(title: "Email address is invalid!", message: "Please use a valid email address.", text: "OK")
+                return
             }
             
             emailSignup(username, pw)
-            
 
-        
-            //set entered passwords to empty
+            //set entered fields to empty
             self.username_textfield.text = nil
             self.password_textfield.text = nil
             
@@ -145,28 +138,38 @@ class LoginController: UIViewController {
         }
     }
     
-    
+    //called if signup by email
     func emailSignup(_ email_address: String, _ pw: String) {
-        Auth.auth().createUser(withEmail: email_address, password: pw) { (user, error) in
-            
+        Auth.auth().createUser(withEmail: email_address, password: pw) { [weak self] (user, error) in
+            if let code = AuthErrorCode(rawValue: error!._code) {
+                let tuple = self?.errorDict[code]!
+                let title = tuple?.0
+                let message = tuple?.0
+                self?.displayAlert(title: title!, message: message!, text: "OK")
+            }
+            print(user?.email! ?? "No email!")
         }
+    }
+    
+    //displays alert with given message and text
+    func displayAlert(title: String, message: String, text: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alertController.addAction(UIAlertAction(title: text, style: .default) { (action:UIAlertAction!) in
+            print("\(text) pressed")
+        })
+        present(alertController, animated: true)
     }
 
 }
 
+//useful extension to String
 extension String {
     
     func validateEmail() -> Bool {
         let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
         return emailPredicate.evaluate(with: self)
-    }
-    
-    
-    
-    func validatePassword() -> Bool{
-        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[$@$#!%*?&.])[A-Za-z\\d$@$#!%*?&.]{8,}")
-        return passwordPredicate.evaluate(with: self)
     }
     
     func isNumeric() -> Bool {
