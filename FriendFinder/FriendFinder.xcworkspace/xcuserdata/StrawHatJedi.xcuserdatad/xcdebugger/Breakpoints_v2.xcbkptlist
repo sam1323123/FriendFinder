@@ -109,7 +109,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
             endingLineNumber = "33"
-            landmarkName = "loadAndSetImageBackground()"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -125,7 +125,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "58"
             endingLineNumber = "58"
-            landmarkName = "viewWillTransition(to:with:)"
+            landmarkName = "loadAndSetImageBackground()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -141,7 +141,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
             endingLineNumber = "55"
-            landmarkName = "viewWillTransition(to:with:)"
+            landmarkName = "loadAndSetImageBackground()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -157,7 +157,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "signupPressed()"
+            landmarkName = "goBack(segue:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -173,7 +173,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "132"
             endingLineNumber = "132"
-            landmarkName = "emailSignup(_:_:)"
+            landmarkName = "signupPressed()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -188,9 +188,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "emailSignup(_:_:)"
-            landmarkType = "7">
+            endingLineNumber = "145">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

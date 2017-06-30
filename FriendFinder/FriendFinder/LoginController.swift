@@ -104,14 +104,12 @@ class LoginController: UIViewController {
 
     
     /*
-     Method for initial screen login. Linked to the Login/Enter button in 
-     ButtonViewController
+     method for initial screen signup & linked to the signup button
      */
     @IBAction func signupPressed() {
         
         if let username = username_textfield.text, let pw = password_textfield.text {
-            if (username == "" || pw == "" || username.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
-                || pw.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
+            if (username == "" || pw == "" || username.rangeOfCharacter(from: CharacterSet.whitespaces) != nil || pw.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
                 //if contains whitespace or is empty string
                 displayAlert(title: "No spaces allowed!", message: "Please remove all spaces from input.", text: "OK")
                 return
