@@ -18,17 +18,19 @@ class LoginController: UIViewController {
     @IBOutlet weak var password_textfield: BottomBorderTextField!
     
     //dictionary mapping errors to error messages
-    let signupErrorDict : [AuthErrorCode:(String, String)] = [
+    let errorDict : [AuthErrorCode:(String, String)] = [
         .networkError: (title: "No network!", message: "Please try again after connecting to the network."),
         .userNotFound: (title: "User account not found!", message: "It appears your account has been deleted."),
         .userTokenExpired: (title: "You have been logged out.", message: "Please login again."),
         .tooManyRequests: (title: "Login error!", message: "Please try again later."),
         .invalidEmail: (title: "Invalid email address!", message: "Please enter a valid email address"),
-        .emailAlreadyInUse: (title: "Email is already in use!", message: "Please use another email address"),
-        
+        .emailAlreadyInUse: (title: "Email is already in use!", message: "Please use another email address."),
+        .invalidUserToken: (title: "You have been logged out!", message: "Please login again."),
+        .userDisabled: (title: "Your account has been disabled!", message: "Please contact us."),
+        .userNotFound: (title: "Your account has been disabled!", message: "Please contact us.")
     ]
 
-
+    
     //initializes what will be viewed
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,24 +128,43 @@ class LoginController: UIViewController {
             }
             
             emailSignup(username, pw)
-
-            //set entered fields to empty
-            self.username_textfield.text = nil
-            self.password_textfield.text = nil
-            
-            performSegue(withIdentifier: "Signup", sender: nil)
-            
         }
     }
     
     //called if signup by email
     func emailSignup(_ email_address: String, _ pw: String) {
+        
         Auth.auth().createUser(withEmail: email_address, password: pw) { [weak self] (user, error) in
             if let code = AuthErrorCode(rawValue: error!._code) {
-                let tuple = self?.signupErrorDict[code]!
-                let title = tuple?.0
-                let message = tuple?.0
-                self?.displayAlert(title: title!, message: message!, text: "OK")
+                if let tuple = self?.errorDict[code] {
+                    let title = tuple.0
+                    let message = tuple.1
+                    self?.displayAlert(title: title, message: message, text: "OK")
+                }
+                else {
+                    self?.displayAlert(title: "Unexpected Error", message: "Please try again later.", text: "OK")
+                }
+            }
+            else {
+                //set entered fields to empty
+                self?.username_textfield.text = nil
+                self?.password_textfield.text = nil
+                user?.sendEmailVerification(completion: { error in
+                    if let code = AuthErrorCode(rawValue: error!._code) {
+                        if let tuple = self?.errorDict[code] {
+                            let title = tuple.0
+                            let message = tuple.1
+                            self?.displayAlert(title: title, message: message, text: "OK")
+                        }
+                        else {
+                            self?.displayAlert(title: "Unexpected Error", message: "Please try again later.", text: "OK")
+                        }
+                    }
+                    else {
+                        self?.displayAlert(title: "Validation email sent!", message: "Please validate the entered email.", text: "OK")
+                    }
+                })
+                self?.performSegue(withIdentifier: "Signup", sender: nil)
             }
             print(user?.email! ?? "No email!")
         }
