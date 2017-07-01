@@ -18,15 +18,20 @@ class LoginController: UIViewController {
     @IBOutlet weak var password_textfield: BottomBorderTextField!
     
     //dictionary mapping errors to error messages
-    let signupErrorDict : [AuthErrorCode:(String, String)] = [
+    
+    let authErrorDict : [AuthErrorCode:(String, String)] = [
         .networkError: (title: "No network!", message: "Please try again after connecting to the network."),
         .userNotFound: (title: "User account not found!", message: "It appears your account has been deleted."),
         .userTokenExpired: (title: "You have been logged out.", message: "Please login again."),
         .tooManyRequests: (title: "Login error!", message: "Please try again later."),
         .invalidEmail: (title: "Invalid email address!", message: "Please enter a valid email address"),
         .emailAlreadyInUse: (title: "Email is already in use!", message: "Please use another email address"),
-        
-    ]
+        .userDisabled: (title: "Account has been disabled!", message: "Please check email for instructions"),
+        .wrongPassword: (title: "Wrong Password entered", message: "Please try again"),
+        .invalidUserToken: (tile: "Session has expired", message: "Please login again"),
+        .operationNotAllowed: (title: "Email sign in not enabled", message: "Check Firebase Config")
+
+        ]
 
 
     //initializes what will be viewed
@@ -110,7 +115,7 @@ class LoginController: UIViewController {
         
 
         if let username = username_textfield.text, let pw = password_textfield.text {
-            if (username == "" || pw == "" || username.rangeOfCharacter(from: CharacterSet.whitespaces) != nil || pw.rangeOfCharacter(from: CharacterSet.whitespaces) != nil){
+            if (username == "" || pw == "" || username.hasWhitespace() || pw.hasWhitespace()){
                 //if contains whitespace or is empty string
                 displayAlert(title: "No spaces allowed!", message: "Please remove all spaces from input.", text: "OK")
                 return
@@ -141,7 +146,7 @@ class LoginController: UIViewController {
     func emailSignup(_ email_address: String, _ pw: String) {
         Auth.auth().createUser(withEmail: email_address, password: pw) { [weak self] (user, error) in
             if let code = AuthErrorCode(rawValue: error!._code) {
-                let tuple = self?.signupErrorDict[code]!
+                let tuple = self?.authErrorDict[code]!
                 let title = tuple?.0
                 let message = tuple?.0
                 self?.displayAlert(title: title!, message: message!, text: "OK")
@@ -154,11 +159,49 @@ class LoginController: UIViewController {
     //Login Method 
     
     
+    @IBAction func loginPressed(_ sender: UIButton) {
+        
+        if let username = self.username_textfield.text , let pw = self.password_textfield.text {
+            
+            if(username == "" || pw == "" || username.hasWhitespace() || pw.hasWhitespace()) {
+                displayAlert(title: "No spaces allowed!", message: "Please remove all spaces from input.", text: "OK")
+                self.username_textfield.text = ""
+                self.password_textfield.text = ""
+                return
+            }
+            
+            
+        }
+    }
     
     
     
     
+    func emailLogin(username: String, pw: String) {
+        Auth.auth().signIn(withEmail: username, password: pw) {[weak self] (user, error) in
+            if let _ = user {
+                // might need to prepare segue later
+                self?.performSegue(withIdentifier: "Login" , sender: nil)
+                
+            }
+            else {
+                if let code = AuthErrorCode(rawValue: error!._code) {
+                    if let tuple = self?.authErrorDict[code] {
+                        let title = tuple.0
+                        let message = tuple.1
+                        self?.displayAlert(title: title, message: message, text: "OK")
+                    }
+                    else {
+                        self?.displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later", text: "OK")
+                    }
+                    
+                }
+            }
+            
+        
+        }
     
+    }
     
     
     
@@ -194,5 +237,9 @@ extension String {
     
     func isNumeric() -> Bool {
         return Int(self) != nil
+    }
+    
+    func hasWhitespace() -> Bool {
+        return self.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
     }
 }

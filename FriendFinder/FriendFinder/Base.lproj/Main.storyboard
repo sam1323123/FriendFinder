@@ -101,6 +101,9 @@
                                                 <variation key="widthClass=regular">
                                                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                                 </variation>
+                                                <connections>
+                                                    <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="v7z-J5-014"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -122,7 +125,6 @@
                         </constraints>
                     </view>
                     <connections>
-
                         <outlet property="password_textfield" destination="e78-6f-b9b" id="C8n-GL-noN"/>
                         <outlet property="username_textfield" destination="SvR-YD-tBm" id="wSX-lu-dr8"/>
                         <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Login" id="2J9-iR-IPI"/>
@@ -174,6 +176,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tHf-ux-VtZ"/>
+        <segue reference="2J9-iR-IPI"/>
     </inferredMetricsTieBreakers>
 </document>
