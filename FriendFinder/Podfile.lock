@@ -17,8 +17,6 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.24.0):
     - FBSDKCoreKit
-  - Firebase (4.0.2):
-    - Firebase/Core (= 4.0.2)
   - Firebase/Auth (4.0.2):
     - Firebase/Core
     - FirebaseAuth (= 4.0.0)
@@ -45,6 +43,8 @@ PODS:
   - FirebaseUI/Google (4.1.1):
     - FirebaseUI/Auth
     - GoogleSignIn (~> 4.0)
+  - FirebaseUI/Phone (4.1.1):
+    - FirebaseUI/Auth
   - GoogleSignIn (4.0.2):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
@@ -70,11 +70,11 @@ PODS:
 
 DEPENDENCIES:
   - FacebookLogin
-  - Firebase
   - Firebase/Core
   - FirebaseUI/Auth (~> 4.0)
   - FirebaseUI/Facebook (~> 4.0)
   - FirebaseUI/Google (~> 4.0)
+  - FirebaseUI/Phone
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -93,6 +93,6 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
 
-PODFILE CHECKSUM: 52c5a8c3db60e15def79c25dd8e727ddec2179b2
+PODFILE CHECKSUM: 491bf9f398f4799dbd88761d962165788aa31768
 
 COCOAPODS: 1.2.1

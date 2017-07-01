@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "166BFEF6BCF09403FB26E4B8DAC431D1"
+               BlueprintIdentifier = "A962FDCCE39FB0A0B0D9983E819739E2"
                BuildableName = "Pods_FriendFinder.framework"
                BlueprintName = "Pods-FriendFinder"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "166BFEF6BCF09403FB26E4B8DAC431D1"
+            BlueprintIdentifier = "A962FDCCE39FB0A0B0D9983E819739E2"
             BuildableName = "Pods_FriendFinder.framework"
             BlueprintName = "Pods-FriendFinder"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -1,0 +1,37 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'FriendFinder' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+  
+  # Pods for FriendFinder
+  
+  #Database
+  pod 'Firebase/Core'
+
+  #Authentication libraries
+
+  pod 'FirebaseUI/Auth'
+
+  pod 'FirebaseUI/Google'
+  #pod 'FirebaseUI/Facebook'
+  #pod 'FirebaseUI/Twitter'
+  pod 'FirebaseUI/Phone'
+
+  # Only pull in FirebaseUI Auth features
+  pod 'FirebaseUI/Auth', '~> 4.0'
+
+  # Only pull in Facebook login features
+  pod 'FirebaseUI/Facebook', '~> 4.0'
+
+  # Only pull in Google login features
+  pod 'FirebaseUI/Google', '~> 4.0'
+
+  target 'FriendFinderTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+
+end
