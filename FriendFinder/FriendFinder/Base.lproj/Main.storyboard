@@ -122,7 +122,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="password_textfield" destination="e78-6f-b9b" id="sJQ-27-VXP"/>
+
+                        <outlet property="password_textfield" destination="e78-6f-b9b" id="C8n-GL-noN"/>
                         <outlet property="username_textfield" destination="SvR-YD-tBm" id="wSX-lu-dr8"/>
                         <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Login" id="2J9-iR-IPI"/>
                         <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Signup" id="tHf-ux-VtZ"/>

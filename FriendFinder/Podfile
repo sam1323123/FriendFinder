@@ -11,6 +11,7 @@ target 'FriendFinder' do
   pod 'Firebase/Core'
 
   #Authentication libraries
+
   pod 'FirebaseUI/Auth'
 
   pod 'FirebaseUI/Google'
@@ -18,6 +19,14 @@ target 'FriendFinder' do
   #pod 'FirebaseUI/Twitter'
   pod 'FirebaseUI/Phone'
 
+  # Only pull in FirebaseUI Auth features
+  pod 'FirebaseUI/Auth', '~> 4.0'
+
+  # Only pull in Facebook login features
+  pod 'FirebaseUI/Facebook', '~> 4.0'
+
+  # Only pull in Google login features
+  pod 'FirebaseUI/Google', '~> 4.0'
 
   target 'FriendFinderTests' do
     inherit! :search_paths
