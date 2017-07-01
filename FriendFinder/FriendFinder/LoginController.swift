@@ -150,6 +150,24 @@ class LoginController: UIViewController {
         }
     }
     
+    
+    //Login Method 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //displays alert with given message and text
     func displayAlert(title: String, message: String, text: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
@@ -159,6 +177,9 @@ class LoginController: UIViewController {
         })
         present(alertController, animated: true)
     }
+    
+    
+    
 
 }
 
