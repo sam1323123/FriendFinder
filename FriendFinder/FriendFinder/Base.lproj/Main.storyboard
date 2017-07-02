@@ -133,8 +133,9 @@
                     <connections>
                         <outlet property="password_textfield" destination="e78-6f-b9b" id="C8n-GL-noN"/>
                         <outlet property="username_textfield" destination="SvR-YD-tBm" id="wSX-lu-dr8"/>
-                        <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Login" id="2J9-iR-IPI"/>
-                        <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Signup" id="tHf-ux-VtZ"/>
+                        <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Signup" id="9ky-3E-qPf"/>
+                        <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Login" id="dyn-JN-aOz"/>
+                        <segue destination="lAJ-zA-3Vw" kind="presentation" identifier="Map" id="vke-Oj-9hd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -178,10 +179,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TYe-jk-Hg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="gCS-uW-2zh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="725.60000000000002" y="138.98050974512745"/>
+            <point key="canvasLocation" x="711" y="-47"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="n2i-Vr-KOE">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="lAJ-zA-3Vw" customClass="MapViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7in-G1-adF"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lic-gE-SiM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sIA-X7-RVK">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.10000000000000001" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="AMD-AC-wJw">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waves" translatesAutoresizingMaskIntoConstraints="NO" id="YRd-dx-Rpz">
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="YRd-dx-Rpz" secondAttribute="trailing" id="CoN-Uk-cwS"/>
+                                    <constraint firstItem="YRd-dx-Rpz" firstAttribute="centerY" secondItem="AMD-AC-wJw" secondAttribute="centerY" id="HI5-ZB-A3I"/>
+                                    <constraint firstItem="YRd-dx-Rpz" firstAttribute="top" secondItem="AMD-AC-wJw" secondAttribute="top" id="eTx-ZO-ySr"/>
+                                    <constraint firstItem="YRd-dx-Rpz" firstAttribute="centerX" secondItem="AMD-AC-wJw" secondAttribute="centerX" id="msM-vZ-g8p"/>
+                                    <constraint firstItem="YRd-dx-Rpz" firstAttribute="leading" secondItem="AMD-AC-wJw" secondAttribute="leading" id="p4i-jy-3Y1"/>
+                                    <constraint firstAttribute="bottom" secondItem="YRd-dx-Rpz" secondAttribute="bottom" id="w3N-cm-bE0"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AMD-AC-wJw" firstAttribute="top" secondItem="sIA-X7-RVK" secondAttribute="top" id="Aim-0h-RUD"/>
+                            <constraint firstItem="AMD-AC-wJw" firstAttribute="leading" secondItem="sIA-X7-RVK" secondAttribute="leading" id="XEO-Yp-2Xm"/>
+                            <constraint firstAttribute="trailing" secondItem="AMD-AC-wJw" secondAttribute="trailing" id="sfd-Va-v6C"/>
+                            <constraint firstItem="AMD-AC-wJw" firstAttribute="bottom" secondItem="Lic-gE-SiM" secondAttribute="top" id="wjp-z8-L88"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapImageView" destination="YRd-dx-Rpz" id="M7B-hS-1dj"/>
+                        <outlet property="mapScrollView" destination="AMD-AC-wJw" id="BJF-an-dWH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KfT-QD-Vr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="757.6171875" y="811.71303074670561"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="waves" width="319" height="568"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2J9-iR-IPI"/>
+        <segue reference="dyn-JN-aOz"/>
     </inferredMetricsTieBreakers>
 </document>

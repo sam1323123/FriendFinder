@@ -12,6 +12,7 @@
 		42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92131F05014100A6421B /* BottomBorderTextField.swift */; };
 		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
 		9823B0691F08AB7D00982623 /* FirebaseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B0681F08AB7D00982623 /* FirebaseErrors.swift */; };
+		9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B06B1F08D5EB00982623 /* MapViewController.swift */; };
 		98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D521EFA53F2007050E4 /* AppDelegate.swift */; };
 		98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D541EFA53F2007050E4 /* LaunchController.swift */; };
 		98A11D581EFA53F2007050E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98A11D561EFA53F2007050E4 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9823B0681F08AB7D00982623 /* FirebaseErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseErrors.swift; sourceTree = "<group>"; };
+		9823B06B1F08D5EB00982623 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		98A11D4F1EFA53F2007050E4 /* FriendFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A11D521EFA53F2007050E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98A11D541EFA53F2007050E4 /* LaunchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
@@ -96,6 +98,25 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9823B06A1F08D57900982623 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				98A11D721EFA5439007050E4 /* LoginController.swift */,
+				98A11D541EFA53F2007050E4 /* LaunchController.swift */,
+				98A11D741EFE0287007050E4 /* NextViewController.swift */,
+				9823B06B1F08D5EB00982623 /* MapViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9823B06D1F08D64700982623 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				42FF92131F05014100A6421B /* BottomBorderTextField.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		98A11D461EFA53F2007050E4 = {
 			isa = PBXGroup;
 			children = (
@@ -119,17 +140,15 @@
 		98A11D511EFA53F2007050E4 /* FriendFinder */ = {
 			isa = PBXGroup;
 			children = (
+				9823B06D1F08D64700982623 /* Views */,
+				9823B06A1F08D57900982623 /* ViewControllers */,
 				98A11D521EFA53F2007050E4 /* AppDelegate.swift */,
-				98A11D541EFA53F2007050E4 /* LaunchController.swift */,
 				98A11D561EFA53F2007050E4 /* Main.storyboard */,
-				42FF92131F05014100A6421B /* BottomBorderTextField.swift */,
-				98A11D721EFA5439007050E4 /* LoginController.swift */,
 				9823B0681F08AB7D00982623 /* FirebaseErrors.swift */,
 				98A11D591EFA53F2007050E4 /* Assets.xcassets */,
 				98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */,
 				98A11D5E1EFA53F2007050E4 /* Info.plist */,
 				982351221F036A58005F853F /* GoogleService-Info.plist */,
-				98A11D741EFE0287007050E4 /* NextViewController.swift */,
 			);
 			path = FriendFinder;
 			sourceTree = "<group>";
@@ -352,6 +371,7 @@
 				98A11D731EFA5439007050E4 /* LoginController.swift in Sources */,
 				98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */,
 				9823B0691F08AB7D00982623 /* FirebaseErrors.swift in Sources */,
+				9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
