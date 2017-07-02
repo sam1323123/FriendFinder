@@ -18,22 +18,20 @@ class LoginController: UIViewController {
     @IBOutlet weak var password_textfield: BottomBorderTextField!
     
     //dictionary mapping errors to error messages
-    
-    let authErrorDict : [AuthErrorCode:(String, String)] = [
+    let errorDict : [AuthErrorCode:(String, String)] = [
         .networkError: (title: "No network!", message: "Please try again after connecting to the network."),
         .userNotFound: (title: "User account not found!", message: "It appears your account has been deleted."),
         .userTokenExpired: (title: "You have been logged out.", message: "Please login again."),
         .tooManyRequests: (title: "Login error!", message: "Please try again later."),
-        .invalidEmail: (title: "Invalid email address!", message: "Please enter a valid email address"),
-        .emailAlreadyInUse: (title: "Email is already in use!", message: "Please use another email address"),
-        .userDisabled: (title: "Account has been disabled!", message: "Please check email for instructions"),
-        .wrongPassword: (title: "Wrong Password entered", message: "Please try again"),
-        .invalidUserToken: (tile: "Session has expired", message: "Please login again"),
-        .operationNotAllowed: (title: "Email sign in not enabled", message: "Check Firebase Config")
-
+        .invalidEmail: (title: "Invalid email address!", message: "Please enter a valid email address."),
+        .emailAlreadyInUse: (title: "Email is already in use!", message: "Please use another email address."),
+        .userDisabled: (title: "Account has been disabled!", message: "Please check email for instructions."),
+        .wrongPassword: (title: "Wrong Password entered!", message: "Please try again."),
+        .invalidUserToken: (tile: "Session has expired!", message: "Please login again."),
+        .operationNotAllowed: (title: "Email sign in not enabled!", message: "Check Firebase Config.")
         ]
 
-
+    
     //initializes what will be viewed
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,25 +130,51 @@ class LoginController: UIViewController {
             }
             
             emailSignup(username, pw)
-
-            //set entered fields to empty
-            self.username_textfield.text = nil
-            self.password_textfield.text = nil
-            
-            performSegue(withIdentifier: "Signup", sender: nil)
-            
         }
     }
-    
+
     //called if signup by email
     func emailSignup(_ email_address: String, _ pw: String) {
+        
         Auth.auth().createUser(withEmail: email_address, password: pw) { [weak self] (user, error) in
-            
-            if let code = AuthErrorCode(rawValue: error!._code) {
-                let tuple = self?.authErrorDict[code]!
-                let title = tuple?.0
-                let message = tuple?.0
-                self?.displayAlert(title: title!, message: message!, text: "OK")
+            if let val = error?._code {
+                if let code = AuthErrorCode(rawValue: val) {
+                    if let tuple = self?.errorDict[code] {
+                        let title = tuple.0
+                        let message = tuple.1
+                        self?.displayAlert(title: title, message: message, text: "OK")
+                    }
+                }
+                else {
+                    self?.displayAlert(title: "Unexpected Error", message: "Please try again later.", text: "OK")
+                }
+            }
+            else {
+                //set entered fields to empty
+                self?.username_textfield.text = nil
+                self?.password_textfield.text = nil
+                user?.sendEmailVerification(completion: {[weak self] error in
+                    if let val = error?._code {
+                        if let code = AuthErrorCode(rawValue: val) {
+                            if let tuple = self?.errorDict[code] {
+                                let title = tuple.0
+                                let message = tuple.1
+                                self?.displayAlert(title: title, message: message, text: "OK")
+                            }
+                        }
+                        else {
+                            self?.displayAlert(title: "Unexpected Error", message: "Please try again later.", text: "OK")
+                        }
+                    }
+                    else {
+                        DispatchQueue.main.async {
+                            self?.displayAlert(title: "Validation email sent!", message: "Please validate the entered email.", text: "OK") {
+                                [weak self] in
+                                self?.performSegue(withIdentifier: "Signup", sender: nil)
+                            }
+                        }
+                    }
+                })
             }
             print(user?.email! ?? "No email!")
         }
@@ -170,8 +194,8 @@ class LoginController: UIViewController {
                 self.password_textfield.text = ""
                 return
             }
-            
-            self.emailLogin(username: username, pw: pw)
+
+            emailLogin(username: username, pw: pw)
         }
     }
     
@@ -187,7 +211,7 @@ class LoginController: UIViewController {
             }
             else {
                 if let code = AuthErrorCode(rawValue: error!._code) {
-                    if let tuple = self?.authErrorDict[code] {
+                    if let tuple = self?.errorDict[code] {
                         let title = tuple.0
                         let message = tuple.1
                         self?.displayAlert(title: title, message: message, text: "OK")
@@ -204,14 +228,16 @@ class LoginController: UIViewController {
     
     }
     
-    
-    
+
     //displays alert with given message and text
-    func displayAlert(title: String, message: String, text: String) {
+    func displayAlert(title: String, message: String, text: String, callback: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
-        alertController.addAction(UIAlertAction(title: text, style: .default) { (action:UIAlertAction!) in
-            print("\(text) pressed")
+        alertController.addAction(UIAlertAction(title: text, style: .default) {
+            (action: UIAlertAction) -> Void in
+            if let f = callback {
+                    f()
+            }
         })
         present(alertController, animated: true)
     }

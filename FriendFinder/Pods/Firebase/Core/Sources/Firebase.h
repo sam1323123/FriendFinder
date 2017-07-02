@@ -37,10 +37,6 @@
     #import <FirebaseMessaging/FirebaseMessaging.h>
   #endif
 
-  #if __has_include(<FirebasePerformance/FirebasePerformance.h>)
-    #import <FirebasePerformance/FirebasePerformance.h>
-  #endif
-
   #if __has_include(<FirebaseRemoteConfig/FirebaseRemoteConfig.h>)
     #import <FirebaseRemoteConfig/FirebaseRemoteConfig.h>
   #endif

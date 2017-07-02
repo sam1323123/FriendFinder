@@ -13,7 +13,9 @@ target 'FriendFinder' do
   #Authentication libraries
   #pod 'FirebaseUI/Twitter'
 
+  pod 'FacebookLogin'
   pod 'FirebaseUI/Phone'
+
   # Only pull in FirebaseUI Auth features
   pod 'FirebaseUI/Auth', '~> 4.0'
 
