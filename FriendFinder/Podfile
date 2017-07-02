@@ -19,6 +19,7 @@ target 'FriendFinder' do
 
   # Only pull in Facebook login features
   pod 'FirebaseUI/Facebook', '~> 4.0'
+  pod 'FacbookLogin' 
 
   # Only pull in Google login features
   pod 'FirebaseUI/Google', '~> 4.0'

@@ -145,6 +145,7 @@ class LoginController: UIViewController {
     //called if signup by email
     func emailSignup(_ email_address: String, _ pw: String) {
         Auth.auth().createUser(withEmail: email_address, password: pw) { [weak self] (user, error) in
+            
             if let code = AuthErrorCode(rawValue: error!._code) {
                 let tuple = self?.authErrorDict[code]!
                 let title = tuple?.0
@@ -170,7 +171,7 @@ class LoginController: UIViewController {
                 return
             }
             
-            
+            self.emailLogin(username: username, pw: pw)
         }
     }
     
@@ -202,12 +203,6 @@ class LoginController: UIViewController {
         }
     
     }
-    
-    
-    
-    
-    
-    
     
     
     
