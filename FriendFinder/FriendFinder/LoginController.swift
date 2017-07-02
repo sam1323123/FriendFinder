@@ -8,8 +8,10 @@
 
 import UIKit
 import FirebaseAuth
+import FacebookLogin
+import FacebookCore
 
-class LoginController: UIViewController {
+class LoginController: UIViewController, LoginButtonDelegate {
 
     var backgroundImageView : UIImageView = UIImageView()
     
@@ -25,11 +27,12 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
-
         // do any additional setup after loading the view.
         loadAndSetImageBackground()
+        initializeFacebookLogin()
     }
 
+    
     //sets and loads background
     private func loadAndSetImageBackground() {
         //create image view
@@ -53,6 +56,42 @@ class LoginController: UIViewController {
         
     }
     
+    //login with facebook method
+     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+        switch result {
+        case .failed(let error):
+            print(error)
+        case .cancelled:
+            print("Cancelled")
+        case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+            print("Logged In")
+            if let accessToken = AccessToken.current {
+                // User is logged in, use 'accessToken' here.
+                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+                Auth.auth().signIn(with: credential) { [weak self](user, error) in
+                    self?.handleSignInError(error: error)
+                }
+            }
+        }
+    }
+    
+    //facebook logout method
+     func loginButtonDidLogOut(_ loginButton: LoginButton) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        print("Logged Out")
+    }
+    
+    private func initializeFacebookLogin() {
+        let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
+        loginButton.center = view.center
+        view.addSubview(loginButton)
+    }
+
      //changes background on rotation
      override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
          coordinator.animate(alongsideTransition: { [weak self] (UIViewControllerTransitionCoordinatorContext) -> Void in
@@ -86,7 +125,7 @@ class LoginController: UIViewController {
     */
     
     
-    
+    //TODO: back button remove?
     @IBAction func goBack(segue: UIStoryboardSegue){
         print("Button pressed")
         if let src = segue.source as? NextViewController {
@@ -94,13 +133,9 @@ class LoginController: UIViewController {
         }
     }
 
-    
-    /*
-     method for initial screen signup & linked to the signup button
-     */
-    @IBAction func signupPressed() {
-        
 
+    //signup button handler
+    @IBAction func signupPressed() {
         if let username = username_textfield.text, let pw = password_textfield.text {
             if (username == "" || pw == "" || username.hasWhitespace() || pw.hasWhitespace()){
                 //if contains whitespace or is empty string
@@ -122,8 +157,8 @@ class LoginController: UIViewController {
         }
     }
 
-    //called if signup by email
-    func emailSignup(_ email_address: String, _ pw: String) {
+    //signup by mail method
+    private func emailSignup(_ email_address: String, _ pw: String) {
         
         Auth.auth().createUser(withEmail: email_address, password: pw) { [weak self] (user, error) in
             if let val = error?._code {
@@ -169,11 +204,8 @@ class LoginController: UIViewController {
         }
     }
     
-    
-    //Login Method 
-    
-    
-    @IBAction func loginPressed(_ sender: UIButton) {
+    //login button handler
+    @IBAction private func loginPressed(_ sender: UIButton) {
         
         if let username = self.username_textfield.text , let pw = self.password_textfield.text {
             
@@ -194,35 +226,34 @@ class LoginController: UIViewController {
         }
     }
     
-    
-    
-    
-    func emailLogin(username: String, pw: String) {
+    //login with mail method
+    private func emailLogin(username: String, pw: String) {
         Auth.auth().signIn(withEmail: username, password: pw) {[weak self] (user, error) in
             if let _ = user {
                 // might need to prepare segue later
                 self?.performSegue(withIdentifier: "Login" , sender: nil)
+            }
                 
+            else {
+                self?.handleSignInError(error: error)
+            }
+        }
+    }
+
+    //helper to handle sign in errors
+    private func handleSignInError(error: Error?) {
+        if let code = AuthErrorCode(rawValue: error!._code) {
+            if let tuple = errorDict[code] {
+                let title = tuple.0
+                let message = tuple.1
+                displayAlert(title: title, message: message, text: "OK")
             }
             else {
-                if let code = AuthErrorCode(rawValue: error!._code) {
-                    if let tuple = self?.errorDict[code] {
-                        let title = tuple.0
-                        let message = tuple.1
-                        self?.displayAlert(title: title, message: message, text: "OK")
-                    }
-                    else {
-                        self?.displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later", text: "OK")
-                    }
-                    
-                }
+                displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later", text: "OK")
             }
-            
-        
         }
-    
+
     }
-    
 
     //displays alert with given message and text
     func displayAlert(title: String, message: String, text: String, callback: (() -> Void)? = nil) {
