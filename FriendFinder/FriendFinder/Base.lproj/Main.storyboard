@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -73,6 +74,10 @@
                                                 </variation>
                                             </textField>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="e78-6f-b9b" firstAttribute="width" secondItem="Sax-3e-ljX" secondAttribute="width" id="OKV-nb-c9G"/>
+                                            <constraint firstItem="SvR-YD-tBm" firstAttribute="width" secondItem="Sax-3e-ljX" secondAttribute="width" id="qQ4-Vr-16o"/>
+                                        </constraints>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <mask key="subviews">
                                                 <include reference="SvR-YD-tBm"/>
@@ -118,6 +123,7 @@
                         <constraints>
                             <constraint firstItem="bc7-yy-6xb" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="0Fr-k9-VPS"/>
                             <constraint firstItem="CL1-dp-RSQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3Hl-Ee-b2e"/>
+                            <constraint firstItem="CL1-dp-RSQ" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="Evt-PQ-lav"/>
                             <constraint firstItem="bc7-yy-6xb" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="HcC-pY-xoq"/>
                             <constraint firstItem="bc7-yy-6xb" firstAttribute="centerX" secondItem="CL1-dp-RSQ" secondAttribute="centerX" id="Mul-SI-Yom"/>
                             <constraint firstItem="bc7-yy-6xb" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="Yf2-8X-6vG"/>
