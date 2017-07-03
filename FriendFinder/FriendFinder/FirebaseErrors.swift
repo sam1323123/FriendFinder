@@ -10,9 +10,10 @@ import Foundation
 import FirebaseAuth
 
 
-public struct FirebaseErrors {
+public class FirebaseErrors {
     
-    public static let errors : [AuthErrorCode:(String, String)] = [
+    public static let errors : [AuthErrorCode:(String, String)] =
+        [
         .networkError: (title: "No network!", message: "Please try again after connecting to the network."),
         .userNotFound: (title: "User account not found!", message: "It appears your account has been deleted."),
         .userTokenExpired: (title: "You have been logged out.", message: "Please login again."),
@@ -24,7 +25,5 @@ public struct FirebaseErrors {
         .invalidUserToken: (tile: "Session has expired!", message: "Please login again."),
         .operationNotAllowed: (title: "Email sign in not enabled!", message: "Check Firebase Config.")
     ]
-    
-    
 
 }
