@@ -10,13 +10,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FriendFinder/LoginController.swift"
-            timestampString = "520683746.2367"
+            timestampString = "520758494.093581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "handleSignInError(error:)"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "loginPressed(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FriendFinder/AppDelegate.swift"
+            timestampString = "520759618.762415"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.AppDelegate.__deallocating_deinit"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/AppDelegate.swift"
+                  timestampString = "520759620.915813"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.AppDelegate.init () -&gt; FriendFinder.AppDelegate"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/AppDelegate.swift"
+                  timestampString = "520759620.918905"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.AppDelegate.__allocating_init () -&gt; FriendFinder.AppDelegate"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/AppDelegate.swift"
+                  timestampString = "520759620.920547"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/AppDelegate.swift"
+                  timestampString = "520759620.922411"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

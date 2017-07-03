@@ -18,23 +18,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
     var authUI: FUIAuth?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         self.authUI = FUIAuth.defaultAuthUI()
         authUI?.delegate = self
-        let fbHandle = FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        return fbHandle
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
-
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        let fbHandle = FBSDKApplicationDelegate.sharedInstance().application(
+    
+    public func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(
+            app,
+            open: url as URL!,
+            sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
+            annotation: options[UIApplicationOpenURLOptionsKey.annotation]
+        )
+    }
+    
+    public func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(
             application,
-            open: url,
+            open: url as URL!,
             sourceApplication: sourceApplication,
             annotation: annotation)
-        // Add any custom logic here.
-        return fbHandle
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

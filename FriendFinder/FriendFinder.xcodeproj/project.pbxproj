@@ -224,7 +224,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -521,6 +521,7 @@
 			baseConfigurationReference = B1CC802789C9B2CCC9F1CBDE /* Pods-FriendFinder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FriendFinder/FriendFinder.entitlements;
 				DEVELOPMENT_TEAM = WUBT82BFBF;
 				INFOPLIST_FILE = FriendFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -535,6 +536,7 @@
 			baseConfigurationReference = B682F2A084A89FE2EB12F192 /* Pods-FriendFinder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FriendFinder/FriendFinder.entitlements;
 				DEVELOPMENT_TEAM = WUBT82BFBF;
 				INFOPLIST_FILE = FriendFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
