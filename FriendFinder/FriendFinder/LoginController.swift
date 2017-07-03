@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import FacebookLogin
 import FacebookCore
+import FBSDKCoreKit
 
 class LoginController: UIViewController, LoginButtonDelegate {
 
@@ -64,6 +65,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
      func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
         case .failed(let error):
+            print("FB Error")
             print(error)
         case .cancelled:
             print("Cancelled")
@@ -93,12 +95,13 @@ class LoginController: UIViewController, LoginButtonDelegate {
     
     private func initializeFacebookLogin() {
         let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
-        
+        loginButton.delegate = self
         //initial position and size
         loginButton.frame = CGRect(x: self.mainStackView.bounds.minX, y: self.mainStackView.bounds.maxY,
                                    width: self.mainStackView.bounds.width, height: self.password_textfield.bounds.height)
         
         loginButton.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(loginButton)
         
         
@@ -107,7 +110,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
         of stackVew and same height as the username recet 
          */
         let leadingConstraint = NSLayoutConstraint(item: loginButton, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
-        let topConstraint = NSLayoutConstraint(item: loginButton , attribute: .top, relatedBy: .equal, toItem: self.mainStackView, attribute: .bottom, multiplier: 1.0, constant: 20.0)
+        let topConstraint = NSLayoutConstraint(item: loginButton , attribute: .top, relatedBy: .equal, toItem: self.mainStackView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
         let heightConstraint = NSLayoutConstraint(item: loginButton, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
         let widthConstraint  = NSLayoutConstraint(item: loginButton, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
 
@@ -268,6 +271,10 @@ class LoginController: UIViewController, LoginButtonDelegate {
 
     //helper to handle sign in errors
     private func handleSignInError(error: Error?) {
+        if(error == nil) {
+            //nil check
+            return
+        }
         if let code = AuthErrorCode(rawValue: error!._code) {
             if let tuple = errorDict[code] {
                 let title = tuple.0
