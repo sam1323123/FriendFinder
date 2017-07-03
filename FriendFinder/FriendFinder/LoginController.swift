@@ -22,7 +22,6 @@ class LoginController: UIViewController, LoginButtonDelegate {
     //needed to align facebook login
     @IBOutlet weak var mainStackView: UIStackView!
     
-    @IBOutlet weak var testButton: UIButton!
     
     //dictionary mapping errors to error messages
     let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
