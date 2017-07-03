@@ -19,6 +19,11 @@ class LoginController: UIViewController, LoginButtonDelegate {
     
     @IBOutlet weak var password_textfield: BottomBorderTextField!
     
+    //needed to align facebook login
+    @IBOutlet weak var mainStackView: UIStackView!
+    
+    @IBOutlet weak var testButton: UIButton!
+    
     //dictionary mapping errors to error messages
     let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
 
@@ -86,10 +91,32 @@ class LoginController: UIViewController, LoginButtonDelegate {
         print("Logged Out")
     }
     
+    
     private func initializeFacebookLogin() {
         let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
-        loginButton.center = view.center
+        
+        //initial position and size
+        loginButton.frame = CGRect(x: self.mainStackView.bounds.minX, y: self.mainStackView.bounds.maxY,
+                                   width: self.mainStackView.bounds.width, height: self.password_textfield.bounds.height)
+        
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(loginButton)
+        
+        
+        /*
+        add constraints to login here. Currently made to sit below main stack view and be of same width
+        of stackVew and same height as the username recet 
+         */
+        let leadingConstraint = NSLayoutConstraint(item: loginButton, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: loginButton , attribute: .top, relatedBy: .equal, toItem: self.mainStackView, attribute: .bottom, multiplier: 1.0, constant: 20.0)
+        let heightConstraint = NSLayoutConstraint(item: loginButton, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
+        let widthConstraint  = NSLayoutConstraint(item: loginButton, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
+
+        
+        NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
+        
+        
+    
     }
 
      //changes background on rotation
