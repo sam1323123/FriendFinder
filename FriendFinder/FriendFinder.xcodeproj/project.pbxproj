@@ -13,6 +13,7 @@
 		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
 		9823B0691F08AB7D00982623 /* FirebaseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B0681F08AB7D00982623 /* FirebaseErrors.swift */; };
 		9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B06B1F08D5EB00982623 /* MapViewController.swift */; };
+		9823B0711F0B931700982623 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9823B0701F0B931700982623 /* Roboto-Medium.ttf */; };
 		98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D521EFA53F2007050E4 /* AppDelegate.swift */; };
 		98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D541EFA53F2007050E4 /* LaunchController.swift */; };
 		98A11D581EFA53F2007050E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98A11D561EFA53F2007050E4 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9823B0681F08AB7D00982623 /* FirebaseErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseErrors.swift; sourceTree = "<group>"; };
 		9823B06B1F08D5EB00982623 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		9823B0701F0B931700982623 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		98A11D4F1EFA53F2007050E4 /* FriendFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A11D521EFA53F2007050E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98A11D541EFA53F2007050E4 /* LaunchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		98A11D511EFA53F2007050E4 /* FriendFinder */ = {
 			isa = PBXGroup;
 			children = (
+				9823B0701F0B931700982623 /* Roboto-Medium.ttf */,
 				42FF92151F08F65B00A6421B /* FriendFinder.entitlements */,
 				9823B06D1F08D64700982623 /* Views */,
 				9823B06A1F08D57900982623 /* ViewControllers */,
@@ -259,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9823B0711F0B931700982623 /* Roboto-Medium.ttf in Resources */,
 				98A11D5D1EFA53F2007050E4 /* LaunchScreen.storyboard in Resources */,
 				982351231F036A58005F853F /* GoogleService-Info.plist in Resources */,
 				98A11D5A1EFA53F2007050E4 /* Assets.xcassets in Resources */,

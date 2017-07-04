@@ -41,9 +41,11 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         GIDSignIn.sharedInstance().uiDelegate = self
         loadAndSetImageBackground()
         let fbButton = initializeFacebookLogin()
-        createGoogleButton(below: fbButton)
+        createCustomGoogleButton(below: fbButton)
+        
     }
 
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         /*if (Auth.auth().currentUser != nil) {
@@ -75,12 +77,31 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     }
     
     
-    //creates the google sign in button below "below"
-    func createGoogleButton(below: UIView) -> GIDSignInButton {
-        let button = GIDSignInButton(frame: CGRect(x: self.mainStackView.frame.minX,
+    
+    func googleSignInPressed() {
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
+    //create custom google button 
+    func createCustomGoogleButton(below: UIView) -> UIButton {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: self.mainStackView.frame.minX,
                                                    y: below.frame.maxY,
                                                    width: self.mainStackView.frame.width,
-                                                   height: self.password_textfield.frame.height))
+                                                   height: self.password_textfield.frame.height)
+ 
+    
+        //button.setTitle("Sign in with Google", for: .normal)
+        //button.setTitleColor(.darkGray, for: .normal)
+        //button.titleLabel!.textAlignment = .center
+        //button.titleLabel!.font = UIFont(name: "Roboto-Medium", size: 14)
+        
+        //button.titleLabel!.adjustsFontSizeToFitWidth = true
+        button.backgroundColor = .clear
+        button.isHighlighted = false
+        button.setImage(#imageLiteral(resourceName: "google_web").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(googleSignInPressed), for: .touchUpInside)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         button.contentVerticalAlignment = UIControlContentVerticalAlignment.center
@@ -95,8 +116,12 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
         
         return button
-    
+
+        
+        
     }
+    
+    
     
     
     //google sign in delegate protocol. Used for when user has signed in with google
@@ -115,13 +140,13 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         }
     }
     
+    
     //google sign in delegate protocol for disconnection
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
         
         print("Google Sign In: User disconnected from app ")
     }
-    
     
     
     
@@ -158,6 +183,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     //initializes facebook button and callback
     private func initializeFacebookLogin() -> UIView {
         let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
+    
         loginButton.delegate = self
         //initial position and size
         loginButton.frame = CGRect(x: self.mainStackView.bounds.minX, y: self.mainStackView.bounds.maxY,
