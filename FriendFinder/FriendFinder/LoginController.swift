@@ -11,8 +11,10 @@ import FirebaseAuth
 import FacebookLogin
 import FacebookCore
 import FBSDKCoreKit
+import GoogleSignIn
 
-class LoginController: UIViewController, LoginButtonDelegate {
+
+class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
 
     var backgroundImageView : UIImageView = UIImageView()
     
@@ -24,6 +26,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
     @IBOutlet weak var mainStackView: UIStackView!
     
     
+    
     //dictionary mapping errors to error messages
     let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
 
@@ -32,9 +35,29 @@ class LoginController: UIViewController, LoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
-        // do any additional setup after loading the view.
+        //GIDSignIn.sharedInstance().uiDelegate = self //google sign in delegate
+        
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self
         loadAndSetImageBackground()
-        initializeFacebookLogin()
+        let fbButton = initializeFacebookLogin()
+        
+        createGoogleButton(below: fbButton)
+        
+        if let accessToken = AccessToken.current {
+            // User is logged in, use 'accessToken' here.
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+            Auth.auth().signIn(with: credential) { [weak self] (user, error) in
+                self?.login(user: user, error: error)
+            }
+        
+        }
+        else { //try google sign in
+            GIDSignIn.sharedInstance().signInSilently()
+            //should call the sign in method declared below and segue if user is authenticated
+        }
+        
+        
     }
 
     
@@ -61,6 +84,56 @@ class LoginController: UIViewController, LoginButtonDelegate {
         
     }
     
+    
+    //creates the google sign in button below "below"
+    func createGoogleButton(below: UIView) -> GIDSignInButton {
+        let button = GIDSignInButton(frame: CGRect(x: self.mainStackView.frame.minX,
+                                                   y: below.frame.maxY,
+                                                   width: self.mainStackView.frame.width,
+                                                   height: self.password_textfield.frame.height))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        
+        let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
+        let widthConstraint  = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
+        
+        
+        NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
+        
+        return button
+    
+    }
+    
+    
+    //google sign in delegate protocol. Used for when user has signed in with google
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        // ...
+        if let error = error {
+            print("Some error with google sign in = \(error)")
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: credential) {[weak self] (user, error) in
+            self?.login(user: user, error: error)
+        }
+    }
+    
+    //google sign in delegate protocol for disconnection
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        
+        print("Google Sign In: User disconnected from app ")
+    }
+    
+    
+    
+    
+    
     //login with facebook method
      func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
@@ -71,12 +144,10 @@ class LoginController: UIViewController, LoginButtonDelegate {
             print("Cancelled")
         case .success(let grantedPermissions, let declinedPermissions, let accessToken):
             print("Logged In")
-            if let accessToken = AccessToken.current {
-                // User is logged in, use 'accessToken' here.
-                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-                Auth.auth().signIn(with: credential) { [weak self](user, error) in
-                    self?.handleSignInError(error: error)
-                }
+            // User is logged in, use 'accessToken' here.
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+            Auth.auth().signIn(with: credential) { [weak self] (user, error) in
+                self?.login(user: user, error: error)
             }
         }
     }
@@ -92,8 +163,8 @@ class LoginController: UIViewController, LoginButtonDelegate {
         print("Logged Out")
     }
     
-    
-    private func initializeFacebookLogin() {
+    //initializes facebook button and callback
+    private func initializeFacebookLogin() -> UIView {
         let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
         loginButton.delegate = self
         //initial position and size
@@ -101,6 +172,8 @@ class LoginController: UIViewController, LoginButtonDelegate {
                                    width: self.mainStackView.bounds.width, height: self.password_textfield.bounds.height)
         
         loginButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         
         view.addSubview(loginButton)
         
@@ -117,7 +190,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
         
         NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
         
-        
+        return loginButton
     
     }
 
@@ -190,6 +263,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
     private func emailSignup(_ email_address: String, _ pw: String) {
         
         Auth.auth().createUser(withEmail: email_address, password: pw) { [weak self] (user, error) in
+            
             if let val = error?._code {
                 if let code = AuthErrorCode(rawValue: val) {
                     if let tuple = self?.errorDict[code] {
@@ -258,14 +332,19 @@ class LoginController: UIViewController, LoginButtonDelegate {
     //login with mail method
     private func emailLogin(username: String, pw: String) {
         Auth.auth().signIn(withEmail: username, password: pw) {[weak self] (user, error) in
-            if let _ = user {
-                // might need to prepare segue later
-                self?.performSegue(withIdentifier: "Login" , sender: nil)
-            }
+            self?.login(user: user, error: error)
+        }
+    }
+    
+    //login generic
+    private func login(user: User?, error: Error?) {
+        if let _ = user {
+            // might need to prepare segue later
+            performSegue(withIdentifier: "Login" , sender: nil)
+        }
                 
-            else {
-                self?.handleSignInError(error: error)
-            }
+        else {
+            handleSignInError(error: error)
         }
     }
 
@@ -282,7 +361,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
                 displayAlert(title: title, message: message, text: "OK")
             }
             else {
-                displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later", text: "OK")
+                displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
             }
         }
 
