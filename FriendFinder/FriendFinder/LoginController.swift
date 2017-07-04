@@ -41,25 +41,15 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         GIDSignIn.sharedInstance().uiDelegate = self
         loadAndSetImageBackground()
         let fbButton = initializeFacebookLogin()
-        
         createGoogleButton(below: fbButton)
-        
-        if let accessToken = AccessToken.current {
-            // User is logged in, use 'accessToken' here.
-            let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-            Auth.auth().signIn(with: credential) { [weak self] (user, error) in
-                self?.login(user: user, error: error)
-            }
-        
-        }
-        else { //try google sign in
-            GIDSignIn.sharedInstance().signInSilently()
-            //should call the sign in method declared below and segue if user is authenticated
-        }
-        
-        
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /*if (Auth.auth().currentUser != nil) {
+            performSegue(withIdentifier: "Login" , sender: nil)
+        } */
+    }
     
     //sets and loads background
     private func loadAndSetImageBackground() {
@@ -92,6 +82,8 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
                                                    width: self.mainStackView.frame.width,
                                                    height: self.password_textfield.frame.height))
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        button.contentVerticalAlignment = UIControlContentVerticalAlignment.center
         self.view.addSubview(button)
         
         let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
