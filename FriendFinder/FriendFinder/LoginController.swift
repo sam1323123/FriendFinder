@@ -82,9 +82,19 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         GIDSignIn.sharedInstance().signIn()
     }
     
+    func highlightButton(sender: UIButton) {
+        
+        sender.backgroundColor = UIColor.lightGray
+    }
+    
+    func unhighlightButton(sender: UIButton) {
+        
+        sender.backgroundColor = UIColor.white
+    }
+    
     //create custom google button 
     func createCustomGoogleButton(below: UIView) -> UIButton {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.frame = CGRect(x: self.mainStackView.frame.minX,
                                                    y: below.frame.maxY,
                                                    width: self.mainStackView.frame.width,
@@ -97,21 +107,49 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         //button.titleLabel!.font = UIFont(name: "Roboto-Medium", size: 14)
         
         //button.titleLabel!.adjustsFontSizeToFitWidth = true
-        button.backgroundColor = .clear
-        button.isHighlighted = false
-        button.setImage(#imageLiteral(resourceName: "google_web").withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(googleSignInPressed), for: .touchUpInside)
+        button.setImage(#imageLiteral(resourceName: "google_background"), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 2.0, 0.0)
         
+        
+        button.setTitle("Sign in with Google", for: .normal)
+        button.titleLabel!.font = UIFont(name: "Roboto-Medium", size: 12.0)
+        // button.titleLabel!.minimumScaleFactor = 0.5
+        button.titleLabel!.adjustsFontSizeToFitWidth = false
+        button.titleLabel!.numberOfLines = 1
+        button.titleLabel!.textAlignment = .center
+        button.setTitleColor(.black, for: .normal)
+        
+        
+        //let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
+        let availableSpace = button.imageView!.frame
+        let availableWidth = availableSpace.width - button.imageEdgeInsets.left - button.imageView!.frame.width - button.titleLabel!.frame.width
+
+        let availableHeight = availableSpace.height - button.titleLabel!.frame.height
+        
+        
+        button.titleEdgeInsets = UIEdgeInsetsMake(0.0, availableWidth/4.0 , availableHeight/4.0, availableWidth/4.0)
+        
+        button.adjustsImageWhenHighlighted = false
+        button.backgroundColor = .white
+        
+        button.addTarget(self, action: #selector(googleSignInPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(highlightButton(sender:)), for: .touchDown)
+        button.addTarget(self, action: #selector(unhighlightButton(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(unhighlightButton(sender:)), for: .touchUpOutside)
+        
+        button.clipsToBounds = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         button.contentVerticalAlignment = UIControlContentVerticalAlignment.center
         self.view.addSubview(button)
         
+        
+        
+        let _ = 3
         let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
         let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: 0.0)
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
         let widthConstraint  = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
-        
         
         NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
         
