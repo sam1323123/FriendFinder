@@ -26,6 +26,8 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     @IBOutlet weak var mainStackView: UIStackView!
     
     
+    var isLargeScreen: Bool?
+    
     
     //dictionary mapping errors to error messages
     let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
@@ -35,8 +37,8 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
-        //GIDSignIn.sharedInstance().uiDelegate = self //google sign in delegate
-        
+        isLargeScreen = ((view.traitCollection.horizontalSizeClass == .regular)
+            && (view.traitCollection.verticalSizeClass == .regular))
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         loadAndSetImageBackground()
@@ -77,19 +79,19 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     }
     
     
-    
+    //required local wrapper for google sigin
     func googleSignInPressed() {
         GIDSignIn.sharedInstance().signIn()
     }
     
+    //highlights button
     func highlightButton(sender: UIButton) {
-        
-        sender.backgroundColor = UIColor.lightGray
+        sender.backgroundColor = .lightGray
     }
     
+    //removes highlight
     func unhighlightButton(sender: UIButton) {
-        
-        sender.backgroundColor = UIColor.white
+        sender.backgroundColor = .white
     }
     
     //create custom google button 
@@ -100,39 +102,36 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
                                                    width: self.mainStackView.frame.width,
                                                    height: self.password_textfield.frame.height)
  
-    
-        //button.setTitle("Sign in with Google", for: .normal)
-        //button.setTitleColor(.darkGray, for: .normal)
-        //button.titleLabel!.textAlignment = .center
-        //button.titleLabel!.font = UIFont(name: "Roboto-Medium", size: 14)
-        
-        //button.titleLabel!.adjustsFontSizeToFitWidth = true
+        //set logo
         button.setImage(#imageLiteral(resourceName: "google_background"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 2.0, 0.0)
         
-        
+        //title formatting
         button.setTitle("Sign in with Google", for: .normal)
-        button.titleLabel!.font = UIFont(name: "Roboto-Medium", size: 12.0)
-        // button.titleLabel!.minimumScaleFactor = 0.5
-        button.titleLabel!.adjustsFontSizeToFitWidth = false
+        button.titleLabel!.font = UIFont(name: "Roboto-Medium", size: 14.0)
+        button.titleLabel!.adjustsFontSizeToFitWidth = true
+        button.titleLabel!.adjustsFontForContentSizeCategory = true
         button.titleLabel!.numberOfLines = 1
         button.titleLabel!.textAlignment = .center
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.darkGray, for: .normal)
         
-        
-        //let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
-        let availableSpace = button.imageView!.frame
-        let availableWidth = availableSpace.width - button.imageEdgeInsets.left - button.imageView!.frame.width - button.titleLabel!.frame.width
-
+        //set borders and spacing
+        button.contentEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 2.0, 5.0)
+        let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
+        let availableWidth = availableSpace.width - button.imageEdgeInsets.right - button.imageView!.frame.width - button.titleLabel!.frame.width
         let availableHeight = availableSpace.height - button.titleLabel!.frame.height
         
+        //adjust based on screen size
+        let scaleFactor: CGFloat =  isLargeScreen! ? 2.0 : 10.0
+        button.titleEdgeInsets = UIEdgeInsetsMake(0.0, availableWidth/scaleFactor, availableHeight/4.0, 0.0)
         
-        button.titleEdgeInsets = UIEdgeInsetsMake(0.0, availableWidth/4.0 , availableHeight/4.0, availableWidth/4.0)
-        
+        //turn off highlight for custom highlighting
         button.adjustsImageWhenHighlighted = false
         button.backgroundColor = .white
         
+        //call google sign in
         button.addTarget(self, action: #selector(googleSignInPressed), for: .touchUpInside)
+        
+        //handle button highlight
         button.addTarget(self, action: #selector(highlightButton(sender:)), for: .touchDown)
         button.addTarget(self, action: #selector(unhighlightButton(sender:)), for: .touchUpInside)
         button.addTarget(self, action: #selector(unhighlightButton(sender:)), for: .touchUpOutside)
@@ -141,11 +140,13 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         button.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        self.view.addSubview(button)
+        view.addSubview(button)
         
-        
-        
-        let _ = 3
+        /*
+         add constraints to login here. Currently made to sit below main stack view and be of same width
+         of stackView and same height as the username rect
+         */
+
         let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
         let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: 0.0)
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
@@ -154,13 +155,8 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
         
         return button
-
-        
-        
     }
-    
-    
-    
+
     
     //google sign in delegate protocol. Used for when user has signed in with google
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
@@ -236,7 +232,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         
         /*
         add constraints to login here. Currently made to sit below main stack view and be of same width
-        of stackVew and same height as the username recet 
+        of stackView and same height as the username rect
          */
         let leadingConstraint = NSLayoutConstraint(item: loginButton, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
         let topConstraint = NSLayoutConstraint(item: loginButton , attribute: .top, relatedBy: .equal, toItem: self.mainStackView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
