@@ -25,7 +25,6 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     //needed to align facebook login
     @IBOutlet weak var mainStackView: UIStackView!
     
-    
     var isLargeScreen: Bool?
     
     var isBackPressed: Bool = false
@@ -39,6 +38,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
+        
         isLargeScreen = ((view.traitCollection.horizontalSizeClass == .regular)
             && (view.traitCollection.verticalSizeClass == .regular))
         GIDSignIn.sharedInstance().delegate = self
@@ -52,7 +52,8 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if (Auth.auth().currentUser != nil && (!isBackPressed)) {
+
+        if (Auth.auth().currentUser != nil && !isBackPressed) {
             performSegue(withIdentifier: "Login" , sender: nil)
         }
     }
@@ -149,9 +150,11 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
          add constraints to login here. Currently made to sit below main stack view and be of same width
          of stackView and same height as the username rect
          */
+        
+        let topConstraintSpace: CGFloat = (isLargeScreen!) ? 10.0 : 5.0 //space to button above
 
         let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
-        let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: topConstraintSpace)
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
         let widthConstraint  = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
         
@@ -186,9 +189,18 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     }
     
     
+    //google logout
+    func logOutWithGoogle() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        print("Logged Out")
+    }
     
-    
-    //login with facebook method
+    //login with facebook
      func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
         case .failed(let error):
@@ -206,7 +218,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         }
     }
     
-    //facebook logout method
+    //facebook logout
      func loginButtonDidLogOut(_ loginButton: LoginButton) {
         let firebaseAuth = Auth.auth()
         do {
@@ -285,6 +297,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     //TODO: back button remove?
     @IBAction func goBack(segue: UIStoryboardSegue){
         print("Button pressed")
+        isBackPressed = true
         if let src = segue.source as? NextViewController {
             print(src.NextLabel.text!)
         }
