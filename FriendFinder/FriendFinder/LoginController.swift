@@ -49,7 +49,6 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         
     }
 
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -81,10 +80,25 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         
     }
     
+    //changes background on rotation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { [weak self] (UIViewControllerTransitionCoordinatorContext) -> Void in
+            let orientation = UIApplication.shared.statusBarOrientation
+            self?.backgroundImageView.image = self?.getOrientedImage(basedOn: orientation)
+            }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
+                print("rotation completed")
+        })
+    }
     
-    //required local wrapper for google sigin
-    func googleSignInPressed() {
-        GIDSignIn.sharedInstance().signIn()
+    //decides background based on orientation
+    func getOrientedImage(basedOn orientation : UIInterfaceOrientation) -> UIImage {
+        return orientation.isPortrait ? #imageLiteral(resourceName: "high-five-sunset-portrait") : #imageLiteral(resourceName: "high-five-sunset-landscape")
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     //highlights button
@@ -97,14 +111,14 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         sender.backgroundColor = .white
     }
     
-    //create custom google button 
+    //create custom google button
     func createCustomGoogleButton(below: UIView) -> UIButton {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: self.mainStackView.frame.minX,
-                                                   y: below.frame.maxY,
-                                                   width: self.mainStackView.frame.width,
-                                                   height: self.password_textfield.frame.height)
- 
+                              y: below.frame.maxY,
+                              width: self.mainStackView.frame.width,
+                              height: self.password_textfield.frame.height)
+        
         //set logo
         button.setImage(#imageLiteral(resourceName: "google_background"), for: .normal)
         
@@ -148,11 +162,10 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         
         /*
          add constraints to login here. Currently made to sit below main stack view and be of same width
-         of stackView and same height as the username rect
+         of stackView and same height as the username rect and have a space between facebook and google
          */
         
         let topConstraintSpace: CGFloat = (isLargeScreen!) ? 10.0 : 5.0 //space to button above
-
         let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
         let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: topConstraintSpace)
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
@@ -162,7 +175,13 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         
         return button
     }
+    
 
+    
+    //required local wrapper for google sigin
+    func googleSignInPressed() {
+        GIDSignIn.sharedInstance().signIn()
+    }
     
     //google sign in delegate protocol. Used for when user has signed in with google
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
@@ -191,6 +210,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     
     //google logout
     func logOutWithGoogle() {
+        GIDSignIn.sharedInstance().signOut()
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
@@ -200,6 +220,38 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         print("Logged Out")
     }
     
+    //initializes facebook button and callback
+    private func initializeFacebookLogin() -> UIView {
+        let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
+        
+        loginButton.delegate = self
+        //initial position and size
+        loginButton.frame = CGRect(x: self.mainStackView.bounds.minX, y: self.mainStackView.bounds.maxY,
+                                   width: self.mainStackView.bounds.width, height: self.password_textfield.bounds.height)
+        
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        
+        view.addSubview(loginButton)
+        
+        
+        /*
+         add constraints to login here. Currently made to sit below main stack view and be of same width
+         of stackView and same height as the username rect
+         */
+        let leadingConstraint = NSLayoutConstraint(item: loginButton, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: loginButton , attribute: .top, relatedBy: .equal, toItem: self.mainStackView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        let heightConstraint = NSLayoutConstraint(item: loginButton, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
+        let widthConstraint  = NSLayoutConstraint(item: loginButton, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
+        
+        
+        NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
+        
+        return loginButton
+        
+    }
+
     //login with facebook
      func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
@@ -227,59 +279,6 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
             print ("Error signing out: %@", signOutError)
         }
         print("Logged Out")
-    }
-    
-    //initializes facebook button and callback
-    private func initializeFacebookLogin() -> UIView {
-        let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
-    
-        loginButton.delegate = self
-        //initial position and size
-        loginButton.frame = CGRect(x: self.mainStackView.bounds.minX, y: self.mainStackView.bounds.maxY,
-                                   width: self.mainStackView.bounds.width, height: self.password_textfield.bounds.height)
-        
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        
-        view.addSubview(loginButton)
-        
-        
-        /*
-        add constraints to login here. Currently made to sit below main stack view and be of same width
-        of stackView and same height as the username rect
-         */
-        let leadingConstraint = NSLayoutConstraint(item: loginButton, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
-        let topConstraint = NSLayoutConstraint(item: loginButton , attribute: .top, relatedBy: .equal, toItem: self.mainStackView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
-        let heightConstraint = NSLayoutConstraint(item: loginButton, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
-        let widthConstraint  = NSLayoutConstraint(item: loginButton, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
-
-        
-        NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
-        
-        return loginButton
-    
-    }
-
-     //changes background on rotation
-     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-         coordinator.animate(alongsideTransition: { [weak self] (UIViewControllerTransitionCoordinatorContext) -> Void in
-        let orientation = UIApplication.shared.statusBarOrientation
-        self?.backgroundImageView.image = self?.getOrientedImage(basedOn: orientation)
-        }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
-            print("rotation completed")
-        })
-    }
-
-    //decides background based on orientation
-    func getOrientedImage(basedOn orientation : UIInterfaceOrientation) -> UIImage {
-        return orientation.isPortrait ? #imageLiteral(resourceName: "high-five-sunset-portrait") : #imageLiteral(resourceName: "high-five-sunset-landscape")
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
