@@ -25,6 +25,8 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     //needed to align facebook login
     @IBOutlet weak var mainStackView: UIStackView!
     
+    //back pressed
+    var isBackPressed = false
     
     var isLargeScreen: Bool?
     
@@ -50,9 +52,9 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        /*if (Auth.auth().currentUser != nil) {
+        if (Auth.auth().currentUser != nil && !isBackPressed) {
             performSegue(withIdentifier: "Login" , sender: nil)
-        } */
+        }
     }
     
     //sets and loads background
@@ -183,9 +185,18 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     }
     
     
+    //google logout
+    func logOutWithGoogle() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        print("Logged Out")
+    }
     
-    
-    //login with facebook method
+    //login with facebook
      func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
         case .failed(let error):
@@ -203,7 +214,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         }
     }
     
-    //facebook logout method
+    //facebook logout
      func loginButtonDidLogOut(_ loginButton: LoginButton) {
         let firebaseAuth = Auth.auth()
         do {
@@ -282,6 +293,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     //TODO: back button remove?
     @IBAction func goBack(segue: UIStoryboardSegue){
         print("Button pressed")
+        isBackPressed = true
         if let src = segue.source as? NextViewController {
             print(src.NextLabel.text!)
         }
