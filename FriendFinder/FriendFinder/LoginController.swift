@@ -25,10 +25,9 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     //needed to align facebook login
     @IBOutlet weak var mainStackView: UIStackView!
     
-    //back pressed
-    var isBackPressed = false
-    
     var isLargeScreen: Bool?
+    
+    var isBackPressed: Bool = false
     
     
     //dictionary mapping errors to error messages
@@ -39,6 +38,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
+        
         isLargeScreen = ((view.traitCollection.horizontalSizeClass == .regular)
             && (view.traitCollection.verticalSizeClass == .regular))
         GIDSignIn.sharedInstance().delegate = self
@@ -51,6 +51,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         if (Auth.auth().currentUser != nil && !isBackPressed) {
             performSegue(withIdentifier: "Login" , sender: nil)
         }
@@ -130,6 +131,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         button.titleLabel!.textAlignment = .center
         button.setTitleColor(.darkGray, for: .normal)
         
+
         //set borders and spacing
         button.contentEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 2.0, 5.0)
         let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
@@ -160,11 +162,12 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         
         /*
          add constraints to login here. Currently made to sit below main stack view and be of same width
-         of stackView and same height as the username rect
+         of stackView and same height as the username rect and have a space between facebook and google
          */
         
+        let topConstraintSpace: CGFloat = (isLargeScreen!) ? 10.0 : 5.0 //space to button above
         let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
-        let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: topConstraintSpace)
         let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
         let widthConstraint  = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
         
@@ -297,6 +300,9 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         if let src = segue.source as? NextViewController {
             print(src.NextLabel.text!)
         }
+        let dest = segue.destination as? LoginController
+        dest?.isBackPressed = true
+        
     }
 
 
