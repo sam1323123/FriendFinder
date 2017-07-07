@@ -67,14 +67,17 @@ PODS:
   - GTMSessionFetcher/Core (1.1.10)
   - GTMSessionFetcher/Full (1.1.10):
     - GTMSessionFetcher/Core (= 1.1.10)
+  - Mapbox-iOS-SDK (3.6.0)
 
 DEPENDENCIES:
   - FacebookLogin
+  - FBSDKLoginKit
   - Firebase/Core
   - FirebaseUI/Auth (~> 4.0)
   - FirebaseUI/Facebook (~> 4.0)
   - FirebaseUI/Google (~> 4.0)
   - FirebaseUI/Phone
+  - Mapbox-iOS-SDK (~> 3.6)
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -92,7 +95,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
+  Mapbox-iOS-SDK: c911b1875a00f12bb74253b763ac483425bd4225
 
-PODFILE CHECKSUM: 491bf9f398f4799dbd88761d962165788aa31768
+PODFILE CHECKSUM: a2a8f140c1941aa976808d7885ed5c5ea24c8c6f
 
 COCOAPODS: 1.2.1
