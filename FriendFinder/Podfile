@@ -12,6 +12,9 @@ target 'FriendFinder' do
 
   #Maps
   pod 'Mapbox-iOS-SDK', '~> 3.6'
+  pod 'MapboxGeocoder.swift', '~> 0.6'
+  pod 'MapboxNavigation', '~> 0.4.0'
+  pod 'MapboxDirections.swift', '~> 0.9'
 
   #Authentication libraries
   #pod 'FirebaseUI/Twitter'

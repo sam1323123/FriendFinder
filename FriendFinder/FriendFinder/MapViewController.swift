@@ -10,14 +10,8 @@ import UIKit
 
 class MapViewController: UIViewController {
 
-  
-    @IBOutlet var mapScrollView: UIScrollView! {
-        didSet {
-            mapScrollView.delegate = self
-        }
-    }
-    
-    @IBOutlet fileprivate var mapImageView: UIImageView!
+    @IBOutlet weak var searchBox: UITextField!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +38,3 @@ class MapViewController: UIViewController {
 
 }
 
-
-
-
-extension MapViewController : UIScrollViewDelegate {
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return mapImageView
-    }
-    
-}

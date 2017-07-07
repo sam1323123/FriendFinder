@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="high-five-sunset" translatesAutoresizingMaskIntoConstraints="NO" id="EBu-RG-RIH">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="high-five-sunset-portrait" translatesAutoresizingMaskIntoConstraints="NO" id="EBu-RG-RIH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
@@ -43,6 +43,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="high-five-sunset" width="500" height="329"/>
+        <image name="high-five-sunset-portrait" width="185" height="329"/>
     </resources>
 </document>

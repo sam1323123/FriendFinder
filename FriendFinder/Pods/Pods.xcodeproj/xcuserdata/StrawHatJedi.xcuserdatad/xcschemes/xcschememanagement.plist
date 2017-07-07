@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AWSCore.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>AWSPolly.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -64,12 +74,52 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MapboxCoreNavigation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MapboxDirections.swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MapboxGeocoder.swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MapboxNavigation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>OSRMTextInstructions.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FriendFinder.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-FriendFinderTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Polyline.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pulley.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -88,6 +138,16 @@
 			<true/>
 		</dict>
 		<key>3380590F973AFAFA30255D504B7DEDAC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>33A9A53C52889ACA08B7F655EB58252D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3B07E97554DC4D8FD6FBFCBD5ABFAB3F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +172,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>65A97218F5297D9F24B22D7033CA9D1D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>681BE6E3D02A43F9BA63777AC435C8FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6EF760DDFF37A5FE173F68DCC0D22895</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,12 +192,37 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A962FDCCE39FB0A0B0D9983E819739E2</key>
+		<key>840E9E5C41296751EAFCCF6D7769F314</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8AE844C9B8AF98C36F2274CEA68831CD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9FEB2A9BBBC6CFAFC600401E869EE0FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9AB3CB7588D4C68BEBDA32958664D0B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CA89C0A53859A8EACC539CA9CB886D57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD1DBCC1DF68514CF23AA06E1AB43A68</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -138,6 +233,11 @@
 			<true/>
 		</dict>
 		<key>ED598FA16FA4EB487CF6C126484353D6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F3B0D303D1E2FEEE382F99CB69B2053C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
