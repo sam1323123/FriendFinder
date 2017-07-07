@@ -120,12 +120,11 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         button.setTitleColor(.black, for: .normal)
         
         
-        //let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
-        let availableSpace = button.imageView!.frame
+        
+        let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
         let availableWidth = availableSpace.width - button.imageEdgeInsets.left - button.imageView!.frame.width - button.titleLabel!.frame.width
 
         let availableHeight = availableSpace.height - button.titleLabel!.frame.height
-        
         
         button.titleEdgeInsets = UIEdgeInsetsMake(0.0, availableWidth/4.0 , availableHeight/4.0, availableWidth/4.0)
         
