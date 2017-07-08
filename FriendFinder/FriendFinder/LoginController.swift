@@ -104,6 +104,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     //highlights button
     func highlightButton(sender: UIButton) {
         sender.backgroundColor = .lightGray
+    
     }
     
     //removes highlight
