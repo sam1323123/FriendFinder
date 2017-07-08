@@ -89,7 +89,7 @@
                                         <rect key="frame" x="0.0" y="112" width="317" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIe-4g-6XO">
-                                                <rect key="frame" x="0.0" y="0.0" width="138" height="60"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="138.66666666666669" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="Signup"/>
                                                 <variation key="widthClass=regular">
@@ -100,7 +100,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-t1-hVA">
-                                                <rect key="frame" x="178" y="0.0" width="139" height="60"/>
+                                                <rect key="frame" x="178.66666666666669" y="0.0" width="138.33333333333331" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="Login"/>
                                                 <variation key="widthClass=regular">
@@ -135,8 +135,8 @@
                         <outlet property="password_textfield" destination="e78-6f-b9b" id="C8n-GL-noN"/>
                         <outlet property="username_textfield" destination="SvR-YD-tBm" id="wSX-lu-dr8"/>
                         <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Signup" id="9ky-3E-qPf"/>
-                        <segue destination="PYZ-VF-Q0I" kind="presentation" identifier="Login" id="dyn-JN-aOz"/>
                         <segue destination="lAJ-zA-3Vw" kind="presentation" identifier="Map" id="vke-Oj-9hd"/>
+                        <segue destination="lAJ-zA-3Vw" kind="presentation" identifier="Login" id="DjO-CX-QdB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -187,52 +187,39 @@
             <objects>
                 <viewController storyboardIdentifier="MapViewController" id="lAJ-zA-3Vw" customClass="MapViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7in-G1-adF"/>
-                        <viewControllerLayoutGuide type="bottom" id="Lic-gE-SiM"/>
+                        <viewControllerLayoutGuide type="top" id="PgJ-dd-2Rr"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ihe-9H-OGw"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="sIA-X7-RVK">
+                    <view key="view" contentMode="scaleToFill" id="U5p-kp-7Ja" customClass="MGLMapView">
                         <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.10000000000000001" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="AMD-AC-wJw">
-                                <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waves" translatesAutoresizingMaskIntoConstraints="NO" id="YRd-dx-Rpz">
-                                        <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
-                                    </imageView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="YRd-dx-Rpz" secondAttribute="trailing" id="CoN-Uk-cwS"/>
-                                    <constraint firstItem="YRd-dx-Rpz" firstAttribute="centerY" secondItem="AMD-AC-wJw" secondAttribute="centerY" id="HI5-ZB-A3I"/>
-                                    <constraint firstItem="YRd-dx-Rpz" firstAttribute="top" secondItem="AMD-AC-wJw" secondAttribute="top" id="eTx-ZO-ySr"/>
-                                    <constraint firstItem="YRd-dx-Rpz" firstAttribute="centerX" secondItem="AMD-AC-wJw" secondAttribute="centerX" id="msM-vZ-g8p"/>
-                                    <constraint firstItem="YRd-dx-Rpz" firstAttribute="leading" secondItem="AMD-AC-wJw" secondAttribute="leading" id="p4i-jy-3Y1"/>
-                                    <constraint firstAttribute="bottom" secondItem="YRd-dx-Rpz" secondAttribute="bottom" id="w3N-cm-bE0"/>
-                                </constraints>
-                            </scrollView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KnO-Pq-6ub">
+                                <rect key="frame" x="310" y="28" width="116" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="AMD-AC-wJw" firstAttribute="top" secondItem="sIA-X7-RVK" secondAttribute="top" id="Aim-0h-RUD"/>
-                            <constraint firstItem="AMD-AC-wJw" firstAttribute="leading" secondItem="sIA-X7-RVK" secondAttribute="leading" id="XEO-Yp-2Xm"/>
-                            <constraint firstAttribute="trailing" secondItem="AMD-AC-wJw" secondAttribute="trailing" id="sfd-Va-v6C"/>
-                            <constraint firstItem="AMD-AC-wJw" firstAttribute="bottom" secondItem="Lic-gE-SiM" secondAttribute="top" id="wjp-z8-L88"/>
+                            <constraint firstItem="KnO-Pq-6ub" firstAttribute="centerX" secondItem="U5p-kp-7Ja" secondAttribute="centerX" id="LaH-LZ-lei"/>
+                            <constraint firstItem="KnO-Pq-6ub" firstAttribute="top" secondItem="PgJ-dd-2Rr" secondAttribute="bottom" constant="8" id="vqm-ki-JT3"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/streets-v10"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
-                        <outlet property="mapImageView" destination="YRd-dx-Rpz" id="M7B-hS-1dj"/>
-                        <outlet property="mapScrollView" destination="AMD-AC-wJw" id="BJF-an-dWH"/>
+                        <outlet property="searchBox" destination="KnO-Pq-6ub" id="zcq-Zz-2hp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfT-QD-Vr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="757.6171875" y="811.71303074670561"/>
+            <point key="canvasLocation" x="770" y="820"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="waves" width="212" height="378"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dyn-JN-aOz"/>
+        <segue reference="DjO-CX-QdB"/>
     </inferredMetricsTieBreakers>
 </document>
