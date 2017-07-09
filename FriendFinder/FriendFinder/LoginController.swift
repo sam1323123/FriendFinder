@@ -394,7 +394,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
             }
             
             //for debugging purposes
-            if(username == "admin" && pw == "password") {
+            if(username == "a" && pw == "p") {
                 performSegue(withIdentifier: "Map" , sender: nil)
                 return
             }

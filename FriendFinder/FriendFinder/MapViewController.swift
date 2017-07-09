@@ -10,11 +10,34 @@ import UIKit
 
 class MapViewController: UIViewController {
 
-    @IBOutlet weak var searchBox: UITextField!
-
+    @IBOutlet weak var searchBox: UITextField! {
+        
+        didSet {
+            self.searchBox.layer.borderColor = UIColor.darkGray.cgColor
+            self.searchBox.attributedPlaceholder = NSAttributedString(string: "Enter Location",
+                                                                 attributes: [NSForegroundColorAttributeName: UIColor.darkGray])
+            self.searchBox.delegate = self
+        }
+    }
+    
+    
+    override var shouldAutorotate: Bool {
+        get {
+            return false
+        }
+    }
+    
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return UIInterfaceOrientationMask.portrait
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
 
         // Do any additional setup after loading the view.
@@ -24,6 +47,8 @@ class MapViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
 
     /*
@@ -36,5 +61,17 @@ class MapViewController: UIViewController {
     }
     */
 
+}
+
+extension MapViewController: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("Will perform locationSEARCH SEGUE")
+        performSegue(withIdentifier: "locationSearch", sender: self)
+    }
 }
 
