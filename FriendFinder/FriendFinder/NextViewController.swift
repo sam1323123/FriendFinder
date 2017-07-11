@@ -23,7 +23,7 @@ class NextViewController: UIViewController {
             if(!verified) {
                 // display warning
                 displayAlert(title: "Account Unverified", message: "Access to certain account features is restricted. Please verify your account first", text: "OK")
-                
+
             }
             
         }

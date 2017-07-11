@@ -9,19 +9,24 @@
 import UIKit
 
 class LocationTableViewController: UITableViewController {
-
+    
     //holds the text entry that was entered in mapViewController
-    private var currentLocationEntry: String = ""
     
-    private var searchBar: UISearchBar?
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    fileprivate var searchBar: UISearchBar?  //searchBar associated with searchController
+    
+    private let testData = [("Title 1", "Subtitle 1"), ("Title 2", "Subtitle 2")]
+    
+    private var filteredTableData = [(String, String)]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.delegate  = self
-        //self.initSearchBar()
-        
-        
+        tableView.delegate  = self
+        searchBar = searchController.searchBar
+        initSearchBar()
+        filteredTableData = testData
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -45,30 +50,35 @@ class LocationTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return filteredTableData.count
     }
     
+    /*
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
-
-    /*
+*/
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath)
+        
         // Configure the cell...
-
+        
+        let (title, subtitle) = filteredTableData[indexPath.row] // row should always be < than size of array
+        cell.textLabel!.text = title
+        cell.detailTextLabel!.text = subtitle
         return cell
     }
-    */
+    
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
-    */
+    
 
     /*
     // Override to support editing the table view.
@@ -97,29 +107,30 @@ class LocationTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
 
+    // MARK: - Navigation
+    
+    //perform segues here
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
     
     //configure and make search bar
     func initSearchBar() {
         //init the search Bar
-        self.searchBar = UISearchBar(frame: (self.tableView.tableHeaderView?.bounds)!)
-        self.tableView.tableHeaderView = self.searchBar
-        self.searchBar?.delegate = self
-        self.searchBar?.barStyle = UIBarStyle.default
-        self.searchBar?.showsBookmarkButton = false
-        self.searchBar?.showsCancelButton = true
-        self.searchBar?.showsSearchResultsButton = false
-        //self.searchBar?.sizeToFit() //not sure if needed
-        
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.definesPresentationContext = true
+        searchController.searchResultsUpdater = self
+        tableView.tableHeaderView = searchBar
+        searchBar?.delegate = self
         
     }
     
@@ -137,11 +148,39 @@ class LocationTableViewController: UITableViewController {
     
     
     
+    //HELPER METHODS
     
-    //HELPER METHODS 
+    func filterSearchResults(searchString: String?) {
+        if(searchString == nil) {
+            //tableView.reloadSections(IndexSet([0]), with: UITableViewRowAnimation.left)
+            return
+        }
+        //else filter testData
+        let res = testData.filter { (s1: String, s2: String) in
+            if((s1.lowercased()).contains(searchString!.lowercased())) {
+                return true
+            }
+            return false
+        }
+        
+        filteredTableData = res
+        tableView.reloadSections(IndexSet([0]), with: UITableViewRowAnimation.left)
+    }
     
 }
 
+
+
+extension LocationTableViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for: UISearchController) {
+        if let sb = searchBar {
+            filterSearchResults(searchString: sb.text)
+        }
+        //else do nothing
+    }
+    
+}
 
 
 extension LocationTableViewController: UISearchBarDelegate {
