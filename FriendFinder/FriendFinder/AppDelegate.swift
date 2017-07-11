@@ -11,6 +11,8 @@ import Firebase
 import FirebaseAuthUI
 import FBSDKCoreKit
 import GoogleSignIn
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
@@ -27,7 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
         
         //google sign in config
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        
+        var dict: NSDictionary?
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
+            dict = NSDictionary(contentsOfFile: path)
+            if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
+                GMSServices.provideAPIKey(key)
+                GMSPlacesClient.provideAPIKey(key)
+            }
+        }
+
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     

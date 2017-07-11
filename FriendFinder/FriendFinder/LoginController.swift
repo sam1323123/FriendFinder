@@ -12,7 +12,6 @@ import FacebookLogin
 import FacebookCore
 import FBSDKCoreKit
 import GoogleSignIn
-import MapboxGeocoder
 
 
 class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
@@ -32,10 +31,6 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     
     //dictionary mapping errors to error messages
     let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
-    
-    static let MAPBOX_ACCESS_KEY: String = "MGLMapBoxAccessToken"
-    
-    let geocoder = Geocoder.shared
 
     
     //initializes what will be viewed

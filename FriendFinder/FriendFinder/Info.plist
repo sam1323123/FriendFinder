@@ -75,9 +75,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>MGLMapboxAccessToken</key>
-    <string>pk.eyJ1IjoiZnJpZW5kZmluZGVyIiwiYSI6ImNqNHRrZG96YjBhZjgyd2swb2N5eGZpNW8ifQ.Wdz8P_9SjoCBFr1cskWunA</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Shows your location on the map and helps improve OpenStreetMap.</string>
+    <key>GoogleMapsAPIKey</key>
+    <string>AIzaSyBrWnxHlZ-Hw9uxvClPtTzuDU5ZQ5H39iA</string>
 </dict>
 </plist>
