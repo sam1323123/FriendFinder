@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import GoogleMaps
+import GooglePlaces
 
 class MapViewController: UIViewController {
+    
+    @IBOutlet weak var mapView: GMSMapView!
 
     @IBOutlet weak var searchBox: UITextField! {
         
@@ -16,23 +20,15 @@ class MapViewController: UIViewController {
             searchBox.layer.borderColor = UIColor.darkGray.cgColor
             searchBox.attributedPlaceholder = NSAttributedString(string: "Enter Location",
                                                                  attributes: [NSForegroundColorAttributeName: UIColor.darkGray])
-             searchBox.delegate = self
+            searchBox.delegate = self
         }
     }
     
+    let locationManager = CLLocationManager()
+    let placesClient = GMSPlacesClient.shared()
+    
     override func loadView() {
-        // Create a GMSCameraPosition that tells the map to display the
-        // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        view = mapView
-        
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView
+        super.loadView()
     }
     
     override var shouldAutorotate: Bool {
@@ -52,9 +48,9 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-
-        // Do any additional setup after loading the view.
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,8 +80,28 @@ extension MapViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("Will perform locationSEARCH SEGUE")
+        print("Will perform location search segue")
         performSegue(withIdentifier: "locationSearch", sender: self)
+    }
+    
+}
+
+extension MapViewController: CLLocationManagerDelegate {
+    func locationManager(_: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+            mapView.isMyLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        }
+    }
+    
+    func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            
+            locationManager.stopUpdatingLocation()
+        }
+        
     }
 }
 

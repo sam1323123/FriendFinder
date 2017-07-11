@@ -50,6 +50,9 @@ PODS:
   - GoogleMaps/Base (2.3.1)
   - GoogleMaps/Maps (2.3.1):
     - GoogleMaps/Base
+  - GooglePlacePicker (2.3.1):
+    - GoogleMaps (= 2.3.1)
+    - GooglePlaces (= 2.3.1)
   - GooglePlaces (2.3.1):
     - GoogleMaps/Base (= 2.3.1)
   - GoogleSignIn (4.0.2):
@@ -84,6 +87,7 @@ DEPENDENCIES:
   - FirebaseUI/Google (~> 4.0)
   - FirebaseUI/Phone
   - GoogleMaps
+  - GooglePlacePicker
   - GooglePlaces
 
 SPEC CHECKSUMS:
@@ -99,12 +103,13 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
   FirebaseUI: 5ebebe2c096c71f20abd1d43d0388958373bdaa0
   GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
+  GooglePlacePicker: fc3564ac7a2ce314e78e42bfc1e16822ad1e5488
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
   GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
 
-PODFILE CHECKSUM: 0c960efc4a916e40d0da4c88e87edf84f3db744b
+PODFILE CHECKSUM: 593e45f3f51fa69b55e0e917e437d18aa99e06e2
 
 COCOAPODS: 1.2.1

@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
             if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
                 GMSServices.provideAPIKey(key)
                 GMSPlacesClient.provideAPIKey(key)
+                GMSServices.provideAPIKey(key)
             }
         }
 

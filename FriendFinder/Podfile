@@ -13,6 +13,7 @@ target 'FriendFinder' do
   #Map
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
 
   #Authentication libraries
   #pod 'FirebaseUI/Twitter'
