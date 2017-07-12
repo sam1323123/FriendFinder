@@ -1,9 +1,13 @@
-# Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+source 'https://github.com/CocoaPods/Specs.git'
+
+workspace 'FriendFinder.xcworkspace' # Your project's workspace
+project 'FriendFinder.xcodeproj' # Your project's Xcode project
+project 'Frameworks/External/PXGoogleDirections/PXGoogleDirections.xcodeproj' # Update folder structure if needed
 
 target 'FriendFinder' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  
+
+  project 'FriendFinder.xcodeproj'
+  platform :ios, '9.0'
   use_frameworks!
   
   # Pods for FriendFinder
@@ -36,6 +40,12 @@ target 'FriendFinder' do
     inherit! :search_paths
     # Pods for testing
   end
+end
 
+# This tells Cocoapods how to build the subproject
+target 'PXGoogleDirections' do
+   project 'Frameworks/External/PXGoogleDirections/PXGoogleDirections.xcodeproj'
+   platform :ios, '8.1'
 
+   pod 'GoogleMaps'
 end
