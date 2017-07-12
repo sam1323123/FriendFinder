@@ -10,15 +10,23 @@ target 'FriendFinder' do
   #Database
   pod 'Firebase/Core'
 
+  #Map
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
+
   #Authentication libraries
   #pod 'FirebaseUI/Twitter'
 
+  pod 'FacebookLogin'
   pod 'FirebaseUI/Phone'
+
   # Only pull in FirebaseUI Auth features
   pod 'FirebaseUI/Auth', '~> 4.0'
 
   # Only pull in Facebook login features
   pod 'FirebaseUI/Facebook', '~> 4.0'
+  pod 'FBSDKLoginKit' 
 
   # Only pull in Google login features
   pod 'FirebaseUI/Google', '~> 4.0'
