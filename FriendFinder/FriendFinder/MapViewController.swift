@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import Pods_FriendFinder_PXGoogleDirections
 
 class MapViewController: UIViewController {
     
@@ -26,6 +27,8 @@ class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     let placesClient = GMSPlacesClient.shared()
+    
+    var apiKey : String?
     
     override func loadView() {
         super.loadView()
@@ -50,7 +53,13 @@ class MapViewController: UIViewController {
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-    
+        var dict: NSDictionary?
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
+            dict = NSDictionary(contentsOfFile: path)
+            if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
+                apiKey = key
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
