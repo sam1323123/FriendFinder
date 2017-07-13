@@ -20,7 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
     var window: UIWindow?
     var authUI: FUIAuth?
 
-
+     func application(_ application: UIApplication,
+                              willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        var dict: NSDictionary?
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
+            dict = NSDictionary(contentsOfFile: path)
+            if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
+                GMSServices.provideAPIKey(key)
+                GMSPlacesClient.provideAPIKey(key)
+            }
+        }
+        return true
+    }
+    
     public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
@@ -35,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
             if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
                 GMSServices.provideAPIKey(key)
                 GMSPlacesClient.provideAPIKey(key)
-                GMSServices.provideAPIKey(key)
             }
         }
 
