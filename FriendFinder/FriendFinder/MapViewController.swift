@@ -28,7 +28,9 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     let placesClient = GMSPlacesClient.shared()
     
-    var apiKey : String?
+    var apiKey: String!
+    
+    var searchMarker: GMSMarker!
     
     override func loadView() {
         super.loadView()
@@ -130,9 +132,15 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
         mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-        let marker = GMSMarker(position: place.coordinate)
-        marker.title = place.name 
-        marker.map = mapView
+        if (searchMarker != nil) {
+            searchMarker.map = nil
+        }
+        else {
+            searchMarker = GMSMarker(position: place.coordinate)
+        }
+        searchMarker.position = place.coordinate
+        searchMarker.title = place.name
+        searchMarker.map = mapView
         dismiss(animated: true, completion: nil)
     }
     
