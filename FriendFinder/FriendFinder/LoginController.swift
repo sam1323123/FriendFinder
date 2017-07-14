@@ -30,7 +30,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     var isBackPressed: Bool = false
     
     //dictionary mapping errors to error messages
-    let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
+    fileprivate let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
 
     
     //initializes what will be viewed
@@ -219,8 +219,102 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         print("Logged Out")
     }
     
+    
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+    
+    
+    //TODO: back button remove?
+    @IBAction func goBack(segue: UIStoryboardSegue){
+        print("Button pressed")
+        isBackPressed = true
+        if let src = segue.source as? NextViewController {
+            print(src.NextLabel.text!)
+        }
+        let dest = segue.destination as? LoginController
+        dest?.isBackPressed = true
+        
+    }
+
+    //login generic
+    fileprivate func login(user: User?, error: Error?) {
+        if let _ = user {
+            // might need to prepare segue later
+            performSegue(withIdentifier: "Login" , sender: nil)
+        }
+                
+        else {
+            handleSignInError(error: error)
+        }
+    }
+
+    //helper to handle sign in errors
+    private func handleSignInError(error: Error?) {
+        if(error == nil) {
+            //nil check
+            return
+        }
+        if let code = AuthErrorCode(rawValue: error!._code) {
+            if let tuple = errorDict[code] {
+                let title = tuple.0
+                let message = tuple.1
+                displayAlert(title: title, message: message, text: "OK")
+            }
+            else {
+                displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
+            }
+        }
+
+    }
+
+    //displays alert with given message and text
+    func displayAlert(title: String, message: String, text: String, callback: (() -> Void)? = nil) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alertController.addAction(UIAlertAction(title: text, style: .default) {
+            (action: UIAlertAction) -> Void in
+            if let f = callback {
+                    f()
+            }
+        })
+        present(alertController, animated: true)
+    }
+    
+    
+    
+
+}
+
+//useful extension to String
+extension String {
+    
+    func validateEmail() -> Bool {
+        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
+        return emailPredicate.evaluate(with: self)
+    }
+    
+    func isNumeric() -> Bool {
+        return Int(self) != nil
+    }
+    
+    func hasWhitespace() -> Bool {
+        return self.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
+    }
+}
+
+//extension for facebook login code
+extension LoginController {
+    
     //initializes facebook button and callback
-    private func initializeFacebookLogin() -> UIView {
+    fileprivate func initializeFacebookLogin() -> UIView {
         let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
         
         loginButton.delegate = self
@@ -250,7 +344,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         return loginButton
         
     }
-
+    
     //login with facebook
      func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
@@ -270,7 +364,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     }
     
     //facebook logout
-     func loginButtonDidLogOut(_ loginButton: LoginButton) {
+    func loginButtonDidLogOut(_ loginButton: LoginButton) {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
@@ -280,31 +374,11 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         print("Logged Out")
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+// extension for email login
+extension LoginController {
     
-    
-    //TODO: back button remove?
-    @IBAction func goBack(segue: UIStoryboardSegue){
-        print("Button pressed")
-        isBackPressed = true
-        if let src = segue.source as? NextViewController {
-            print(src.NextLabel.text!)
-        }
-        let dest = segue.destination as? LoginController
-        dest?.isBackPressed = true
-        
-    }
-
-
     //signup button handler
     @IBAction func signupPressed() {
         if let username = username_textfield.text, let pw = password_textfield.text {
@@ -327,7 +401,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
             emailSignup(username, pw)
         }
     }
-
+    
     //signup by mail method
     private func emailSignup(_ email_address: String, _ pw: String) {
         
@@ -393,7 +467,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
                 performSegue(withIdentifier: "Map" , sender: nil)
                 return
             }
-
+            
             emailLogin(username: username, pw: pw)
         }
     }
@@ -404,70 +478,6 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
             self?.login(user: user, error: error)
         }
     }
-    
-    //login generic
-    private func login(user: User?, error: Error?) {
-        if let _ = user {
-            // might need to prepare segue later
-            performSegue(withIdentifier: "Login" , sender: nil)
-        }
-                
-        else {
-            handleSignInError(error: error)
-        }
-    }
-
-    //helper to handle sign in errors
-    private func handleSignInError(error: Error?) {
-        if(error == nil) {
-            //nil check
-            return
-        }
-        if let code = AuthErrorCode(rawValue: error!._code) {
-            if let tuple = errorDict[code] {
-                let title = tuple.0
-                let message = tuple.1
-                displayAlert(title: title, message: message, text: "OK")
-            }
-            else {
-                displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
-            }
-        }
-
-    }
-
-    //displays alert with given message and text
-    func displayAlert(title: String, message: String, text: String, callback: (() -> Void)? = nil) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        alertController.addAction(UIAlertAction(title: text, style: .default) {
-            (action: UIAlertAction) -> Void in
-            if let f = callback {
-                    f()
-            }
-        })
-        present(alertController, animated: true)
-    }
-    
-    
-    
 
 }
 
-//useful extension to String
-extension String {
-    
-    func validateEmail() -> Bool {
-        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
-        return emailPredicate.evaluate(with: self)
-    }
-    
-    func isNumeric() -> Bool {
-        return Int(self) != nil
-    }
-    
-    func hasWhitespace() -> Bool {
-        return self.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
-    }
-}
