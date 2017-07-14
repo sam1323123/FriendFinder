@@ -98,7 +98,6 @@ extension MapViewController: UITextFieldDelegate {
         let searchView = GMSAutocompleteViewController()
         searchView.delegate = self
         present(searchView, animated: true, completion: nil)
-
     }
     
 }
@@ -131,6 +130,9 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
         mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+        let marker = GMSMarker(position: place.coordinate)
+        marker.title = place.name 
+        marker.map = mapView
         dismiss(animated: true, completion: nil)
     }
     

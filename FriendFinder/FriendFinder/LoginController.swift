@@ -30,7 +30,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
     var isBackPressed: Bool = false
     
     //dictionary mapping errors to error messages
-    let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
+    fileprivate let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
 
     
     //initializes what will be viewed
@@ -175,9 +175,16 @@ class LoginController: UIViewController, LoginButtonDelegate {
         return button
     }
 
+}
+
+
+
+//extension for facebook login code
+extension LoginController {
     
+
     //initializes facebook button and callback
-    private func initializeFacebookLogin() -> UIView {
+    fileprivate func initializeFacebookLogin() -> UIView {
         let loginButton = LoginButton(readPermissions: [  .publicProfile, .email, .userFriends ])
         
         loginButton.delegate = self
@@ -207,7 +214,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
         return loginButton
         
     }
-
+    
     //login with facebook
      func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         switch result {
@@ -227,7 +234,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
     }
     
     //facebook logout
-     func loginButtonDidLogOut(_ loginButton: LoginButton) {
+    func loginButtonDidLogOut(_ loginButton: LoginButton) {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
@@ -237,31 +244,14 @@ class LoginController: UIViewController, LoginButtonDelegate {
         print("Logged Out")
     }
     
+}
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+
+
+// extension for email login
+extension LoginController {
     
-    
-    //TODO: back button remove?
-    @IBAction func goBack(segue: UIStoryboardSegue){
-        print("Button pressed")
-        isBackPressed = true
-        if let src = segue.source as? NextViewController {
-            print(src.NextLabel.text!)
-        }
-        let dest = segue.destination as? LoginController
-        dest?.isBackPressed = true
-        
-    }
-
-
     //signup button handler
     @IBAction func signupPressed() {
         if let username = username_textfield.text, let pw = password_textfield.text {
@@ -284,7 +274,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
             emailSignup(username, pw)
         }
     }
-
+    
     //signup by mail method
     private func emailSignup(_ email_address: String, _ pw: String) {
         
@@ -350,7 +340,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
                 performSegue(withIdentifier: "Map" , sender: nil)
                 return
             }
-
+            
             emailLogin(username: username, pw: pw)
         }
     }
@@ -361,6 +351,7 @@ class LoginController: UIViewController, LoginButtonDelegate {
             self?.login(user: user, error: error)
         }
     }
+
     
     //login generic
     fileprivate func login(user: User?, error: Error?) {
@@ -410,6 +401,8 @@ class LoginController: UIViewController, LoginButtonDelegate {
     
 
 }
+
+
 
 
 
@@ -483,3 +476,4 @@ extension String {
         return self.rangeOfCharacter(from: CharacterSet.whitespaces) != nil
     }
 }
+
