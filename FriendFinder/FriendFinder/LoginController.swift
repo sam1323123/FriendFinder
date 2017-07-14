@@ -14,7 +14,7 @@ import FBSDKCoreKit
 import GoogleSignIn
 
 
-class LoginController: UIViewController, LoginButtonDelegate {
+class LoginController: UIViewController {
 
     var backgroundImageView : UIImageView = UIImageView()
     
@@ -110,77 +110,25 @@ class LoginController: UIViewController, LoginButtonDelegate {
         sender.backgroundColor = .white
     }
     
-    //create custom google button
-    func createCustomGoogleButton(below: UIView) -> UIButton {
-        let button = UIButton(type: .custom)
-        button.frame = CGRect(x: self.mainStackView.frame.minX,
-                              y: below.frame.maxY,
-                              width: self.mainStackView.frame.width,
-                              height: self.password_textfield.frame.height)
-        
-        //set logo
-        button.setImage(#imageLiteral(resourceName: "google_background"), for: .normal)
-        
-        //title formatting
-        button.setTitle("Sign in with Google", for: .normal)
-        button.titleLabel!.font = UIFont(name: "Roboto-Medium", size: 14.0)
-        button.titleLabel!.adjustsFontSizeToFitWidth = true
-        button.titleLabel!.adjustsFontForContentSizeCategory = true
-        button.titleLabel!.numberOfLines = 1
-        button.titleLabel!.textAlignment = .center
-        button.setTitleColor(.darkGray, for: .normal)
-        
-        
-        //set borders and spacing
-        button.contentEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 2.0, 5.0)
-        let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
-        let availableWidth = availableSpace.width - button.imageEdgeInsets.right - button.imageView!.frame.width - button.titleLabel!.frame.width
-        let availableHeight = availableSpace.height - button.titleLabel!.frame.height
-        
-        //adjust based on screen size
-        let scaleFactor: CGFloat =  isLargeScreen! ? 2.0 : 10.0
-        button.titleEdgeInsets = UIEdgeInsetsMake(0.0, availableWidth/scaleFactor, availableHeight/4.0, 0.0)
-        
-        //turn off highlight for custom highlighting
-        button.adjustsImageWhenHighlighted = false
-        button.backgroundColor = .white
-        
-        //call google sign in
-        button.addTarget(self, action: #selector(googleSignInPressed), for: .touchUpInside)
-        
-        //handle button highlight
-        button.addTarget(self, action: #selector(highlightButton(sender:)), for: .touchDown)
-        button.addTarget(self, action: #selector(unhighlightButton(sender:)), for: .touchUpInside)
-        button.addTarget(self, action: #selector(unhighlightButton(sender:)), for: .touchUpOutside)
-        
-        button.clipsToBounds = false
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
-        button.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        view.addSubview(button)
-        
-        /*
-         add constraints to login here. Currently made to sit below main stack view and be of same width
-         of stackView and same height as the username rect and have a space between facebook and google
-         */
-        
-        let topConstraintSpace: CGFloat = (isLargeScreen!) ? 10.0 : 5.0 //space to button above
-        let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
-        let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: topConstraintSpace)
-        let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
-        let widthConstraint  = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
-        
-        NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
-        
-        return button
-    }
 
+    //displays alert with given message and text
+    func displayAlert(title: String, message: String, text: String, callback: (() -> Void)? = nil) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+    
+        alertController.addAction(UIAlertAction(title: text, style: .default) {
+            (action: UIAlertAction) -> Void in
+            if let f = callback {
+                f()
+            }
+        })
+        present(alertController, animated: true)
+    }
+    
 }
 
 
-
 //extension for facebook login code
-extension LoginController {
+extension LoginController: LoginButtonDelegate {
     
 
     //initializes facebook button and callback
@@ -246,7 +194,117 @@ extension LoginController {
     
 }
 
-
+extension LoginController: GIDSignInDelegate, GIDSignInUIDelegate {
+    
+    //create custom google button
+    func createCustomGoogleButton(below: UIView) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: self.mainStackView.frame.minX,
+                              y: below.frame.maxY,
+                              width: self.mainStackView.frame.width,
+                              height: self.password_textfield.frame.height)
+        
+        //set logo
+        button.setImage(#imageLiteral(resourceName: "google_background"), for: .normal)
+        
+        //title formatting
+        button.setTitle("Sign in with Google", for: .normal)
+        button.titleLabel!.font = UIFont(name: "Roboto-Medium", size: 14.0)
+        button.titleLabel!.adjustsFontSizeToFitWidth = true
+        button.titleLabel!.adjustsFontForContentSizeCategory = true
+        button.titleLabel!.numberOfLines = 1
+        button.titleLabel!.textAlignment = .center
+        button.setTitleColor(.darkGray, for: .normal)
+        
+        
+        //set borders and spacing
+        button.contentEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 2.0, 5.0)
+        let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
+        let availableWidth = availableSpace.width - button.imageEdgeInsets.right - button.imageView!.frame.width - button.titleLabel!.frame.width
+        let availableHeight = availableSpace.height - button.titleLabel!.frame.height
+        
+        //adjust based on screen size
+        let scaleFactor: CGFloat =  isLargeScreen! ? 2.0 : 10.0
+        button.titleEdgeInsets = UIEdgeInsetsMake(0.0, availableWidth/scaleFactor, availableHeight/4.0, 0.0)
+        
+        //turn off highlight for custom highlighting
+        button.adjustsImageWhenHighlighted = false
+        button.backgroundColor = .white
+        
+        //call google sign in
+        button.addTarget(self, action: #selector(googleSignInPressed), for: .touchUpInside)
+        
+        //handle button highlight
+        button.addTarget(self, action: #selector(highlightButton(sender:)), for: .touchDown)
+        button.addTarget(self, action: #selector(unhighlightButton(sender:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(unhighlightButton(sender:)), for: .touchUpOutside)
+        
+        button.clipsToBounds = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        button.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        view.addSubview(button)
+        
+        /*
+         add constraints to login here. Currently made to sit below main stack view and be of same width
+         of stackView and same height as the username rect and have a space between facebook and google
+         */
+        
+        let topConstraintSpace: CGFloat = (isLargeScreen!) ? 10.0 : 5.0 //space to button above
+        let leadingConstraint = NSLayoutConstraint(item: button, attribute: .leading, relatedBy: .equal, toItem: self.mainStackView, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: button , attribute: .top, relatedBy: .equal, toItem: below, attribute: .bottom, multiplier: 1.0, constant: topConstraintSpace)
+        let heightConstraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: self.password_textfield, attribute: .height, multiplier: 1.0, constant: 0.0)
+        let widthConstraint  = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: self.mainStackView, attribute: .width, multiplier: 1.0, constant: 0.0)
+        
+        NSLayoutConstraint.activate([leadingConstraint, topConstraint, heightConstraint, widthConstraint])
+        
+        return button
+    }
+    
+    
+    //required local wrapper for google sigin
+    func googleSignInPressed() {
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
+    //google sign in delegate protocol. Used for when user has signed in with google
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        // ...
+        if let error = error {
+            print("Some error with google sign in = \(error)")
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: credential) {[weak self] (user, error) in
+            self?.login(user: user, error: error)
+        }
+    }
+    
+    
+    //google sign in delegate protocol for disconnection
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        
+        print("Google Sign In: User disconnected from app ")
+    }
+    
+    
+    //google logout
+    func logOutWithGoogle() {
+        GIDSignIn.sharedInstance().signOut()
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        print("Logged Out")
+    }
+    
+}
 
 
 // extension for email login
@@ -351,7 +409,7 @@ extension LoginController {
             self?.login(user: user, error: error)
         }
     }
-
+    
     
     //login generic
     fileprivate func login(user: User?, error: Error?) {
@@ -359,12 +417,12 @@ extension LoginController {
             // might need to prepare segue later
             performSegue(withIdentifier: "Login" , sender: nil)
         }
-                
+            
         else {
             handleSignInError(error: error)
         }
     }
-
+    
     //helper to handle sign in errors
     private func handleSignInError(error: Error?) {
         if(error == nil) {
@@ -381,83 +439,9 @@ extension LoginController {
                 displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
             }
         }
-
-    }
-
-    //displays alert with given message and text
-    func displayAlert(title: String, message: String, text: String, callback: (() -> Void)? = nil) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
-        alertController.addAction(UIAlertAction(title: text, style: .default) {
-            (action: UIAlertAction) -> Void in
-            if let f = callback {
-                    f()
-            }
-        })
-        present(alertController, animated: true)
     }
-    
-    
-    
-
 }
-
-
-
-
-
-
-extension LoginController: GIDSignInDelegate, GIDSignInUIDelegate {
-    
-    
-    
-    //required local wrapper for google sigin
-    func googleSignInPressed() {
-        GIDSignIn.sharedInstance().signIn()
-    }
-    
-    //google sign in delegate protocol. Used for when user has signed in with google
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        // ...
-        if let error = error {
-            print("Some error with google sign in = \(error)")
-            return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) {[weak self] (user, error) in
-            self?.login(user: user, error: error)
-        }
-    }
-    
-    
-    //google sign in delegate protocol for disconnection
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        
-        print("Google Sign In: User disconnected from app ")
-    }
-    
-    
-    //google logout
-    func logOutWithGoogle() {
-        GIDSignIn.sharedInstance().signOut()
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-        print("Logged Out")
-    }
-
-    
-    
-}
-
-
 
 //useful extension to String
 extension String {
