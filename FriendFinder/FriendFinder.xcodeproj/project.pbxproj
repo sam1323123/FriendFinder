@@ -25,8 +25,8 @@
 		98A11D681EFA53F2007050E4 /* FriendFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D671EFA53F2007050E4 /* FriendFinderTests.swift */; };
 		98A11D731EFA5439007050E4 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D721EFA5439007050E4 /* LoginController.swift */; };
 		98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D741EFE0287007050E4 /* NextViewController.swift */; };
-		98DD322D1F175CD60019A239 /* Pods_PXGoogleDirections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8100287785EB5930FC9677CE /* Pods_PXGoogleDirections.framework */; };
-		98DD322E1F175CD60019A239 /* Pods_PXGoogleDirections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8100287785EB5930FC9677CE /* Pods_PXGoogleDirections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		98B48AAE1F18A15000099AF2 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
+		98B48AAF1F18A15000099AF2 /* Pods_FriendFinder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,13 +40,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		98DD32261F1759ED0019A239 /* Embed Frameworks */ = {
+		98B48AB01F18A15000099AF2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				98DD322E1F175CD60019A239 /* Pods_PXGoogleDirections.framework in Embed Frameworks */,
+				98B48AAF1F18A15000099AF2 /* Pods_FriendFinder.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,7 +61,6 @@
 		42FF92151F08F65B00A6421B /* FriendFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FriendFinder.entitlements; sourceTree = "<group>"; };
 		42FF92161F0F7B0800A6421B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
-		8100287785EB5930FC9677CE /* Pods_PXGoogleDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PXGoogleDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9817608A1F14B93000703759 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		9819A6161F1218CA00FDA7AD /* LocationTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableTableViewController.swift; sourceTree = "<group>"; };
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -91,8 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98B48AAE1F18A15000099AF2 /* Pods_FriendFinder.framework in Frameworks */,
 				3933236A940E4DB523CE55A7 /* Pods_FriendFinder.framework in Frameworks */,
-				98DD322D1F175CD60019A239 /* Pods_PXGoogleDirections.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +218,7 @@
 				98A11D4D1EFA53F2007050E4 /* Resources */,
 				DC0571731B0E542E1D354FF1 /* [CP] Embed Pods Frameworks */,
 				70A2CF509D0F383AE8CD3A0F /* [CP] Copy Pods Resources */,
-				98DD32261F1759ED0019A239 /* Embed Frameworks */,
+				98B48AB01F18A15000099AF2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

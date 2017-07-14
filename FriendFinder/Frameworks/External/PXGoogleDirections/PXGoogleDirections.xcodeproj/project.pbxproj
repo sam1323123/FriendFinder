@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5486AA6CF9576507CF782E50 /* libPods-PXGoogleDirections.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2053994D57689E8DF6FFA7 /* libPods-PXGoogleDirections.a */; };
 		7A083DDB1D2D71D900B42940 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A083DDA1D2D71D900B42940 /* UIKit.framework */; };
 		7A083DEE1D2D723F00B42940 /* PXGoogleDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A083DDC1D2D723F00B42940 /* PXGoogleDirections.swift */; };
 		7A083DEF1D2D723F00B42940 /* PXGoogleDirectionsDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A083DDD1D2D723F00B42940 /* PXGoogleDirectionsDistance.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B2053994D57689E8DF6FFA7 /* libPods-PXGoogleDirections.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PXGoogleDirections.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B3DE48E5D50B63C81FCFF7 /* Pods-PXGoogleDirections.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PXGoogleDirections.release.xcconfig"; path = "Pods/Target Support Files/Pods-PXGoogleDirections/Pods-PXGoogleDirections.release.xcconfig"; sourceTree = "<group>"; };
 		7A083DD81D2D718F00B42940 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		7A083DDA1D2D71D900B42940 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -54,7 +56,6 @@
 		7A09854D1D2D71120095737F /* PXGoogleDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PXGoogleDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A0985501D2D71120095737F /* PXGoogleDirections.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PXGoogleDirections.h; sourceTree = "<group>"; };
 		7A0985521D2D71120095737F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8100287785EB5930FC9677CE /* Pods_PXGoogleDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PXGoogleDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95ACA0ABED8E80D370DA7D3C /* Pods-PXGoogleDirections.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PXGoogleDirections.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PXGoogleDirections/Pods-PXGoogleDirections.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A083DDB1D2D71D900B42940 /* UIKit.framework in Frameworks */,
+				5486AA6CF9576507CF782E50 /* libPods-PXGoogleDirections.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,7 +122,7 @@
 			children = (
 				7A083DDA1D2D71D900B42940 /* UIKit.framework */,
 				7A083DD81D2D718F00B42940 /* CoreText.framework */,
-				8100287785EB5930FC9677CE /* Pods_PXGoogleDirections.framework */,
+				0B2053994D57689E8DF6FFA7 /* libPods-PXGoogleDirections.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -224,7 +226,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		F662D553D8181D0747B983F6 /* [CP] Copy Pods Resources */ = {
@@ -239,7 +241,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PXGoogleDirections/Pods-PXGoogleDirections-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../../../Pods/Target Support Files/Pods-PXGoogleDirections/Pods-PXGoogleDirections-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 workspace 'FriendFinder.xcworkspace' # Your project's workspace
 project 'FriendFinder.xcodeproj' # Your project's Xcode project
-project 'Frameworks1/External/PXGoogleDirections/PXGoogleDirections.xcodeproj' # Update folder structure if needed
+project 'Frameworks/External/PXGoogleDirections/PXGoogleDirections.xcodeproj' # Update folder structure if needed
 
 target 'FriendFinder' do
 
