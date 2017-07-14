@@ -13,12 +13,14 @@ import FBSDKCoreKit
 import GoogleSignIn
 import GoogleMaps
 import GooglePlaces
+import PXGoogleDirections
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
 
     var window: UIWindow?
     var authUI: FUIAuth?
+    var directionsAPI: PXGoogleDirections!
 
      func application(_ application: UIApplication,
                               willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
@@ -28,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
             if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
                 GMSServices.provideAPIKey(key)
                 GMSPlacesClient.provideAPIKey(key)
+                directionsAPI = PXGoogleDirections(apiKey: key)
             }
         }
         return true

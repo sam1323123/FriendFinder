@@ -12,7 +12,6 @@
 		42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92131F05014100A6421B /* BottomBorderTextField.swift */; };
 		42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42FF92161F0F7B0800A6421B /* Default-568h@2x.png */; };
 		9817608B1F14B93000703759 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9817608A1F14B93000703759 /* SubtitleTableViewCell.swift */; };
-		9819A6171F1218CB00FDA7AD /* LocationTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9819A6161F1218CA00FDA7AD /* LocationTableTableViewController.swift */; };
 		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
 		9823B0691F08AB7D00982623 /* FirebaseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B0681F08AB7D00982623 /* FirebaseErrors.swift */; };
 		9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B06B1F08D5EB00982623 /* MapViewController.swift */; };
@@ -62,7 +61,6 @@
 		42FF92161F0F7B0800A6421B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9817608A1F14B93000703759 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
-		9819A6161F1218CA00FDA7AD /* LocationTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableTableViewController.swift; sourceTree = "<group>"; };
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9823B0681F08AB7D00982623 /* FirebaseErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseErrors.swift; sourceTree = "<group>"; };
 		9823B06B1F08D5EB00982623 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +141,6 @@
 				98A11D541EFA53F2007050E4 /* LaunchController.swift */,
 				98A11D741EFE0287007050E4 /* NextViewController.swift */,
 				9823B06B1F08D5EB00982623 /* MapViewController.swift */,
-				9819A6161F1218CA00FDA7AD /* LocationTableTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -418,7 +415,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */,
-				9819A6171F1218CB00FDA7AD /* LocationTableTableViewController.swift in Sources */,
 				98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */,
 				9817608B1F14B93000703759 /* SubtitleTableViewCell.swift in Sources */,
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,

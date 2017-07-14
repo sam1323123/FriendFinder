@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
-//import PXGoogleDirections
+import PXGoogleDirections
 
 class MapViewController: UIViewController {
     
@@ -61,11 +61,10 @@ class MapViewController: UIViewController {
             }
         }
         print(apiKey!)
-        /*let directionsAPI = PXGoogleDirections(apiKey: apiKey!,
+        let directionsAPI = PXGoogleDirections(apiKey: apiKey!,
                                                from: PXLocation.coordinateLocation(CLLocationCoordinate2DMake(37.331690, -122.030762)),
                                                to: PXLocation.specificLocation("Googleplex", "Mountain View", "United States"))
  
-    */
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,6 +130,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
         print("Place name: \(place.name)")
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
+        mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
         dismiss(animated: true, completion: nil)
     }
     
@@ -151,7 +151,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
     
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-}
+    }
 }
 
 
