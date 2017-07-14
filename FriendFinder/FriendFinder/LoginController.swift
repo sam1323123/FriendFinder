@@ -14,7 +14,7 @@ import FBSDKCoreKit
 import GoogleSignIn
 
 
-class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
+class LoginController: UIViewController, LoginButtonDelegate {
 
     var backgroundImageView : UIImageView = UIImageView()
     
@@ -130,7 +130,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         button.titleLabel!.textAlignment = .center
         button.setTitleColor(.darkGray, for: .normal)
         
-
+        
         //set borders and spacing
         button.contentEdgeInsets = UIEdgeInsetsMake(2.0, 5.0, 2.0, 5.0)
         let availableSpace = UIEdgeInsetsInsetRect(button.bounds, button.contentEdgeInsets)
@@ -174,50 +174,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
         
         return button
     }
-    
 
-    
-    //required local wrapper for google sigin
-    func googleSignInPressed() {
-        GIDSignIn.sharedInstance().signIn()
-    }
-    
-    //google sign in delegate protocol. Used for when user has signed in with google
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        // ...
-        if let error = error {
-            print("Some error with google sign in = \(error)")
-            return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) {[weak self] (user, error) in
-            self?.login(user: user, error: error)
-        }
-    }
-    
-    
-    //google sign in delegate protocol for disconnection
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        
-        print("Google Sign In: User disconnected from app ")
-    }
-    
-    
-    //google logout
-    func logOutWithGoogle() {
-        GIDSignIn.sharedInstance().signOut()
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-        print("Logged Out")
-    }
     
     //initializes facebook button and callback
     private func initializeFacebookLogin() -> UIView {
@@ -406,7 +363,7 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     }
     
     //login generic
-    private func login(user: User?, error: Error?) {
+    fileprivate func login(user: User?, error: Error?) {
         if let _ = user {
             // might need to prepare segue later
             performSegue(withIdentifier: "Login" , sender: nil)
@@ -453,6 +410,61 @@ class LoginController: UIViewController, LoginButtonDelegate, GIDSignInDelegate,
     
 
 }
+
+
+
+
+extension LoginController: GIDSignInDelegate, GIDSignInUIDelegate {
+    
+    
+    
+    //required local wrapper for google sigin
+    func googleSignInPressed() {
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
+    //google sign in delegate protocol. Used for when user has signed in with google
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        // ...
+        if let error = error {
+            print("Some error with google sign in = \(error)")
+            return
+        }
+        
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: credential) {[weak self] (user, error) in
+            self?.login(user: user, error: error)
+        }
+    }
+    
+    
+    //google sign in delegate protocol for disconnection
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        
+        print("Google Sign In: User disconnected from app ")
+    }
+    
+    
+    //google logout
+    func logOutWithGoogle() {
+        GIDSignIn.sharedInstance().signOut()
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        print("Logged Out")
+    }
+
+    
+    
+}
+
+
 
 //useful extension to String
 extension String {
