@@ -28,9 +28,9 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     let placesClient = GMSPlacesClient.shared()
     
-    var apiKey: String!
+    let marker = GMSMarker()
     
-    var searchMarker: GMSMarker!
+    var apiKey: String!
     
     override func loadView() {
         super.loadView()
@@ -52,9 +52,11 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        mapView.accessibilityElementsHidden = false
+        mapView.delegate = self
+        print(mapView.mapType)
         var dict: NSDictionary?
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
             dict = NSDictionary(contentsOfFile: path)
@@ -74,7 +76,22 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    // initializes marker with given params
+    func initMarker(with marker: GMSMarker, place: GMSPlace) {
+            DispatchQueue.main.async {
+                [weak self] in
+            self?.mapView.selectedMarker = nil
+            marker.map = nil
+            marker.position = place.coordinate
+            marker.snippet = place.formattedAddress
+            marker.title = place.name
+            marker.opacity = 0;
+            marker.infoWindowAnchor.y = 1
+            marker.map = self?.mapView
+            self?.mapView.selectedMarker = marker
+            self?.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+        }
+    }
     
 
     /*
@@ -116,7 +133,6 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-            
             locationManager.stopUpdatingLocation()
         }
         
@@ -131,16 +147,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
         print("Place name: \(place.name)")
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
-        mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-        if (searchMarker != nil) {
-            searchMarker.map = nil
-        }
-        else {
-            searchMarker = GMSMarker(position: place.coordinate)
-        }
-        searchMarker.position = place.coordinate
-        searchMarker.title = place.name
-        searchMarker.map = mapView
+        initMarker(with: self.marker, place: place)
         dismiss(animated: true, completion: nil)
     }
     
@@ -162,6 +169,40 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
+}
+
+
+extension MapViewController: GMSMapViewDelegate {
+    
+    // wrapper that gets place and passes it to a callback
+    fileprivate func getPlace(from placeID: String, callback: @escaping (GMSPlace) -> Void)
+    {
+        placesClient.lookUpPlaceID(placeID, callback: { [callback] (place, error) -> Void in
+        if (error != nil) {
+            Utils.displayAlert(with: self, title: "Unexpected Error", message: "Please try again later.", text: "OK")
+            print("lookup place id query error: \(error!.localizedDescription)")
+            return
+        }
+
+        if (place == nil) {
+            Utils.displayAlert(with: self, title: "Place Not Found!", message: "Please try another place.", text: "OK")
+            return
+        }
+            
+        // run callback
+        callback(place!)
+
+        })
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapPOIWithPlaceID placeID: String,
+                 name: String, location: CLLocationCoordinate2D) {
+        getPlace(from: placeID) {[weak self](place) in
+            print("You tapped \(name): \(place.name), \(location.latitude)/\(location.longitude)")
+            self?.initMarker(with: self!.marker, place: place)
+        }
+    }
+    
 }
 
 

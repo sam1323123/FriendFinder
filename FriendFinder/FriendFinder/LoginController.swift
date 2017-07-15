@@ -110,20 +110,6 @@ class LoginController: UIViewController {
         sender.backgroundColor = .white
     }
     
-
-    //displays alert with given message and text
-    func displayAlert(title: String, message: String, text: String, callback: (() -> Void)? = nil) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-    
-        alertController.addAction(UIAlertAction(title: text, style: .default) {
-            (action: UIAlertAction) -> Void in
-            if let f = callback {
-                f()
-            }
-        })
-        present(alertController, animated: true)
-    }
-    
 }
 
 
@@ -315,7 +301,7 @@ extension LoginController {
         if let username = username_textfield.text, let pw = password_textfield.text {
             if (username == "" || pw == "" || username.hasWhitespace() || pw.hasWhitespace()){
                 //if contains whitespace or is empty string
-                displayAlert(title: "No spaces allowed!", message: "Please remove all spaces from input.", text: "OK")
+                Utils.displayAlert(with: self, title: "No spaces allowed!", message: "Please remove all spaces from input.", text: "OK")
                 return
             }
             
@@ -325,7 +311,7 @@ extension LoginController {
             
             //validate username
             if (!username.validateEmail()) {
-                displayAlert(title: "Email address is invalid!", message: "Please use a valid email address.", text: "OK")
+              Utils.displayAlert(with: self, title: "Email address is invalid!", message: "Please use a valid email address.", text: "OK")
                 return
             }
             
@@ -343,11 +329,11 @@ extension LoginController {
                     if let tuple = self?.errorDict[code] {
                         let title = tuple.0
                         let message = tuple.1
-                        self?.displayAlert(title: title, message: message, text: "OK")
+                        Utils.displayAlert(with: self!, title: title, message: message, text: "OK")
                     }
                 }
                 else {
-                    self?.displayAlert(title: "Unexpected Error", message: "Please try again later.", text: "OK")
+                    Utils.displayAlert(with: self!, title: "Unexpected Error", message: "Please try again later.", text: "OK")
                 }
             }
             else {
@@ -360,16 +346,16 @@ extension LoginController {
                             if let tuple = self?.errorDict[code] {
                                 let title = tuple.0
                                 let message = tuple.1
-                                self?.displayAlert(title: title, message: message, text: "OK")
+                                Utils.displayAlert(with: self!, title: title, message: message, text: "OK")
                             }
                         }
                         else {
-                            self?.displayAlert(title: "Unexpected Error", message: "Please try again later.", text: "OK")
+                            Utils.displayAlert(with: self!, title: "Unexpected Error", message: "Please try again later.", text: "OK")
                         }
                     }
                     else {
                         DispatchQueue.main.async {
-                            self?.displayAlert(title: "Validation email sent!", message: "Please validate the entered email.", text: "OK") {
+                            Utils.displayAlert(with: self!, title: "Validation email sent!", message: "Please validate the entered email.", text: "OK") {
                                 [weak self] in
                                 self?.performSegue(withIdentifier: "Signup", sender: nil)
                             }
@@ -387,7 +373,7 @@ extension LoginController {
         if let username = self.username_textfield.text , let pw = self.password_textfield.text {
             
             if(username == "" || pw == "" || username.hasWhitespace() || pw.hasWhitespace()) {
-                displayAlert(title: "No spaces allowed!", message: "Please remove all spaces from input.", text: "OK")
+                Utils.displayAlert(with: self, title: "No spaces allowed!", message: "Please remove all spaces from input.", text: "OK")
                 self.username_textfield.text = ""
                 self.password_textfield.text = ""
                 return
@@ -433,10 +419,10 @@ extension LoginController {
             if let tuple = errorDict[code] {
                 let title = tuple.0
                 let message = tuple.1
-                displayAlert(title: title, message: message, text: "OK")
+                Utils.displayAlert(with: self, title: title, message: message, text: "OK")
             }
             else {
-                displayAlert(title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
+                Utils.displayAlert(with: self, title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
             }
         }
         
