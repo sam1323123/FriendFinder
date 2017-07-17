@@ -14,7 +14,7 @@
 		42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42FF92161F0F7B0800A6421B /* Default-568h@2x.png */; };
 		9817608B1F14B93000703759 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9817608A1F14B93000703759 /* SubtitleTableViewCell.swift */; };
 		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
-		9823B0691F08AB7D00982623 /* FirebaseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B0681F08AB7D00982623 /* FirebaseErrors.swift */; };
+		9823B0691F08AB7D00982623 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B0681F08AB7D00982623 /* Errors.swift */; };
 		9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B06B1F08D5EB00982623 /* MapViewController.swift */; };
 		9823B0711F0B931700982623 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9823B0701F0B931700982623 /* Roboto-Medium.ttf */; };
 		98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D521EFA53F2007050E4 /* AppDelegate.swift */; };
@@ -64,7 +64,7 @@
 		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9817608A1F14B93000703759 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9823B0681F08AB7D00982623 /* FirebaseErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseErrors.swift; sourceTree = "<group>"; };
+		9823B0681F08AB7D00982623 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		9823B06B1F08D5EB00982623 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9823B0701F0B931700982623 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		98A11D4F1EFA53F2007050E4 /* FriendFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,7 +186,7 @@
 				98A11D521EFA53F2007050E4 /* AppDelegate.swift */,
 				981760891F14B90100703759 /* TableCells */,
 				98A11D561EFA53F2007050E4 /* Main.storyboard */,
-				9823B0681F08AB7D00982623 /* FirebaseErrors.swift */,
+				9823B0681F08AB7D00982623 /* Errors.swift */,
 				42EDBAF91F1A346600C40DAE /* Utils.swift */,
 				98A11D591EFA53F2007050E4 /* Assets.xcassets */,
 				98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */,
@@ -424,7 +424,7 @@
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
 				98A11D731EFA5439007050E4 /* LoginController.swift in Sources */,
 				98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */,
-				9823B0691F08AB7D00982623 /* FirebaseErrors.swift in Sources */,
+				9823B0691F08AB7D00982623 /* Errors.swift in Sources */,
 				9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
