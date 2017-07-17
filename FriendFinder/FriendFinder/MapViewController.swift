@@ -32,9 +32,6 @@ class MapViewController: UIViewController {
     
     var apiKey: String!
     
-    //the last point of interest clicked
-    fileprivate var poiPlace: GMSPlace?
-    
     override func loadView() {
         super.loadView()
     }
@@ -59,6 +56,7 @@ class MapViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         mapView.accessibilityElementsHidden = false
         mapView.delegate = self
+        mapView.mapType = GMSMapViewType.normal
         print(mapView.mapType)
         var dict: NSDictionary?
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
@@ -79,26 +77,11 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // initializes marker with given params
-    func initMarker(with marker: GMSMarker, place: GMSPlace) {
-        
-            marker.position = place.coordinate
-            marker.snippet = place.formattedAddress
-            marker.title = place.name
-            marker.opacity = 0;
-            marker.infoWindowAnchor.y = 1 // self?.mapView.center ?? (self?.view.center)!
-            marker.map = self.mapView
-            self.mapView.selectedMarker = marker
-            self.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-        
-    }
-    
-    
-    func moveMarkerToPOI(with marker: GMSMarker, to place: GMSPlace?) {
+    // initializes marker with given params for a place
+    func initMarkerForPOI(with marker: GMSMarker, for place: GMSPlace?) {
         if(place == nil) {
             return
         }
-        
         self.mapView.selectedMarker = marker
         marker.position = place!.coordinate
         marker.opacity = 1
@@ -164,7 +147,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
         print("Place name: \(place.name)")
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
-        initMarker(with: self.marker, place: place)
+        initMarkerForPOI(with: marker, for: place)
         dismiss(animated: true, completion: nil)
     }
     
@@ -192,7 +175,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
 extension MapViewController: GMSMapViewDelegate {
     
     // wrapper that gets place and passes it to a callback
-    fileprivate func GetPlace(from placeID: String, callback: @escaping (GMSPlace) -> Void)
+    fileprivate func getPlace(from placeID: String, callback: @escaping (GMSPlace) -> Void)
     {
         placesClient.lookUpPlaceID(placeID, callback: { [callback] (place, error) -> Void in
         if (error != nil) {
@@ -213,40 +196,14 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     
-    fileprivate func getPlace(from placeID: String, callback: @escaping () -> Void)
-    {
-        placesClient.lookUpPlaceID(placeID, callback: { [callback] (place, error) -> Void in
-            if (error != nil) {
-                Utils.displayAlert(with: self, title: "Unexpected Error", message: "Please try again later.", text: "OK")
-                print("lookup place id query error: \(error!.localizedDescription)")
-                return
-            }
-            
-            if (place == nil) {
-                Utils.displayAlert(with: self, title: "Place Not Found!", message: "Please try another place.", text: "OK")
-                return
-            }
-            
-            // run callback
-            self.poiPlace = place
-            callback()
-            
-        })
-    }
 
     
     
     func mapView(_ mapView: GMSMapView, didTapPOIWithPlaceID placeID: String,
                  name: String, location: CLLocationCoordinate2D) {
         print("POI IS SELECTED")
-        /*
-        GetPlace(from: placeID) {[weak self](place) in
-            print("You tapped \(name): \(place.name), \(location.latitude)/\(location.longitude)")
-           self?.initMarker(with: self!.marker, place: place)
-        }
-        */
-        getPlace(from: placeID){[weak self] in
-            self?.moveMarkerToPOI(with: (self?.marker)!, to: self?.poiPlace)
+        getPlace(from: placeID){[weak self] (place) in
+            self?.initMarkerForPOI(with: self!.marker, for: place)
         }
         
         
