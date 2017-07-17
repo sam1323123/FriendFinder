@@ -98,7 +98,6 @@ class MapViewController: UIViewController {
         if(place == nil) {
             return
         }
-        
         self.mapView.selectedMarker = marker
         marker.position = place!.coordinate
         marker.opacity = 1
