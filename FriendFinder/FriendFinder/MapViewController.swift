@@ -224,7 +224,7 @@ extension MapViewController: GMSMapViewDelegate {
         let infoWindow = infoWindowNib!
         infoWindow.awakeFromNib()
         //infoWindow.phoneNumber = UILabel()
-        infoWindow.phoneNumber.text = "123456789"
+        infoWindow.phoneNumber.text = "Phone: 123456789"
         //infoWindow.icon = UIImageView(image: #imageLiteral(resourceName: "google.png"))
         infoWindow.icon.image = #imageLiteral(resourceName: "google.png")
         //infoWindow.name = UILabel()

@@ -12,35 +12,50 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InfoWindowView" customModule="FriendFinder" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="184" height="78"/>
+            <rect key="frame" x="0.0" y="0.0" width="204" height="84"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="c9x-Yq-JtU">
-                    <rect key="frame" x="0.0" y="0.0" width="184" height="78"/>
+                    <rect key="frame" x="0.0" y="0.0" width="204" height="84"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T4j-vZ-yZT">
-                            <rect key="frame" x="0.0" y="0.0" width="92" height="78"/>
+                            <rect key="frame" x="0.0" y="0.0" width="102" height="84"/>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jrJ-zr-sm2">
-                            <rect key="frame" x="92" y="0.0" width="92" height="78"/>
+                            <rect key="frame" x="102" y="0.0" width="102" height="84"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="299" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7wp-5M-Suu">
-                                    <rect key="frame" x="0.0" y="0.0" width="92" height="20.5"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="299" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7wp-5M-Suu">
+                                    <rect key="frame" x="0.0" y="0.0" width="102" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="heightForStackView">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="irO-sw-kvV">
-                                    <rect key="frame" x="0.0" y="20.5" width="92" height="37"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="irO-sw-kvV">
+                                    <rect key="frame" x="0.0" y="20.5" width="102" height="43"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="heightForStackView">
+                                            <real key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ELt-KH-nec">
-                                    <rect key="frame" x="0.0" y="57.5" width="92" height="20.5"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ELt-KH-nec">
+                                    <rect key="frame" x="0.0" y="63.5" width="102" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="heightForStackView">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                         </stackView>
@@ -57,11 +72,11 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="icon" destination="T4j-vZ-yZT" id="v84-RX-glI"/>
-                <outlet property="name" destination="7wp-5M-Suu" id="FeI-vU-2If"/>
-                <outlet property="phoneNumber" destination="ELt-KH-nec" id="xpn-P0-sUB"/>
-                <outlet property="placeDescription" destination="irO-sw-kvV" id="wYx-8G-uVl"/>
+                <outlet property="name" destination="7wp-5M-Suu" id="VdQ-dT-xwX"/>
+                <outlet property="phoneNumber" destination="ELt-KH-nec" id="9zU-5v-HdQ"/>
+                <outlet property="placeDescription" destination="irO-sw-kvV" id="UH3-fU-HlU"/>
             </connections>
-            <point key="canvasLocation" x="53" y="-89"/>
+            <point key="canvasLocation" x="63" y="-86"/>
         </view>
     </objects>
 </document>
