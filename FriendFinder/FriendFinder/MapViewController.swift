@@ -24,7 +24,6 @@ class MapViewController: UIViewController {
             searchBox.delegate = self
         }
     }
-    
     let locationManager = CLLocationManager()
     let placesClient = GMSPlacesClient.shared()
     
@@ -52,6 +51,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         mapView.accessibilityElementsHidden = false
@@ -82,6 +82,7 @@ class MapViewController: UIViewController {
         if(place == nil) {
             return
         }
+        
         self.mapView.selectedMarker = marker
         marker.position = place!.coordinate
         marker.opacity = 1
@@ -179,6 +180,7 @@ extension MapViewController: GMSMapViewDelegate {
     {
         placesClient.lookUpPlaceID(placeID, callback: { [callback] (place, error) -> Void in
         if (error != nil) {
+            
             Utils.displayAlert(with: self, title: "Unexpected Error", message: "Please try again later.", text: "OK")
             print("lookup place id query error: \(error!.localizedDescription)")
             return
@@ -196,9 +198,6 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     
-
-    
-    
     func mapView(_ mapView: GMSMapView, didTapPOIWithPlaceID placeID: String,
                  name: String, location: CLLocationCoordinate2D) {
         print("POI IS SELECTED")
@@ -209,7 +208,32 @@ extension MapViewController: GMSMapViewDelegate {
         
     }
     
+    //Delegate Method for making custom InfoWindow
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        print("Marker Delegate Called, \(marker.title)")
+        //return nil
+        let infoWindowNib = UINib(nibName: "InfoWindowView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? InfoWindowView
+        if(infoWindowNib == nil) {
+            print("COULD NOT FIND NIB FILE")
+            return nil
+        }
+        let infoWindow = infoWindowNib!
+        infoWindow.awakeFromNib()
+        //infoWindow.phoneNumber = UILabel()
+        infoWindow.phoneNumber.text = "123456789"
+        //infoWindow.icon = UIImageView(image: #imageLiteral(resourceName: "google.png"))
+        infoWindow.icon.image = #imageLiteral(resourceName: "google.png")
+        //infoWindow.name = UILabel()
+        infoWindow.name.text = marker.title //?? "No Title"
+        //infoWindow.placeDescription = UILabel()
+        infoWindow.placeDescription.text = marker.snippet //?? "No Snippet"
+        
+        return infoWindow
+    }
+    
     
 }
+
+
 
 

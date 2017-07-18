@@ -27,6 +27,8 @@
 		98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D741EFE0287007050E4 /* NextViewController.swift */; };
 		98B48AAE1F18A15000099AF2 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
 		98B48AAF1F18A15000099AF2 /* Pods_FriendFinder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		98B48AB71F1C94DD00099AF2 /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */; };
+		98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B48AB81F1C950400099AF2 /* InfoWindowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		98A11D691EFA53F2007050E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A11D721EFA5439007050E4 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		98A11D741EFE0287007050E4 /* NextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
+		98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
+		98B48AB81F1C950400099AF2 /* InfoWindowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		B1CC802789C9B2CCC9F1CBDE /* Pods-FriendFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		B682F2A084A89FE2EB12F192 /* Pods-FriendFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder.release.xcconfig"; sourceTree = "<group>"; };
 		D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendFinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				42FF92131F05014100A6421B /* BottomBorderTextField.swift */,
+				98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */,
+				98B48AB81F1C950400099AF2 /* InfoWindowView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -305,6 +311,7 @@
 				98A11D5D1EFA53F2007050E4 /* LaunchScreen.storyboard in Resources */,
 				982351231F036A58005F853F /* GoogleService-Info.plist in Resources */,
 				98A11D5A1EFA53F2007050E4 /* Assets.xcassets in Resources */,
+				98B48AB71F1C94DD00099AF2 /* InfoWindowView.xib in Resources */,
 				98A11D581EFA53F2007050E4 /* Main.storyboard in Resources */,
 				42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */,
 			);
@@ -419,6 +426,7 @@
 			files = (
 				42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */,
 				98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */,
+				98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */,
 				42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */,
 				9817608B1F14B93000703759 /* SubtitleTableViewCell.swift in Sources */,
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
