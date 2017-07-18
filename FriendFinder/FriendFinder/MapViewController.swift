@@ -11,6 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import PXGoogleDirections
 
+
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
@@ -30,6 +31,8 @@ class MapViewController: UIViewController {
     let marker = GMSMarker()
     
     var apiKey: String!
+    
+    fileprivate let errorDict : [GMSPlacesErrorCode:(String, String)] = Errors.placeErrors
     
     override func loadView() {
         super.loadView()
@@ -78,19 +81,16 @@ class MapViewController: UIViewController {
     }
     
     // initializes marker with given params for a place
-    func initMarkerForPOI(with marker: GMSMarker, for place: GMSPlace?) {
-        if(place == nil) {
-            return
-        }
+    func initMarkerForPOI(with marker: GMSMarker, for place: GMSPlace) {
         
-        self.mapView.selectedMarker = marker
-        marker.position = place!.coordinate
+        marker.position = place.coordinate
         marker.opacity = 1
-        marker.map = self.mapView
-        marker.snippet = place!.formattedAddress
-        marker.title = place!.name
+        marker.map = mapView
+        marker.snippet = place.formattedAddress
+        marker.title = place.name
         marker.infoWindowAnchor.y = 1
-        self.mapView.camera = GMSCameraPosition(target: place!.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+        mapView.selectedMarker = marker
+        mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
     }
     
 
@@ -178,16 +178,20 @@ extension MapViewController: GMSMapViewDelegate {
     // wrapper that gets place and passes it to a callback
     fileprivate func getPlace(from placeID: String, callback: @escaping (GMSPlace) -> Void)
     {
-        placesClient.lookUpPlaceID(placeID, callback: { [callback] (place, error) -> Void in
-        if (error != nil) {
-            
-            Utils.displayAlert(with: self, title: "Unexpected Error", message: "Please try again later.", text: "OK")
-            print("lookup place id query error: \(error!.localizedDescription)")
+        placesClient.lookUpPlaceID(placeID, callback: {[weak self, callback] (place, error) -> Void in
+        if error != nil, let error = error as? GMSPlacesErrorCode {
+            if let tuple = self?.errorDict[error] {
+                let title = tuple.0
+                let message = tuple.1
+                Utils.displayAlert(with: self!, title: title, message: message, text: "OK")
+        
+            }
+            print("lookup place id query error")
             return
         }
 
         if (place == nil) {
-            Utils.displayAlert(with: self, title: "Place Not Found!", message: "Please try another place.", text: "OK")
+            Utils.displayAlert(with: self!, title: "Place Not Found!", message: "Please try another place.", text: "OK")
             return
         }
             

@@ -30,7 +30,7 @@ class LoginController: UIViewController {
     var isBackPressed: Bool = false
     
     //dictionary mapping errors to error messages
-    fileprivate let errorDict : [AuthErrorCode:(String, String)] = FirebaseErrors.errors
+    fileprivate let errorDict : [AuthErrorCode:(String, String)] = Errors.firebaseErrors
 
     
     //initializes what will be viewed

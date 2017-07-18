@@ -28,7 +28,7 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="CL1-dp-RSQ">
-                                <rect key="frame" x="129" y="316" width="156" height="104"/>
+                                <rect key="frame" x="129" y="314.66666666666669" width="156" height="107"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Sax-3e-ljX">
                                         <rect key="frame" x="0.0" y="0.0" width="156" height="54"/>
@@ -87,26 +87,20 @@
                                         </variation>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="AFH-xo-Ral">
-                                        <rect key="frame" x="0.0" y="74" width="156" height="30"/>
+                                        <rect key="frame" x="0.0" y="74" width="156" height="33"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIe-4g-6XO">
-                                                <rect key="frame" x="0.0" y="0.0" width="58" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="58" height="33"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <state key="normal" title="Signup"/>
-                                                <variation key="widthClass=regular">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="signupPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="0cJ-vD-Jf3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-t1-hVA">
-                                                <rect key="frame" x="98" y="0.0" width="58" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <rect key="frame" x="98" y="0.0" width="58" height="33"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <state key="normal" title="Login"/>
-                                                <variation key="widthClass=regular">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="v7z-J5-014"/>
                                                 </connections>
