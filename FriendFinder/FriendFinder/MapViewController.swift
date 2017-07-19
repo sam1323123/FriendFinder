@@ -34,6 +34,8 @@ class MapViewController: UIViewController {
     
     fileprivate let errorDict : [GMSPlacesErrorCode:(String, String)] = Errors.placeErrors
     
+    fileprivate var activeInfoWindowView: InfoWindowView? = nil
+    
     override func loadView() {
         super.loadView()
     }
@@ -212,6 +214,13 @@ extension MapViewController: GMSMapViewDelegate {
         
     }
     
+    
+    func handleTapOnInfoWindow() {
+        let infoWindow = self.activeInfoWindowView
+        return
+        //let CGAffineTransform(scaleX: <#T##CGFloat#>, y: <#T##CGFloat#>)
+    }
+    
     //Delegate Method for making custom InfoWindow
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         print("Marker Delegate Called, \(marker.title)")
@@ -223,14 +232,10 @@ extension MapViewController: GMSMapViewDelegate {
         }
         let infoWindow = infoWindowNib!
         infoWindow.awakeFromNib()
-        //infoWindow.phoneNumber = UILabel()
         infoWindow.phoneNumber.text = "Phone: 123456789"
-        //infoWindow.icon = UIImageView(image: #imageLiteral(resourceName: "google.png"))
         infoWindow.icon.image = #imageLiteral(resourceName: "google.png")
-        //infoWindow.name = UILabel()
         infoWindow.name.text = marker.title //?? "No Title"
-        //infoWindow.placeDescription = UILabel()
-        infoWindow.placeDescription.text = marker.snippet //?? "No Snippet"
+        infoWindow.placeDescription.text = marker.snippet
         
         return infoWindow
     }
