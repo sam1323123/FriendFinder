@@ -26,13 +26,18 @@ class MapViewController: UIViewController {
         }
     }
     let locationManager = CLLocationManager()
+    
     let placesClient = GMSPlacesClient.shared()
     
     let marker = GMSMarker()
     
     var currentMarkerPlace: GMSPlace?
     
+    var currentInfoWindow: InfoWindowView?
+    
     var apiKey: String!
+    
+    let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     fileprivate let errorDict : [GMSPlacesErrorCode:(String, String)] = Errors.placeErrors
     
@@ -70,11 +75,10 @@ class MapViewController: UIViewController {
                 apiKey = key
             }
         }
-        print(apiKey!)
+        
         let directionsAPI = PXGoogleDirections(apiKey: apiKey!,
                                                from: PXLocation.coordinateLocation(CLLocationCoordinate2DMake(37.331690, -122.030762)),
                                                to: PXLocation.specificLocation("Googleplex", "Mountain View", "United States"))
- 
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,31 +111,26 @@ class MapViewController: UIViewController {
     */
 
 
-    func loadFirstPhotoForPlace(placeID: String, size: CGSize) -> (UIImage?, NSAttributedString?) {
-        var image: UIImage?
-        var attribution: NSAttributedString?
+    func loadFirstPhotoForPlace(placeID: String, size: CGSize)  {
         GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) {[weak self] (photos, error) -> Void in
             if let error = error {
                 self?.handlePlacesError(error: error)
             } else {
                 if let firstPhoto = photos?.results.first {
-                    (image, attribution) = (self?.loadImageForMetadata(photoMetadata: firstPhoto, size: size))!
+                   self?.loadImageForMetadata(photoMetadata: firstPhoto, size: size)
                 }
             }
         }
-        return (image, attribution)
     }
 
-    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, size: CGSize) -> (UIImage?, NSAttributedString?)  {
-        var image: UIImage?
-        var attribution: NSAttributedString?
+    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, size: CGSize)  {
         GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, constrainedTo: size, scale: 1, callback: {[weak self]
             (photo, error) -> Void in
             self?.handlePlacesError(error: error)
-            image = photo
-            attribution = photoMetadata.attributions
+            self?.currentInfoWindow?.icon.image = photo
+            self?.currentInfoWindow?.attributionLabel.text = photoMetadata.attributions?.string
+            self?.spinner.stopAnimating()
         })
-        return (image, attribution)
     }
 
     func handlePlacesError(error: Error?) {
@@ -238,8 +237,6 @@ extension MapViewController: GMSMapViewDelegate {
         getPlace(from: placeID){[weak self] (place) in
             self?.initMarkerForPOI(with: self!.marker, for: place)
         }
-        
-        
     }
     
     //Delegate Method for making custom InfoWindow
@@ -251,14 +248,23 @@ extension MapViewController: GMSMapViewDelegate {
             print("COULD NOT FIND NIB FILE")
             return nil
         }
+        guard let place = currentMarkerPlace else {
+            // don't know place
+            return nil
+        }
         let infoWindow = infoWindowNib!
         infoWindow.awakeFromNib()
+        DispatchQueue.main.async {
+            [weak self] in
+            self?.loadFirstPhotoForPlace(placeID: place.placeID, size: infoWindow.icon.intrinsicContentSize)
+        }
         infoWindow.phoneNumber.text = currentMarkerPlace?.phoneNumber
-        let (image, attribute) = loadFirstPhotoForPlace(placeID: (currentMarkerPlace?.placeID)!, size: infoWindow.icon.intrinsicContentSize)
-        infoWindow.icon.image = image
-        infoWindow.name.text = currentMarkerPlace?.name
-        infoWindow.placeDescription.text = currentMarkerPlace?.formattedAddress
-        infoWindow.attributionLabel.text = attribute?.string
+        infoWindow.imageView = spinner
+        spinner.startAnimating()
+        infoWindow.name.text = place.name
+        infoWindow.placeDescription.text = place.formattedAddress
+        currentInfoWindow = infoWindow
+        marker.tracksInfoWindowChanges = true
         return infoWindow
     }
     

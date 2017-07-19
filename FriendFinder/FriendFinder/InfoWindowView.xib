@@ -6,70 +6,66 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InfoWindowView" customModule="FriendFinder" customModuleProvider="target">
+        <view contentMode="redraw" id="iN0-l3-epB" customClass="InfoWindowView" customModule="FriendFinder" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="204" height="84"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Attribution" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PR6-cz-H6S" customClass="ProportionalLabel" customModule="FriendFinder" customModuleProvider="target">
-                    <rect key="frame" x="81" y="29" width="42" height="26"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="42" id="CM0-JJ-8ds"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="heightForStackView">
-                            <integer key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </label>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="c9x-Yq-JtU">
                     <rect key="frame" x="0.0" y="0.0" width="204" height="84"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T4j-vZ-yZT">
+                        <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Wnl-mH-2A7">
                             <rect key="frame" x="0.0" y="0.0" width="102" height="84"/>
-                        </imageView>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attribution" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PR6-cz-H6S">
+                                    <rect key="frame" x="0.0" y="68" width="16" height="16"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="16" id="CM0-JJ-8ds"/>
+                                        <constraint firstAttribute="height" constant="16" id="ekJ-zK-L0m"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T4j-vZ-yZT">
+                                    <rect key="frame" x="0.0" y="0.0" width="94" height="84"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="T4j-vZ-yZT" firstAttribute="trailing" secondItem="Wnl-mH-2A7" secondAttribute="trailingMargin" id="3dH-iq-IHZ"/>
+                                <constraint firstItem="T4j-vZ-yZT" firstAttribute="top" secondItem="Wnl-mH-2A7" secondAttribute="top" id="KuP-Em-o0f"/>
+                                <constraint firstItem="PR6-cz-H6S" firstAttribute="leading" secondItem="Wnl-mH-2A7" secondAttribute="leading" id="OhJ-dy-ojl"/>
+                                <constraint firstAttribute="bottom" secondItem="T4j-vZ-yZT" secondAttribute="bottom" id="e0v-28-Yct"/>
+                                <constraint firstItem="T4j-vZ-yZT" firstAttribute="leading" secondItem="Wnl-mH-2A7" secondAttribute="leading" id="grt-26-4Q7"/>
+                                <constraint firstAttribute="bottom" secondItem="PR6-cz-H6S" secondAttribute="bottom" id="tcf-Bs-hyi"/>
+                            </constraints>
+                        </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jrJ-zr-sm2">
                             <rect key="frame" x="102" y="0.0" width="102" height="84"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="299" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7wp-5M-Suu" customClass="ProportionalLabel" customModule="FriendFinder" customModuleProvider="target">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="299" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7wp-5M-Suu">
                                     <rect key="frame" x="0.0" y="0.0" width="102" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="heightForStackView">
-                                            <real key="value" value="2"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="irO-sw-kvV" customClass="ProportionalLabel" customModule="FriendFinder" customModuleProvider="target">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="irO-sw-kvV">
                                     <rect key="frame" x="0.0" y="20.5" width="102" height="43"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="heightForStackView">
-                                            <real key="value" value="6"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ELt-KH-nec" customClass="ProportionalLabel" customModule="FriendFinder" customModuleProvider="target">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ELt-KH-nec">
                                     <rect key="frame" x="0.0" y="63.5" width="102" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="heightForStackView">
-                                            <real key="value" value="1"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                         </stackView>
@@ -82,18 +78,17 @@
                 <constraint firstAttribute="bottom" secondItem="c9x-Yq-JtU" secondAttribute="bottom" id="8NT-t3-QjI"/>
                 <constraint firstAttribute="trailing" secondItem="c9x-Yq-JtU" secondAttribute="trailing" id="BwO-tr-LAU"/>
                 <constraint firstItem="c9x-Yq-JtU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CkP-5H-PZd"/>
-                <constraint firstItem="PR6-cz-H6S" firstAttribute="leading" secondItem="c9x-Yq-JtU" secondAttribute="leading" id="nek-8s-pIs"/>
-                <constraint firstItem="PR6-cz-H6S" firstAttribute="bottom" secondItem="c9x-Yq-JtU" secondAttribute="bottom" id="qYc-15-44b"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="attributionLabel" destination="PR6-cz-H6S" id="hCv-vM-972"/>
                 <outlet property="icon" destination="T4j-vZ-yZT" id="v84-RX-glI"/>
+                <outlet property="imageView" destination="Wnl-mH-2A7" id="tqC-dN-q2z"/>
                 <outlet property="name" destination="7wp-5M-Suu" id="VdQ-dT-xwX"/>
                 <outlet property="phoneNumber" destination="ELt-KH-nec" id="9zU-5v-HdQ"/>
                 <outlet property="placeDescription" destination="irO-sw-kvV" id="UH3-fU-HlU"/>
             </connections>
-            <point key="canvasLocation" x="59" y="-133"/>
+            <point key="canvasLocation" x="67" y="-120"/>
         </view>
     </objects>
 </document>

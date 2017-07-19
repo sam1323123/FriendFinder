@@ -12,6 +12,9 @@ target 'FriendFinder' do
   
   # Pods for FriendFinder
   
+  #GIFs
+  pod 'SwiftyGif'
+
   #Database
   pod 'Firebase/Core'
 
@@ -46,6 +49,6 @@ end
 target 'PXGoogleDirections' do
    project 'Frameworks/External/PXGoogleDirections/PXGoogleDirections.xcodeproj'
    platform :ios, '8.1'
-
-   pod 'GoogleMaps'
+   inherit! :search_paths
+ 
 end

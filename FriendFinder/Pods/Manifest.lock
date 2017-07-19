@@ -77,6 +77,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.11)
   - GTMSessionFetcher/Full (1.1.11):
     - GTMSessionFetcher/Core (= 1.1.11)
+  - SwiftyGif (3.0.3)
 
 DEPENDENCIES:
   - FacebookLogin
@@ -89,6 +90,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
+  - SwiftyGif
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -109,7 +111,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
+  SwiftyGif: 89a0bb19709bdb6990e10405ad456d8bea804a65
 
-PODFILE CHECKSUM: bec286d218434df87fc7babb906d47164a03e2eb
+PODFILE CHECKSUM: e1830ff1f92b34884e8a0b51700f6f46ddacc6a8
 
 COCOAPODS: 1.2.1
