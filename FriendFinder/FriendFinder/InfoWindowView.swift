@@ -10,6 +10,8 @@ import UIKit
 
 class InfoWindowView: UIView {
 
+    @IBOutlet weak var attributionLabel: UILabel!
+    
     @IBOutlet weak var icon: UIImageView!
     
     @IBOutlet weak var name: UILabel!

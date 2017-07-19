@@ -30,6 +30,8 @@ class MapViewController: UIViewController {
     
     let marker = GMSMarker()
     
+    var currentMarkerPlace: GMSPlace?
+    
     var apiKey: String!
     
     fileprivate let errorDict : [GMSPlacesErrorCode:(String, String)] = Errors.placeErrors
@@ -82,7 +84,6 @@ class MapViewController: UIViewController {
     
     // initializes marker with given params for a place
     func initMarkerForPOI(with marker: GMSMarker, for place: GMSPlace) {
-        
         marker.position = place.coordinate
         marker.opacity = 1
         marker.map = mapView
@@ -91,6 +92,7 @@ class MapViewController: UIViewController {
         marker.infoWindowAnchor.y = 1
         mapView.selectedMarker = marker
         mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+        currentMarkerPlace = place
     }
     
 
@@ -104,8 +106,46 @@ class MapViewController: UIViewController {
     }
     */
 
-}
 
+    func loadFirstPhotoForPlace(placeID: String, size: CGSize) -> (UIImage?, NSAttributedString?) {
+        var image: UIImage?
+        var attribution: NSAttributedString?
+        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) {[weak self] (photos, error) -> Void in
+            if let error = error {
+                self?.handlePlacesError(error: error)
+            } else {
+                if let firstPhoto = photos?.results.first {
+                    (image, attribution) = (self?.loadImageForMetadata(photoMetadata: firstPhoto, size: size))!
+                }
+            }
+        }
+        return (image, attribution)
+    }
+
+    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, size: CGSize) -> (UIImage?, NSAttributedString?)  {
+        var image: UIImage?
+        var attribution: NSAttributedString?
+        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, constrainedTo: size, scale: 1, callback: {[weak self]
+            (photo, error) -> Void in
+            self?.handlePlacesError(error: error)
+            image = photo
+            attribution = photoMetadata.attributions
+        })
+        return (image, attribution)
+    }
+
+    func handlePlacesError(error: Error?) {
+        if error != nil, let error = error as? GMSPlacesErrorCode {
+            if let tuple = errorDict[error] {
+                let title = tuple.0
+                let message = tuple.1
+                Utils.displayAlert(with: self, title: title, message: message, text: "OK")
+            }
+            print("lookup place id query error")
+            return
+        }
+    }
+}
 
 extension MapViewController: UITextFieldDelegate {
     
@@ -139,7 +179,6 @@ extension MapViewController: CLLocationManagerDelegate {
         
     }
 }
-
 
 extension MapViewController: GMSAutocompleteViewControllerDelegate {
     
@@ -179,17 +218,8 @@ extension MapViewController: GMSMapViewDelegate {
     fileprivate func getPlace(from placeID: String, callback: @escaping (GMSPlace) -> Void)
     {
         placesClient.lookUpPlaceID(placeID, callback: {[weak self, callback] (place, error) -> Void in
-        if error != nil, let error = error as? GMSPlacesErrorCode {
-            if let tuple = self?.errorDict[error] {
-                let title = tuple.0
-                let message = tuple.1
-                Utils.displayAlert(with: self!, title: title, message: message, text: "OK")
-        
-            }
-            print("lookup place id query error")
-            return
-        }
 
+        self?.handlePlacesError(error: error)
         if (place == nil) {
             Utils.displayAlert(with: self!, title: "Place Not Found!", message: "Please try another place.", text: "OK")
             return
@@ -223,21 +253,17 @@ extension MapViewController: GMSMapViewDelegate {
         }
         let infoWindow = infoWindowNib!
         infoWindow.awakeFromNib()
-        //infoWindow.phoneNumber = UILabel()
-        infoWindow.phoneNumber.text = "Phone: 123456789"
-        //infoWindow.icon = UIImageView(image: #imageLiteral(resourceName: "google.png"))
-        infoWindow.icon.image = #imageLiteral(resourceName: "google.png")
-        //infoWindow.name = UILabel()
-        infoWindow.name.text = marker.title //?? "No Title"
-        //infoWindow.placeDescription = UILabel()
-        infoWindow.placeDescription.text = marker.snippet //?? "No Snippet"
-        
+        infoWindow.phoneNumber.text = currentMarkerPlace?.phoneNumber
+        let (image, attribute) = loadFirstPhotoForPlace(placeID: (currentMarkerPlace?.placeID)!, size: infoWindow.icon.intrinsicContentSize)
+        infoWindow.icon.image = image
+        infoWindow.name.text = currentMarkerPlace?.name
+        infoWindow.placeDescription.text = currentMarkerPlace?.formattedAddress
+        infoWindow.attributionLabel.text = attribute?.string
         return infoWindow
     }
     
     
 }
-
 
 
 

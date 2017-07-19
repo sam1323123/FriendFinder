@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,6 +15,20 @@
             <rect key="frame" x="0.0" y="0.0" width="204" height="84"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Attribution" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PR6-cz-H6S" customClass="ProportionalLabel" customModule="FriendFinder" customModuleProvider="target">
+                    <rect key="frame" x="81" y="29" width="42" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="42" id="CM0-JJ-8ds"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="heightForStackView">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="c9x-Yq-JtU">
                     <rect key="frame" x="0.0" y="0.0" width="204" height="84"/>
                     <subviews>
@@ -24,7 +38,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jrJ-zr-sm2">
                             <rect key="frame" x="102" y="0.0" width="102" height="84"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="299" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7wp-5M-Suu">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="299" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7wp-5M-Suu" customClass="ProportionalLabel" customModule="FriendFinder" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="102" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
@@ -35,7 +49,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="irO-sw-kvV">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="irO-sw-kvV" customClass="ProportionalLabel" customModule="FriendFinder" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="20.5" width="102" height="43"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <nil key="textColor"/>
@@ -46,7 +60,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ELt-KH-nec">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="300" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ELt-KH-nec" customClass="ProportionalLabel" customModule="FriendFinder" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="63.5" width="102" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <nil key="textColor"/>
@@ -68,15 +82,18 @@
                 <constraint firstAttribute="bottom" secondItem="c9x-Yq-JtU" secondAttribute="bottom" id="8NT-t3-QjI"/>
                 <constraint firstAttribute="trailing" secondItem="c9x-Yq-JtU" secondAttribute="trailing" id="BwO-tr-LAU"/>
                 <constraint firstItem="c9x-Yq-JtU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CkP-5H-PZd"/>
+                <constraint firstItem="PR6-cz-H6S" firstAttribute="leading" secondItem="c9x-Yq-JtU" secondAttribute="leading" id="nek-8s-pIs"/>
+                <constraint firstItem="PR6-cz-H6S" firstAttribute="bottom" secondItem="c9x-Yq-JtU" secondAttribute="bottom" id="qYc-15-44b"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="attributionLabel" destination="PR6-cz-H6S" id="hCv-vM-972"/>
                 <outlet property="icon" destination="T4j-vZ-yZT" id="v84-RX-glI"/>
                 <outlet property="name" destination="7wp-5M-Suu" id="VdQ-dT-xwX"/>
                 <outlet property="phoneNumber" destination="ELt-KH-nec" id="9zU-5v-HdQ"/>
                 <outlet property="placeDescription" destination="irO-sw-kvV" id="UH3-fU-HlU"/>
             </connections>
-            <point key="canvasLocation" x="63" y="-86"/>
+            <point key="canvasLocation" x="59" y="-133"/>
         </view>
     </objects>
 </document>
