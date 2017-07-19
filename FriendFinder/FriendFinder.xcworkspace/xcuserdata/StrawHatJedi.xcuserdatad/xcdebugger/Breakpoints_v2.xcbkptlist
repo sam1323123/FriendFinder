@@ -10,12 +10,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FriendFinder/MapViewController.swift"
-            timestampString = "521967277.589832"
+            timestampString = "522084817.907759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
-            landmarkName = "getPlace(from:callback:)"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "MapViewController"
+            landmarkType = "4">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.MapViewController.(getPlace in _4B06F8071DAA0A55CEBF31EDF6632801) (from : Swift.String, callback : (__ObjC.GMSPlace) -&gt; ()) -&gt; ()"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/MapViewController.swift"
+                  timestampString = "522081386.601186"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "180"
+                  endingLineNumber = "180"
+                  offsetFromSymbolStart = "39">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.MapViewController.(getPlace in _4B06F8071DAA0A55CEBF31EDF6632801) (from : Swift.String, callback : (__ObjC.GMSPlace) -&gt; ()) -&gt; ()"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/MapViewController.swift"
+                  timestampString = "522081386.6093"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "180"
+                  endingLineNumber = "180"
+                  offsetFromSymbolStart = "188">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.MapViewController.((getPlace in _4B06F8071DAA0A55CEBF31EDF6632801) (from : Swift.String, callback : (__ObjC.GMSPlace) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/MapViewController.swift"
+                  timestampString = "522081386.610929"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "180"
+                  endingLineNumber = "180"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FriendFinder/MapViewController.swift"
+            timestampString = "522084817.907759"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "handlePlacesError(error:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FriendFinder/MapViewController.swift"
+            timestampString = "522083856.069509"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "loadFirstPhotoForPlace(placeID:size:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

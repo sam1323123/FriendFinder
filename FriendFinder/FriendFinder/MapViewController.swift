@@ -28,7 +28,9 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     let placesClient = GMSPlacesClient.shared()
     
-    let marker = GMSMarker()
+    var marker = GMSMarker()
+    
+    var currentMarkerPlace: GMSPlace?
     
     var apiKey: String!
     
@@ -74,6 +76,8 @@ class MapViewController: UIViewController {
         let directionsAPI = PXGoogleDirections(apiKey: apiKey!,
                                                from: PXLocation.coordinateLocation(CLLocationCoordinate2DMake(37.331690, -122.030762)),
                                                to: PXLocation.specificLocation("Googleplex", "Mountain View", "United States"))
+        
+        self.marker.map = self.mapView
  
     }
 
@@ -83,16 +87,17 @@ class MapViewController: UIViewController {
     }
     
     // initializes marker with given params for a place
-    func initMarkerForPOI(with marker: GMSMarker, for place: GMSPlace) {
-        
-        marker.position = place.coordinate
-        marker.opacity = 1
-        marker.map = mapView
-        marker.snippet = place.formattedAddress
-        marker.title = place.name
-        marker.infoWindowAnchor.y = 1
-        mapView.selectedMarker = marker
-        mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+    func initMarkerForPOI(with new_marker: GMSMarker, for place: GMSPlace) {
+        currentMarkerPlace = place
+        self.mapView.selectedMarker = new_marker
+        new_marker.position = place.coordinate
+        new_marker.opacity = 1
+        new_marker.map = mapView
+        new_marker.snippet = place.formattedAddress
+        new_marker.title = place.name
+        new_marker.infoWindowAnchor.y = 1
+        self.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+
     }
     
 
@@ -106,8 +111,46 @@ class MapViewController: UIViewController {
     }
     */
 
-}
 
+    func loadFirstPhotoForPlace(placeID: String, size: CGSize) -> (UIImage?, NSAttributedString?) {
+        var image: UIImage?
+        var attribution: NSAttributedString?
+        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) {[weak self] (photos, error) -> Void in
+            if let error = error {
+                self?.handlePlacesError(error: error)
+            } else {
+                if let firstPhoto = photos?.results.first {
+                    (image, attribution) = (self?.loadImageForMetadata(photoMetadata: firstPhoto, size: size))!
+                }
+            }
+        }
+        return (image, attribution)
+    }
+
+    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, size: CGSize) -> (UIImage?, NSAttributedString?)  {
+        var image: UIImage?
+        var attribution: NSAttributedString?
+        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, constrainedTo: size, scale: 1, callback: {[weak self]
+            (photo, error) -> Void in
+            self?.handlePlacesError(error: error)
+            image = photo
+            attribution = photoMetadata.attributions
+        })
+        return (image, attribution)
+    }
+
+    func handlePlacesError(error: Error?) {
+        if error != nil, let error = error as? GMSPlacesErrorCode {
+            if let tuple = errorDict[error] {
+                let title = tuple.0
+                let message = tuple.1
+                Utils.displayAlert(with: self, title: title, message: message, text: "OK")
+            }
+            print("lookup place id query error")
+            return
+        }
+    }
+}
 
 extension MapViewController: UITextFieldDelegate {
     
@@ -141,7 +184,6 @@ extension MapViewController: CLLocationManagerDelegate {
         
     }
 }
-
 
 extension MapViewController: GMSAutocompleteViewControllerDelegate {
     
@@ -181,17 +223,8 @@ extension MapViewController: GMSMapViewDelegate {
     fileprivate func getPlace(from placeID: String, callback: @escaping (GMSPlace) -> Void)
     {
         placesClient.lookUpPlaceID(placeID, callback: {[weak self, callback] (place, error) -> Void in
-        if error != nil, let error = error as? GMSPlacesErrorCode {
-            if let tuple = self?.errorDict[error] {
-                let title = tuple.0
-                let message = tuple.1
-                Utils.displayAlert(with: self!, title: title, message: message, text: "OK")
-        
-            }
-            print("lookup place id query error")
-            return
-        }
 
+        self?.handlePlacesError(error: error)
         if (place == nil) {
             Utils.displayAlert(with: self!, title: "Place Not Found!", message: "Please try another place.", text: "OK")
             return
@@ -232,17 +265,19 @@ extension MapViewController: GMSMapViewDelegate {
         }
         let infoWindow = infoWindowNib!
         infoWindow.awakeFromNib()
-        infoWindow.phoneNumber.text = "Phone: 123456789"
-        infoWindow.icon.image = #imageLiteral(resourceName: "google.png")
-        infoWindow.name.text = marker.title //?? "No Title"
-        infoWindow.placeDescription.text = marker.snippet
+        infoWindow.phoneNumber.text = currentMarkerPlace?.phoneNumber
         
+        /*let (image, attribute) = loadFirstPhotoForPlace(placeID: (currentMarkerPlace?.placeID)!, size: infoWindow.icon.intrinsicContentSize)
+         */
+        infoWindow.icon.image = #imageLiteral(resourceName: "google")
+        infoWindow.name.text = currentMarkerPlace?.name
+        infoWindow.placeDescription.text = currentMarkerPlace?.formattedAddress
+        //infoWindow.attributionLabel.text = attribute?.string
         return infoWindow
     }
     
     
 }
-
 
 
 
