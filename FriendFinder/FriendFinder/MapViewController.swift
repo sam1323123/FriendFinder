@@ -28,7 +28,7 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     let placesClient = GMSPlacesClient.shared()
     
-    var marker = GMSMarker()
+    let marker = GMSMarker()
     
     var currentMarkerPlace: GMSPlace?
     
