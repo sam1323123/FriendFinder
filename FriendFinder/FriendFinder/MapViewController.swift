@@ -41,6 +41,8 @@ class MapViewController: UIViewController {
     
     fileprivate let errorDict : [GMSPlacesErrorCode:(String, String)] = Errors.placeErrors
     
+    fileprivate var activeInfoWindowView: InfoWindowView? = nil
+    
     override func loadView() {
         super.loadView()
     }
@@ -79,6 +81,7 @@ class MapViewController: UIViewController {
         let directionsAPI = PXGoogleDirections(apiKey: apiKey!,
                                                from: PXLocation.coordinateLocation(CLLocationCoordinate2DMake(37.331690, -122.030762)),
                                                to: PXLocation.specificLocation("Googleplex", "Mountain View", "United States"))
+        self.marker.map = self.mapView
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,16 +90,17 @@ class MapViewController: UIViewController {
     }
     
     // initializes marker with given params for a place
-    func initMarkerForPOI(with marker: GMSMarker, for place: GMSPlace) {
-        marker.position = place.coordinate
-        marker.opacity = 1
-        marker.map = mapView
-        marker.snippet = place.formattedAddress
-        marker.title = place.name
-        marker.infoWindowAnchor.y = 1
-        mapView.selectedMarker = marker
-        mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+    func initMarkerForPOI(with new_marker: GMSMarker, for place: GMSPlace) {
         currentMarkerPlace = place
+        self.mapView.selectedMarker = new_marker
+        new_marker.position = place.coordinate
+        new_marker.opacity = 1
+        new_marker.map = mapView
+        new_marker.snippet = place.formattedAddress
+        new_marker.title = place.name
+        new_marker.infoWindowAnchor.y = 1
+        self.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+
     }
     
 
@@ -237,6 +241,13 @@ extension MapViewController: GMSMapViewDelegate {
         getPlace(from: placeID){[weak self] (place) in
             self?.initMarkerForPOI(with: self!.marker, for: place)
         }
+    }
+    
+    
+    func handleTapOnInfoWindow() {
+        let infoWindow = self.activeInfoWindowView
+        return
+        //let CGAffineTransform(scaleX: <#T##CGFloat#>, y: <#T##CGFloat#>)
     }
     
     //Delegate Method for making custom InfoWindow
