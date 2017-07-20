@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FriendFinder/MapViewController.swift"
-            timestampString = "522146298.231415"
+            timestampString = "522234111.257344"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "loadImageForMetadata(photoMetadata:size:)"
             landmarkType = "7">
          </BreakpointContent>

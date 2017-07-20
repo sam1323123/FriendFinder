@@ -92,15 +92,13 @@ class MapViewController: UIViewController {
     // initializes marker with given params for a place
     func initMarkerForPOI(with new_marker: GMSMarker, for place: GMSPlace) {
         currentMarkerPlace = place
-        self.mapView.selectedMarker = new_marker
+        mapView.selectedMarker = new_marker
         new_marker.position = place.coordinate
         new_marker.opacity = 1
         new_marker.map = mapView
         new_marker.snippet = place.formattedAddress
         new_marker.title = place.name
         new_marker.infoWindowAnchor.y = 1
-        self.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-
     }
     
 
@@ -123,6 +121,10 @@ class MapViewController: UIViewController {
                 if let firstPhoto = photos?.results.first {
                    self?.loadImageForMetadata(photoMetadata: firstPhoto, size: size)
                 }
+                else {
+                    self?.currentInfoWindow?.icon.image = #imageLiteral(resourceName: "no_image")
+                    self?.spinner.stopAnimating()
+                }
             }
         }
     }
@@ -134,6 +136,7 @@ class MapViewController: UIViewController {
             self?.currentInfoWindow?.icon.image = photo
             self?.currentInfoWindow?.attributionLabel.text = photoMetadata.attributions?.string
             self?.spinner.stopAnimating()
+            
         })
     }
 
@@ -191,6 +194,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
         initMarkerForPOI(with: marker, for: place)
+        self.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: self.mapView.camera.zoom, bearing: 0, viewingAngle: 0)
         dismiss(animated: true, completion: nil)
     }
     
@@ -250,6 +254,7 @@ extension MapViewController: GMSMapViewDelegate {
         //let CGAffineTransform(scaleX: <#T##CGFloat#>, y: <#T##CGFloat#>)
     }
     
+    
     //Delegate Method for making custom InfoWindow
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         print("Marker Delegate Called, \(marker.title)")
@@ -269,11 +274,17 @@ extension MapViewController: GMSMapViewDelegate {
             [weak self] in
             self?.loadFirstPhotoForPlace(placeID: place.placeID, size: infoWindow.icon.intrinsicContentSize)
         }
-        infoWindow.phoneNumber.text = currentMarkerPlace?.phoneNumber
-        infoWindow.imageView = spinner
+        infoWindow.phoneNumber.text = currentMarkerPlace?.phoneNumber ?? "No Number Available"
+        spinner.center = infoWindow.imageView.center
+        infoWindow.imageView.addSubview(spinner)
+        infoWindow.imageView.bringSubview(toFront: spinner)
         spinner.startAnimating()
         infoWindow.name.text = place.name
         infoWindow.placeDescription.text = place.formattedAddress
+        
+        //constraint font size
+        infoWindow.placeDescription.numberOfLines = infoWindow.placeDescription.font.pointSize > 30 ? 1 : 3
+        infoWindow.name.numberOfLines = infoWindow.name.font.pointSize < 18 ? 2 : 1
         currentInfoWindow = infoWindow
         marker.tracksInfoWindowChanges = true
         return infoWindow
