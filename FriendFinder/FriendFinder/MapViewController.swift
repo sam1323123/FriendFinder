@@ -49,14 +49,14 @@ class MapViewController: UIViewController {
     
     override var shouldAutorotate: Bool {
         get {
-            return false
+            return true
         }
     }
     
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
-            return UIInterfaceOrientationMask.portrait
+            return UIInterfaceOrientationMask.all
         }
         
     }
@@ -251,7 +251,6 @@ extension MapViewController: GMSMapViewDelegate {
     func handleTapOnInfoWindow() {
         let infoWindow = self.activeInfoWindowView
         return
-        //let CGAffineTransform(scaleX: <#T##CGFloat#>, y: <#T##CGFloat#>)
     }
     
     
@@ -282,9 +281,10 @@ extension MapViewController: GMSMapViewDelegate {
         infoWindow.name.text = place.name
         infoWindow.placeDescription.text = place.formattedAddress
         
-        //constraint font size
+        //constraint based on font size
         infoWindow.placeDescription.numberOfLines = infoWindow.placeDescription.font.pointSize > 30 ? 1 : 3
         infoWindow.name.numberOfLines = infoWindow.name.font.pointSize < 18 ? 2 : 1
+        
         currentInfoWindow = infoWindow
         marker.tracksInfoWindowChanges = true
         return infoWindow
