@@ -165,11 +165,28 @@
                                     <segue destination="gCS-uW-2zh" kind="unwind" unwindAction="goBackWithSegue:" id="45p-ww-LMf"/>
                                 </connections>
                             </button>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfU-5e-GH5">
+                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Title" id="Rk8-I8-5a3">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="1dX-8D-OVP"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xfU-5e-GH5" firstAttribute="leading" secondItem="0TX-uO-QuW" secondAttribute="leading" id="8pb-NE-DJ5"/>
+                            <constraint firstItem="xfU-5e-GH5" firstAttribute="top" secondItem="XZu-Wg-hy7" secondAttribute="bottom" id="EhP-Tc-0gc"/>
+                            <constraint firstAttribute="trailing" secondItem="xfU-5e-GH5" secondAttribute="trailing" id="cor-bJ-EbD"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="NextLabel" destination="BjT-WH-edl" id="InT-Ir-3Yj"/>
+                        <outlet property="navBar" destination="xfU-5e-GH5" id="4yP-R5-oL5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TYe-jk-Hg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -217,11 +234,50 @@
                         <outlet property="mapView" destination="FN1-2V-odb" id="FxQ-6g-5h2"/>
                         <outlet property="searchBox" destination="KnO-Pq-6ub" id="qKG-Go-gm2"/>
                         <segue destination="968-Ei-qIi" kind="presentation" identifier="locationSearch" id="KQW-bk-GDk"/>
+                        <segue destination="EfS-EK-qSb" kind="presentation" identifier="Details" id="cmz-sf-fPJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfT-QD-Vr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="589.85507246376812" y="1088.3152173913045"/>
+        </scene>
+        <!--Location Detail View Controller-->
+        <scene sceneID="KPb-EH-ljT">
+            <objects>
+                <viewController id="EfS-EK-qSb" customClass="LocationDetailViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hoc-1s-J2U"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mfd-jb-o91"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Z1x-43-Vc5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVm-cP-HWI">
+                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Place Details" id="slo-Vb-4Hu">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="PGF-Wl-zAE"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NVm-cP-HWI" firstAttribute="leading" secondItem="Z1x-43-Vc5" secondAttribute="leading" id="0QC-MQ-Mma"/>
+                            <constraint firstAttribute="trailing" secondItem="NVm-cP-HWI" secondAttribute="trailing" id="JZw-oU-3fG"/>
+                            <constraint firstItem="NVm-cP-HWI" firstAttribute="top" secondItem="hoc-1s-J2U" secondAttribute="bottom" id="KVa-xj-sUn"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="navBar" destination="NVm-cP-HWI" id="rwO-9I-drB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7bN-fh-o0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1558" y="1450"/>
         </scene>
         <!--Location Table View Controller-->
         <scene sceneID="0cR-Rk-Xzv">

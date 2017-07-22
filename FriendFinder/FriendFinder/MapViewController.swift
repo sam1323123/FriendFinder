@@ -101,7 +101,7 @@ class MapViewController: UIViewController {
         new_marker.infoWindowAnchor.y = 1
     }
     
-
+    
     /*
     // MARK: - Navigation
 
@@ -207,7 +207,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     // Turn the network activity indicator on and off again.
     func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true

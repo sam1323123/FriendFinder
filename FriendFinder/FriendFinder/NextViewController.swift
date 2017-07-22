@@ -14,10 +14,12 @@ class NextViewController: UIViewController {
     @IBOutlet var NextLabel: UILabel!
     var user: User?
     
+    @IBOutlet weak var navBar: UINavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("At Next View Controller")
+        navBar.delegate = self
         user = Auth.auth().currentUser
         if let verified = user?.isEmailVerified{
             if(!verified) {
@@ -68,4 +70,14 @@ class NextViewController: UIViewController {
         present(alertController, animated: true)
     }
     
+}
+
+
+
+extension NextViewController: UINavigationBarDelegate {
+    
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        print(" navBar Delegate called")
+        return UIBarPosition.top
+    }
 }

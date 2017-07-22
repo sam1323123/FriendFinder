@@ -30,6 +30,7 @@
 		98B48AB71F1C94DD00099AF2 /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */; };
 		98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B48AB81F1C950400099AF2 /* InfoWindowView.swift */; };
 		98B48ABB1F1DEF5A00099AF2 /* ProportionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B48ABA1F1DEF5A00099AF2 /* ProportionalLabel.swift */; };
+		98B48ABD1F236AD800099AF2 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
 		98B48AB81F1C950400099AF2 /* InfoWindowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		98B48ABA1F1DEF5A00099AF2 /* ProportionalLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProportionalLabel.swift; sourceTree = "<group>"; };
+		98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		B1CC802789C9B2CCC9F1CBDE /* Pods-FriendFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		B682F2A084A89FE2EB12F192 /* Pods-FriendFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder.release.xcconfig"; sourceTree = "<group>"; };
 		D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendFinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,7 @@
 				98A11D541EFA53F2007050E4 /* LaunchController.swift */,
 				98A11D741EFE0287007050E4 /* NextViewController.swift */,
 				9823B06B1F08D5EB00982623 /* MapViewController.swift */,
+				98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */,
 				98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */,
 				42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */,
+				98B48ABD1F236AD800099AF2 /* LocationDetailViewController.swift in Sources */,
 				9817608B1F14B93000703759 /* SubtitleTableViewCell.swift in Sources */,
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
 				98A11D731EFA5439007050E4 /* LoginController.swift in Sources */,
