@@ -11,9 +11,6 @@ target 'FriendFinder' do
   use_frameworks!
   
   # Pods for FriendFinder
-  
-  #GIFs
-  pod 'SwiftyGif'
 
   #Database
   pod 'Firebase/Core'
@@ -38,6 +35,10 @@ target 'FriendFinder' do
 
   # Only pull in Google login features
   pod 'FirebaseUI/Google', '~> 4.0'
+
+  # Only pull in database
+  pod 'Firebase/Database'
+ 
 
   target 'FriendFinderTests' do
     inherit! :search_paths

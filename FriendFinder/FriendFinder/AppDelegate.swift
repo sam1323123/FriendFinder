@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseCore
 import FirebaseAuthUI
 import FBSDKCoreKit
 import GoogleSignIn
@@ -58,7 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
     
     
     public func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        
         let goog = GIDSignIn.sharedInstance().handle(url,
                                                      sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                                      annotation: [:])

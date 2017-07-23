@@ -28,6 +28,7 @@ class LoginController: UIViewController {
     var isLargeScreen: Bool?
     
     var isBackPressed: Bool = false
+
     
     //dictionary mapping errors to error messages
     fileprivate let errorDict : [AuthErrorCode:(String, String)] = Errors.firebaseErrors
@@ -49,12 +50,12 @@ class LoginController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        if (Auth.auth().currentUser != nil && !isBackPressed) {
+        /*if (Auth.auth().currentUser != nil && !isBackPressed) {
             performSegue(withIdentifier: "Login" , sender: nil)
-        }
+        }*/
     }
     
+
     //sets and loads background
     private func loadAndSetImageBackground() {
         //create image view
@@ -400,7 +401,6 @@ extension LoginController {
     //login generic
     fileprivate func login(user: User?, error: Error?) {
         if let _ = user {
-            // might need to prepare segue later
             performSegue(withIdentifier: "Login" , sender: nil)
         }
             

@@ -10,6 +10,8 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import PXGoogleDirections
+import FirebaseDatabase
+import FirebaseAuth
 
 
 class MapViewController: UIViewController {
@@ -34,6 +36,31 @@ class MapViewController: UIViewController {
     var currentMarkerPlace: GMSPlace?
     
     var currentInfoWindow: InfoWindowView?
+    
+    var ref: DatabaseReference!
+
+    var currentLocation: CLLocation? {
+        didSet {
+            if currentLocation != nil {
+                if let floor = currentLocation!.floor?.level {
+                    ref.child("locations").child((Auth.auth().currentUser?.uid)!).setValue(
+                        ["latitude": currentLocation!.coordinate.latitude,
+                         "longitude": currentLocation!.coordinate.longitude,
+                         "altitude": currentLocation!.altitude,
+                         "floor": floor])
+                }
+                else {
+                    ref.child("locations").child((Auth.auth().currentUser?.uid)!).setValue(
+                        ["latitude": Double(currentLocation!.coordinate.latitude),
+                         "longitude": Double(currentLocation!.coordinate.longitude),
+                         "altitude": Double(currentLocation!.altitude)])
+                    print (["latitude": Double(currentLocation!.coordinate.latitude),
+                            "longitude": Double(currentLocation!.coordinate.longitude),
+                            "altitude": Double(currentLocation!.altitude)] as Any)
+                }
+            }
+        }
+    }
     
     var apiKey: String!
     
@@ -63,13 +90,12 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        ref = Database.database().reference()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         mapView.accessibilityElementsHidden = false
         mapView.delegate = self
         mapView.mapType = GMSMapViewType.normal
-        print(mapView.mapType)
         var dict: NSDictionary?
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
             dict = NSDictionary(contentsOfFile: path)
@@ -105,7 +131,6 @@ class MapViewController: UIViewController {
     /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -178,9 +203,14 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-            locationManager.stopUpdatingLocation()
+        if let location = locations.last  {
+            if currentLocation == nil {
+                mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+                currentLocation = location
+            }
+            if location.distance(from: currentLocation!) > 10 {
+                currentLocation = location
+            }
         }
         
     }
@@ -249,7 +279,6 @@ extension MapViewController: GMSMapViewDelegate {
     
     
     func handleTapOnInfoWindow() {
-        let infoWindow = self.activeInfoWindowView
         return
     }
     
