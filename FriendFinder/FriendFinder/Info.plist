@@ -47,6 +47,7 @@
 	<array>
 		<string>googlechromes</string>
 		<string>comgooglemaps</string>
+		<string>fbauth2</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

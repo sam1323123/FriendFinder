@@ -35,6 +35,6 @@
 	<key>GOOGLE_APP_ID</key>
 	<string>1:598708244520:ios:af71400b72dfcdea</string>
 	<key>DATABASE_URL</key>
-	<string>https://friendfinder-be8b5.firebaseio.com</string>
+	<string>https://friendfinder-be8b5.firebaseio.com/</string>
 </dict>
 </plist>

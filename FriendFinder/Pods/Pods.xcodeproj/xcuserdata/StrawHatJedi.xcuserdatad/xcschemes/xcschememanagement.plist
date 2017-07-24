@@ -79,7 +79,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftyGif.xcscheme</key>
+		<key>nanopb.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -93,11 +93,6 @@
 			<true/>
 		</dict>
 		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>10D0FFF3AC6163B9E3AEA0A29805BE41</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,12 +132,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7335E9C9689F3B8A16F063A884748533</key>
+		<key>6ED21041812C381CB333BAF500781F09</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79F00CF7C66FE3EC8BFE5340685308F0</key>
+		<key>7335E9C9689F3B8A16F063A884748533</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -153,6 +148,11 @@
 			<true/>
 		</dict>
 		<key>DDBCFDE490CDFDABF6F16A26F346932D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E4DD95323C54A78F879DAB0F1508B8E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
