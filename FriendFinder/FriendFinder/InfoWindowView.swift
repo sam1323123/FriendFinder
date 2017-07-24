@@ -22,6 +22,8 @@ class InfoWindowView: UIView {
     
     @IBOutlet weak var phoneNumber: UILabel!
     
+    @IBOutlet weak var detailButton: UIButton!
+    
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +32,7 @@ class InfoWindowView: UIView {
 
     
     override init(frame: CGRect) {
-            super.init(frame: frame)
+        super.init(frame: frame)
     }
     
     override func awakeFromNib() {

@@ -151,6 +151,8 @@ class MapViewController: UIViewController {
             return
         }
     }
+    
+    
 }
 
 extension MapViewController: UITextFieldDelegate {
@@ -164,6 +166,7 @@ extension MapViewController: UITextFieldDelegate {
         let searchView = GMSAutocompleteViewController()
         searchView.delegate = self
         present(searchView, animated: true, completion: nil)
+        //performSegue(withIdentifier: "Details", sender: nil)
     }
     
 }
@@ -249,8 +252,9 @@ extension MapViewController: GMSMapViewDelegate {
     
     
     func handleTapOnInfoWindow() {
-        let infoWindow = self.activeInfoWindowView
-        return
+        //let infoWindow = self.activeInfoWindowView
+        print("TAPPED ON WINDOW")
+        performSegue(withIdentifier: "Details", sender: self)
     }
     
     
@@ -288,6 +292,12 @@ extension MapViewController: GMSMapViewDelegate {
         currentInfoWindow = infoWindow
         marker.tracksInfoWindowChanges = true
         return infoWindow
+    }
+    
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        handleTapOnInfoWindow()
+        
     }
     
     
