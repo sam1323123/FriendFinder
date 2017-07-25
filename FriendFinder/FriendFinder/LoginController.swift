@@ -50,9 +50,9 @@ class LoginController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        /*if (Auth.auth().currentUser != nil && !isBackPressed) {
+        if (Auth.auth().currentUser != nil && !isBackPressed) {
             performSegue(withIdentifier: "Login" , sender: nil)
-        }*/
+        }
     }
     
 
