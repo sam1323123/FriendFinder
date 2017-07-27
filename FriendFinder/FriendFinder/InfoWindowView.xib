@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -33,12 +32,12 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T4j-vZ-yZT">
-                                    <rect key="frame" x="0.0" y="0.0" width="94" height="84"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="102" height="84"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="T4j-vZ-yZT" firstAttribute="trailing" secondItem="Wnl-mH-2A7" secondAttribute="trailingMargin" id="3dH-iq-IHZ"/>
+                                <constraint firstItem="T4j-vZ-yZT" firstAttribute="trailing" secondItem="Wnl-mH-2A7" secondAttribute="trailing" id="3dH-iq-IHZ"/>
                                 <constraint firstItem="T4j-vZ-yZT" firstAttribute="top" secondItem="Wnl-mH-2A7" secondAttribute="top" id="KuP-Em-o0f"/>
                                 <constraint firstItem="PR6-cz-H6S" firstAttribute="leading" secondItem="Wnl-mH-2A7" secondAttribute="leading" id="OhJ-dy-ojl"/>
                                 <constraint firstAttribute="bottom" secondItem="T4j-vZ-yZT" secondAttribute="bottom" id="e0v-28-Yct"/>
@@ -79,6 +78,7 @@
                 <constraint firstAttribute="trailing" secondItem="c9x-Yq-JtU" secondAttribute="trailing" id="BwO-tr-LAU"/>
                 <constraint firstItem="c9x-Yq-JtU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CkP-5H-PZd"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="attributionLabel" destination="PR6-cz-H6S" id="hCv-vM-972"/>

@@ -14,12 +14,16 @@ class NextViewController: UIViewController {
     @IBOutlet var NextLabel: UILabel!
     var user: User?
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    
     @IBOutlet weak var navBar: UINavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("At Next View Controller")
         navBar.delegate = self
+        backButton.target = self
+        backButton.action = #selector(goBack)
         user = Auth.auth().currentUser
         if let verified = user?.isEmailVerified{
             if(!verified) {
@@ -70,6 +74,10 @@ class NextViewController: UIViewController {
         present(alertController, animated: true)
     }
     
+    func goBack() {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 
@@ -80,4 +88,5 @@ extension NextViewController: UINavigationBarDelegate {
         print(" navBar Delegate called")
         return UIBarPosition.top
     }
+    
 }

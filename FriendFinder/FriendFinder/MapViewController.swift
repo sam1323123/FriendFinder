@@ -179,6 +179,60 @@ class MapViewController: UIViewController {
             return
         }
     }
+    
+    //TODO: Write function to fill vc with the image and place locations
+    func fillLocationDetailVC(vc: LocationDetailViewController) {
+        if(currentMarkerPlace == nil || currentInfoWindow == nil) {
+            print("Should not happen in fillLocationDetailVC")
+            return
+        }
+
+        let place = self.currentMarkerPlace!
+
+        vc.placeName = place.name
+        vc.address = place.formattedAddress
+        
+        let number = (place.phoneNumber ?? "NA")!
+        vc.phoneNumber = "Phone Number: \(number)"
+        
+        vc.placeImage = currentInfoWindow!.icon.image
+        
+        let website = (place.website ?? URL(string: "NA"))!
+        let openNow = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now" : "Closed"
+        var price: String
+        switch(place.priceLevel) {
+        case(GMSPlacesPriceLevel.free):
+            price = "Free"
+            break
+        case(GMSPlacesPriceLevel.cheap):
+            price = "Cheap"
+            break
+        case(GMSPlacesPriceLevel.high):
+            price = "High"
+            break
+        case(GMSPlacesPriceLevel.expensive):
+            price = "Very High"
+            break
+        default:
+            price = "NA"
+        }
+
+        let details = ("Rating: \(place.rating)\n\n" + "Status: \(openNow)\n\n" +
+        "Price Level: \(price)\n\n" + "Website: \(website)")
+        vc.placeHours = details
+        return
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destVC = segue.destination as? LocationDetailViewController {
+            fillLocationDetailVC(vc: destVC)
+        }
+        
+        
+    }
+    
+    
 }
 
 extension MapViewController: UITextFieldDelegate {
@@ -192,6 +246,7 @@ extension MapViewController: UITextFieldDelegate {
         let searchView = GMSAutocompleteViewController()
         searchView.delegate = self
         present(searchView, animated: true, completion: nil)
+        //performSegue(withIdentifier: "Details", sender: nil)
     }
     
 }
@@ -282,7 +337,10 @@ extension MapViewController: GMSMapViewDelegate {
     
     
     func handleTapOnInfoWindow() {
-        return
+
+        print("TAPPED ON WINDOW")
+        performSegue(withIdentifier: "Details", sender: self)
+
     }
     
     
@@ -305,6 +363,7 @@ extension MapViewController: GMSMapViewDelegate {
             [weak self] in
             self?.loadFirstPhotoForPlace(placeID: place.placeID, size: infoWindow.icon.intrinsicContentSize)
         }
+        
         infoWindow.phoneNumber.text = currentMarkerPlace?.phoneNumber ?? "No Number Available"
         spinner.center = infoWindow.imageView.center
         infoWindow.imageView.addSubview(spinner)
@@ -320,6 +379,12 @@ extension MapViewController: GMSMapViewDelegate {
         currentInfoWindow = infoWindow
         marker.tracksInfoWindowChanges = true
         return infoWindow
+    }
+    
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        handleTapOnInfoWindow()
+        
     }
     
     
