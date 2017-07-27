@@ -45,7 +45,6 @@ class LoginController: UIViewController {
         loadAndSetImageBackground()
         let fbButton = initializeFacebookLogin()
         createCustomGoogleButton(below: fbButton)
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
