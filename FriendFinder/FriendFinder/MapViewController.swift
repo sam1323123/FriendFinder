@@ -54,9 +54,6 @@ class MapViewController: UIViewController {
                         ["latitude": Double(currentLocation!.coordinate.latitude),
                          "longitude": Double(currentLocation!.coordinate.longitude),
                          "altitude": Double(currentLocation!.altitude)])
-                    print (["latitude": Double(currentLocation!.coordinate.latitude),
-                            "longitude": Double(currentLocation!.coordinate.longitude),
-                            "altitude": Double(currentLocation!.altitude)] as Any)
                 }
             }
         }
@@ -108,6 +105,12 @@ class MapViewController: UIViewController {
                                                from: PXLocation.coordinateLocation(CLLocationCoordinate2DMake(37.331690, -122.030762)),
                                                to: PXLocation.specificLocation("Googleplex", "Mountain View", "United States"))
         self.marker.map = self.mapView
+        let userID = Auth.auth().currentUser?.uid
+        ref.child("locations").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            print(value)
+        })
     }
 
     override func didReceiveMemoryWarning() {
