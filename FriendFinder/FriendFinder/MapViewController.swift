@@ -217,6 +217,9 @@ class MapViewController: UIViewController {
         let details = ("Rating: \(place.rating)\n\n" + "Status: \(openNow)\n\n" +
         "Price Level: \(price)\n\n" + "Website: \(website)")
         vc.placeHours = details
+        
+        //set spinner
+        vc.spinner = spinner
         return
     }
     
