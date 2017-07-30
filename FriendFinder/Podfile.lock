@@ -51,6 +51,7 @@ PODS:
     - GoogleSignIn (~> 4.0)
   - FirebaseUI/Phone (4.1.1):
     - FirebaseUI/Auth
+  - FontAwesome.swift (1.2.0)
   - GoogleMaps (2.3.1):
     - GoogleMaps/Maps (= 2.3.1)
   - GoogleMaps/Base (2.3.1)
@@ -98,6 +99,7 @@ DEPENDENCIES:
   - FirebaseUI/Facebook (~> 4.0)
   - FirebaseUI/Google (~> 4.0)
   - FirebaseUI/Phone
+  - FontAwesome.swift
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
@@ -115,6 +117,7 @@ SPEC CHECKSUMS:
   FirebaseDatabase: d829b3a8c3e2ac7a16773c5df226966b0805dfc2
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
   FirebaseUI: 5ebebe2c096c71f20abd1d43d0388958373bdaa0
+  FontAwesome.swift: 60063e3f19ba4801155d4b0f2334ab7585763ab3
   GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
   GooglePlacePicker: fc3564ac7a2ce314e78e42bfc1e16822ad1e5488
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
@@ -124,6 +127,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
   nanopb: 22bc080fa3955e2116b6ff3ee6c2cb3c15ab97cb
 
-PODFILE CHECKSUM: b7bb40f48f3c12a3b92c55670a11ef68b34ed07f
+PODFILE CHECKSUM: 2ac6209cace9c83756a0899e495f26f067c79153
 
 COCOAPODS: 1.2.1

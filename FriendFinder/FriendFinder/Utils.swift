@@ -25,6 +25,20 @@ class Utils {
         controller.present(alertController, animated: true)
     }
     
+    //displays alert with given message and text
+    static func displayAlertWithCancel(with controller: UIViewController, title: String, message: String, text: String, callback: (() -> Void)? = nil) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alertController.addAction(UIAlertAction(title: text, style: .default) {
+            (action: UIAlertAction) -> Void in
+            if let f = callback {
+                f()
+            }
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        controller.present(alertController, animated: true)
+    }
+
     
     
     

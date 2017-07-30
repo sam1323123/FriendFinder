@@ -38,6 +38,8 @@ target 'FriendFinder' do
 
   # Only pull in database
   pod 'Firebase/Database'
+
+  pod 'FontAwesome.swift'
  
 
   target 'FriendFinderTests' do

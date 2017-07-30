@@ -190,14 +190,20 @@ class MapViewController: UIViewController {
         let place = self.currentMarkerPlace!
 
         vc.placeName = place.name
-        vc.address = place.formattedAddress
+        vc.address = "\(place.formattedAddress ?? "NA")"
         
         vc.placeImage = currentInfoWindow!.icon.image
         
-        let website = (place.website ?? URL(string: "NA"))!
+        vc.web = place.website
         
-        let number = (place.phoneNumber ?? "NA")!
-        vc.contactDetails = "Phone Number: \(number)\n\n" + "Website: \(website)\n"
+        guard let phone = place.phoneNumber else {
+            vc.phone = nil
+            return
+        }
+        
+        // remove special characters first
+        let charsToRemove: Set<Character> = Set("()- ".characters)
+        vc.phone = String(( phone.characters.filter { !charsToRemove.contains($0) }))
         
         let openNow = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now" : "Closed"
         var price: String

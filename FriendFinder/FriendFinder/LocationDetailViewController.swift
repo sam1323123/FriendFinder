@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesome_swift
 
 class LocationDetailViewController: UIViewController {
     
@@ -23,12 +24,16 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     var address: String?
     
-    @IBOutlet weak var contactLabel: UILabel!
-    var contactDetails: String?
+    @IBOutlet weak var phoneButton: UIButton!
+    var phone: String?
     
+    @IBOutlet weak var webButton: UIButton!
+    var web: URL?
+
     @IBOutlet weak var placeHoursLabel: UILabel!
     var placeHours: String?
     
+
     var spinner: UIActivityIndicatorView?
     
     
@@ -59,7 +64,12 @@ class LocationDetailViewController: UIViewController {
         placeNameLabel.text = placeName
         placeImageView.image = placeImage
         addressLabel.text = address
-        contactLabel.text = contactDetails
+        phoneButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
+        phoneButton.setTitle(String.fontAwesomeIcon(name: .phone), for: .normal)
+        phoneButton.setTitleColor(.black, for: .normal)
+        webButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
+        webButton.setTitle(String.fontAwesomeIcon(name: .info), for: .normal)
+        webButton.setTitleColor(.black, for: .normal)
         placeHoursLabel.text = placeHours
 
         
@@ -79,8 +89,11 @@ class LocationDetailViewController: UIViewController {
         if let sp = spinner {
             placeImageView.addSubview(sp)
         }
-        
+        phoneButton.addTarget(self, action: #selector(clickOnPhone), for: .touchUpInside)
+        webButton.addTarget(self, action: #selector(clickOnWeb), for: .touchUpInside)
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -166,6 +179,50 @@ extension LocationDetailViewController: UINavigationBarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return UIBarPosition.top
     }
-    
-    
 }
+
+extension LocationDetailViewController {
+    
+    // phone link open handler
+    func clickOnPhone() {
+        guard let number = phone else {
+            Utils.displayAlert(with: self, title: "Sorry", message: "No phone available!", text: "OK")
+            return
+        }
+        if let url = URL(string: "tel://\(number)") {
+            if UIApplication.shared.canOpenURL(url) {
+                Utils.displayAlertWithCancel(with: self, title: "\(number)", message: "", text: "Call" , callback: {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                })
+            }
+            else {
+                Utils.displayAlert(with: self, title: "Sorry!", message: "Device cannot make call now.", text: "OK")
+            }
+        }
+    }
+
+    
+    // web link open handler
+    func clickOnWeb() {
+        if let url = web {
+            if UIApplication.shared.canOpenURL(url) {
+                Utils.displayAlertWithCancel(with: self, title:  "This page will open in the browser.", message: "", text: "Open" , callback: {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                })
+            }
+            else {
+                Utils.displayAlert(with: self, title: "Sorry!", message: "Device cannot open URL now.", text: "OK")
+            }
+        }
+    }
+}
+
+
