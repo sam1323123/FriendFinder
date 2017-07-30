@@ -66,10 +66,11 @@ class LocationDetailViewController: UIViewController {
         addressLabel.text = address
         phoneButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
         phoneButton.setTitle(String.fontAwesomeIcon(name: .phone), for: .normal)
-        phoneButton.setTitleColor(.black, for: .normal)
+        phoneButton.setTitleColor(view.tintColor, for: .normal)
         webButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
         webButton.setTitle(String.fontAwesomeIcon(name: .info), for: .normal)
-        webButton.setTitleColor(.black, for: .normal)
+        webButton.setTitleColor(view.tintColor, for: .normal)
+
         placeHoursLabel.text = placeHours
 
         
