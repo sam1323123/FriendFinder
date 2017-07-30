@@ -186,7 +186,7 @@ class MapViewController: UIViewController {
             print("Should not happen in fillLocationDetailVC")
             return
         }
-
+        
         let place = self.currentMarkerPlace!
 
         vc.placeName = place.name
@@ -198,6 +198,7 @@ class MapViewController: UIViewController {
         vc.placeImage = currentInfoWindow!.icon.image
         
         let website = (place.website ?? URL(string: "NA"))!
+        
         let openNow = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now" : "Closed"
         var price: String
         switch(place.priceLevel) {

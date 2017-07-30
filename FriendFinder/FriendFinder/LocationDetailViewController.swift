@@ -52,6 +52,8 @@ class LocationDetailViewController: UIViewController {
         self.navBar.delegate = self
         self.navBar.shadowImage = UIImage()
         self.navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default) //required for transparent bacground
+        let backButton = self.navBar.topItem?.leftBarButtonItem
+        backButton?.setTitleTextAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25.0)], for: .normal)
         
         //initialize all labels with string values
         placeNameLabel.text = placeName
@@ -59,10 +61,11 @@ class LocationDetailViewController: UIViewController {
         addressLabel.text = address
         phoneNumberLabel.text = phoneNumber
         placeHoursLabel.text = placeHours
+
         
         //configure navBar back button
-        backButton.target = self
-        backButton.action = #selector(goBack)
+        backButton?.target = self
+        backButton?.action = #selector(goBack)
         
         // Do any additional setup after loading the view.
         portraitConstraints = [placeImageWidthConstraint,
@@ -70,6 +73,7 @@ class LocationDetailViewController: UIViewController {
                               stackViewTopConstraint,
                               stackViewLeadingConstraint]
         landscapeConstraints = makeLandscapeConstraints()
+        self.setViewConstraintsByOrientation()
         
         //add spinner reference to image view
         if let sp = spinner {
@@ -83,10 +87,24 @@ class LocationDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setViewConstraintsByOrientation() {
+        let orient = UIApplication.shared.statusBarOrientation
+        if(orient.isPortrait) {
+            self.view.removeConstraints((self.landscapeConstraints))
+            self.view.addConstraints((self.portraitConstraints))
+        }
+        else {
+            //landscape
+            self.view.removeConstraints((self.portraitConstraints))
+            self.view.addConstraints((self.landscapeConstraints))
+        }
+    }
+    
+    
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         
         coordinator.animate(alongsideTransition: {[weak self] (UIViewControllerTransitionCoordinatorContext) -> Void in
-            
+            /*
             let orient = UIApplication.shared.statusBarOrientation
             if(orient.isPortrait) {
                 self?.view.removeConstraints((self?.landscapeConstraints)!)
@@ -96,7 +114,8 @@ class LocationDetailViewController: UIViewController {
                 //landscape 
                 self?.view.removeConstraints((self?.portraitConstraints)!)
                 self?.view.addConstraints((self?.landscapeConstraints)!)
-            }
+            }*/
+            self?.setViewConstraintsByOrientation()
             }, completion: {(UIViewControllerTransitionCoordinatorContext) -> Void in
         print("Rotation in LoacationDetail completed")})
     }
@@ -127,7 +146,8 @@ class LocationDetailViewController: UIViewController {
         let stackViewTopConstraint = NSLayoutConstraint(item: labelStack, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0.0)
         
         //x start/width of stackView
-        let stackViewLeadingConstraint = NSLayoutConstraint(item: labelStack, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+        let leftMargin: CGFloat = 10.0
+        let stackViewLeadingConstraint = NSLayoutConstraint(item: labelStack, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: leftMargin)
         //don't have to change stackView Bottom constraint
         return [imageWidthConstraint,  imageBottomConstraint,
                 stackViewTopConstraint, stackViewLeadingConstraint]
