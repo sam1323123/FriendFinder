@@ -23,8 +23,8 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     var address: String?
     
-    @IBOutlet weak var phoneNumberLabel: UILabel!
-    var phoneNumber: String?
+    @IBOutlet weak var contactLabel: UILabel!
+    var contactDetails: String?
     
     @IBOutlet weak var placeHoursLabel: UILabel!
     var placeHours: String?
@@ -59,7 +59,7 @@ class LocationDetailViewController: UIViewController {
         placeNameLabel.text = placeName
         placeImageView.image = placeImage
         addressLabel.text = address
-        phoneNumberLabel.text = phoneNumber
+        contactLabel.text = contactDetails
         placeHoursLabel.text = placeHours
 
         

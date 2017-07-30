@@ -278,23 +278,20 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phoneNumber" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jwv-Nr-fBB">
-                                        <rect key="frame" x="0.0" y="70" width="110" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="Hgq-kk-Y50"/>
-                                        </constraints>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phoneNumber" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jwv-Nr-fBB">
+                                        <rect key="frame" x="0.0" y="70" width="110" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="placeHours" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ov-5e-nri">
-                                        <rect key="frame" x="0.0" y="95" width="343" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="90.5" width="343" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="247" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNP-Ki-Aiw" userLabel="Filler">
-                                        <rect key="frame" x="0.0" y="115.5" width="343" height="187.5"/>
+                                        <rect key="frame" x="0.0" y="111" width="343" height="192"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -344,9 +341,9 @@
                     <connections>
                         <outlet property="addressLabel" destination="XEB-zr-9Nf" id="1Hi-rs-vbK"/>
                         <outlet property="backButton" destination="PGF-Wl-zAE" id="ASj-Rx-ny6"/>
+                        <outlet property="contactLabel" destination="jwv-Nr-fBB" id="tId-b9-lPa"/>
                         <outlet property="labelStack" destination="Hes-Ye-kyk" id="B1n-yR-X1V"/>
                         <outlet property="navBar" destination="NVm-cP-HWI" id="rwO-9I-drB"/>
-                        <outlet property="phoneNumberLabel" destination="jwv-Nr-fBB" id="vI4-mc-i8q"/>
                         <outlet property="placeHoursLabel" destination="1Ov-5e-nri" id="fLJ-Vm-fMh"/>
                         <outlet property="placeImageView" destination="JXI-fb-cYs" id="waA-Ou-YCk"/>
                         <outlet property="placeImageViewHeightConstraint" destination="eNj-tp-PBa" id="H50-7V-PHX"/>

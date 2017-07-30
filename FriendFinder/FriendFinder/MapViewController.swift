@@ -192,12 +192,12 @@ class MapViewController: UIViewController {
         vc.placeName = place.name
         vc.address = place.formattedAddress
         
-        let number = (place.phoneNumber ?? "NA")!
-        vc.phoneNumber = "Phone Number: \(number)"
-        
         vc.placeImage = currentInfoWindow!.icon.image
         
         let website = (place.website ?? URL(string: "NA"))!
+        
+        let number = (place.phoneNumber ?? "NA")!
+        vc.contactDetails = "Phone Number: \(number)\n\n" + "Website: \(website)\n"
         
         let openNow = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now" : "Closed"
         var price: String
@@ -219,7 +219,7 @@ class MapViewController: UIViewController {
         }
 
         let details = ("Rating: \(place.rating)\n\n" + "Status: \(openNow)\n\n" +
-        "Price Level: \(price)\n\n" + "Website: \(website)")
+        "Price Level: \(price)\n\n")
         vc.placeHours = details
         
         //set spinner
