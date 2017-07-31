@@ -30,9 +30,16 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet weak var webButton: UIButton!
     var web: URL?
 
-    @IBOutlet weak var placeHoursLabel: UILabel!
-    var placeHours: String?
-    
+    @IBOutlet weak var ratingLabel: UILabel!
+    var rating: String?
+
+    @IBOutlet weak var statusLabel: UILabel!
+    var status: String?
+    var statusColor: UIColor?
+
+    @IBOutlet weak var priceLabel: UILabel!
+    var price: String?
+    var priceColor: UIColor?
 
     var spinner: UIActivityIndicatorView?
     
@@ -64,6 +71,7 @@ class LocationDetailViewController: UIViewController {
         placeNameLabel.text = placeName
         placeImageView.image = placeImage
         addressLabel.text = address
+        
         phoneButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
         phoneButton.setTitle(String.fontAwesomeIcon(name: .phone), for: .normal)
         phoneButton.setTitleColor(view.tintColor, for: .normal)
@@ -71,8 +79,18 @@ class LocationDetailViewController: UIViewController {
         webButton.setTitle(String.fontAwesomeIcon(name: .info), for: .normal)
         webButton.setTitleColor(view.tintColor, for: .normal)
 
-        placeHoursLabel.text = placeHours
-
+        ratingLabel.font = UIFont.fontAwesome(ofSize: 20)
+        ratingLabel.text = rating!
+        ratingLabel.textColor = Utils.gold
+        
+        statusLabel.font = UIFont.fontAwesome(ofSize: 20)
+        statusLabel.text = status!
+        statusLabel.textColor = statusColor!
+        
+        priceLabel.font = UIFont.fontAwesome(ofSize: 20)
+        priceLabel.text = price!
+        priceLabel.textColor = priceColor!
+        
         
         //configure navBar back button
         backButton?.target = self
@@ -165,7 +183,6 @@ class LocationDetailViewController: UIViewController {
         //don't have to change stackView Bottom constraint
         return [imageWidthConstraint,  imageBottomConstraint,
                 stackViewTopConstraint, stackViewLeadingConstraint]
-
     }
     
     func goBack() {

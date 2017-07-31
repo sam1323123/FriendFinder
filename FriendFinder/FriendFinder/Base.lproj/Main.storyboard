@@ -292,14 +292,26 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="placeHours" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ov-5e-nri">
-                                        <rect key="frame" x="0.0" y="104" width="343" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jf-Ef-QFs" userLabel="Rating Label">
+                                        <rect key="frame" x="0.0" y="104" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjt-81-VLa" userLabel="Status Label">
+                                        <rect key="frame" x="0.0" y="124.5" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iqx-oA-sRI" userLabel="Price Label">
+                                        <rect key="frame" x="0.0" y="145" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="247" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNP-Ki-Aiw" userLabel="Filler">
-                                        <rect key="frame" x="0.0" y="124.5" width="343" height="178.5"/>
+                                        <rect key="frame" x="0.0" y="165.5" width="343" height="137.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -307,7 +319,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="wPK-mL-Q7U" firstAttribute="centerX" secondItem="Hes-Ye-kyk" secondAttribute="centerX" id="6Ek-zY-cnQ"/>
-                                    <constraint firstItem="1Ov-5e-nri" firstAttribute="width" secondItem="Hes-Ye-kyk" secondAttribute="width" id="e2d-aA-eBx"/>
+                                    <constraint firstItem="wPK-mL-Q7U" firstAttribute="top" secondItem="XEB-zr-9Nf" secondAttribute="bottom" constant="40" id="dlI-3I-d8b"/>
                                 </constraints>
                             </stackView>
                             <navigationBar opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVm-cP-HWI">
@@ -353,13 +365,15 @@
                         <outlet property="labelStack" destination="Hes-Ye-kyk" id="B1n-yR-X1V"/>
                         <outlet property="navBar" destination="NVm-cP-HWI" id="rwO-9I-drB"/>
                         <outlet property="phoneButton" destination="VkA-xq-mA1" id="0Ec-SN-xBn"/>
-                        <outlet property="placeHoursLabel" destination="1Ov-5e-nri" id="fLJ-Vm-fMh"/>
                         <outlet property="placeImageView" destination="JXI-fb-cYs" id="waA-Ou-YCk"/>
                         <outlet property="placeImageViewHeightConstraint" destination="eNj-tp-PBa" id="H50-7V-PHX"/>
                         <outlet property="placeImageWidthConstraint" destination="aOe-iq-ss8" id="dR2-7c-Ct2"/>
                         <outlet property="placeNameLabel" destination="Uit-ek-L58" id="c67-qY-bLt"/>
+                        <outlet property="priceLabel" destination="Iqx-oA-sRI" id="fjo-xD-J1L"/>
+                        <outlet property="ratingLabel" destination="2jf-Ef-QFs" id="TDi-6D-xgr"/>
                         <outlet property="stackViewLeadingConstraint" destination="1Ck-62-bwV" id="4ni-VM-sWU"/>
                         <outlet property="stackViewTopConstraint" destination="9Td-IB-gbm" id="D6p-BB-8JU"/>
+                        <outlet property="statusLabel" destination="sjt-81-VLa" id="F05-D1-PHd"/>
                         <outlet property="webButton" destination="vwt-aP-hKF" id="aSu-tS-I5D"/>
                     </connections>
                 </viewController>
