@@ -65,7 +65,8 @@ class LocationDetailViewController: UIViewController {
         self.navBar.shadowImage = UIImage()
         self.navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default) //required for transparent bacground
         let backButton = self.navBar.topItem?.leftBarButtonItem
-        backButton?.setTitleTextAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25.0)], for: .normal)
+        backButton?.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 30)], for: .normal)
+        backButton?.title = String.fontAwesomeIcon(name: .chevronLeft)
         
         //initialize all labels with string values
         placeNameLabel.text = placeName

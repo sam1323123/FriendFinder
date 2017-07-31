@@ -335,7 +335,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="Place" id="slo-Vb-4Hu">
-                                        <barButtonItem key="leftBarButtonItem" title="&lt;" id="PGF-Wl-zAE">
+                                        <barButtonItem key="leftBarButtonItem" id="PGF-Wl-zAE">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </barButtonItem>
                                     </navigationItem>
