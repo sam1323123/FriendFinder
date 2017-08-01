@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0830"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3E514C0AB8D6BFF8FE5D85286FE9C156"
-               BuildableName = "Pods_FriendFinder.framework"
-               BlueprintName = "Pods-FriendFinder"
+               BlueprintIdentifier = "6991F49AED797519343B1F4591001691"
+               BuildableName = "FontAwesome.swift.bundle"
+               BlueprintName = "FontAwesome.swift-FontAwesome.swift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E514C0AB8D6BFF8FE5D85286FE9C156"
-            BuildableName = "Pods_FriendFinder.framework"
-            BlueprintName = "Pods-FriendFinder"
+            BlueprintIdentifier = "6991F49AED797519343B1F4591001691"
+            BuildableName = "FontAwesome.swift.bundle"
+            BlueprintName = "FontAwesome.swift-FontAwesome.swift"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -60,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "6991F49AED797519343B1F4591001691"
+            BuildableName = "FontAwesome.swift.bundle"
+            BlueprintName = "FontAwesome.swift-FontAwesome.swift"
+            ReferencedContainer = "container:Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -45,6 +45,8 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>tel</string>
+		<string>telprompt</string>
 		<string>googlechromes</string>
 		<string>comgooglemaps</string>
 		<string>fbauth2</string>

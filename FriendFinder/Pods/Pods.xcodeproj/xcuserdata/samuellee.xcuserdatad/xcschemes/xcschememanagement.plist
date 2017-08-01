@@ -67,6 +67,16 @@
 			<key>orderHint</key>
 			<integer>10</integer>
 		</dict>
+		<key>FontAwesome.swift-FontAwesome.swift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
+		<key>FontAwesome.swift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>19</integer>
+		</dict>
 		<key>GTMOAuth2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -149,6 +159,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3E514C0AB8D6BFF8FE5D85286FE9C156</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>44CAD6CE523055ED339E87154473A254</key>
 		<dict>
 			<key>primary</key>
@@ -174,6 +189,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6991F49AED797519343B1F4591001691</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6ED21041812C381CB333BAF500781F09</key>
 		<dict>
 			<key>primary</key>
@@ -190,6 +210,11 @@
 			<true/>
 		</dict>
 		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CD11672B6619C297B6AEE3DFB8213C59</key>
 		<dict>
 			<key>primary</key>
 			<true/>

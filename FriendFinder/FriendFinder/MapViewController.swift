@@ -12,6 +12,7 @@ import GooglePlaces
 import PXGoogleDirections
 import FirebaseDatabase
 import FirebaseAuth
+import FontAwesome_swift
 
 
 class MapViewController: UIViewController {
@@ -193,42 +194,72 @@ class MapViewController: UIViewController {
         let place = self.currentMarkerPlace!
 
         vc.placeName = place.name
-        vc.address = place.formattedAddress
+        vc.address = "\(place.formattedAddress ?? "NA")"
         
         vc.placeImage = currentInfoWindow!.icon.image
         
-        let website = (place.website ?? URL(string: "NA"))!
+        vc.web = place.website
         
-        let number = (place.phoneNumber ?? "NA")!
-        vc.contactDetails = "Phone Number: \(number)\n\n" + "Website: \(website)\n"
+        guard let phone = place.phoneNumber else {
+            vc.phone = nil
+            return
+        }
         
-        let openNow = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now" : "Closed"
+        // remove special characters first
+        let charsToRemove: Set<Character> = Set("()- ".characters)
+        vc.phone = String(( phone.characters.filter { !charsToRemove.contains($0) }))
+        
+        vc.rating = "\n\n\(place.rating) \(getStars(from: place.rating))\n"
+        
+        vc.status = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now!\n" : "Closed!\n"
+        vc.statusColor = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? .green : .red
+        
         var price: String
+        var color: UIColor = Utils.gold
+        
         switch(place.priceLevel) {
         case(GMSPlacesPriceLevel.free):
-            price = "Free"
+            price = "Free!"
             break
         case(GMSPlacesPriceLevel.cheap):
-            price = "Cheap"
+            price = String.fontAwesomeIcon(name: .dollar)
+            break
+        case(GMSPlacesPriceLevel.medium):
+            price = String(repeating: String.fontAwesomeIcon(name: .dollar), count: 2)
             break
         case(GMSPlacesPriceLevel.high):
-            price = "High"
+            price = String(repeating: String.fontAwesomeIcon(name: .dollar), count: 3)
             break
         case(GMSPlacesPriceLevel.expensive):
-            price = "Very High"
+            price = String(repeating: String.fontAwesomeIcon(name: .dollar), count: 4)
             break
         default:
             price = "NA"
+            color = .red
         }
-
-        let details = ("Rating: \(place.rating)\n\n" + "Status: \(openNow)\n\n" +
-        "Price Level: \(price)\n\n")
-        vc.placeHours = details
+        
+        vc.price = "\(price)\n"
+        vc.priceColor = color
         
         //set spinner
         vc.spinner = spinner
         return
     }
+    
+    private func getStars(from rating: Float) -> String {
+        let total = Float(5.0)
+        let roundedToHalf = round(rating * 2.0)/2.0
+        let needsHalf = ((roundedToHalf - round(rating)) != 0)
+        let numEmptyStars = Int(total - round(roundedToHalf))
+        if (needsHalf) {
+            return String(repeating: String.fontAwesomeIcon(name: .star), count: Int(roundedToHalf - Float(0.5))) + String.fontAwesomeIcon(name: .starHalfO) + String(repeating: String.fontAwesomeIcon(name: .starO), count: numEmptyStars)
+        }
+        else {
+            return String(repeating: String.fontAwesomeIcon(name: .star), count: Int(roundedToHalf)) + String(repeating: String.fontAwesomeIcon(name: .starO), count: numEmptyStars)
+        }
+    }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

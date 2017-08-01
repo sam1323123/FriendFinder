@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesome_swift
 
 class LocationDetailViewController: UIViewController {
     
@@ -23,12 +24,23 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     var address: String?
     
-    @IBOutlet weak var contactLabel: UILabel!
-    var contactDetails: String?
+    @IBOutlet weak var phoneButton: UIButton!
+    var phone: String?
     
-    @IBOutlet weak var placeHoursLabel: UILabel!
-    var placeHours: String?
-    
+    @IBOutlet weak var webButton: UIButton!
+    var web: URL?
+
+    @IBOutlet weak var ratingLabel: UILabel!
+    var rating: String?
+
+    @IBOutlet weak var statusLabel: UILabel!
+    var status: String?
+    var statusColor: UIColor?
+
+    @IBOutlet weak var priceLabel: UILabel!
+    var price: String?
+    var priceColor: UIColor?
+
     var spinner: UIActivityIndicatorView?
     
     var backPressed: Bool = false
@@ -57,15 +69,33 @@ class LocationDetailViewController: UIViewController {
         self.navBar.shadowImage = UIImage()
         self.navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default) //required for transparent bacground
         let backButton = self.navBar.topItem?.leftBarButtonItem
-        backButton?.setTitleTextAttributes([NSFontAttributeName: UIFont.boldSystemFont(ofSize: 25.0)], for: .normal)
+        backButton?.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 30)], for: .normal)
+        backButton?.title = String.fontAwesomeIcon(name: .chevronLeft)
         
         //initialize all labels with string values
         placeNameLabel.text = placeName
         placeImageView.image = placeImage
         addressLabel.text = address
-        contactLabel.text = contactDetails
-        placeHoursLabel.text = placeHours
+        
+        phoneButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
+        phoneButton.setTitle(String.fontAwesomeIcon(name: .phone), for: .normal)
+        phoneButton.setTitleColor(view.tintColor, for: .normal)
+        webButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
+        webButton.setTitle(String.fontAwesomeIcon(name: .info), for: .normal)
+        webButton.setTitleColor(view.tintColor, for: .normal)
 
+        ratingLabel.font = UIFont.fontAwesome(ofSize: 20)
+        ratingLabel.text = rating!
+        ratingLabel.textColor = Utils.gold
+        
+        statusLabel.font = UIFont.fontAwesome(ofSize: 20)
+        statusLabel.text = status!
+        statusLabel.textColor = statusColor!
+        
+        priceLabel.font = UIFont.fontAwesome(ofSize: 20)
+        priceLabel.text = price!
+        priceLabel.textColor = priceColor!
+        
         
         //configure navBar back button
         backButton?.target = self
@@ -83,8 +113,11 @@ class LocationDetailViewController: UIViewController {
         if let sp = spinner {
             placeImageView.addSubview(sp)
         }
-        
+        phoneButton.addTarget(self, action: #selector(clickOnPhone), for: .touchUpInside)
+        webButton.addTarget(self, action: #selector(clickOnWeb), for: .touchUpInside)
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -155,7 +188,6 @@ class LocationDetailViewController: UIViewController {
         //don't have to change stackView Bottom constraint
         return [imageWidthConstraint,  imageBottomConstraint,
                 stackViewTopConstraint, stackViewLeadingConstraint]
-
     }
     
     func goBack() {
@@ -172,7 +204,7 @@ class LocationDetailViewController: UIViewController {
         }
         print("RECOGNIED PAN!!!!!!")
         let screenWidth = view.bounds.width
-        let minX: CGFloat = 0.05 * screenWidth
+        let minX: CGFloat = 0.02 * screenWidth
         let threshold: CGFloat = 0.4  //min percent to follow through transition
         let position = sender.translation(in: view)
         let percentPanned = fmin((position.x / screenWidth), 1.0)
@@ -215,13 +247,48 @@ extension LocationDetailViewController: UINavigationBarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return UIBarPosition.top
     }
-    
-    
 }
 
+extension LocationDetailViewController {
+    
+    // phone link open handler
+    func clickOnPhone() {
+        guard let number = phone else {
+            Utils.displayAlert(with: self, title: "Sorry", message: "No phone available!", text: "OK")
+            return
+        }
+        if let url = URL(string: "tel://\(number)") {
+            if UIApplication.shared.canOpenURL(url) {
+                Utils.displayAlertWithCancel(with: self, title: "\(number)", message: "", text: "Call" , callback: {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                })
+            }
+            else {
+                Utils.displayAlert(with: self, title: "Sorry!", message: "Device cannot make call now.", text: "OK")
+            }
+        }
+    }
 
-
-
-
-
-
+    
+    // web link open handler
+    func clickOnWeb() {
+        if let url = web {
+            if UIApplication.shared.canOpenURL(url) {
+                Utils.displayAlertWithCancel(with: self, title:  "This page will open in the browser.", message: "", text: "Open" , callback: {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                })
+            }
+            else {
+                Utils.displayAlert(with: self, title: "Sorry!", message: "Device cannot open URL now.", text: "OK")
+            }
+        }
+    }
+}
