@@ -85,16 +85,16 @@ class LocationDetailViewController: UIViewController {
         webButton.setTitleColor(view.tintColor, for: .normal)
 
         ratingLabel.font = UIFont.fontAwesome(ofSize: 20)
-        ratingLabel.text = rating!
+        ratingLabel.text = rating
         ratingLabel.textColor = Utils.gold
         
         statusLabel.font = UIFont.fontAwesome(ofSize: 20)
-        statusLabel.text = status!
-        statusLabel.textColor = statusColor!
+        statusLabel.text = status
+        statusLabel.textColor = statusColor
         
         priceLabel.font = UIFont.fontAwesome(ofSize: 20)
-        priceLabel.text = price!
-        priceLabel.textColor = priceColor!
+        priceLabel.text = price
+        priceLabel.textColor = priceColor
         
         
         //configure navBar back button
