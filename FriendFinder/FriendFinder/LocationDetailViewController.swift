@@ -202,7 +202,6 @@ class LocationDetailViewController: UIViewController {
         guard let sender = sender as? UIPanGestureRecognizer else {
             return ;
         }
-        print("RECOGNIED PAN!!!!!!")
         let screenWidth = view.bounds.width
         let minX: CGFloat = 0.02 * screenWidth
         let threshold: CGFloat = 0.4  //min percent to follow through transition

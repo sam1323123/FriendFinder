@@ -269,7 +269,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XEB-zr-9Nf">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XEB-zr-9Nf">
                                         <rect key="frame" x="0.0" y="25" width="61.5" height="45"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -284,13 +284,16 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VkA-xq-mA1" userLabel="Phone Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="171.5" height="34"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" title="Button"/>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vwt-aP-hKF" userLabel="Web Button">
                                                 <rect key="frame" x="171.5" y="0.0" width="171.5" height="34"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <state key="normal" title="Button"/>
                                             </button>
                                         </subviews>
+                                        <color key="backgroundColor" red="0.46642337896235225" green="0.63554162565465688" blue="0.81772182642487046" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jf-Ef-QFs" userLabel="Rating Label">
                                         <rect key="frame" x="0.0" y="104" width="42" height="20.5"/>
@@ -319,7 +322,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="wPK-mL-Q7U" firstAttribute="centerX" secondItem="Hes-Ye-kyk" secondAttribute="centerX" id="6Ek-zY-cnQ"/>
-                                    <constraint firstItem="wPK-mL-Q7U" firstAttribute="top" secondItem="XEB-zr-9Nf" secondAttribute="bottom" constant="40" id="dlI-3I-d8b"/>
+                                    <constraint firstItem="wPK-mL-Q7U" firstAttribute="top" secondItem="XEB-zr-9Nf" secondAttribute="bottom" id="dlI-3I-d8b"/>
                                 </constraints>
                             </stackView>
                             <navigationBar opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVm-cP-HWI">
