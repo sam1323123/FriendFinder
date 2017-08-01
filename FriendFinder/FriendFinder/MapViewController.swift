@@ -38,6 +38,7 @@ class MapViewController: UIViewController {
     var currentInfoWindow: InfoWindowView?
     
     var ref: DatabaseReference!
+    
 
     var currentLocation: CLLocation? {
         didSet {
@@ -66,6 +67,8 @@ class MapViewController: UIViewController {
     fileprivate let errorDict : [GMSPlacesErrorCode:(String, String)] = Errors.placeErrors
     
     fileprivate var activeInfoWindowView: InfoWindowView? = nil
+    
+    fileprivate let interactor = SwipeInteractor()
     
     override func loadView() {
         super.loadView()
@@ -231,11 +234,40 @@ class MapViewController: UIViewController {
         
         if let destVC = segue.destination as? LocationDetailViewController {
             fillLocationDetailVC(vc: destVC)
+            //for animated transition
+            destVC.interactor = interactor
+            destVC.transitioningDelegate = self
         }
         
         
     }
     
+    
+}
+
+
+
+extension MapViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if let dismissed = dismissed as? LocationDetailViewController {
+            if !dismissed.backPressed {
+                //only perform custom if pan gesture version
+                return DragDismissAnimator()
+            }
+        }
+        return nil
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if animator.isMember(of: DragDismissAnimator.self) {
+            print("IS DRAG DISMISS")
+        }
+        if animator.isKind(of: DragDismissAnimator.self) {
+            print("ALSO DRAG DISMISS")
+        }
+        return interactor
+    }
     
 }
 
@@ -277,6 +309,7 @@ extension MapViewController: CLLocationManagerDelegate {
         
     }
 }
+
 
 extension MapViewController: GMSAutocompleteViewControllerDelegate {
     

@@ -31,6 +31,8 @@ class LocationDetailViewController: UIViewController {
     
     var spinner: UIActivityIndicatorView?
     
+    var backPressed: Bool = false
+    
     
     @IBOutlet weak var labelStack: UIStackView!
     
@@ -46,6 +48,8 @@ class LocationDetailViewController: UIViewController {
     
     var portraitConstraints: [NSLayoutConstraint] = []
     var landscapeConstraints: [NSLayoutConstraint] = []
+    
+    var interactor: SwipeInteractor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,8 +159,53 @@ class LocationDetailViewController: UIViewController {
     }
     
     func goBack() {
+        backPressed = true 
         dismiss(animated: true, completion: nil)
     }
+    
+    /*Gesture Recognizer Handler*/
+    
+    @IBAction func handlePanGesture(_ sender: Any) {
+        
+        guard let sender = sender as? UIPanGestureRecognizer else {
+            return ;
+        }
+        print("RECOGNIED PAN!!!!!!")
+        let screenWidth = view.bounds.width
+        let minX: CGFloat = 0.05 * screenWidth
+        let threshold: CGFloat = 0.4  //min percent to follow through transition
+        let position = sender.translation(in: view)
+        let percentPanned = fmin((position.x / screenWidth), 1.0)
+        
+        switch sender.state {
+        case .began:
+            if(position.x > minX) {
+                return //must start pan from edge of screen
+            }
+            else {
+                interactor?.hasStarted = true
+                dismiss(animated: true, completion: nil)
+            }
+        case .changed:
+            //calculate % translation and set bools in interactor objects
+            interactor?.shouldFinish = percentPanned > threshold
+            interactor?.update(percentPanned)
+        case .cancelled:
+            //set Interactor bools
+            interactor?.hasStarted = false
+            interactor?.cancel() //cancel animation
+        case.ended:
+            interactor?.hasStarted = false
+            (interactor?.shouldFinish)! ? interactor?.finish() : interactor?.cancel()
+        default:
+            break
+            
+        }
+    
+        
+        
+    }
+    
     
 }
 
@@ -169,3 +218,10 @@ extension LocationDetailViewController: UINavigationBarDelegate {
     
     
 }
+
+
+
+
+
+
+
