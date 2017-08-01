@@ -199,17 +199,23 @@ class MapViewController: UIViewController {
         vc.placeImage = currentInfoWindow!.icon.image
         
         vc.web = place.website
+        vc.webColor = (place.website == nil) ? .red : view.tintColor
         
-        guard let phone = place.phoneNumber else {
-            vc.phone = nil
-            return
+        
+        if let phone = place.phoneNumber {
+            // remove special characters first
+            let charsToRemove: Set<Character> = Set("()- ".characters)
+            vc.phone = String(( phone.characters.filter { !charsToRemove.contains($0) }))
+            vc.phoneColor = view.tintColor
         }
         
-        // remove special characters first
-        let charsToRemove: Set<Character> = Set("()- ".characters)
-        vc.phone = String(( phone.characters.filter { !charsToRemove.contains($0) }))
+        else {
+            vc.phone = nil
+            vc.phoneColor = .red
+        }
         
         vc.rating = "\n\n\(place.rating) \(getStars(from: place.rating))\n"
+
         
         vc.status = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now!\n" : "Closed!\n"
         vc.statusColor = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? .green : .red
@@ -350,7 +356,7 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
         print("Place address: \(String(describing: place.formattedAddress))")
         print("Place attributions: \(String(describing: place.attributions))")
         initMarkerForPOI(with: marker, for: place)
-        self.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: self.mapView.camera.zoom, bearing: 0, viewingAngle: 0)
+        mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: mapView.camera.zoom, bearing: 0, viewingAngle: 0)
         dismiss(animated: true, completion: nil)
     }
     

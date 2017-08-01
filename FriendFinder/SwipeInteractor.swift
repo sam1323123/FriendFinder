@@ -11,5 +11,4 @@ import UIKit
 class SwipeInteractor: UIPercentDrivenInteractiveTransition {
     var hasStarted = false ;
     var shouldFinish = false ;
-    
 }
