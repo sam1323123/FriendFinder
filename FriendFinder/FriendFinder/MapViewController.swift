@@ -125,13 +125,14 @@ class MapViewController: UIViewController {
     // initializes marker with given params for a place
     func initMarkerForPOI(with new_marker: GMSMarker, for place: GMSPlace) {
         currentMarkerPlace = place
-        mapView.selectedMarker = new_marker
         new_marker.position = place.coordinate
         new_marker.opacity = 1
         new_marker.map = mapView
         new_marker.snippet = place.formattedAddress
         new_marker.title = place.name
         new_marker.infoWindowAnchor.y = 1
+        mapView.selectedMarker = new_marker
+        print("initMarkerFinished with locatin: \(marker.position)")
     }
     
     
@@ -354,10 +355,13 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         print("Place name: \(place.name)")
         print("Place address: \(String(describing: place.formattedAddress))")
-        print("Place attributions: \(String(describing: place.attributions))")
-        initMarkerForPOI(with: marker, for: place)
+        //print("Place attributions: \(String(describing: place.attributions))")
         mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: mapView.camera.zoom, bearing: 0, viewingAngle: 0)
-        dismiss(animated: true, completion: nil)
+        self.currentMarkerPlace = place
+        dismiss(animated: true, completion: {
+            self.initMarkerForPOI(with: self.marker, for: self.currentMarkerPlace!)
+        })
+        
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
@@ -420,7 +424,7 @@ extension MapViewController: GMSMapViewDelegate {
     
     //Delegate Method for making custom InfoWindow
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        print("Marker Delegate Called, \(marker.title)")
+        
         //return nil
         let infoWindowNib = UINib(nibName: "InfoWindowView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? InfoWindowView
         if(infoWindowNib == nil) {
@@ -449,9 +453,9 @@ extension MapViewController: GMSMapViewDelegate {
         //constraint based on font size
         infoWindow.placeDescription.numberOfLines = infoWindow.placeDescription.font.pointSize > 30 ? 1 : 3
         infoWindow.name.numberOfLines = infoWindow.name.font.pointSize < 18 ? 2 : 1
-        
         currentInfoWindow = infoWindow
         marker.tracksInfoWindowChanges = true
+        print("infoWindow called, \(marker.position)")
         return infoWindow
     }
     
