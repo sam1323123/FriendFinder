@@ -26,9 +26,11 @@ class LocationDetailViewController: UIViewController {
     
     @IBOutlet weak var phoneButton: UIButton!
     var phone: String?
+    var phoneColor: UIColor?
     
     @IBOutlet weak var webButton: UIButton!
     var web: URL?
+    var webColor: UIColor?
 
     @IBOutlet weak var ratingLabel: UILabel!
     var rating: String?
@@ -79,10 +81,10 @@ class LocationDetailViewController: UIViewController {
         
         phoneButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
         phoneButton.setTitle(String.fontAwesomeIcon(name: .phone), for: .normal)
-        phoneButton.setTitleColor(view.tintColor, for: .normal)
+        phoneButton.setTitleColor(phoneColor, for: .normal)
         webButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 30)
         webButton.setTitle(String.fontAwesomeIcon(name: .info), for: .normal)
-        webButton.setTitleColor(view.tintColor, for: .normal)
+        webButton.setTitleColor(webColor, for: .normal)
 
         ratingLabel.font = UIFont.fontAwesome(ofSize: 20)
         ratingLabel.text = rating
@@ -275,8 +277,11 @@ extension LocationDetailViewController {
     
     // web link open handler
     func clickOnWeb() {
-        if let url = web {
-            if UIApplication.shared.canOpenURL(url) {
+        guard let url = web else {
+            Utils.displayAlert(with: self, title: "Sorry", message: "No website available!", text: "OK")
+            return
+        }
+        if UIApplication.shared.canOpenURL(url) {
                 Utils.displayAlertWithCancel(with: self, title:  "This page will open in the browser.", message: "", text: "Open" , callback: {
                     if #available(iOS 10.0, *) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -284,10 +289,9 @@ extension LocationDetailViewController {
                         UIApplication.shared.openURL(url)
                     }
                 })
-            }
-            else {
-                Utils.displayAlert(with: self, title: "Sorry!", message: "Device cannot open URL now.", text: "OK")
-            }
+        }
+        else {
+            Utils.displayAlert(with: self, title: "Sorry!", message: "Device cannot open URL now.", text: "OK")
         }
     }
 }
