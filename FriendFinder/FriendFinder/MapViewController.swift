@@ -28,6 +28,8 @@ class MapViewController: UIViewController {
             searchBox.delegate = self
         }
     }
+    
+    let directionAPI = (UIApplication.shared.delegate as! AppDelegate).directionsAPI
     let locationManager = CLLocationManager()
     
     let placesClient = GMSPlacesClient.shared()
@@ -40,7 +42,6 @@ class MapViewController: UIViewController {
     
     var ref: DatabaseReference!
     
-
     var currentLocation: CLLocation? {
         didSet {
             if currentLocation != nil {
@@ -61,6 +62,24 @@ class MapViewController: UIViewController {
         }
     }
     
+    lazy var userName: String? = { [weak self] in
+        var dict: NSDictionary?
+        self!.ref.child("users").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            dict = value
+        })
+        if (dict != nil) {
+            return dict!["username"] as? String
+        }
+        else {
+            return nil
+        }
+        
+    } ()
+    
+    var displayName: String?
+    
     var apiKey: String!
     
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -70,6 +89,7 @@ class MapViewController: UIViewController {
     fileprivate var activeInfoWindowView: InfoWindowView? = nil
     
     fileprivate let interactor = SwipeInteractor()
+
     
     override func loadView() {
         super.loadView()
@@ -91,30 +111,21 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ref = Database.database().reference()
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        
         mapView.accessibilityElementsHidden = false
         mapView.delegate = self
         mapView.mapType = GMSMapViewType.normal
-        var dict: NSDictionary?
-        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
-            dict = NSDictionary(contentsOfFile: path)
-            if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
-                apiKey = key
-            }
-        }
-        
-        let directionsAPI = PXGoogleDirections(apiKey: apiKey!,
-                                               from: PXLocation.coordinateLocation(CLLocationCoordinate2DMake(37.331690, -122.030762)),
-                                               to: PXLocation.specificLocation("Googleplex", "Mountain View", "United States"))
-        self.marker.map = self.mapView
-        let userID = Auth.auth().currentUser?.uid
-        ref.child("locations").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            print(value)
-        })
+        displayName = Auth.auth().currentUser?.providerData.first?.displayName
+        marker.map = mapView
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
