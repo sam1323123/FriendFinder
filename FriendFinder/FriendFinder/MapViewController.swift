@@ -17,6 +17,18 @@ import FontAwesome_swift
 
 class MapViewController: UIViewController {
     
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+
+    @IBOutlet weak var userViewLabel: UILabel!
+    
+    @IBOutlet weak var preferredNameField: UITextField!
+    
+    @IBOutlet weak var userNameField: UITextField!
+   
+    @IBOutlet weak var userButton: UIButton!
+   
+    @IBOutlet var userView: UIView!
+    
     @IBOutlet weak var mapView: GMSMapView!
 
     @IBOutlet weak var searchBox: UITextField! {
@@ -28,6 +40,7 @@ class MapViewController: UIViewController {
             searchBox.delegate = self
         }
     }
+    var visualEffect: UIVisualEffect?
     
     let directionAPI = (UIApplication.shared.delegate as! AppDelegate).directionsAPI
     let locationManager = CLLocationManager()
@@ -75,7 +88,21 @@ class MapViewController: UIViewController {
         else {
             return nil
         }
-        
+    } ()
+    
+    lazy var preferredName: String? = { [weak self] in
+        var dict: NSDictionary?
+        self!.ref.child("names").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            dict = value
+        })
+        if (dict != nil) {
+            return dict!["name"] as? String
+        }
+        else {
+            return nil
+        }
     } ()
     
     var displayName: String?
@@ -111,18 +138,59 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         ref = Database.database().reference()
-        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        
         mapView.accessibilityElementsHidden = false
         mapView.delegate = self
         mapView.mapType = GMSMapViewType.normal
         displayName = Auth.auth().currentUser?.providerData.first?.displayName
         marker.map = mapView
+        visualEffect = visualEffectView.effect
+        visualEffectView.effect = nil
+        visualEffectView.alpha = 0.8
+        
+        if (userName == nil) {
+            animateUserInputScreen()
+        }
     }
+    
+    private func animateUserInputScreen() {
+        view.addSubview(userView)
+        let displayText = (displayName == nil) ? "" : ", " + displayName!.components(separatedBy: " ")[0]
+        userViewLabel.text = "Welcome\(displayText)! Please enter your preferred name and username."
+        userButton.addTarget(self, action: #selector(animateOutUserInputScreen), for: .touchUpInside)
+        userView.center = view.center
+        userView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        userView.alpha = 0
+        UIView.animate(withDuration: 0.4, animations: {
+            [weak self] in
+            self!.visualEffectView.effect = self!.visualEffect
+            self!.userView.alpha = 1
+            self!.userView.transform = CGAffineTransform.identity
+        })
+    }
+    
+    func animateOutUserInputScreen() {
+        preferredName = preferredNameField.text?.trimmingCharacters(in: [" "])
+        userName = userNameField.text?.trimmingCharacters(in: [" "])
+        if (userName!.characters.count == 0 || preferredName!.characters.count == 0) {
+            return
+        }
+        print(preferredName)
+        print(userName)
+        UIView.animate(withDuration: 0.8, animations: {
+            [weak self] in
+            self!.userView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self!.userView.alpha = 0
+            self!.visualEffectView.effect = nil
+            }, completion: {
+                [weak self]
+                (success: Bool) in
+                self!.userView.removeFromSuperview()
+        })
+    }
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -426,7 +494,6 @@ extension MapViewController: GMSMapViewDelegate {
     
     
     func handleTapOnInfoWindow() {
-
         print("TAPPED ON WINDOW")
         performSegue(withIdentifier: "Details", sender: self)
 
