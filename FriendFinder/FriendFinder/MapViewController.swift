@@ -116,6 +116,8 @@ class MapViewController: UIViewController {
     fileprivate var activeInfoWindowView: InfoWindowView? = nil
     
     fileprivate let interactor = SwipeInteractor()
+    
+    fileprivate var nextVC: LocationDetailViewController?
 
     
     override func loadView() {
@@ -144,8 +146,8 @@ class MapViewController: UIViewController {
         mapView.accessibilityElementsHidden = false
         mapView.delegate = self
         mapView.mapType = GMSMapViewType.normal
-        displayName = Auth.auth().currentUser?.providerData.first?.displayName
         marker.map = mapView
+        displayName = Auth.auth().currentUser?.providerData.first?.displayName
         visualEffect = visualEffectView.effect
         visualEffectView.effect = nil
         visualEffectView.alpha = 0.8
@@ -188,12 +190,10 @@ class MapViewController: UIViewController {
                 [weak self]
                 (success: Bool) in
                 self!.userView.removeFromSuperview()
+                self!.userView = nil
+                self!.visualEffectView.removeFromSuperview()
+                self!.visualEffectView = nil
         })
-    }
-
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
@@ -236,6 +236,9 @@ class MapViewController: UIViewController {
                 else {
                     self?.currentInfoWindow?.icon.image = #imageLiteral(resourceName: "no_image")
                     self?.spinner.stopAnimating()
+                    if (self?.nextVC != nil) {
+                        self?.nextVC?.backButtonColor = .black
+                    }
                 }
             }
         }
@@ -247,6 +250,9 @@ class MapViewController: UIViewController {
             self?.handlePlacesError(error: error)
             self?.currentInfoWindow?.icon.image = photo
             self?.currentInfoWindow?.attributionLabel.text = photoMetadata.attributions?.string
+            if (self?.nextVC != nil) {
+                self?.nextVC?.backButtonColor = .white
+            }
             self?.spinner.stopAnimating()
             
         })
@@ -298,6 +304,10 @@ class MapViewController: UIViewController {
 
         
         vc.status = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now!\n" : "Closed!\n"
+        if (place.openNowStatus == GMSPlacesOpenNowStatus.yes) {print ("OPEEEEEN")}
+        else if (place.openNowStatus == GMSPlacesOpenNowStatus.no) { print("CLOSEEED")}
+        else if (place.openNowStatus == GMSPlacesOpenNowStatus.unknown) { print("NOOOOOO") }
+
         vc.statusColor = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? .green : .red
         
         var price: String
@@ -350,6 +360,7 @@ class MapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let destVC = segue.destination as? LocationDetailViewController {
+            nextVC = destVC
             fillLocationDetailVC(vc: destVC)
             //for animated transition
             destVC.interactor = interactor

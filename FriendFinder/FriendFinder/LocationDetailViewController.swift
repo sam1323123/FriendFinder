@@ -47,6 +47,8 @@ class LocationDetailViewController: UIViewController {
     
     var backPressed: Bool = false
     
+    var backButtonColor: UIColor?
+    
     
     @IBOutlet weak var labelStack: UIStackView!
     
@@ -69,9 +71,12 @@ class LocationDetailViewController: UIViewController {
         super.viewDidLoad()
         self.navBar.delegate = self
         self.navBar.shadowImage = UIImage()
-        self.navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default) //required for transparent bacground
+        self.navBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default) //required for transparent background
         let backButton = self.navBar.topItem?.leftBarButtonItem
-        backButton?.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 30)], for: .normal)
+        if (backButtonColor == nil) {
+            backButtonColor = .white
+        }
+        backButton?.setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 30), NSForegroundColorAttributeName: backButtonColor], for: .normal)
         backButton?.title = String.fontAwesomeIcon(name: .chevronLeft)
         
         //initialize all labels with string values
