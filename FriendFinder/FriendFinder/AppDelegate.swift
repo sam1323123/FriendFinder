@@ -14,6 +14,7 @@ import GoogleSignIn
 import GoogleMaps
 import GooglePlaces
 import PXGoogleDirections
+import PubNub
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
@@ -21,16 +22,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
     var window: UIWindow?
     var authUI: FUIAuth?
     var directionsAPI: PXGoogleDirections!
+    var pubNubClient: PubNub?
 
      func application(_ application: UIApplication,
                               willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         var dict: NSDictionary?
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
             dict = NSDictionary(contentsOfFile: path)
-            if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
-                GMSServices.provideAPIKey(key)
-                GMSPlacesClient.provideAPIKey(key)
-                directionsAPI = PXGoogleDirections(apiKey: key)
+            if dict != nil {
+                let key = dict!["GoogleMapsAPIKey"] as? String
+                GMSServices.provideAPIKey(key!)
+                GMSPlacesClient.provideAPIKey(key!)
+                directionsAPI = PXGoogleDirections(apiKey: key!)
+                let (pubNubPubKey, pubNubSubKey) = (dict!["PubNubPublishKey"] as! String, dict!["PubNubSubscribeKey"] as! String)
+                let pnConfig = PNConfiguration(publishKey: pubNubPubKey,
+                                               subscribeKey: pubNubSubKey)
+                //pnConfig.stripMobilePayload = false
+                self.pubNubClient = PubNub.clientWithConfiguration(pnConfig)
+            
             }
         }
         return true

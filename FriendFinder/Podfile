@@ -7,7 +7,7 @@ project 'Frameworks/External/PXGoogleDirections/PXGoogleDirections.xcodeproj' # 
 target 'FriendFinder' do
 
   project 'FriendFinder.xcodeproj'
-  platform :ios, '9.0'
+  platform :ios, '10.0'
   use_frameworks!
   
   # Pods for FriendFinder
@@ -40,7 +40,8 @@ target 'FriendFinder' do
   pod 'Firebase/Database'
 
   pod 'FontAwesome.swift'
- 
+  
+  pod 'PubNub', '~>4.6'
 
   target 'FriendFinderTests' do
     inherit! :search_paths

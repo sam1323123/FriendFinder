@@ -12,6 +12,7 @@ import FacebookLogin
 import FacebookCore
 import FBSDKCoreKit
 import GoogleSignIn
+import FirebaseDatabase
 
 
 class LoginController: UIViewController {
@@ -28,6 +29,9 @@ class LoginController: UIViewController {
     var isLargeScreen: Bool?
     
     var isBackPressed: Bool = false
+    
+    fileprivate var ref: DatabaseReference?
+    fileprivate let usernameSemaphore = DispatchSemaphore(value: 1)
 
     
     //dictionary mapping errors to error messages
@@ -45,6 +49,8 @@ class LoginController: UIViewController {
         loadAndSetImageBackground()
         let fbButton = initializeFacebookLogin()
         createCustomGoogleButton(below: fbButton)
+        ref = Database.database().reference()
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -427,6 +433,39 @@ extension LoginController {
         
     }
 }
+
+
+//extension for username creation
+extension LoginController {
+    
+    //performs callback(true) and add to db if username given is valid else callback(false)
+    func createUsername(username: String, callback: @escaping (Bool)->Void) {
+        let dbRef = self.ref!
+        let path = "usernames/\(username)"
+        dbRef.child(path).observeSingleEvent(of: .value, with: {(snap) in
+
+            if snap.exists() {
+                //username already taken
+                callback(false)
+                return
+            }
+            //set username
+            dbRef.child("usernames").child(username).setValue(Auth.auth().currentUser!.uid)
+            //dbRef.child(path).setValue(Auth.auth().currentUser!.uid)
+            print("ADDED TO FIREBASE ")
+            callback(true)
+            return
+        })
+        
+    }
+    
+}
+
+
+
+
+
+
 
 //useful extension to String
 extension String {

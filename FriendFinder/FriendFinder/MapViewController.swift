@@ -105,6 +105,7 @@ class MapViewController: UIViewController {
             }
         }
         
+        
         let directionsAPI = PXGoogleDirections(apiKey: apiKey!,
                                                from: PXLocation.coordinateLocation(CLLocationCoordinate2DMake(37.331690, -122.030762)),
                                                to: PXLocation.specificLocation("Googleplex", "Mountain View", "United States"))
