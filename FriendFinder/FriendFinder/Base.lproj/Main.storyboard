@@ -218,6 +218,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qre-za-yjC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jhc-02-fCc">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -226,21 +234,100 @@
                             <constraint firstItem="FN1-2V-odb" firstAttribute="leading" secondItem="U5p-kp-7Ja" secondAttribute="leading" id="ORi-g9-9b0"/>
                             <constraint firstItem="KnO-Pq-6ub" firstAttribute="leading" secondItem="U5p-kp-7Ja" secondAttribute="leadingMargin" constant="40" id="PhS-K6-7Nt"/>
                             <constraint firstItem="KnO-Pq-6ub" firstAttribute="top" secondItem="PgJ-dd-2Rr" secondAttribute="bottom" constant="8" symbolic="YES" id="PnI-ef-FWM"/>
+                            <constraint firstItem="Qre-za-yjC" firstAttribute="top" secondItem="FN1-2V-odb" secondAttribute="top" id="dDO-A3-r3Y"/>
                             <constraint firstItem="KnO-Pq-6ub" firstAttribute="centerX" secondItem="U5p-kp-7Ja" secondAttribute="centerX" id="dXL-iW-S8P"/>
+                            <constraint firstItem="Qre-za-yjC" firstAttribute="bottom" secondItem="Ihe-9H-OGw" secondAttribute="top" id="fEp-Ax-7ry"/>
                             <constraint firstItem="FN1-2V-odb" firstAttribute="top" secondItem="U5p-kp-7Ja" secondAttribute="top" id="gcW-bZ-k9K"/>
+                            <constraint firstItem="Qre-za-yjC" firstAttribute="leading" secondItem="FN1-2V-odb" secondAttribute="leading" id="pkK-l2-gZe"/>
+                            <constraint firstItem="Qre-za-yjC" firstAttribute="trailing" secondItem="FN1-2V-odb" secondAttribute="trailing" id="tVJ-8H-Rtu"/>
                             <constraint firstItem="FN1-2V-odb" firstAttribute="centerX" secondItem="KnO-Pq-6ub" secondAttribute="centerX" id="tfD-nS-f1d"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="FN1-2V-odb" id="FxQ-6g-5h2"/>
+                        <outlet property="preferredNameField" destination="vSs-ki-aeS" id="6UI-BB-BvZ"/>
                         <outlet property="searchBox" destination="KnO-Pq-6ub" id="qKG-Go-gm2"/>
+                        <outlet property="userButton" destination="vIn-Sh-5tU" id="PGr-xK-xlf"/>
+                        <outlet property="userNameField" destination="XAi-lU-2Rc" id="rXg-jV-rYG"/>
+                        <outlet property="userView" destination="q0P-g2-cxb" id="bJ2-yN-SCc"/>
+                        <outlet property="userViewLabel" destination="WnY-OP-5Lf" id="fN6-rx-YNB"/>
+                        <outlet property="visualEffectView" destination="Qre-za-yjC" id="gwe-97-XzL"/>
                         <segue destination="968-Ei-qIi" kind="presentation" identifier="locationSearch" id="KQW-bk-GDk"/>
                         <segue destination="EfS-EK-qSb" kind="presentation" identifier="Details" id="cmz-sf-fPJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfT-QD-Vr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="q0P-g2-cxb">
+                    <rect key="frame" x="0.0" y="0.0" width="256" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WnY-OP-5Lf">
+                            <rect key="frame" x="5" y="5" width="246" height="16"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Preferred Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vSs-ki-aeS" customClass="BottomBorderTextField" customModule="FriendFinder" customModuleProvider="target">
+                            <rect key="frame" x="35" y="56" width="186" height="17"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                    <color key="value" red="0.61059106110000005" green="0.61059106110000005" blue="0.61059106110000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XAi-lU-2Rc" customClass="BottomBorderTextField" customModule="FriendFinder" customModuleProvider="target">
+                            <rect key="frame" x="35" y="81" width="186" height="17"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                    <color key="value" red="0.61059106110000005" green="0.61059106110000005" blue="0.61059106110000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIn-Sh-5tU">
+                            <rect key="frame" x="96" y="103" width="64" height="25"/>
+                            <state key="normal" title="OK"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="vSs-ki-aeS" firstAttribute="width" secondItem="XAi-lU-2Rc" secondAttribute="width" id="7Dr-8Y-c9t"/>
+                        <constraint firstItem="vIn-Sh-5tU" firstAttribute="leading" secondItem="q0P-g2-cxb" secondAttribute="leading" constant="96" id="CfE-Nv-mCt"/>
+                        <constraint firstItem="WnY-OP-5Lf" firstAttribute="leading" secondItem="q0P-g2-cxb" secondAttribute="leading" constant="5" id="DXT-az-Q1b"/>
+                        <constraint firstItem="vIn-Sh-5tU" firstAttribute="top" secondItem="XAi-lU-2Rc" secondAttribute="bottom" constant="5" id="En6-mq-PZd"/>
+                        <constraint firstItem="XAi-lU-2Rc" firstAttribute="trailing" secondItem="vSs-ki-aeS" secondAttribute="trailing" id="GzO-oo-LNF"/>
+                        <constraint firstItem="vSs-ki-aeS" firstAttribute="height" secondItem="XAi-lU-2Rc" secondAttribute="height" id="Kcq-Nx-hPw"/>
+                        <constraint firstAttribute="trailing" secondItem="vIn-Sh-5tU" secondAttribute="trailing" constant="96" id="Mq9-7g-1dM"/>
+                        <constraint firstItem="WnY-OP-5Lf" firstAttribute="centerX" secondItem="q0P-g2-cxb" secondAttribute="centerX" id="Tzh-vu-ULu"/>
+                        <constraint firstItem="XAi-lU-2Rc" firstAttribute="top" secondItem="vSs-ki-aeS" secondAttribute="bottom" constant="8" symbolic="YES" id="WeD-hS-4nq"/>
+                        <constraint firstItem="XAi-lU-2Rc" firstAttribute="leading" secondItem="vSs-ki-aeS" secondAttribute="leading" id="X8S-0Q-ZMZ"/>
+                        <constraint firstAttribute="bottom" secondItem="XAi-lU-2Rc" secondAttribute="bottom" constant="30" id="hKE-vE-ybp"/>
+                        <constraint firstAttribute="bottom" secondItem="vIn-Sh-5tU" secondAttribute="bottom" id="q7n-5b-Wif"/>
+                        <constraint firstItem="XAi-lU-2Rc" firstAttribute="leading" secondItem="WnY-OP-5Lf" secondAttribute="leading" constant="30" id="qlr-q6-o6L"/>
+                        <constraint firstItem="WnY-OP-5Lf" firstAttribute="top" secondItem="q0P-g2-cxb" secondAttribute="top" constant="5" id="tUd-Zs-8Eu"/>
+                        <constraint firstItem="XAi-lU-2Rc" firstAttribute="trailing" secondItem="WnY-OP-5Lf" secondAttribute="trailing" constant="-30" id="uJZ-H3-odk"/>
+                        <constraint firstAttribute="trailing" secondItem="WnY-OP-5Lf" secondAttribute="trailing" constant="5" id="znl-Hw-yUS"/>
+                    </constraints>
+                </view>
             </objects>
-            <point key="canvasLocation" x="589.85507246376812" y="1088.3152173913045"/>
+            <point key="canvasLocation" x="589.60000000000002" y="1088.0059970014993"/>
         </scene>
         <!--Location Detail View Controller-->
         <scene sceneID="KPb-EH-ljT">

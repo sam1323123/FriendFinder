@@ -17,6 +17,18 @@ import FontAwesome_swift
 
 class MapViewController: UIViewController {
     
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+
+    @IBOutlet weak var userViewLabel: UILabel!
+    
+    @IBOutlet weak var preferredNameField: UITextField!
+    
+    @IBOutlet weak var userNameField: UITextField!
+   
+    @IBOutlet weak var userButton: UIButton!
+   
+    @IBOutlet var userView: UIView!
+    
     @IBOutlet weak var mapView: GMSMapView!
 
     @IBOutlet weak var searchBox: UITextField! {
@@ -28,6 +40,9 @@ class MapViewController: UIViewController {
             searchBox.delegate = self
         }
     }
+    var visualEffect: UIVisualEffect?
+    
+    let directionAPI = (UIApplication.shared.delegate as! AppDelegate).directionsAPI
     let locationManager = CLLocationManager()
     
     let placesClient = GMSPlacesClient.shared()
@@ -40,7 +55,6 @@ class MapViewController: UIViewController {
     
     var ref: DatabaseReference!
     
-
     var currentLocation: CLLocation? {
         didSet {
             if currentLocation != nil {
@@ -61,6 +75,38 @@ class MapViewController: UIViewController {
         }
     }
     
+    lazy var userName: String? = { [weak self] in
+        var dict: NSDictionary?
+        self!.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            dict = value
+        })
+        if (dict != nil) {
+            return dict!["username"] as? String
+        }
+        else {
+            return nil
+        }
+    } ()
+    
+    lazy var preferredName: String? = { [weak self] in
+        var dict: NSDictionary?
+        self!.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            dict = value
+        })
+        if (dict != nil) {
+            return dict!["name"] as? String
+        }
+        else {
+            return nil
+        }
+    } ()
+    
+    var displayName: String?
+    
     var apiKey: String!
     
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -70,6 +116,9 @@ class MapViewController: UIViewController {
     fileprivate var activeInfoWindowView: InfoWindowView? = nil
     
     fileprivate let interactor = SwipeInteractor()
+    
+    fileprivate var nextVC: LocationDetailViewController?
+
     
     override func loadView() {
         super.loadView()
@@ -97,26 +146,60 @@ class MapViewController: UIViewController {
         mapView.accessibilityElementsHidden = false
         mapView.delegate = self
         mapView.mapType = GMSMapViewType.normal
-        var dict: NSDictionary?
-        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
-            dict = NSDictionary(contentsOfFile: path)
-            if dict != nil, let key = dict!["GoogleMapsAPIKey"] as? String {
-                apiKey = key
-            }
+        marker.map = mapView
+        displayName = Auth.auth().currentUser?.providerData.first?.displayName
+        visualEffect = visualEffectView.effect
+        visualEffectView.effect = nil
+        visualEffectView.alpha = 0.8
+        
+        if (userName == nil) {
+            userButton.addTarget(self, action: #selector(createUsernameButtonAction(sender:)), for: .touchUpInside)
+            animateUserInputScreen()
         }
-        
-        
-        let directionsAPI = PXGoogleDirections(apiKey: apiKey!,
-                                               from: PXLocation.coordinateLocation(CLLocationCoordinate2DMake(37.331690, -122.030762)),
-                                               to: PXLocation.specificLocation("Googleplex", "Mountain View", "United States"))
-        self.marker.map = self.mapView
-        let userID = Auth.auth().currentUser?.uid
-        ref.child("locations").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            print(value)
+    }
+    
+    private func animateUserInputScreen() {
+        view.addSubview(userView)
+        let displayText = (displayName == nil) ? "" : ", " + displayName!.components(separatedBy: " ")[0]
+        userViewLabel.text = "Welcome\(displayText)! Please enter your preferred name and username."
+        //userButton.addTarget(self, action: #selector(animateOutUserInputScreen), for: .touchUpInside)
+        userView.center = view.center
+        userView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        userView.alpha = 0
+        UIView.animate(withDuration: 0.4, animations: {
+            [weak self] in
+            self!.visualEffectView.effect = self!.visualEffect
+            self!.userView.alpha = 1
+            self!.userView.transform = CGAffineTransform.identity
         })
     }
+    
+    func animateOutUserInputScreen(completion: (() -> Void)? = nil) {
+        preferredName = preferredNameField.text?.trimmingCharacters(in: [" "])
+        userName = userNameField.text?.trimmingCharacters(in: [" "])
+        if (userName!.characters.count == 0 || preferredName!.characters.count == 0) {
+            return
+        }
+        print(preferredName)
+        print(userName)
+        UIView.animate(withDuration: 0.8, animations: {
+            [weak self] in
+            self!.userView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self!.userView.alpha = 0
+            self!.visualEffectView.effect = nil
+            }, completion: {
+                [weak self]
+                (success: Bool) in
+                self!.userView.removeFromSuperview()
+                self!.userView = nil
+                self!.visualEffectView.removeFromSuperview()
+                self!.visualEffectView = nil
+                if let comp_fn = completion {
+                    comp_fn()
+                }
+        })
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -158,6 +241,9 @@ class MapViewController: UIViewController {
                 else {
                     self?.currentInfoWindow?.icon.image = #imageLiteral(resourceName: "no_image")
                     self?.spinner.stopAnimating()
+                    if (self?.nextVC != nil) {
+                        self?.nextVC?.backButtonColor = .black
+                    }
                 }
             }
         }
@@ -169,6 +255,9 @@ class MapViewController: UIViewController {
             self?.handlePlacesError(error: error)
             self?.currentInfoWindow?.icon.image = photo
             self?.currentInfoWindow?.attributionLabel.text = photoMetadata.attributions?.string
+            if (self?.nextVC != nil) {
+                self?.nextVC?.backButtonColor = .white
+            }
             self?.spinner.stopAnimating()
             
         })
@@ -220,6 +309,10 @@ class MapViewController: UIViewController {
 
         
         vc.status = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now!\n" : "Closed!\n"
+        if (place.openNowStatus == GMSPlacesOpenNowStatus.yes) {print ("OPEEEEEN")}
+        else if (place.openNowStatus == GMSPlacesOpenNowStatus.no) { print("CLOSEEED")}
+        else if (place.openNowStatus == GMSPlacesOpenNowStatus.unknown) { print("NOOOOOO") }
+
         vc.statusColor = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? .green : .red
         
         var price: String
@@ -272,6 +365,7 @@ class MapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let destVC = segue.destination as? LocationDetailViewController {
+            nextVC = destVC
             fillLocationDetailVC(vc: destVC)
             //for animated transition
             destVC.interactor = interactor
@@ -283,8 +377,6 @@ class MapViewController: UIViewController {
     
     
 }
-
-
 
 extension MapViewController: UIViewControllerTransitioningDelegate {
     
@@ -416,7 +508,6 @@ extension MapViewController: GMSMapViewDelegate {
     
     
     func handleTapOnInfoWindow() {
-
         print("TAPPED ON WINDOW")
         performSegue(withIdentifier: "Details", sender: self)
 
@@ -468,6 +559,61 @@ extension MapViewController: GMSMapViewDelegate {
     
     
 }
+
+
+//extension for username creation
+extension MapViewController {
+    
+    //performs callback(true) and add to db if username given is valid else callback(false)
+    func addUsernameToFirebase(username: String, callback: @escaping (Bool)->Void) {
+        let dbRef = self.ref!
+        let usernamePath = "usernames/\(username)"
+        dbRef.child(usernamePath).observeSingleEvent(of: .value, with: {(snap) in
+            
+            if snap.exists() {
+                //username already taken
+                callback(false)
+                return
+            }
+            //set username
+            dbRef.child(usernamePath).setValue(Auth.auth().currentUser!.uid)
+            dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("userName").setValue(username) //add username to uid field
+            dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("preferredName").setValue(self.preferredNameField.text ?? "") //add preferred to uid field
+            //!! should we handle the case where the write is not guaranteed and someone else might write first
+            self.userName = username
+            print("ADDED TO FIREBASE ")
+            callback(true)
+            return
+        })
+        
+    }
+    
+    
+    //functon to pass into closure of addUsernameToFirebase
+    func addUsernameAttemptHandler(created: Bool) {
+        if created {
+            //dismiss userview, print welcome message via alert vc
+            self.animateOutUserInputScreen(completion: {Utils.displayAlert(with: self, title: "Welcome", message: "You are now registered with FriendFinder", text: "Ok")})
+        }
+        else {
+            userViewLabel.text = "Username already taken. Please try again"
+            userViewLabel.textColor = UIColor.red
+        }
+    }
+    
+    //target function for username button
+    func createUsernameButtonAction(sender: UIButton) {
+        guard let username = userNameField.text else {
+            return //username empty
+        }
+        addUsernameToFirebase(username: username, callback: {[weak self] (created) in
+            DispatchQueue.main.async { self?.addUsernameAttemptHandler(created: created) }
+            })
+        
+    }
+    
+}
+
 
 
 
