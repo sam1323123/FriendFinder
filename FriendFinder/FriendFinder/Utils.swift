@@ -40,9 +40,6 @@ class Utils {
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         controller.present(alertController, animated: true)
     }
-
-    
-    
     
 }
 

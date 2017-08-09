@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
     var window: UIWindow?
     var authUI: FUIAuth?
     var directionsAPI: PXGoogleDirections!
+    var GMSkey: String!
 
      func application(_ application: UIApplication,
                               willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
@@ -31,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
                 GMSServices.provideAPIKey(key)
                 GMSPlacesClient.provideAPIKey(key)
                 directionsAPI = PXGoogleDirections(apiKey: key)
+                GMSkey = key
             }
         }
         return true

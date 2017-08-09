@@ -43,6 +43,7 @@ class MapViewController: UIViewController {
     var visualEffect: UIVisualEffect?
     
     let directionAPI = (UIApplication.shared.delegate as! AppDelegate).directionsAPI
+    
     let locationManager = CLLocationManager()
     
     let placesClient = GMSPlacesClient.shared()
@@ -107,8 +108,6 @@ class MapViewController: UIViewController {
     
     var displayName: String?
     
-    var apiKey: String!
-    
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     fileprivate let errorDict : [GMSPlacesErrorCode:(String, String)] = Errors.placeErrors
@@ -118,8 +117,23 @@ class MapViewController: UIViewController {
     fileprivate let interactor = SwipeInteractor()
     
     fileprivate var nextVC: LocationDetailViewController?
-
     
+    fileprivate var nextVCBackColor: UIColor? {
+        didSet {
+            if (nextVC != nil) {
+                nextVC?.backButtonColor = nextVCBackColor
+            }
+        }
+    }
+    
+    fileprivate var placeHours: NSMutableAttributedString? {
+        didSet {
+            if (nextVC != nil) {
+                nextVC?.status = placeHours
+            }
+        }
+    }
+
     override func loadView() {
         super.loadView()
     }
@@ -236,9 +250,8 @@ class MapViewController: UIViewController {
                 else {
                     self?.currentInfoWindow?.icon.image = #imageLiteral(resourceName: "no_image")
                     self?.spinner.stopAnimating()
-                    if (self?.nextVC != nil) {
-                        self?.nextVC?.backButtonColor = .black
-                    }
+                    self?.nextVCBackColor = .black
+                    
                 }
             }
         }
@@ -250,9 +263,7 @@ class MapViewController: UIViewController {
             self?.handlePlacesError(error: error)
             self?.currentInfoWindow?.icon.image = photo
             self?.currentInfoWindow?.attributionLabel.text = photoMetadata.attributions?.string
-            if (self?.nextVC != nil) {
-                self?.nextVC?.backButtonColor = .white
-            }
+            self?.nextVCBackColor = .white
             self?.spinner.stopAnimating()
             
         })
@@ -303,12 +314,9 @@ class MapViewController: UIViewController {
         vc.rating = "\n\n\(place.rating) \(getStars(from: place.rating))\n"
 
         
-        vc.status = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? "Open Now!\n" : "Closed!\n"
         if (place.openNowStatus == GMSPlacesOpenNowStatus.yes) {print ("OPEEEEEN")}
         else if (place.openNowStatus == GMSPlacesOpenNowStatus.no) { print("CLOSEEED")}
         else if (place.openNowStatus == GMSPlacesOpenNowStatus.unknown) { print("NOOOOOO") }
-
-        vc.statusColor = (place.openNowStatus == GMSPlacesOpenNowStatus.yes) ? .green : .red
         
         var price: String
         var color: UIColor = Utils.gold
@@ -336,9 +344,14 @@ class MapViewController: UIViewController {
         
         vc.price = "\(price)\n"
         vc.priceColor = color
+
+        
+        vc.status = placeHours
         
         //set spinner
         vc.spinner = spinner
+        
+        vc.backButtonColor = nextVCBackColor
         return
     }
     
@@ -445,7 +458,6 @@ extension MapViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         print("Place name: \(place.name)")
         print("Place address: \(String(describing: place.formattedAddress))")
-        //print("Place attributions: \(String(describing: place.attributions))")
         mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: mapView.camera.zoom, bearing: 0, viewingAngle: 0)
         self.currentMarkerPlace = place
         dismiss(animated: true, completion: {
@@ -511,10 +523,8 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     
-    //Delegate Method for making custom InfoWindow
+    // delegate Method for making custom InfoWindow
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        
-        //return nil
         let infoWindowNib = UINib(nibName: "InfoWindowView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? InfoWindowView
         if(infoWindowNib == nil) {
             print("COULD NOT FIND NIB FILE")
@@ -524,6 +534,7 @@ extension MapViewController: GMSMapViewDelegate {
             // don't know place
             return nil
         }
+        getPlaceHours(for: place.placeID)
         let infoWindow = infoWindowNib!
         infoWindow.awakeFromNib()
         DispatchQueue.main.async {
@@ -548,6 +559,79 @@ extension MapViewController: GMSMapViewDelegate {
         return infoWindow
     }
     
+    // helper to get place hours from GMS Places API
+    private func getPlaceHours(for placeID: String) {
+        let apiKey = (UIApplication.shared.delegate as! AppDelegate).GMSkey!
+        let placesEndpoint: String = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeID)&key=\(apiKey)"
+        guard let placesURL = URL(string: placesEndpoint) else {
+            print("Error: cannot create URL for GMS Places endpoint")
+            return
+        }
+        let placesTask = URLSession.shared.dataTask(with: URLRequest(url: placesURL)) {
+            [weak self]
+            (data, response, error) in
+            // check for any errors
+            guard error == nil else {
+                print("Error: Could not send GET on Places endpoint ")
+                print(error!)
+                return
+            }
+            // make sure we got data
+            guard let responseData = data else {
+                print("Error: Did not receive data from on Places endpoint")
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let placesResponse = try JSONSerialization.jsonObject(with: responseData, options: [])
+                    as? [String: Any] else {
+                        print("Error: Could not convert JSON to dictionary")
+                        return
+                }
+                self!.placeHours = self!.formatHours(dict: placesResponse)
+            } catch  {
+                print("error trying to convert data to JSON")
+                return
+            }
+        }
+        placesTask.resume()
+
+    }
+
+    
+    
+    fileprivate func formatHours(dict: [String : Any]) -> NSMutableAttributedString {
+        guard let result = dict["result"] as? [String : Any] else {
+            return NSMutableAttributedString(string: "")
+        }
+        guard let openingHours = result["opening_hours"] as? [String : Any] else {
+            return NSMutableAttributedString(string: "")
+        }
+        guard let hours = openingHours["weekday_text"] as? [String] else {
+            return NSMutableAttributedString(string: "")
+        }
+        var text = ""
+        var colors = [String:UIColor]()
+        for hour in hours {
+            var hourSplit = hour.characters.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true).map({String($0)})
+            text += "\(hour)\n"
+            if (hourSplit[1].trimmingCharacters(in: .whitespaces) == "Closed") {
+                colors[hourSplit[0]] = .red
+            }
+            else {
+                colors[hourSplit[0]] = .green
+            }
+        }
+        let mutableString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName: UIFont.fontAwesome(ofSize: 10)])
+        var start = 0
+        for hour in hours {
+            var hourSplit = hour.characters.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true).map({String($0)})
+            let color = colors[hourSplit[0]]
+            mutableString.addAttribute(NSForegroundColorAttributeName, value: color, range: NSRange(location: start + hourSplit[0].characters.count + 1, length: hourSplit[1].characters.count))
+            start += hour.characters.count + 1
+        }
+        return mutableString
+    }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         handleTapOnInfoWindow()
