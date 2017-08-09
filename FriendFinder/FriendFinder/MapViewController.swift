@@ -78,7 +78,7 @@ class MapViewController: UIViewController {
     
     lazy var userName: String? = { [weak self] in
         var dict: NSDictionary?
-        self!.ref.child("users").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+        self!.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
             dict = value
@@ -93,7 +93,7 @@ class MapViewController: UIViewController {
     
     lazy var preferredName: String? = { [weak self] in
         var dict: NSDictionary?
-        self!.ref.child("names").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+        self!.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
             dict = value
@@ -167,6 +167,7 @@ class MapViewController: UIViewController {
         visualEffectView.alpha = 0.8
         
         if (userName == nil) {
+            userButton.addTarget(self, action: #selector(createUsernameButtonAction(sender:)), for: .touchUpInside)
             animateUserInputScreen()
         }
     }
@@ -175,7 +176,7 @@ class MapViewController: UIViewController {
         view.addSubview(userView)
         let displayText = (displayName == nil) ? "" : ", " + displayName!.components(separatedBy: " ")[0]
         userViewLabel.text = "Welcome\(displayText)! Please enter your preferred name and username."
-        userButton.addTarget(self, action: #selector(animateOutUserInputScreen), for: .touchUpInside)
+        //userButton.addTarget(self, action: #selector(animateOutUserInputScreen), for: .touchUpInside)
         userView.center = view.center
         userView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         userView.alpha = 0
@@ -187,7 +188,7 @@ class MapViewController: UIViewController {
         })
     }
     
-    func animateOutUserInputScreen() {
+    func animateOutUserInputScreen(completion: (() -> Void)? = nil) {
         preferredName = preferredNameField.text?.trimmingCharacters(in: [" "])
         userName = userNameField.text?.trimmingCharacters(in: [" "])
         if (userName!.characters.count == 0 || preferredName!.characters.count == 0) {
@@ -207,8 +208,12 @@ class MapViewController: UIViewController {
                 self!.userView = nil
                 self!.visualEffectView.removeFromSuperview()
                 self!.visualEffectView = nil
+                if let comp_fn = completion {
+                    comp_fn()
+                }
         })
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -385,8 +390,6 @@ class MapViewController: UIViewController {
     
     
 }
-
-
 
 extension MapViewController: UIViewControllerTransitioningDelegate {
     
@@ -640,6 +643,61 @@ extension MapViewController: GMSMapViewDelegate {
     
     
 }
+
+
+//extension for username creation
+extension MapViewController {
+    
+    //performs callback(true) and add to db if username given is valid else callback(false)
+    func addUsernameToFirebase(username: String, callback: @escaping (Bool)->Void) {
+        let dbRef = self.ref!
+        let usernamePath = "usernames/\(username)"
+        dbRef.child(usernamePath).observeSingleEvent(of: .value, with: {(snap) in
+            
+            if snap.exists() {
+                //username already taken
+                callback(false)
+                return
+            }
+            //set username
+            dbRef.child(usernamePath).setValue(Auth.auth().currentUser!.uid)
+            dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("userName").setValue(username) //add username to uid field
+            dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("preferredName").setValue(self.preferredNameField.text ?? "") //add preferred to uid field
+            //!! should we handle the case where the write is not guaranteed and someone else might write first
+            self.userName = username
+            print("ADDED TO FIREBASE ")
+            callback(true)
+            return
+        })
+        
+    }
+    
+    
+    //functon to pass into closure of addUsernameToFirebase
+    func addUsernameAttemptHandler(created: Bool) {
+        if created {
+            //dismiss userview, print welcome message via alert vc
+            self.animateOutUserInputScreen(completion: {Utils.displayAlert(with: self, title: "Welcome", message: "You are now registered with FriendFinder", text: "Ok")})
+        }
+        else {
+            userViewLabel.text = "Username already taken. Please try again"
+            userViewLabel.textColor = UIColor.red
+        }
+    }
+    
+    //target function for username button
+    func createUsernameButtonAction(sender: UIButton) {
+        guard let username = userNameField.text else {
+            return //username empty
+        }
+        addUsernameToFirebase(username: username, callback: {[weak self] (created) in
+            DispatchQueue.main.async { self?.addUsernameAttemptHandler(created: created) }
+            })
+        
+    }
+    
+}
+
 
 
 

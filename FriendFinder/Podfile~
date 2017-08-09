@@ -11,7 +11,7 @@ target 'FriendFinder' do
   use_frameworks!
   
   # Pods for FriendFinder
-  
+
   #Database
   pod 'Firebase/Core'
 
@@ -36,6 +36,13 @@ target 'FriendFinder' do
   # Only pull in Google login features
   pod 'FirebaseUI/Google', '~> 4.0'
 
+  # Only pull in database
+  pod 'Firebase/Database'
+
+  pod 'FontAwesome.swift'
+  
+  pod 'PubNub', '~>4.0'
+
   target 'FriendFinderTests' do
     inherit! :search_paths
     # Pods for testing
@@ -46,6 +53,6 @@ end
 target 'PXGoogleDirections' do
    project 'Frameworks/External/PXGoogleDirections/PXGoogleDirections.xcodeproj'
    platform :ios, '8.1'
-
-   pod 'GoogleMaps'
+   inherit! :search_paths
+ 
 end

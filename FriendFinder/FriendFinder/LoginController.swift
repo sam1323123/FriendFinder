@@ -12,6 +12,7 @@ import FacebookLogin
 import FacebookCore
 import FBSDKCoreKit
 import GoogleSignIn
+import FirebaseDatabase
 
 
 class LoginController: UIViewController {
@@ -28,6 +29,8 @@ class LoginController: UIViewController {
     var isLargeScreen: Bool?
     
     var isBackPressed: Bool = false
+    
+    fileprivate let usernameSemaphore = DispatchSemaphore(value: 1)
 
     
     //dictionary mapping errors to error messages
@@ -45,6 +48,7 @@ class LoginController: UIViewController {
         loadAndSetImageBackground()
         let fbButton = initializeFacebookLogin()
         createCustomGoogleButton(below: fbButton)
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -427,6 +431,8 @@ extension LoginController {
         
     }
 }
+
+
 
 //useful extension to String
 extension String {

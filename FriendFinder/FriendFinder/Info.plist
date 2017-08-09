@@ -41,6 +41,10 @@
 	<string>FriendFinder</string>
 	<key>GoogleMapsAPIKey</key>
 	<string>AIzaSyBrWnxHlZ-Hw9uxvClPtTzuDU5ZQ5H39iA</string>
+	<key>PubNubPublishKey</key>
+	<string>pub-c-7f383915-812d-4669-800b-03d4c30203f3</string>
+	<key>PubNubSubscribeKey</key>
+	<string>sub-c-40c20ade-78e9-11e7-a289-0619f8945a4f</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
