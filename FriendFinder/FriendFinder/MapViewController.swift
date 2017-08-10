@@ -60,7 +60,7 @@ class MapViewController: UIViewController {
         didSet {
             if currentLocation != nil {
                 if let floor = currentLocation!.floor?.level {
-                    ref.child("locations").child((Auth.auth().currentUser?.uid)!).setValue(
+                    ref.child("locations").child((Auth.auth().currentUser?.uid)!).updateChildValues(
                         ["latitude": currentLocation!.coordinate.latitude,
                          "longitude": currentLocation!.coordinate.longitude,
                          "altitude": currentLocation!.altitude,
@@ -76,37 +76,9 @@ class MapViewController: UIViewController {
         }
     }
     
-    var localDay: String?
+    var userName: String?
     
-    lazy var userName: String? = { [weak self] in
-        var dict: NSDictionary?
-        self!.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            dict = value
-        })
-        if (dict != nil) {
-            return dict!["username"] as? String
-        }
-        else {
-            return nil
-        }
-    } ()
-    
-    lazy var preferredName: String? = { [weak self] in
-        var dict: NSDictionary?
-        self!.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            dict = value
-        })
-        if (dict != nil) {
-            return dict!["name"] as? String
-        }
-        else {
-            return nil
-        }
-    } ()
+    var preferredName: String?
     
     var displayName: String?
     
@@ -167,11 +139,26 @@ class MapViewController: UIViewController {
         visualEffect = visualEffectView.effect
         visualEffectView.effect = nil
         visualEffectView.alpha = 0.8
+        initializeUserInfo()
+    }
+    
+    //Call this method to initializ all user profile info like username and preferred name
+    private func initializeUserInfo() {
+        self.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+            if snapshot.hasChild("username") && snapshot.hasChild("name") {
+                let data = snapshot.value as! [String:AnyObject]
+                self?.userName = data["username"] as? String
+                self?.preferredName = data["name"] as? String
+                self?.visualEffectView.removeFromSuperview()
+                self?.visualEffectView = nil 
+                return
+            }
+            else {
+                self?.userButton.addTarget(self, action: #selector(self?.createUsernameButtonAction(sender:)), for: .touchUpInside)
+                self?.animateUserInputScreen()
+            }
         
-        if (userName == nil) {
-            userButton.addTarget(self, action: #selector(createUsernameButtonAction(sender:)), for: .touchUpInside)
-            animateUserInputScreen()
-        }
+        })
     }
     
     private func animateUserInputScreen() {
@@ -715,14 +702,25 @@ extension MapViewController {
                 return
             }
             //set username
-            dbRef.child(usernamePath).setValue(Auth.auth().currentUser!.uid)
-            dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("userName").setValue(username) //add username to uid field
-            dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("preferredName").setValue(self.preferredNameField.text ?? "") //add preferred to uid field
-            //!! should we handle the case where the write is not guaranteed and someone else might write first
-            self.userName = username
-            print("ADDED TO FIREBASE ")
-            callback(true)
-            return
+            dbRef.child(usernamePath).setValue(Auth.auth().currentUser!.uid, withCompletionBlock: {
+                (err, _) in
+                if let err = err {
+                    print("ERROR ON WRITING TO DB \(err.localizedDescription)")
+                    callback(false)
+                }
+                else {
+                    print("NO ERROR ON WRITE")
+                    dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("username").setValue(username)
+                    //add username to uid field
+                    dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("name").setValue(self.preferredNameField.text ?? "") //add preferred to uid field
+                    //!! should we handle the case where the write is not guaranteed and someone else might write first
+                    self.userName = username
+                    print("ADDED TO FIREBASE ")
+                    callback(true)
+                    
+                }
+
+            })
         })
         
     }
