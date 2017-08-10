@@ -76,6 +76,8 @@ class MapViewController: UIViewController {
         }
     }
     
+    var localDay: String?
+    
     lazy var userName: String? = { [weak self] in
         var dict: NSDictionary?
         self!.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -537,7 +539,7 @@ extension MapViewController: GMSMapViewDelegate {
             // don't know place
             return nil
         }
-        getPlaceHours(for: place.placeID)
+        getPlaceHours(for: place)
         let infoWindow = infoWindowNib!
         infoWindow.awakeFromNib()
         DispatchQueue.main.async {
@@ -563,9 +565,9 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     // helper to get place hours from GMS Places API
-    private func getPlaceHours(for placeID: String) {
+    private func getPlaceHours(for place: GMSPlace) {
         let apiKey = (UIApplication.shared.delegate as! AppDelegate).GMSkey!
-        let placesEndpoint: String = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(placeID)&key=\(apiKey)"
+        let placesEndpoint: String = "https://maps.googleapis.com/maps/api/place/details/json?placeid=\(place.placeID)&key=\(apiKey)"
         guard let placesURL = URL(string: placesEndpoint) else {
             print("Error: cannot create URL for GMS Places endpoint")
             return
@@ -591,49 +593,102 @@ extension MapViewController: GMSMapViewDelegate {
                         print("Error: Could not convert JSON to dictionary")
                         return
                 }
-                self!.placeHours = self!.formatHours(dict: placesResponse)
+                self!.formatHours(dict: placesResponse, with: place, callback: {
+                    [weak self] text in
+                    self!.placeHours = text
+                })
             } catch  {
                 print("error trying to convert data to JSON")
                 return
             }
         }
         placesTask.resume()
-
     }
 
     
     
-    fileprivate func formatHours(dict: [String : Any]) -> NSMutableAttributedString {
+    fileprivate func formatHours(dict: [String : Any], with place: GMSPlace, callback: @escaping ((NSMutableAttributedString) -> ())) {
         guard let result = dict["result"] as? [String : Any] else {
-            return NSMutableAttributedString(string: "")
+            return callback(NSMutableAttributedString(string: ""))
         }
         guard let openingHours = result["opening_hours"] as? [String : Any] else {
-            return NSMutableAttributedString(string: "")
+            return callback(NSMutableAttributedString(string: ""))
         }
+        return formatWithLocalTime(for: place.coordinate, with: openingHours, callback: {
+            text in
+            callback(text)
+        })
+    }
+    
+    fileprivate func formatWithLocalTime(for coordinate: CLLocationCoordinate2D, with openingHours: [String : Any?], callback: @escaping ((NSMutableAttributedString) -> ())) {
         guard let hours = openingHours["weekday_text"] as? [String] else {
-            return NSMutableAttributedString(string: "")
+            return callback(NSMutableAttributedString(string: ""))
         }
-        var text = ""
-        var colors = [String:UIColor]()
-        for hour in hours {
-            var hourSplit = hour.characters.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true).map({String($0)})
-            text += "\(hour)\n"
-            if (hourSplit[1].trimmingCharacters(in: .whitespaces) == "Closed") {
-                colors[hourSplit[0]] = .red
+        let currentTime = Date()
+        let apiKey = (UIApplication.shared.delegate as! AppDelegate).GMSkey!
+        let timeEndpoint: String = "https://maps.googleapis.com/maps/api/timezone/json?location=\(coordinate.latitude),\(coordinate.longitude)&timestamp=\(currentTime.timeIntervalSinceReferenceDate)&key=\(apiKey)"
+        guard let timeURL = URL(string: timeEndpoint) else {
+            print("Error: cannot create URL for GMS Time endpoint")
+            return callback(NSMutableAttributedString(string: ""))
+        }
+        let timeTask = URLSession.shared.dataTask(with: URLRequest(url: timeURL)) {
+            (data, response, error) in
+            // check for any errors
+            guard error == nil else {
+                print("Error: Could not send GET on Time endpoint ")
+                print(error!)
+                return callback(NSMutableAttributedString(string: ""))
             }
-            else {
-                colors[hourSplit[0]] = .green
+            // make sure we got data
+            guard let responseData = data else {
+                print("Error: Did not receive data from on Time endpoint")
+                return callback(NSMutableAttributedString(string: ""))
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let timeResponse = try JSONSerialization.jsonObject(with: responseData, options: [])
+                    as? [String: Any] else {
+                        print("Error: Could not convert JSON to dictionary")
+                        return callback(NSMutableAttributedString(string: ""))
+                }
+                let dstOffset = timeResponse["dstOffset"] as! Double
+                let rawOffset = timeResponse["rawOffset"] as! Double
+                let timeNow = Date(timeIntervalSinceReferenceDate: dstOffset + rawOffset + currentTime.timeIntervalSinceReferenceDate)
+                let formatter = DateFormatter()
+                let localDay = formatter.weekdaySymbols[Calendar.current.component(.weekday, from: timeNow)]
+                var text = ""
+                var tupMap = [String:(UIColor, Int)]()
+                for hour in hours {
+                    var hourSplit = hour.characters.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true).map({String($0)})
+                    var dayText = "\(hour)"
+                    var color: UIColor = .black
+                    if (hourSplit[1].trimmingCharacters(in: .whitespaces) == "Closed") {
+                        color = .red
+                    }
+                    if (hourSplit[0] == localDay) {
+                        if let openNow = openingHours["open_now"] as? Bool  {
+                            color = (openNow) ? .green : .red
+                            dayText += (openNow) ? " (OPEN!)" : " (CLOSED!)"
+                        }
+                    }
+                    tupMap[hourSplit[0]] = (color, dayText.characters.count)
+                    text += dayText + "\n"
+                }
+                let mutableString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName: UIFont.fontAwesome(ofSize: 10)])
+                var start = 0
+                for hour in hours {
+                    var hourSplit = hour.characters.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true).map({String($0)})
+                    let (color, count) = tupMap[hourSplit[0]]!
+                    mutableString.addAttribute(NSForegroundColorAttributeName, value: color, range: NSRange(location: start, length: count))
+                    start += count + 1
+                }
+                callback(mutableString)
+            } catch  {
+                print("error trying to convert data to JSON")
+                callback(NSMutableAttributedString(string: ""))
             }
         }
-        let mutableString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName: UIFont.fontAwesome(ofSize: 10)])
-        var start = 0
-        for hour in hours {
-            var hourSplit = hour.characters.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true).map({String($0)})
-            let color = colors[hourSplit[0]]
-            mutableString.addAttribute(NSForegroundColorAttributeName, value: color, range: NSRange(location: start + hourSplit[0].characters.count + 1, length: hourSplit[1].characters.count))
-            start += hour.characters.count + 1
-        }
-        return mutableString
+        timeTask.resume()
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
@@ -692,7 +747,7 @@ extension MapViewController {
         }
         addUsernameToFirebase(username: username, callback: {[weak self] (created) in
             DispatchQueue.main.async { self?.addUsernameAttemptHandler(created: created) }
-            })
+        })
         
     }
     
