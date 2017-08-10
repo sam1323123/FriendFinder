@@ -60,14 +60,14 @@ class MapViewController: UIViewController {
         didSet {
             if currentLocation != nil {
                 if let floor = currentLocation!.floor?.level {
-                    ref.child("locations").child((Auth.auth().currentUser?.uid)!).updateChildValues(
+                    ref.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(
                         ["latitude": currentLocation!.coordinate.latitude,
                          "longitude": currentLocation!.coordinate.longitude,
                          "altitude": currentLocation!.altitude,
                          "floor": floor])
                 }
                 else {
-                    ref.child("locations").child((Auth.auth().currentUser?.uid)!).setValue(
+                    ref.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(
                         ["latitude": Double(currentLocation!.coordinate.latitude),
                          "longitude": Double(currentLocation!.coordinate.longitude),
                          "altitude": Double(currentLocation!.altitude)])
@@ -144,7 +144,7 @@ class MapViewController: UIViewController {
     
     //Call this method to initializ all user profile info like username and preferred name
     private func initializeUserInfo() {
-        self.ref.child("locations").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+        self.ref.child("users").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             if snapshot.hasChild("username") && snapshot.hasChild("name") {
                 let data = snapshot.value as! [String:AnyObject]
                 self?.userName = data["username"] as? String
@@ -694,7 +694,7 @@ extension MapViewController {
     func addUsernameToFirebase(username: String, callback: @escaping (Bool)->Void) {
         let dbRef = self.ref!
         let usernamePath = "usernames/\(username)"
-        dbRef.child(usernamePath).observeSingleEvent(of: .value, with: {(snap) in
+        dbRef.child(usernamePath).observeSingleEvent(of: .value, with: {[weak self] (snap) in
             
             if snap.exists() {
                 //username already taken
@@ -710,11 +710,11 @@ extension MapViewController {
                 }
                 else {
                     print("NO ERROR ON WRITE")
-                    dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("username").setValue(username)
+                    dbRef.child("users").child(Auth.auth().currentUser!.uid).child("username").setValue(username)
                     //add username to uid field
-                    dbRef.child("locations").child(Auth.auth().currentUser!.uid).child("name").setValue(self.preferredNameField.text ?? "") //add preferred to uid field
+                    dbRef.child("users").child(Auth.auth().currentUser!.uid).child("name").setValue(self!.preferredNameField.text ?? "") //add preferred to uid field
                     //!! should we handle the case where the write is not guaranteed and someone else might write first
-                    self.userName = username
+                    self!.userName = username
                     print("ADDED TO FIREBASE ")
                     callback(true)
                     
