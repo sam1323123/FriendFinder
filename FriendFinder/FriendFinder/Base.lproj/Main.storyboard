@@ -458,7 +458,7 @@
                             <constraint firstItem="NVm-cP-HWI" firstAttribute="trailing" secondItem="Z1x-43-Vc5" secondAttribute="trailing" id="JZw-oU-3fG"/>
                             <constraint firstItem="NVm-cP-HWI" firstAttribute="top" secondItem="hoc-1s-J2U" secondAttribute="bottom" id="KVa-xj-sUn"/>
                             <constraint firstItem="b4k-rv-rdX" firstAttribute="bottom" secondItem="wPK-mL-Q7U" secondAttribute="bottom" id="LHP-fg-IOw"/>
-                            <constraint firstAttribute="trailing" secondItem="b4k-rv-rdX" secondAttribute="trailing" id="N6G-KF-Mu9"/>
+                            <constraint firstItem="b4k-rv-rdX" firstAttribute="trailing" secondItem="Z1x-43-Vc5" secondAttribute="trailing" id="N6G-KF-Mu9"/>
                             <constraint firstItem="E71-1Z-fCU" firstAttribute="width" secondItem="Z1x-43-Vc5" secondAttribute="width" id="O1H-fj-yvQ"/>
                             <constraint firstItem="E71-1Z-fCU" firstAttribute="leading" secondItem="Z1x-43-Vc5" secondAttribute="leading" id="Q1r-yH-PGc"/>
                             <constraint firstItem="E71-1Z-fCU" firstAttribute="top" secondItem="2jf-Ef-QFs" secondAttribute="top" id="TVF-AJ-DDK"/>
@@ -467,8 +467,8 @@
                             <constraint firstItem="JXI-fb-cYs" firstAttribute="height" secondItem="Z1x-43-Vc5" secondAttribute="height" multiplier="0.45" id="eNj-tp-PBa"/>
                             <constraint firstItem="JXI-fb-cYs" firstAttribute="top" secondItem="Z1x-43-Vc5" secondAttribute="top" id="hSX-QJ-95j"/>
                             <constraint firstItem="E71-1Z-fCU" firstAttribute="bottom" secondItem="QUp-Fa-Z8T" secondAttribute="bottom" id="hpC-Nu-Rto"/>
-                            <constraint firstItem="b4k-rv-rdX" firstAttribute="width" secondItem="Z1x-43-Vc5" secondAttribute="width" id="j9z-3s-lCy"/>
                             <constraint firstItem="Hes-Ye-kyk" firstAttribute="trailing" secondItem="Z1x-43-Vc5" secondAttribute="trailingMargin" id="lHg-rM-Lnw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="b4k-rv-rdX" secondAttribute="trailing" constant="-16" id="lh1-cb-fKV"/>
                             <constraint firstItem="b4k-rv-rdX" firstAttribute="leading" secondItem="Z1x-43-Vc5" secondAttribute="leading" id="pk3-Nt-PqW"/>
                             <constraint firstItem="b4k-rv-rdX" firstAttribute="top" secondItem="wPK-mL-Q7U" secondAttribute="top" id="upE-o9-9ve"/>
                         </constraints>

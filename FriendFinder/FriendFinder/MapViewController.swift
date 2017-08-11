@@ -144,21 +144,27 @@ class MapViewController: UIViewController {
     
     //Call this method to initializ all user profile info like username and preferred name
     private func initializeUserInfo() {
-        self.ref.child("users").child((Auth.auth().currentUser?.uid)!).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+        self.ref.observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             if snapshot.hasChild("username") && snapshot.hasChild("name") {
                 let data = snapshot.value as! [String:AnyObject]
                 self?.userName = data["username"] as? String
                 self?.preferredName = data["name"] as? String
                 self?.visualEffectView.removeFromSuperview()
-                self?.visualEffectView = nil 
+                self?.visualEffectView = nil
                 return
             }
             else {
                 self?.userButton.addTarget(self, action: #selector(self?.createUsernameButtonAction(sender:)), for: .touchUpInside)
                 self?.animateUserInputScreen()
             }
-        
-        })
+            
+            }, withCancel: {(err) in
+                print("Network Error with Firebase with type: \(err)")
+                Utils.displayAlert(with: self, title: "Error", message: "Cannot connect to server. Please check network settings or try again later.", text: "Ok", callback: {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }})
+            })
     }
     
     private func animateUserInputScreen() {

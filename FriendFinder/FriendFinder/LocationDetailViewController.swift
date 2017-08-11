@@ -204,9 +204,9 @@ class LocationDetailViewController: UIViewController {
         let leftMargin: CGFloat = 10.0
         let stackViewLeadingConstraint = NSLayoutConstraint(item: labelStack, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: leftMargin)
         //don't have to change stackView Bottom constraint
-        let buttonBackgroundViewLeading = NSLayoutConstraint(item: buttonBackgroundView, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: leftMargin)
+        let buttonBackgroundViewLeading = NSLayoutConstraint(item: buttonBackgroundView, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: 0)
         
-        let statusBackgroundViewLeading = NSLayoutConstraint(item: statusBackgroundView, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: leftMargin)
+        let statusBackgroundViewLeading = NSLayoutConstraint(item: statusBackgroundView, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: 0)
         
         return [imageWidthConstraint,  imageBottomConstraint,
                 stackViewTopConstraint, stackViewLeadingConstraint,
