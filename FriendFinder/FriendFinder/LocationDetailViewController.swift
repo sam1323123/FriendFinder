@@ -90,11 +90,11 @@ class LocationDetailViewController: UIViewController {
         webButton.setTitle(String.fontAwesomeIcon(name: .info), for: .normal)
         webButton.setTitleColor(webColor, for: .normal)
 
-        ratingLabel.font = UIFont.fontAwesome(ofSize: 10)
+        ratingLabel.font = UIFont.fontAwesome(ofSize: ratingLabel.font.pointSize)
         ratingLabel.text = rating
         ratingLabel.textColor = Utils.gold
         
-        priceLabel.font = UIFont.fontAwesome(ofSize: 10)
+        priceLabel.font = UIFont.fontAwesome(ofSize: priceLabel.font.pointSize)
         priceLabel.text = price
         priceLabel.textColor = priceColor
 

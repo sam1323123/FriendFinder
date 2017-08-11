@@ -312,7 +312,7 @@ class MapViewController: UIViewController {
         else if (place.openNowStatus == GMSPlacesOpenNowStatus.no) { print("CLOSEEED")}
         else if (place.openNowStatus == GMSPlacesOpenNowStatus.unknown) { print("NOOOOOO") }
         
-        var price: String
+        var price: String?
         var color: UIColor = Utils.gold
         
         switch(place.priceLevel) {
@@ -332,11 +332,10 @@ class MapViewController: UIViewController {
             price = String(repeating: String.fontAwesomeIcon(name: .dollar), count: 4)
             break
         default:
-            price = "NA"
-            color = .red
+            price = nil
         }
         
-        vc.price = "\(price)\n"
+        vc.price = (price != nil) ? "\(price!)\n" : nil
         vc.priceColor = color
 
         
@@ -655,13 +654,13 @@ extension MapViewController: GMSMapViewDelegate {
                     if (hourSplit[0] == localDay) {
                         if let openNow = openingHours["open_now"] as? Bool  {
                             color = (openNow) ? .green : .red
-                            dayText += (openNow) ? " (OPEN!)" : " (CLOSED!)"
+                            dayText += (openNow) ? " (Open!)" : " (Closed!)"
                         }
                     }
                     tupMap[hourSplit[0]] = (color, dayText.characters.count)
                     text += dayText + "\n"
                 }
-                let mutableString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName: UIFont.fontAwesome(ofSize: 10)])
+                let mutableString = NSMutableAttributedString(string: text)
                 var start = 0
                 for hour in hours {
                     var hourSplit = hour.characters.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true).map({String($0)})
@@ -680,7 +679,6 @@ extension MapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         handleTapOnInfoWindow()
-        
     }
     
     
@@ -717,7 +715,6 @@ extension MapViewController {
                     self!.userName = username
                     print("ADDED TO FIREBASE ")
                     callback(true)
-                    
                 }
 
             })
