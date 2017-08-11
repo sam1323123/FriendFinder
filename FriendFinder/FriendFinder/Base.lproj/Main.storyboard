@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -466,7 +466,7 @@
                             <constraint firstItem="NVm-cP-HWI" firstAttribute="trailing" secondItem="Z1x-43-Vc5" secondAttribute="trailing" id="JZw-oU-3fG"/>
                             <constraint firstItem="NVm-cP-HWI" firstAttribute="top" secondItem="hoc-1s-J2U" secondAttribute="bottom" id="KVa-xj-sUn"/>
                             <constraint firstItem="b4k-rv-rdX" firstAttribute="bottom" secondItem="wPK-mL-Q7U" secondAttribute="bottom" id="LHP-fg-IOw"/>
-                            <constraint firstAttribute="trailing" secondItem="b4k-rv-rdX" secondAttribute="trailing" id="N6G-KF-Mu9"/>
+                            <constraint firstItem="b4k-rv-rdX" firstAttribute="trailing" secondItem="Z1x-43-Vc5" secondAttribute="trailing" id="N6G-KF-Mu9"/>
                             <constraint firstItem="E71-1Z-fCU" firstAttribute="width" secondItem="Z1x-43-Vc5" secondAttribute="width" id="O1H-fj-yvQ"/>
                             <constraint firstItem="E71-1Z-fCU" firstAttribute="leading" secondItem="Z1x-43-Vc5" secondAttribute="leading" id="Q1r-yH-PGc"/>
                             <constraint firstItem="E71-1Z-fCU" firstAttribute="top" secondItem="2jf-Ef-QFs" secondAttribute="top" id="TVF-AJ-DDK"/>
@@ -475,8 +475,8 @@
                             <constraint firstItem="JXI-fb-cYs" firstAttribute="height" secondItem="Z1x-43-Vc5" secondAttribute="height" multiplier="0.45" id="eNj-tp-PBa"/>
                             <constraint firstItem="JXI-fb-cYs" firstAttribute="top" secondItem="Z1x-43-Vc5" secondAttribute="top" id="hSX-QJ-95j"/>
                             <constraint firstItem="E71-1Z-fCU" firstAttribute="bottom" secondItem="QUp-Fa-Z8T" secondAttribute="bottom" id="hpC-Nu-Rto"/>
-                            <constraint firstItem="b4k-rv-rdX" firstAttribute="width" secondItem="Z1x-43-Vc5" secondAttribute="width" id="j9z-3s-lCy"/>
                             <constraint firstItem="Hes-Ye-kyk" firstAttribute="trailing" secondItem="Z1x-43-Vc5" secondAttribute="trailingMargin" id="lHg-rM-Lnw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="b4k-rv-rdX" secondAttribute="trailing" constant="-16" id="lh1-cb-fKV"/>
                             <constraint firstItem="b4k-rv-rdX" firstAttribute="leading" secondItem="Z1x-43-Vc5" secondAttribute="leading" id="pk3-Nt-PqW"/>
                             <constraint firstItem="b4k-rv-rdX" firstAttribute="top" secondItem="wPK-mL-Q7U" secondAttribute="top" id="upE-o9-9ve"/>
                         </constraints>
@@ -489,6 +489,8 @@
                     <connections>
                         <outlet property="addressLabel" destination="XEB-zr-9Nf" id="1Hi-rs-vbK"/>
                         <outlet property="backButton" destination="PGF-Wl-zAE" id="ASj-Rx-ny6"/>
+                        <outlet property="buttonBackgroundView" destination="b4k-rv-rdX" id="pNC-vD-tLi"/>
+                        <outlet property="buttonBackgroundViewLeadingConstraint" destination="pk3-Nt-PqW" id="mZV-GJ-NoH"/>
                         <outlet property="labelStack" destination="Hes-Ye-kyk" id="B1n-yR-X1V"/>
                         <outlet property="navBar" destination="NVm-cP-HWI" id="rwO-9I-drB"/>
                         <outlet property="phoneButton" destination="VkA-xq-mA1" id="0Ec-SN-xBn"/>
@@ -500,6 +502,8 @@
                         <outlet property="ratingLabel" destination="2jf-Ef-QFs" id="TDi-6D-xgr"/>
                         <outlet property="stackViewLeadingConstraint" destination="1Ck-62-bwV" id="4ni-VM-sWU"/>
                         <outlet property="stackViewTopConstraint" destination="9Td-IB-gbm" id="D6p-BB-8JU"/>
+                        <outlet property="statusBackgroundView" destination="E71-1Z-fCU" id="n7U-aY-6wS"/>
+                        <outlet property="statusBackgroundViewLeadingConstraint" destination="Q1r-yH-PGc" id="s3f-tg-rIe"/>
                         <outlet property="statusLabel" destination="sjt-81-VLa" id="F05-D1-PHd"/>
                         <outlet property="webButton" destination="vwt-aP-hKF" id="aSu-tS-I5D"/>
                     </connections>
