@@ -144,7 +144,7 @@ class MapViewController: UIViewController {
     
     //Call this method to initializ all user profile info like username and preferred name
     private func initializeUserInfo() {
-        self.ref.observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+        self.ref.child("users/\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             if snapshot.hasChild("username") && snapshot.hasChild("name") {
                 let data = snapshot.value as! [String:AnyObject]
                 self?.userName = data["username"] as? String
@@ -160,10 +160,12 @@ class MapViewController: UIViewController {
             
             }, withCancel: {(err) in
                 print("Network Error with Firebase with type: \(err)")
-                Utils.displayAlert(with: self, title: "Error", message: "Cannot connect to server. Please check network settings or try again later.", text: "Ok", callback: {
+                Utils.displayAlert(with: self, title: "Error", message: "Cannot connect to server. Please check network settings or try again later.", text: "OK", callback: {
                     DispatchQueue.main.async {
                         self.dismiss(animated: true, completion: nil)
-                    }})
+                    }
+                    
+                    })
             })
     }
     
