@@ -589,7 +589,9 @@ extension MapViewController: GMSMapViewDelegate {
                 }
                 self!.formatHours(dict: placesResponse, with: place, callback: {
                     [weak self] text in
-                    self!.placeHours = text
+                    DispatchQueue.main.async {
+                        self!.placeHours = text
+                    }
                 })
             } catch  {
                 print("error trying to convert data to JSON")
@@ -610,7 +612,9 @@ extension MapViewController: GMSMapViewDelegate {
         }
         return formatWithLocalTime(for: place.coordinate, with: openingHours, callback: {
             text in
-            callback(text)
+            DispatchQueue.main.async {
+                callback(text)
+            }
         })
     }
     
