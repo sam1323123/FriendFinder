@@ -125,7 +125,7 @@ class LocationDetailViewController: UIViewController {
                               statusBackgroundViewLeadingConstraint]
         
         landscapeConstraints = makeLandscapeConstraints()
-        self.setViewConstraintsByOrientation()
+        setViewConstraintsByOrientation()
         
         //add spinner reference to image view
         if let sp = spinner {
