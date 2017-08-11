@@ -51,6 +51,12 @@ class LocationDetailViewController: UIViewController {
     
     @IBOutlet weak var labelStack: UIStackView!
     
+    
+    @IBOutlet weak var buttonBackgroundView: UIView!
+    
+    
+    @IBOutlet weak var statusBackgroundView: UIView!
+    
     //constraint outlets
     
     @IBOutlet weak var placeImageWidthConstraint: NSLayoutConstraint!
@@ -59,7 +65,13 @@ class LocationDetailViewController: UIViewController {
     
     @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!
     
+    
     @IBOutlet weak var stackViewLeadingConstraint: NSLayoutConstraint!
+    
+   
+    @IBOutlet weak var statusBackgroundViewLeadingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var buttonBackgroundViewLeadingConstraint: NSLayoutConstraint!
     
     var portraitConstraints: [NSLayoutConstraint] = []
     var landscapeConstraints: [NSLayoutConstraint] = []
@@ -108,7 +120,10 @@ class LocationDetailViewController: UIViewController {
         portraitConstraints = [placeImageWidthConstraint,
                               placeImageViewHeightConstraint,
                               stackViewTopConstraint,
-                              stackViewLeadingConstraint]
+                              stackViewLeadingConstraint,
+                              buttonBackgroundViewLeadingConstraint,
+                              statusBackgroundViewLeadingConstraint]
+        
         landscapeConstraints = makeLandscapeConstraints()
         self.setViewConstraintsByOrientation()
         
@@ -189,8 +204,13 @@ class LocationDetailViewController: UIViewController {
         let leftMargin: CGFloat = 10.0
         let stackViewLeadingConstraint = NSLayoutConstraint(item: labelStack, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: leftMargin)
         //don't have to change stackView Bottom constraint
+        let buttonBackgroundViewLeading = NSLayoutConstraint(item: buttonBackgroundView, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: leftMargin)
+        
+        let statusBackgroundViewLeading = NSLayoutConstraint(item: statusBackgroundView, attribute: .leading, relatedBy: .equal, toItem: placeImageView, attribute: .trailing, multiplier: 1.0, constant: leftMargin)
+        
         return [imageWidthConstraint,  imageBottomConstraint,
-                stackViewTopConstraint, stackViewLeadingConstraint]
+                stackViewTopConstraint, stackViewLeadingConstraint,
+                buttonBackgroundViewLeading, statusBackgroundViewLeading]
     }
     
     func goBack() {
