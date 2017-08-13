@@ -13,6 +13,7 @@ import PXGoogleDirections
 import FirebaseDatabase
 import FirebaseAuth
 import FontAwesome_swift
+import SideMenu
 
 
 class MapViewController: UIViewController {
@@ -40,6 +41,8 @@ class MapViewController: UIViewController {
             searchBox.delegate = self
         }
     }
+    @IBOutlet weak var menuButton: UIButton!
+    
     var visualEffect: UIVisualEffect?
     
     let directionAPI = (UIApplication.shared.delegate as! AppDelegate).directionsAPI
@@ -127,9 +130,12 @@ class MapViewController: UIViewController {
     }
     
     let buttonColor = UIColor(red: 56.0/255.0, green: 114.0/255.0, blue: 108.0/255.0, alpha: 1.0)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as! UISideMenuNavigationController
+        //SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
         ref = Database.database().reference()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
