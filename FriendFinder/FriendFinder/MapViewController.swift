@@ -126,6 +126,8 @@ class MapViewController: UIViewController {
         
     }
     
+    let buttonColor = UIColor(red: 56.0/255.0, green: 114.0/255.0, blue: 108.0/255.0, alpha: 1.0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
@@ -298,14 +300,14 @@ class MapViewController: UIViewController {
         vc.placeImage = currentInfoWindow!.icon.image
         
         vc.web = place.website
-        vc.webColor = (place.website == nil) ? .red : view.tintColor
+        vc.webColor = (place.website == nil) ? .red : buttonColor
         
         
         if let phone = place.phoneNumber {
             // remove special characters first
             let charsToRemove: Set<Character> = Set("()- ".characters)
             vc.phone = String(( phone.characters.filter { !charsToRemove.contains($0) }))
-            vc.phoneColor = view.tintColor
+            vc.phoneColor = buttonColor
         }
         
         else {
@@ -653,19 +655,19 @@ extension MapViewController: GMSMapViewDelegate {
                 let rawOffset = timeResponse["rawOffset"] as! Double
                 let timeNow = Date(timeIntervalSinceReferenceDate: dstOffset + rawOffset + currentTime.timeIntervalSinceReferenceDate)
                 let formatter = DateFormatter()
-                let localDay = formatter.weekdaySymbols[Calendar.current.component(.weekday, from: timeNow)]
+                let localDay = formatter.weekdaySymbols[Calendar.current.component(.weekday, from: timeNow) - 1]
                 var text = ""
                 var tupMap = [String:(UIColor, Int)]()
                 for hour in hours {
                     var hourSplit = hour.characters.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true).map({String($0)})
                     var dayText = "\(hour)"
-                    var color: UIColor = .black
+                    var color: UIColor = .orange
                     if (hourSplit[1].trimmingCharacters(in: .whitespaces) == "Closed") {
                         color = .red
                     }
                     if (hourSplit[0] == localDay) {
                         if let openNow = openingHours["open_now"] as? Bool  {
-                            color = (openNow) ? .green : .red
+                            color = (openNow) ? UIColor(red: 85.0/255.0, green: 210.0/255.0, blue: 88.0/255.0, alpha: 1.0) : .red
                             dayText += (openNow) ? " (Open!)" : " (Closed!)"
                         }
                     }
