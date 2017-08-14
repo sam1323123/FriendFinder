@@ -14,12 +14,14 @@ struct FFUser {
     var name: String
     var username: String
     var location: CLLocation?
+    var status: String?
     var picture: UIImage?
     
-    public init(name: String, username: String, location: CLLocation? = nil, picture: UIImage? = nil) {
+    public init(name: String, username: String, location: CLLocation? = nil, status: String? = nil, picture: UIImage? = nil) {
         self.name = name
         self.username = username
         self.location = location
+        self.status = status
         self.picture = picture
     }
 }

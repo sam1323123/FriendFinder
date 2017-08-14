@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import SideMenu
 
 class MenuViewController: UITableViewController {
 
     var userData: [FFUser]?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        userData = [FFUser(name: "Avi", username: "AviG")]
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,24 +28,31 @@ class MenuViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // reenable map panning
+        MapViewController.disableMapPanning = false
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (userData == nil) ? userData!.count : 0
+        return (userData != nil) ? userData!.count : 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
+        let menuCell = cell as! MenuViewCell
+        let user = userData?[indexPath.row]
+        menuCell.nameLabel.text = user?.name
+        menuCell.usernameLabel.text = user?.username
+        return menuCell
     }
 
     

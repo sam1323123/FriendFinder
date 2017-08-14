@@ -43,6 +43,8 @@ class MapViewController: UIViewController {
     }
     @IBOutlet weak var menuButton: UIButton!
     
+    fileprivate static var staticMap: GMSMapView!
+    
     var visualEffect: UIVisualEffect?
     
     let directionAPI = (UIApplication.shared.delegate as! AppDelegate).directionsAPI
@@ -56,6 +58,15 @@ class MapViewController: UIViewController {
     var currentMarkerPlace: GMSPlace?
     
     var currentInfoWindow: InfoWindowView?
+    
+    static var disableMapPanning: Bool {
+        get {
+            return staticMap.settings.scrollGestures
+        }
+        set {
+            staticMap.settings.scrollGestures = !newValue
+        }
+    }
     
     var ref: DatabaseReference!
     
@@ -134,8 +145,18 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as! UISideMenuNavigationController
-        //SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
+        MapViewController.staticMap = mapView
+        let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuViewController") as! UISideMenuNavigationController
+        SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
+        // Enable gestures. The left and/or right menus must be set up above for these to work.
+        // Note that these continue to work on the Navigation Controller independent of the view controller it displays!
+        SideMenuManager.menuPresentMode = .menuSlideIn
+        SideMenuManager.menuAnimationFadeStrength = 0.6
+        SideMenuManager.menuAnimationBackgroundColor = .clear
+        mapView.settings.consumesGesturesInView = false
+        let edgeGesture = SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: mapView, forMenu: .left)
+        edgeGesture[0].addTarget(self, action: #selector(onEdgeGesture(_:)))
+        menuButton.addTarget(self, action: #selector(onMenuClick), for: .touchUpInside)
         ref = Database.database().reference()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -147,6 +168,7 @@ class MapViewController: UIViewController {
         visualEffect = visualEffectView.effect
         visualEffectView.effect = nil
         visualEffectView.alpha = 0.8
+        print(MapViewController.staticMap, mapView, "COMP" )
         initializeUserInfo()
     }
     
@@ -219,6 +241,21 @@ class MapViewController: UIViewController {
         })
     }
     
+    func onMenuClick() {
+        SideMenuManager.menuPresentMode = .menuDissolveIn
+    }
+    
+    // disables panning
+    func onEdgeGesture(_ sender: Any) {
+        guard let sender = sender as? UIPanGestureRecognizer else {
+            return ;
+        }
+        let state = sender.state
+        let startStates: [UIGestureRecognizerState] = [.possible, .recognized, .changed, .began]
+        if startStates.contains(state) {
+            MapViewController.disableMapPanning = true
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -241,6 +241,9 @@
                                 <state key="normal" title="">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="Sxz-zD-L2b" kind="presentation" id="4i9-yH-Zsg"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -552,13 +555,13 @@
         <!--Root View Controller-->
         <scene sceneID="DxC-xL-LRP">
             <objects>
-                <tableViewController id="ZRd-TY-4CG" sceneMemberID="viewController">
+                <tableViewController id="ZRd-TY-4CG" customClass="MenuViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="9p6-gf-xf6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="ayF-NL-yMi">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="90" id="ayF-NL-yMi" customClass="MenuViewCell" customModule="FriendFinder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ayF-NL-yMi" id="nT5-WO-mtW">
@@ -619,6 +622,13 @@
                                     <constraint firstAttribute="bottom" secondItem="0XC-HJ-RP9" secondAttribute="bottom" id="QKU-la-ty6"/>
                                     <constraint firstItem="0XC-HJ-RP9" firstAttribute="leading" secondItem="ayF-NL-yMi" secondAttribute="leading" constant="10" id="zaY-pf-w7a"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="locationLabel" destination="Bde-pH-5sU" id="zK6-Tc-QZl"/>
+                                    <outlet property="nameLabel" destination="SkL-zB-Wgw" id="WIa-RI-UGF"/>
+                                    <outlet property="statusLabel" destination="qT2-gS-xjp" id="zQl-Wy-4EG"/>
+                                    <outlet property="userImage" destination="ywc-XK-lUM" id="Wim-Ii-WtU"/>
+                                    <outlet property="usernameLabel" destination="0xP-LH-Xhe" id="O6M-px-wW7"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -635,8 +645,8 @@
         <!--Side Menu Navigation Controller-->
         <scene sceneID="gjd-Sy-HcB">
             <objects>
-                <navigationController id="Sxz-zD-L2b" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="q6d-7T-aen">
+                <navigationController storyboardIdentifier="LeftMenuViewController" id="Sxz-zD-L2b" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="q6d-7T-aen">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

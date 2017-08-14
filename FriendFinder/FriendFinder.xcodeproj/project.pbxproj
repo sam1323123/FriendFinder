@@ -13,10 +13,11 @@
 		42AB1D471F406E6B0022B88F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D461F406E6B0022B88F /* MenuViewController.swift */; };
 		42AB1D491F406EE70022B88F /* FFUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D481F406EE70022B88F /* FFUser.swift */; };
 		42AB1D4B1F40761E0022B88F /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */; };
+		42AB1D4D1F419F9B0022B88F /* MenuViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D4C1F419F9B0022B88F /* MenuViewCell.swift */; };
+		42AB1D4F1F419FFC0022B88F /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D4E1F419FFC0022B88F /* SubtitleTableViewCell.swift */; };
 		42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EDBAF91F1A346600C40DAE /* Utils.swift */; };
 		42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92131F05014100A6421B /* BottomBorderTextField.swift */; };
 		42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42FF92161F0F7B0800A6421B /* Default-568h@2x.png */; };
-		9817608B1F14B93000703759 /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9817608A1F14B93000703759 /* SubtitleTableViewCell.swift */; };
 		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
 		9823B0691F08AB7D00982623 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B0681F08AB7D00982623 /* Errors.swift */; };
 		9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B06B1F08D5EB00982623 /* MapViewController.swift */; };
@@ -69,6 +70,8 @@
 		42AB1D461F406E6B0022B88F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		42AB1D481F406EE70022B88F /* FFUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFUser.swift; sourceTree = "<group>"; };
 		42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		42AB1D4C1F419F9B0022B88F /* MenuViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewCell.swift; sourceTree = "<group>"; };
+		42AB1D4E1F419FFC0022B88F /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		42EDBAE01F16291900C40DAE /* PXGoogleDirections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PXGoogleDirections.framework; path = "Frameworks/External/PXGoogleDirections/build/Debug-iphoneos/PXGoogleDirections.framework"; sourceTree = "<group>"; };
 		42EDBAE21F16293D00C40DAE /* libPods-PXGoogleDirections.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-PXGoogleDirections.a"; path = "Pods/../build/Debug-iphoneos/libPods-PXGoogleDirections.a"; sourceTree = "<group>"; };
 		42EDBAF91F1A346600C40DAE /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -76,7 +79,6 @@
 		42FF92151F08F65B00A6421B /* FriendFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FriendFinder.entitlements; sourceTree = "<group>"; };
 		42FF92161F0F7B0800A6421B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9817608A1F14B93000703759 /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9823B0681F08AB7D00982623 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		9823B06B1F08D5EB00982623 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -152,7 +154,8 @@
 		981760891F14B90100703759 /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
-				9817608A1F14B93000703759 /* SubtitleTableViewCell.swift */,
+				42AB1D4E1F419FFC0022B88F /* SubtitleTableViewCell.swift */,
+				42AB1D4C1F419F9B0022B88F /* MenuViewCell.swift */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -469,12 +472,13 @@
 				98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */,
 				42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */,
 				98B48ABD1F236AD800099AF2 /* LocationDetailViewController.swift in Sources */,
-				9817608B1F14B93000703759 /* SubtitleTableViewCell.swift in Sources */,
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
 				98A11D731EFA5439007050E4 /* LoginController.swift in Sources */,
 				98B48ABB1F1DEF5A00099AF2 /* ProportionalLabel.swift in Sources */,
 				98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */,
 				9823B0691F08AB7D00982623 /* Errors.swift in Sources */,
+				42AB1D4D1F419F9B0022B88F /* MenuViewCell.swift in Sources */,
+				42AB1D4F1F419FFC0022B88F /* SubtitleTableViewCell.swift in Sources */,
 				98587B781F2F2AC900E4452D /* SwipeInteractor.swift in Sources */,
 				9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */,
 				98587B761F2F23CD00E4452D /* DragDismissAnimator.swift in Sources */,
