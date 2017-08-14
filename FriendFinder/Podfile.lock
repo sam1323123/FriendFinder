@@ -92,6 +92,7 @@ PODS:
   - PubNub (4.6.1):
     - PubNub/Core (= 4.6.1)
   - PubNub/Core (4.6.1)
+  - SideMenu (2.3.3)
 
 DEPENDENCIES:
   - FacebookLogin
@@ -107,6 +108,7 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - PubNub (~> 4.6)
+  - SideMenu
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -131,7 +133,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
   nanopb: 22bc080fa3955e2116b6ff3ee6c2cb3c15ab97cb
   PubNub: 408ba6402a9c712418da738adda12ccc339cbb1e
+  SideMenu: a447554ae5c982e8077666389e1c8b0c8656e065
 
-PODFILE CHECKSUM: d96c39c1a2b130516386122014139cd5689cf74b
+PODFILE CHECKSUM: 5b974d8e0efde429be9c2960c02a68061788e43f
 
 COCOAPODS: 1.2.1

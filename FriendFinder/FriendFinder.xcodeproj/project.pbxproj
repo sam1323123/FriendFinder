@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		111B8F1B3ED00CDC52DA2843 /* Pods_FriendFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */; };
 		3933236A940E4DB523CE55A7 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
+		42568A4B1F3DC763007E0B05 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */; };
+		42AB1D471F406E6B0022B88F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D461F406E6B0022B88F /* MenuViewController.swift */; };
+		42AB1D491F406EE70022B88F /* FFUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D481F406EE70022B88F /* FFUser.swift */; };
+		42AB1D4B1F40761E0022B88F /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */; };
 		42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EDBAF91F1A346600C40DAE /* Utils.swift */; };
 		42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92131F05014100A6421B /* BottomBorderTextField.swift */; };
 		42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42FF92161F0F7B0800A6421B /* Default-568h@2x.png */; };
@@ -61,6 +65,10 @@
 
 /* Begin PBXFileReference section */
 		01F4749EBE82D52B2E3A3229 /* Pods-FriendFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.release.xcconfig"; sourceTree = "<group>"; };
+		42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		42AB1D461F406E6B0022B88F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		42AB1D481F406EE70022B88F /* FFUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFUser.swift; sourceTree = "<group>"; };
+		42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		42EDBAE01F16291900C40DAE /* PXGoogleDirections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PXGoogleDirections.framework; path = "Frameworks/External/PXGoogleDirections/build/Debug-iphoneos/PXGoogleDirections.framework"; sourceTree = "<group>"; };
 		42EDBAE21F16293D00C40DAE /* libPods-PXGoogleDirections.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-PXGoogleDirections.a"; path = "Pods/../build/Debug-iphoneos/libPods-PXGoogleDirections.a"; sourceTree = "<group>"; };
 		42EDBAF91F1A346600C40DAE /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -157,6 +165,7 @@
 				98A11D741EFE0287007050E4 /* NextViewController.swift */,
 				9823B06B1F08D5EB00982623 /* MapViewController.swift */,
 				98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */,
+				42AB1D461F406E6B0022B88F /* MenuViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -208,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				9823B0701F0B931700982623 /* Roboto-Medium.ttf */,
+				42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */,
 				42FF92151F08F65B00A6421B /* FriendFinder.entitlements */,
 				9823B06D1F08D64700982623 /* Views */,
 				9823B06A1F08D57900982623 /* ViewControllers */,
@@ -215,8 +225,10 @@
 				98587B741F2F22C600E4452D /* Animators */,
 				981760891F14B90100703759 /* TableCells */,
 				98A11D561EFA53F2007050E4 /* Main.storyboard */,
+				42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */,
 				9823B0681F08AB7D00982623 /* Errors.swift */,
 				42EDBAF91F1A346600C40DAE /* Utils.swift */,
+				42AB1D481F406EE70022B88F /* FFUser.swift */,
 				98A11D591EFA53F2007050E4 /* Assets.xcassets */,
 				98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */,
 				98A11D5E1EFA53F2007050E4 /* Info.plist */,
@@ -333,9 +345,11 @@
 			files = (
 				9823B0711F0B931700982623 /* Roboto-Medium.ttf in Resources */,
 				98A11D5D1EFA53F2007050E4 /* LaunchScreen.storyboard in Resources */,
+				42AB1D4B1F40761E0022B88F /* Storyboard.storyboard in Resources */,
 				982351231F036A58005F853F /* GoogleService-Info.plist in Resources */,
 				98A11D5A1EFA53F2007050E4 /* Assets.xcassets in Resources */,
 				98B48AB71F1C94DD00099AF2 /* InfoWindowView.xib in Resources */,
+				42568A4B1F3DC763007E0B05 /* fontawesome-webfont.ttf in Resources */,
 				98A11D581EFA53F2007050E4 /* Main.storyboard in Resources */,
 				42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */,
 			);
@@ -449,6 +463,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */,
+				42AB1D471F406E6B0022B88F /* MenuViewController.swift in Sources */,
+				42AB1D491F406EE70022B88F /* FFUser.swift in Sources */,
 				98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */,
 				98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */,
 				42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */,
