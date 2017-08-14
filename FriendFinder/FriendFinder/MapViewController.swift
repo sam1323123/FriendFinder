@@ -649,7 +649,7 @@ extension MapViewController: GMSMapViewDelegate {
                 let rawOffset = timeResponse["rawOffset"] as! Double
                 let timeNow = Date(timeIntervalSinceReferenceDate: dstOffset + rawOffset + currentTime.timeIntervalSinceReferenceDate)
                 let formatter = DateFormatter()
-                let localDay = formatter.weekdaySymbols[Calendar.current.component(.weekday, from: timeNow)]
+                let localDay = formatter.weekdaySymbols[Calendar.current.component(.weekday, from: timeNow) - 1]
                 var text = ""
                 var tupMap = [String:(UIColor, Int)]()
                 for hour in hours {

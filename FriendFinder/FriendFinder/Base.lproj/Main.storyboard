@@ -350,15 +350,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E71-1Z-fCU" userLabel="Status View">
-                                <rect key="frame" x="0.0" y="434" width="375" height="188.5"/>
+                                <rect key="frame" x="0.0" y="437" width="375" height="185.5"/>
                                 <color key="backgroundColor" red="0.068527655404974741" green="0.44585816060490624" blue="0.66128966966424874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4k-rv-rdX" userLabel="Button View">
-                                <rect key="frame" x="0.0" y="400" width="375" height="34"/>
+                                <rect key="frame" x="0.0" y="403" width="375" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Hes-Ye-kyk">
-                                <rect key="frame" x="16" y="300" width="343" height="323"/>
+                                <rect key="frame" x="16" y="303" width="343" height="320"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="placeName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Uit-ek-L58">
                                         <rect key="frame" x="0.0" y="0.0" width="86.5" height="25"/>
@@ -425,7 +425,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="247" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUp-Fa-Z8T" userLabel="Filler">
-                                        <rect key="frame" x="0.0" y="179" width="343" height="144"/>
+                                        <rect key="frame" x="0.0" y="179" width="343" height="141"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -461,7 +461,7 @@
                         <constraints>
                             <constraint firstItem="NVm-cP-HWI" firstAttribute="leading" secondItem="Z1x-43-Vc5" secondAttribute="leading" constant="-5" id="0QC-MQ-Mma"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Hes-Ye-kyk" secondAttribute="leading" id="1Ck-62-bwV"/>
-                            <constraint firstItem="Hes-Ye-kyk" firstAttribute="top" secondItem="JXI-fb-cYs" secondAttribute="bottom" id="9Td-IB-gbm"/>
+                            <constraint firstItem="Hes-Ye-kyk" firstAttribute="top" secondItem="JXI-fb-cYs" secondAttribute="bottom" constant="3" id="9Td-IB-gbm"/>
                             <constraint firstItem="Hes-Ye-kyk" firstAttribute="bottom" secondItem="Mfd-jb-o91" secondAttribute="top" id="I3o-6U-RAY"/>
                             <constraint firstItem="NVm-cP-HWI" firstAttribute="trailing" secondItem="Z1x-43-Vc5" secondAttribute="trailing" id="JZw-oU-3fG"/>
                             <constraint firstItem="NVm-cP-HWI" firstAttribute="top" secondItem="hoc-1s-J2U" secondAttribute="bottom" id="KVa-xj-sUn"/>
