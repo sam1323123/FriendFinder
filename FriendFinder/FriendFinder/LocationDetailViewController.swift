@@ -198,7 +198,8 @@ class LocationDetailViewController: UIViewController {
         let imageBottomConstraint = NSLayoutConstraint(item: placeImageView, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0.0)
         
         //height of stackView
-        let stackViewTopConstraint = NSLayoutConstraint(item: labelStack, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        let topMargin: CGFloat = 3.0
+        let stackViewTopConstraint = NSLayoutConstraint(item: labelStack, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: topMargin)
         
         //x start/width of stackView
         let leftMargin: CGFloat = 10.0

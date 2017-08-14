@@ -94,6 +94,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SideMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -118,6 +123,11 @@
 			<true/>
 		</dict>
 		<key>3380590F973AFAFA30255D504B7DEDAC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>38BB8083134FF96A9768958381E4A669</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,7 +167,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9555E8EB77C90E46B5AC2C4DFDDAA0F8</key>
+		<key>970E68D74BD90148ECA1E1F9770355AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -167,12 +177,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C92A58AB3BEFD1BC5D665D7B0BDD778C</key>
+		<key>CD11672B6619C297B6AEE3DFB8213C59</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD11672B6619C297B6AEE3DFB8213C59</key>
+		<key>CE298E0CE00EC71B40669150B57098EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

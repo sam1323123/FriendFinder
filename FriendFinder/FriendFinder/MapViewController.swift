@@ -632,6 +632,7 @@ extension MapViewController: GMSMapViewDelegate {
             if (hourSplit[1].trimmingCharacters(in: .whitespaces) == "Closed") {
                 color = .red
             }
+
             if (hourSplit[0] == localDay) {
                 if let openNow = openingHours["open_now"] as? Bool  {
                     color = (openNow) ? UIColor(red: 85.0/255.0, green: 210.0/255.0, blue: 88.0/255.0, alpha: 1.0) : .red
