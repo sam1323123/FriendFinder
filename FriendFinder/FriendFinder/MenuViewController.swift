@@ -50,6 +50,9 @@ class MenuViewController: UITableViewController {
         return false
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 
     /*
     // Override to support editing the table view.
@@ -89,3 +92,6 @@ class MenuViewController: UITableViewController {
     */
 
 }
+
+
+
