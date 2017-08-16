@@ -9,16 +9,11 @@
 import UIKit
 
 class MenuViewCell: UITableViewCell {
+    
+    @IBOutlet weak var itemIcon: UIImageView!
+    
+    @IBOutlet weak var itemNameLabel: UILabel!
 
-    @IBOutlet weak var userImage: UIImageView!
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var usernameLabel: UILabel!
-    
-    @IBOutlet weak var statusLabel: UILabel!
-    
-    @IBOutlet weak var locationLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

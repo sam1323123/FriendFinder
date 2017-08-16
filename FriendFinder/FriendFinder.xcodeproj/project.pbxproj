@@ -10,6 +10,7 @@
 		111B8F1B3ED00CDC52DA2843 /* Pods_FriendFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */; };
 		3933236A940E4DB523CE55A7 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
 		42568A4B1F3DC763007E0B05 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */; };
+		427521DC1F4433F50098FFB0 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521DB1F4433F50098FFB0 /* MenuItem.swift */; };
 		42AB1D471F406E6B0022B88F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D461F406E6B0022B88F /* MenuViewController.swift */; };
 		42AB1D491F406EE70022B88F /* FFUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D481F406EE70022B88F /* FFUser.swift */; };
 		42AB1D4B1F40761E0022B88F /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */; };
@@ -67,6 +68,7 @@
 /* Begin PBXFileReference section */
 		01F4749EBE82D52B2E3A3229 /* Pods-FriendFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		427521DB1F4433F50098FFB0 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		42AB1D461F406E6B0022B88F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		42AB1D481F406EE70022B88F /* FFUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFUser.swift; sourceTree = "<group>"; };
 		42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				9823B0681F08AB7D00982623 /* Errors.swift */,
 				42EDBAF91F1A346600C40DAE /* Utils.swift */,
 				42AB1D481F406EE70022B88F /* FFUser.swift */,
+				427521DB1F4433F50098FFB0 /* MenuItem.swift */,
 				98A11D591EFA53F2007050E4 /* Assets.xcassets */,
 				98A11D5B1EFA53F2007050E4 /* LaunchScreen.storyboard */,
 				98A11D5E1EFA53F2007050E4 /* Info.plist */,
@@ -480,6 +483,7 @@
 				42AB1D4D1F419F9B0022B88F /* MenuViewCell.swift in Sources */,
 				42AB1D4F1F419FFC0022B88F /* SubtitleTableViewCell.swift in Sources */,
 				98587B781F2F2AC900E4452D /* SwipeInteractor.swift in Sources */,
+				427521DC1F4433F50098FFB0 /* MenuItem.swift in Sources */,
 				9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */,
 				98587B761F2F23CD00E4452D /* DragDismissAnimator.swift in Sources */,
 			);

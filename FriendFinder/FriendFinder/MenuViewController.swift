@@ -8,17 +8,18 @@
 
 import UIKit
 import SideMenu
+import FBSDKCoreKit
+import FBSDKShareKit
 
 class MenuViewController: UITableViewController {
 
-    var userData: [FFUser]?
-    
-    
+    var menuOptions: [MenuItem]?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        initOptions()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        userData = [FFUser(name: "Avi", username: "AviG")]
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
     }
@@ -43,15 +44,15 @@ class MenuViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (userData != nil) ? userData!.count : 0
+        return (menuOptions != nil) ? menuOptions!.count : 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
         let menuCell = cell as! MenuViewCell
-        let user = userData?[indexPath.row]
-        menuCell.nameLabel.text = user?.name
-        menuCell.usernameLabel.text = user?.username
+        let item = menuOptions?[indexPath.row]
+        menuCell.itemNameLabel.text = item?.name
+        menuCell.itemIcon.image = item?.icon
         return menuCell
     }
 
@@ -62,7 +63,15 @@ class MenuViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let item = menuOptions?[indexPath.row]
+        performSegue(withIdentifier: item!.segueID, sender: nil)
+    }
+    
+    func initOptions() {
+        let pals = MenuItem(name: "Pals", segueID: "PalMenu")
+        let connections = MenuItem(name: "Connections", segueID: "Connection Menu")
+        let notif = MenuItem(name: "Notifications", segueID: "Notifications Menu")
+        menuOptions = [pals, connections, notif]
     }
 
     /*
