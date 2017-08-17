@@ -74,14 +74,14 @@ class MapViewController: UIViewController {
         didSet {
             if currentLocation != nil {
                 if let floor = currentLocation!.floor?.level {
-                    ref.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(
+                    ref.child(Utils.firebasePaths.uidProfile(uid: (Auth.auth().currentUser?.uid)!)).updateChildValues(
                         ["latitude": currentLocation!.coordinate.latitude,
                          "longitude": currentLocation!.coordinate.longitude,
                          "altitude": currentLocation!.altitude,
                          "floor": floor])
                 }
                 else {
-                    ref.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(
+                    ref.child(Utils.firebasePaths.uidProfile(uid: (Auth.auth().currentUser?.uid)!)).updateChildValues(
                         ["latitude": Double(currentLocation!.coordinate.latitude),
                          "longitude": Double(currentLocation!.coordinate.longitude),
                          "altitude": Double(currentLocation!.altitude)])
@@ -705,7 +705,7 @@ extension MapViewController {
     //performs callback(true) and add to db if username given is valid else callback(false)
     func addUsernameToFirebase(username: String, callback: @escaping (Bool)->Void) {
         let dbRef = self.ref!
-        let usernamePath = "usernames/\(username)"
+        let usernamePath = Utils.firebasePaths.usernameProfileUid(username: username)
         dbRef.child(usernamePath).observeSingleEvent(of: .value, with: {[weak self] (snap) in
             
             if snap.exists() {
@@ -713,7 +713,7 @@ extension MapViewController {
                 callback(false)
                 return
             }
-            //set username
+            //set username and uid map
             dbRef.child(usernamePath).setValue(Auth.auth().currentUser!.uid, withCompletionBlock: {
                 (err, _) in
                 if let err = err {
@@ -722,9 +722,9 @@ extension MapViewController {
                 }
                 else {
                     print("NO ERROR ON WRITE")
-                    dbRef.child("users").child(Auth.auth().currentUser!.uid).child("username").setValue(username)
+                    dbRef.child(Utils.firebasePaths.uidProfileUsername(uid: Auth.auth().currentUser!.uid)).setValue(username)
                     //add username to uid field
-                    dbRef.child("users").child(Auth.auth().currentUser!.uid).child("name").setValue(self!.preferredNameField.text ?? "") //add preferred to uid field
+                    dbRef.child(Utils.firebasePaths.uidProfilePreferredName(uid: Auth.auth().currentUser!.uid)).setValue(self!.preferredNameField.text ?? "") //add preferred to uid field
                     //!! should we handle the case where the write is not guaranteed and someone else might write first
                     self!.userName = username
                     print("ADDED TO FIREBASE ")
