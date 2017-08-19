@@ -121,10 +121,7 @@ class MapViewController: UIViewController {
             }
         }
     }
-
-    override func loadView() {
-        super.loadView()
-    }
+    
     
     override var shouldAutorotate: Bool {
         get {
@@ -142,6 +139,9 @@ class MapViewController: UIViewController {
     
     let buttonColor = UIColor(red: 56.0/255.0, green: 114.0/255.0, blue: 108.0/255.0, alpha: 1.0)
 
+    override func loadView() {
+        super.loadView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -170,11 +170,15 @@ class MapViewController: UIViewController {
         visualEffectView.alpha = 0.8
         print(MapViewController.staticMap, mapView, "COMP" )
         initializeUserInfo()
+        
+        //register vc to listen to notifications
+    /*ref.child(Utils.firebasePaths.connectionRequests(uid:Auth.auth().currentUser!.uid)).setValue(["samuell1": "sam", "avi":"avi"])*/
+        PendingNotificationObject.sharedInstance.registerObserver(observer: self, action: #selector(pendingNotificationHandler(_:)))
     }
     
     //Call this method to initializ all user profile info like username and preferred name
     private func initializeUserInfo() {
-        self.ref.child("users/\(Auth.auth().currentUser!.uid)").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+        self.ref.child(Utils.firebasePaths.uidProfile(uid: Auth.auth().currentUser!.uid)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             if snapshot.hasChild("username") && snapshot.hasChild("name") {
                 let data = snapshot.value as! [String:AnyObject]
                 self?.userName = data["username"] as? String
@@ -761,6 +765,19 @@ extension MapViewController {
     }
     
 }
+
+//Extension for handling pendingNotifications
+extension MapViewController {
+    
+    func pendingNotificationHandler(_: Notification) {
+        DispatchQueue.main.async {
+            Utils.displayAlert(with: self, title: "New Connections Pending", message: "You have \(PendingNotificationObject.sharedInstance.numberOfPendingRequests())", text: "OK")
+        }
+    }
+    
+}
+
+
 
 
 

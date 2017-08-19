@@ -31,8 +31,8 @@ class Utils {
         static func usernameProfileUid(username: String) -> String {
             return "usernames/\(username)/user_id"
         }
-        static func usernameProfileConnectionRequests(username: String) -> String {
-            return "usernames/\(username)/connectionRequests"
+        static func connectionRequests(uid: String) -> String {
+            return "users/\(uid)/connectionRequests"
         }
     }
     
