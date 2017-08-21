@@ -1,27 +1,25 @@
 //
-//  MenuViewController.swift
+//  InvitesViewController.swift
 //  FriendFinder
 //
-//  Created by Avi on 8/13/17.
+//  Created by Avi on 8/20/17.
 //  Copyright © 2017 Samuel Lee and Avishek Ganguli. All rights reserved.
 //
 
 import UIKit
-import SideMenu
-import FBSDKCoreKit
-import FBSDKShareKit
 
-class MenuViewController: UITableViewController {
+class InvitesViewController: UITableViewController {
 
-    var menuOptions: [MenuItem]?
-
+    var users = [FFUser]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        initOptions()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,12 +27,6 @@ class MenuViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // reenable map panning
-        MapViewController.disableMapPanning = false
-    }
-    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,36 +36,25 @@ class MenuViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (menuOptions != nil) ? menuOptions!.count : 0
+        return users.count
     }
+
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
-        let menuCell = cell as! MenuViewCell
-        let item = menuOptions?[indexPath.row]
-        menuCell.itemNameLabel.text = item?.name
-        menuCell.itemIcon.image = item?.icon
-        return menuCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
+
+        return cell
     }
 
-    
+    /*
+    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return false
+        return true
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = menuOptions?[indexPath.row]
-        performSegue(withIdentifier: item!.segueID, sender: nil)
-    }
-    
-    func initOptions() {
-        let pals = MenuItem(name: "Pals", segueID: "PalMenu")
-        let connections = MenuItem(name: "Connections", segueID: "Connection Menu")
-        let notifs = MenuItem(name: "Notifications", segueID: "Notifications Menu")
-        let invites = MenuItem(name: "Invites", segueID: "Invite Menu")
-        menuOptions = [pals, connections, notifs, invites]
-    }
+    */
 
     /*
     // Override to support editing the table view.
@@ -113,6 +94,3 @@ class MenuViewController: UITableViewController {
     */
 
 }
-
-
-
