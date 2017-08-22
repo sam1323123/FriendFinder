@@ -53,6 +53,9 @@ target 'FriendFinder' do
   # For slide view
   pod 'SideMenu'
 
+  # For expandable cell
+  pod 'ExpandableCell'
+
   target 'FriendFinderTests' do
     inherit! :search_paths
     # Pods for testing

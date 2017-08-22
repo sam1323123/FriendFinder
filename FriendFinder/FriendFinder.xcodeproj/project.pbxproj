@@ -13,6 +13,7 @@
 		427521DC1F4433F50098FFB0 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521DB1F4433F50098FFB0 /* MenuItem.swift */; };
 		427521E01F4A9C450098FFB0 /* InvitesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521DF1F4A9C450098FFB0 /* InvitesViewController.swift */; };
 		427521E21F4A9E230098FFB0 /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521E11F4A9E230098FFB0 /* UserViewCell.swift */; };
+		427521E41F4AF2E60098FFB0 /* FirebasePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521E31F4AF2E60098FFB0 /* FirebasePaths.swift */; };
 		42AB1D471F406E6B0022B88F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D461F406E6B0022B88F /* MenuViewController.swift */; };
 		42AB1D491F406EE70022B88F /* FFUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D481F406EE70022B88F /* FFUser.swift */; };
 		42AB1D4B1F40761E0022B88F /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */; };
@@ -74,6 +75,7 @@
 		427521DB1F4433F50098FFB0 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		427521DF1F4A9C450098FFB0 /* InvitesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitesViewController.swift; sourceTree = "<group>"; };
 		427521E11F4A9E230098FFB0 /* UserViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
+		427521E31F4AF2E60098FFB0 /* FirebasePaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebasePaths.swift; sourceTree = "<group>"; };
 		42AB1D461F406E6B0022B88F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		42AB1D481F406EE70022B88F /* FFUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFUser.swift; sourceTree = "<group>"; };
 		42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				42AB1D4A1F40761E0022B88F /* Storyboard.storyboard */,
 				9823B0681F08AB7D00982623 /* Errors.swift */,
 				42EDBAF91F1A346600C40DAE /* Utils.swift */,
+				427521E31F4AF2E60098FFB0 /* FirebasePaths.swift */,
 				42AB1D481F406EE70022B88F /* FFUser.swift */,
 				427521DB1F4433F50098FFB0 /* MenuItem.swift */,
 				98A11D591EFA53F2007050E4 /* Assets.xcassets */,
@@ -489,6 +492,7 @@
 				42AB1D471F406E6B0022B88F /* MenuViewController.swift in Sources */,
 				42AB1D491F406EE70022B88F /* FFUser.swift in Sources */,
 				98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */,
+				427521E41F4AF2E60098FFB0 /* FirebasePaths.swift in Sources */,
 				98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */,
 				42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */,
 				98B48ABD1F236AD800099AF2 /* LocationDetailViewController.swift in Sources */,

@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ExpandableCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -122,6 +127,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>23E564D54CEF6B529503E3CBAFDBC367</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2F53BB788D4BC91AC60DB0915804F131</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2FEB31A9450511EF693FB138B4E45527</key>
 		<dict>
 			<key>primary</key>
@@ -132,7 +147,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>39569C980F02B405433AF325C3E854E9</key>
+		<key>41B71F3D1C6240DCAB2295914709EAEC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4331AE8399FE37BC4AC6C2015A21FD00</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,17 +192,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9F96348321C89542F472AA61E18CF8C4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>B1C4AAFAF49036C7007633DAA3C806AD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C8E01DED0F0A930B779F417E7E9DDA8C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

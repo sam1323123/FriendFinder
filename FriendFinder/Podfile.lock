@@ -5,6 +5,7 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - ExpandableCell (0.3.0)
   - FacebookCore (0.2.0):
     - Bolts (~> 1.8)
     - FBSDKCoreKit (~> 4.15)
@@ -97,6 +98,7 @@ PODS:
   - SideMenu (2.3.3)
 
 DEPENDENCIES:
+  - ExpandableCell
   - FacebookLogin
   - FBSDKCoreKit
   - FBSDKLoginKit
@@ -116,6 +118,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  ExpandableCell: 696e3a4b6ac688b974191a28cc31950d4ec53416
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
   FBSDKCoreKit: f8c9eb0dd34a9cd277c7b60da4b32226d142502d
@@ -136,10 +139,10 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
-  nanopb: 22bc080fa3955e2116b6ff3ee6c2cb3c15ab97cb
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   PubNub: 408ba6402a9c712418da738adda12ccc339cbb1e
   SideMenu: a447554ae5c982e8077666389e1c8b0c8656e065
 
-PODFILE CHECKSUM: 98ed2c069addec99e11052f93337dc2c778c6cc2
+PODFILE CHECKSUM: d5e094987ce7a87389e6430dcbdc39aaebde776c
 
 COCOAPODS: 1.2.1

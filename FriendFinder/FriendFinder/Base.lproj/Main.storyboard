@@ -553,12 +553,13 @@
         <scene sceneID="DxC-xL-LRP">
             <objects>
                 <tableViewController title="Menu" id="ZRd-TY-4CG" customClass="MenuViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="9p6-gf-xf6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="9p6-gf-xf6" customClass="ExpandableTableView" customModule="ExpandableCell">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="90" id="ayF-NL-yMi" customClass="MenuViewCell" customModule="FriendFinder" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="90" id="ayF-NL-yMi" customClass="MenuViewCell" customModule="FriendFinder">
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ayF-NL-yMi" id="nT5-WO-mtW">
@@ -566,7 +567,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xP-LH-Xhe" userLabel="Item Name">
-                                            <rect key="frame" x="90" y="29" width="86.5" height="32"/>
+                                            <rect key="frame" x="90" y="29" width="87" height="32"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -578,16 +579,26 @@
                                                 <constraint firstAttribute="width" constant="32" id="g06-Ct-W4Q"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfM-Bb-F2I" userLabel="Arrow Label">
+                                            <rect key="frame" x="357" y="45" width="0.0" height="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="0xP-LH-Xhe" firstAttribute="centerY" secondItem="nT5-WO-mtW" secondAttribute="centerY" id="3QM-0f-oqB"/>
                                         <constraint firstItem="0xP-LH-Xhe" firstAttribute="leading" secondItem="ywc-XK-lUM" secondAttribute="trailing" constant="40" id="VuR-wh-tan"/>
                                         <constraint firstItem="ywc-XK-lUM" firstAttribute="centerY" secondItem="nT5-WO-mtW" secondAttribute="centerY" id="cLq-eO-f23"/>
                                         <constraint firstItem="ywc-XK-lUM" firstAttribute="leading" secondItem="nT5-WO-mtW" secondAttribute="leadingMargin" constant="10" id="ezh-zX-SqO"/>
+                                        <constraint firstItem="nfM-Bb-F2I" firstAttribute="trailing" secondItem="nT5-WO-mtW" secondAttribute="trailingMargin" constant="-10" id="fkF-Lw-DT7"/>
+                                        <constraint firstItem="nfM-Bb-F2I" firstAttribute="centerY" secondItem="nT5-WO-mtW" secondAttribute="centerY" id="nre-7h-CGC"/>
                                         <constraint firstItem="0xP-LH-Xhe" firstAttribute="height" secondItem="ywc-XK-lUM" secondAttribute="height" id="xRU-ET-hVO"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="0.56470588239999997" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
+                                    <outlet property="arrowLabel" destination="nfM-Bb-F2I" id="FOS-Cj-wbX"/>
                                     <outlet property="itemIcon" destination="ywc-XK-lUM" id="PYu-1D-Pnf"/>
                                     <outlet property="itemNameLabel" destination="0xP-LH-Xhe" id="VDA-l4-ddm"/>
                                 </connections>
@@ -598,42 +609,14 @@
                             <outlet property="delegate" destination="ZRd-TY-4CG" id="jdZ-lA-0rC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Menu" id="er2-2z-1ym"/>
+                    <navigationItem key="navigationItem" title="Menu" id="AsD-WT-tJd"/>
                     <connections>
-                        <segue destination="8XX-bu-Bfk" kind="presentation" identifier="Invite Menu" id="Ucd-yO-ZCa"/>
+                        <outlet property="tableView" destination="9p6-gf-xf6" id="1RA-7Z-LBf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6d-IX-OhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1634.4000000000001" y="2105.3973013493255"/>
-        </scene>
-        <!--Invites View Controller-->
-        <scene sceneID="BgA-7w-HNF">
-            <objects>
-                <viewController id="8XX-bu-Bfk" customClass="InvitesViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UPK-zd-0UY"/>
-                        <viewControllerLayoutGuide type="bottom" id="VfB-IZ-XuI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="5LD-Io-7Oa" customClass="UITableView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" selectionStyle="default" indentationWidth="10" rowHeight="71" translatesAutoresizingMaskIntoConstraints="NO" id="UZ7-hM-wIU">
-                                <rect key="frame" x="0.0" y="28" width="375" height="71"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UZ7-hM-wIU" id="H93-Rn-qkY">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="frU-M7-Ikf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1781.5999999999999" y="2869.1154422788609"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="gjd-Sy-HcB">

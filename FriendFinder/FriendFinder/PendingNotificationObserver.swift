@@ -24,7 +24,7 @@ class PendingNotificationObject: NSObject {
     
     override init() {
         super.init()
-        let path = Utils.firebasePaths.connectionRequests(uid: Auth.auth().currentUser!.uid)
+        let path = FirebasePaths.connectionRequests(uid: Auth.auth().currentUser!.uid)
         ref = Database.database().reference().child(path)
         //attache an event observer
         observerID = ref.observe(.value, with: {(snapshot) in
@@ -75,7 +75,7 @@ class PendingNotificationObject: NSObject {
         }
         
         //retry connection to firebase
-        let path = Utils.firebasePaths.connectionRequests(uid: Auth.auth().currentUser!.uid)
+        let path = FirebasePaths.connectionRequests(uid: Auth.auth().currentUser!.uid)
         ref = Database.database().reference().child(path)
         //attache an event observer
         observerID = ref.observe(.value, with: {(snapshot) in

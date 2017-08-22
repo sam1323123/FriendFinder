@@ -10,18 +10,26 @@ import UIKit
 import SideMenu
 import FBSDKCoreKit
 import FBSDKShareKit
+import ExpandableCell
+import FontAwesome_swift
 
-class MenuViewController: UITableViewController {
+class MenuViewController: UIViewController {
 
     var menuOptions: [MenuItem]?
-
+    
+    var expandedCell: MenuViewCell?
+    
+    @IBOutlet var tableView: ExpandableTableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("LOADED")
         initOptions()
+        tableView.expandableDelegate = self
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,38 +43,6 @@ class MenuViewController: UITableViewController {
         MapViewController.disableMapPanning = false
     }
     
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return (menuOptions != nil) ? menuOptions!.count : 0
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
-        let menuCell = cell as! MenuViewCell
-        let item = menuOptions?[indexPath.row]
-        menuCell.itemNameLabel.text = item?.name
-        menuCell.itemIcon.image = item?.icon
-        return menuCell
-    }
-
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return false
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = menuOptions?[indexPath.row]
-        performSegue(withIdentifier: item!.segueID, sender: nil)
-    }
-    
     func initOptions() {
         let pals = MenuItem(name: "Pals", segueID: "PalMenu")
         let connections = MenuItem(name: "Connections", segueID: "Connection Menu")
@@ -74,33 +50,6 @@ class MenuViewController: UITableViewController {
         let invites = MenuItem(name: "Invites", segueID: "Invite Menu")
         menuOptions = [pals, connections, notifs, invites]
     }
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -114,5 +63,69 @@ class MenuViewController: UITableViewController {
 
 }
 
+extension MenuViewController: ExpandableDelegate {
+    
+     func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCellsForRowAt indexPath: IndexPath) -> [UITableViewCell]? {
+        if (menuOptions![indexPath.row].name == "Invites" ) {
+            let fbCell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as! MenuViewCell
+            let phoneCell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as! MenuViewCell
+            fbCell.itemNameLabel.text = "Facebook Invites"
+            phoneCell.itemNameLabel.text = "Phone Invites"
+            return [fbCell, phoneCell]
+        }
+        return nil
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, heightsForExpandedRowAt indexPath: IndexPath) -> [CGFloat]? {
+        if (menuOptions![indexPath.row].name == "Invites" ) {
+            return Array(repeating: expandableTableView.rowHeight, count: 2)
+        }
+        return nil
+    }
+    
+    func numberOfSections(in tableView: ExpandableTableView) -> Int {
+        return 1
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, numberOfRowsInSection section: Int) -> Int {
+        return (menuOptions != nil) ? menuOptions!.count : 0
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectRowAt indexPath: IndexPath) {
+        let item = menuOptions![indexPath.row]
+        //performSegue(withIdentifier: item!.segueID, sender: nil)
+        if (menuOptions![indexPath.row].name == "Invites" ) {
+            expandedCell!.isExpanded = !(expandedCell!.isExpanded)
+            expandedCell!.arrowLabel.text = String.fontAwesomeIcon(name: (expandedCell!.isExpanded) ? .minus : .chevronRight)
+        }
+        
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectExpandedRowAt indexPath: IndexPath) {
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCell: UITableViewCell, didSelectExpandedRowAt indexPath: IndexPath) {
+        if let cell = expandedCell as? MenuViewCell {
+            print("\(cell.itemNameLabel.text ?? "")")
+        }
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as? MenuViewCell else {
+            return UITableViewCell()
+        }
+        cell.itemNameLabel.text = menuOptions![indexPath.row].name
+        if (menuOptions![indexPath.row].name == "Invites" ) {
+            cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
+            cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
+            expandedCell = cell
+        }
+        return cell
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return expandableTableView.rowHeight
+    }
+}
 
 

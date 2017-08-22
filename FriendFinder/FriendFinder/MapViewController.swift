@@ -74,14 +74,14 @@ class MapViewController: UIViewController {
         didSet {
             if currentLocation != nil {
                 if let floor = currentLocation!.floor?.level {
-                    ref.child(Utils.firebasePaths.uidProfile(uid: (Auth.auth().currentUser?.uid)!)).updateChildValues(
+                    ref.child(FirebasePaths.uidProfile(uid: (Auth.auth().currentUser?.uid)!)).updateChildValues(
                         ["latitude": currentLocation!.coordinate.latitude,
                          "longitude": currentLocation!.coordinate.longitude,
                          "altitude": currentLocation!.altitude,
                          "floor": floor])
                 }
                 else {
-                    ref.child(Utils.firebasePaths.uidProfile(uid: (Auth.auth().currentUser?.uid)!)).updateChildValues(
+                    ref.child(FirebasePaths.uidProfile(uid: (Auth.auth().currentUser?.uid)!)).updateChildValues(
                         ["latitude": Double(currentLocation!.coordinate.latitude),
                          "longitude": Double(currentLocation!.coordinate.longitude),
                          "altitude": Double(currentLocation!.altitude)])
@@ -178,7 +178,7 @@ class MapViewController: UIViewController {
     
     //Call this method to initializ all user profile info like username and preferred name
     private func initializeUserInfo() {
-        self.ref.child(Utils.firebasePaths.uidProfile(uid: Auth.auth().currentUser!.uid)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+        self.ref.child(FirebasePaths.uidProfile(uid: Auth.auth().currentUser!.uid)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             if snapshot.hasChild("username") && snapshot.hasChild("name") {
                 let data = snapshot.value as! [String:AnyObject]
                 self?.userName = data["username"] as? String
@@ -709,7 +709,7 @@ extension MapViewController {
     //performs callback(true) and add to db if username given is valid else callback(false)
     func addUsernameToFirebase(username: String, callback: @escaping (Bool)->Void) {
         let dbRef = self.ref!
-        let usernamePath = Utils.firebasePaths.usernameProfileUid(username: username)
+        let usernamePath = FirebasePaths.usernameProfileUid(username: username)
         dbRef.child(usernamePath).observeSingleEvent(of: .value, with: {[weak self] (snap) in
             
             if snap.exists() {
@@ -726,9 +726,9 @@ extension MapViewController {
                 }
                 else {
                     print("NO ERROR ON WRITE")
-                    dbRef.child(Utils.firebasePaths.uidProfileUsername(uid: Auth.auth().currentUser!.uid)).setValue(username)
+                    dbRef.child(FirebasePaths.uidProfileUsername(uid: Auth.auth().currentUser!.uid)).setValue(username)
                     //add username to uid field
-                    dbRef.child(Utils.firebasePaths.uidProfilePreferredName(uid: Auth.auth().currentUser!.uid)).setValue(self!.preferredNameField.text ?? "") //add preferred to uid field
+                    dbRef.child(FirebasePaths.uidProfilePreferredName(uid: Auth.auth().currentUser!.uid)).setValue(self!.preferredNameField.text ?? "") //add preferred to uid field
                     //!! should we handle the case where the write is not guaranteed and someone else might write first
                     self!.userName = username
                     print("ADDED TO FIREBASE ")
