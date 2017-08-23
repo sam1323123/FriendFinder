@@ -14,6 +14,7 @@ import FBSDKShareKit
 class MenuViewController: UITableViewController {
 
     var menuOptions: [MenuItem]?
+    var notificationCellRef: NotificationTableViewCell? //used for async updates of notif count
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,16 @@ class MenuViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        PendingNotificationObject.sharedInstance.registerObserver(observer: self, action: #selector(notificationHandler(_:)) )
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        PendingNotificationObject.sharedInstance.removeObserver(observer: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,22 +49,43 @@ class MenuViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return (menuOptions != nil) ? menuOptions!.count : 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
-        let menuCell = cell as! MenuViewCell
+        
         let item = menuOptions?[indexPath.row]
-        menuCell.itemNameLabel.text = item?.name
-        menuCell.itemIcon.image = item?.icon
-        return menuCell
+        if(indexPath.row == 2) { //index of notification option
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath)
+            notificationCellRef = (cell as! NotificationTableViewCell)
+            notificationCellRef!.itemNameLabel.text = item?.name
+            notificationCellRef!.itemIcon.image = item?.icon
+            let pendingNotifs = PendingNotificationObject.sharedInstance.numberOfPendingRequests()
+            if( pendingNotifs == 0) {
+                //make invisible
+                notificationCellRef!.countLabel.backgroundColor = UIColor.clear
+                notificationCellRef!.countLabel.text = nil
+            }
+            else {
+                notificationCellRef!.countLabel.backgroundColor = UIColor.red
+                notificationCellRef!.countLabel.text = String(pendingNotifs) // set text to number of pending notifs
+            }
+            notificationCellRef!.recalibrateComponents()
+            return notificationCellRef!
+
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
+            let menuCell = cell as! MenuViewCell
+            menuCell.itemNameLabel.text = item?.name
+            menuCell.itemIcon.image = item?.icon
+            return menuCell
+        }
+        
     }
 
     
@@ -110,7 +142,23 @@ class MenuViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func notificationHandler(_ args: NSNotification) {
+        guard let cell = notificationCellRef else {
+            return
+        }
+        let numNotifs = PendingNotificationObject.sharedInstance.numberOfPendingRequests()
+        if(numNotifs == 0) {
+            //make notif box invisible
+            cell.backgroundColor = UIColor.clear
+            cell.countLabel.text = nil
+            //don't have to recalibrate
+        }
+        else {
+            cell.backgroundColor = UIColor.red
+            cell.countLabel.text = String(numNotifs)
+        }
+    }
 }
 
 

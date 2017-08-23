@@ -592,6 +592,56 @@
                                     <outlet property="itemNameLabel" destination="0xP-LH-Xhe" id="VDA-l4-ddm"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NotificationCell" rowHeight="90" id="GVa-xG-myI" userLabel="NotificationCell" customClass="NotificationTableViewCell" customModule="FriendFinder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="118" width="375" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GVa-xG-myI" id="HsO-ij-fni">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="89.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZy-1C-tgU" userLabel="Item Name">
+                                            <rect key="frame" x="90" y="29" width="82" height="32"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zvn-tp-33S" userLabel="Item Icon">
+                                            <rect key="frame" x="18" y="28" width="32" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="32" id="FIY-v5-y1c"/>
+                                                <constraint firstAttribute="width" constant="32" id="jXN-5I-gmp"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HzU-MN-7aB" userLabel="Count Label">
+                                            <rect key="frame" x="172" y="3" width="16" height="16"/>
+                                            <color key="backgroundColor" red="1" green="0.076092547577983116" blue="0.1995526275353422" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="HzU-MN-7aB" secondAttribute="height" multiplier="1:1" id="kbx-Sa-uUA"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zvn-tp-33S" firstAttribute="centerY" secondItem="HsO-ij-fni" secondAttribute="centerY" id="TDW-FU-jiU"/>
+                                        <constraint firstItem="AZy-1C-tgU" firstAttribute="height" secondItem="zvn-tp-33S" secondAttribute="height" id="WHB-p7-FY2"/>
+                                        <constraint firstItem="AZy-1C-tgU" firstAttribute="leading" secondItem="zvn-tp-33S" secondAttribute="trailing" constant="40" id="haS-2D-k0h"/>
+                                        <constraint firstItem="AZy-1C-tgU" firstAttribute="centerY" secondItem="HsO-ij-fni" secondAttribute="centerY" id="mga-4Q-GeK"/>
+                                        <constraint firstItem="HzU-MN-7aB" firstAttribute="leading" secondItem="AZy-1C-tgU" secondAttribute="trailing" id="mwj-ji-Tim"/>
+                                        <constraint firstItem="zvn-tp-33S" firstAttribute="leading" secondItem="HsO-ij-fni" secondAttribute="leadingMargin" constant="10" id="uav-Jm-ZiW"/>
+                                        <constraint firstItem="HzU-MN-7aB" firstAttribute="height" secondItem="AZy-1C-tgU" secondAttribute="height" multiplier="0.5" id="vug-Vv-5Q4"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <constraints>
+                                    <constraint firstItem="HzU-MN-7aB" firstAttribute="top" secondItem="GVa-xG-myI" secondAttribute="top" constant="3" id="Pkb-kq-6s0"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="countLabel" destination="HzU-MN-7aB" id="gCr-ac-tem"/>
+                                    <outlet property="itemIcon" destination="zvn-tp-33S" id="Eo2-3w-hNf"/>
+                                    <outlet property="itemNameLabel" destination="AZy-1C-tgU" id="1PW-6l-Lzw"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="ZRd-TY-4CG" id="UzM-tE-JbI"/>
@@ -608,7 +658,7 @@
         <scene sceneID="gjd-Sy-HcB">
             <objects>
                 <navigationController storyboardIdentifier="LeftMenuViewController" id="Sxz-zD-L2b" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="q6d-7T-aen">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="q6d-7T-aen">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

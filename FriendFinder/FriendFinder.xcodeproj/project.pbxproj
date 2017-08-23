@@ -39,7 +39,8 @@
 		98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B48AB81F1C950400099AF2 /* InfoWindowView.swift */; };
 		98B48ABB1F1DEF5A00099AF2 /* ProportionalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B48ABA1F1DEF5A00099AF2 /* ProportionalLabel.swift */; };
 		98B48ABD1F236AD800099AF2 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */; };
-		98D846391F44508F00EF3BED /* PendingNotificationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D846381F44508F00EF3BED /* PendingNotificationObserver.swift */; };
+		98D846391F44508F00EF3BED /* PendingNotificationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D846381F44508F00EF3BED /* PendingNotificationObject.swift */; };
+		98D8463B1F4C0CC800EF3BED /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8463A1F4C0CC800EF3BED /* NotificationTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,7 +106,8 @@
 		98B48ABA1F1DEF5A00099AF2 /* ProportionalLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProportionalLabel.swift; sourceTree = "<group>"; };
 		98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		98D846301F332EA000EF3BED /* FriendFinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FriendFinder-Bridging-Header.h"; sourceTree = "<group>"; };
-		98D846381F44508F00EF3BED /* PendingNotificationObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingNotificationObserver.swift; sourceTree = "<group>"; };
+		98D846381F44508F00EF3BED /* PendingNotificationObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingNotificationObject.swift; sourceTree = "<group>"; };
+		98D8463A1F4C0CC800EF3BED /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		B1CC802789C9B2CCC9F1CBDE /* Pods-FriendFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		B682F2A084A89FE2EB12F192 /* Pods-FriendFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinder/Pods-FriendFinder.release.xcconfig"; sourceTree = "<group>"; };
 		D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FriendFinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +162,7 @@
 			children = (
 				42AB1D4E1F419FFC0022B88F /* SubtitleTableViewCell.swift */,
 				42AB1D4C1F419F9B0022B88F /* MenuViewCell.swift */,
+				98D8463A1F4C0CC800EF3BED /* NotificationTableViewCell.swift */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -258,7 +261,7 @@
 		98D846371F444FF600EF3BED /* SharedResources */ = {
 			isa = PBXGroup;
 			children = (
-				98D846381F44508F00EF3BED /* PendingNotificationObserver.swift */,
+				98D846381F44508F00EF3BED /* PendingNotificationObject.swift */,
 			);
 			name = SharedResources;
 			sourceTree = "<group>";
@@ -486,11 +489,12 @@
 				98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */,
 				42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */,
 				98B48ABD1F236AD800099AF2 /* LocationDetailViewController.swift in Sources */,
-				98D846391F44508F00EF3BED /* PendingNotificationObserver.swift in Sources */,
+				98D846391F44508F00EF3BED /* PendingNotificationObject.swift in Sources */,
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
 				98A11D731EFA5439007050E4 /* LoginController.swift in Sources */,
 				98B48ABB1F1DEF5A00099AF2 /* ProportionalLabel.swift in Sources */,
 				98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */,
+				98D8463B1F4C0CC800EF3BED /* NotificationTableViewCell.swift in Sources */,
 				9823B0691F08AB7D00982623 /* Errors.swift in Sources */,
 				42AB1D4D1F419F9B0022B88F /* MenuViewCell.swift in Sources */,
 				42AB1D4F1F419FFC0022B88F /* SubtitleTableViewCell.swift in Sources */,

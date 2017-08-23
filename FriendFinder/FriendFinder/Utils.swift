@@ -36,8 +36,6 @@ class Utils {
         }
     }
     
-    //static let firebasePaths: firebasePathsStruct = firebasePathsStruct()
-
     //displays alert with given message and text
     static func displayAlert(with controller: UIViewController, title: String, message: String, text: String, callback: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)

@@ -171,9 +171,18 @@ class MapViewController: UIViewController {
         print(MapViewController.staticMap, mapView, "COMP" )
         initializeUserInfo()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         //register vc to listen to notifications
-    /*ref.child(Utils.firebasePaths.connectionRequests(uid:Auth.auth().currentUser!.uid)).setValue(["samuell1": "sam", "avi":"avi"])*/
+        /*ref.child(Utils.firebasePaths.connectionRequests(uid:Auth.auth().currentUser!.uid)).setValue(["samuell1": "sam", "avi":"avi"])*/
         PendingNotificationObject.sharedInstance.registerObserver(observer: self, action: #selector(pendingNotificationHandler(_:)))
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        PendingNotificationObject.sharedInstance.removeObserver(observer: self)
     }
     
     //Call this method to initializ all user profile info like username and preferred name
@@ -774,7 +783,6 @@ extension MapViewController {
             Utils.displayAlert(with: self, title: "New Connections Pending", message: "You have \(PendingNotificationObject.sharedInstance.numberOfPendingRequests())", text: "OK")
         }
     }
-    
 }
 
 
