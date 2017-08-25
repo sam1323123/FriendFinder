@@ -9,7 +9,7 @@
 import UIKit
 import ExpandableCell
 
-class MenuViewCell: UITableViewCell {
+class MenuViewCell: ExpandableCell {
     
     @IBOutlet weak var itemIcon: UIImageView!
     

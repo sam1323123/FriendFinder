@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ContactsUI
 
 // utility class containing useful methods
 class Utils {
@@ -17,7 +18,7 @@ class Utils {
     
 
     //displays alert with given message and text
-    static func displayAlert(with controller: UIViewController, title: String, message: String, text: String, callback: (() -> Void)? = nil) {
+    static func displayAlert(with controller: UIViewController, title: String, message: String, text: String, callback: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         alertController.addAction(UIAlertAction(title: text, style: .default) {
@@ -26,7 +27,7 @@ class Utils {
                 f()
             }
         })
-        controller.present(alertController, animated: true)
+        controller.present(alertController, animated: true, completion: completion)
     }
     
     //displays alert with given message and text
@@ -41,6 +42,33 @@ class Utils {
         })
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         controller.present(alertController, animated: true)
+    }
+    
+    static func getVisibleViewController(_ rootViewController: UIViewController? = nil) -> UIViewController? {
+        
+        var rootVC = rootViewController
+        if rootVC == nil {
+            rootVC = UIApplication.shared.keyWindow?.rootViewController
+        }
+        
+        if rootVC?.presentedViewController == nil {
+            return rootVC
+        }
+        
+        if let presented = rootVC?.presentedViewController {
+            if presented.isKind(of: UINavigationController.self) {
+                let navigationController = presented as! UINavigationController
+                return navigationController.viewControllers.last!
+            }
+            
+            if presented.isKind(of: UITabBarController.self) {
+                let tabBarController = presented as! UITabBarController
+                return tabBarController.selectedViewController!
+            }
+            
+            return getVisibleViewController(presented)
+        }
+        return nil
     }
     
 }
