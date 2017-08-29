@@ -22,6 +22,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb146226825931288</string>
+				<string>friendfinder</string>
 			</array>
 		</dict>
 		<dict>

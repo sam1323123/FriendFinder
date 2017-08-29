@@ -68,6 +68,8 @@ class MapViewController: UIViewController {
         }
     }
     
+    static var currentController: UIViewController?
+    
     var ref: DatabaseReference!
     
     var currentLocation: CLLocation? {
@@ -145,6 +147,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MapViewController.currentController = self
         MapViewController.staticMap = mapView
         let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuViewController") as! UISideMenuNavigationController
         SideMenuManager.menuLeftNavigationController = menuLeftNavigationController

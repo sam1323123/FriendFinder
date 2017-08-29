@@ -15,6 +15,7 @@ import GoogleMaps
 import GooglePlaces
 import PXGoogleDirections
 import PubNub
+import FontAwesome_swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
@@ -72,7 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
                                                      sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
                                                      annotation: [:])
         
-        
+        let parsedUrl = BFURL(inboundURL: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String)
+        let alertController = UIAlertController(title: "Welcome!", message: "Thanks for coming back to FriendFinder!", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: String.fontAwesomeIcon(name: .smileO), style: .default))
+        window?.rootViewController?.present(alertController, animated: true)
         return FBSDKApplicationDelegate.sharedInstance().application(
             app,
             open: url as URL!,

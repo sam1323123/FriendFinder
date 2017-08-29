@@ -25,7 +25,6 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("LOADED")
         initOptions()
         tableView.expandableDelegate = self
         tableView.tableFooterView = UIView(frame: .zero)
@@ -53,6 +52,9 @@ class MenuViewController: UIViewController {
         super.viewDidDisappear(animated)
         // reenable map panning
         MapViewController.disableMapPanning = false
+        expandedCell?.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
+        expandedCell?.isExpanded = false
+        tableView.closeAll()
     }
     
 
@@ -146,19 +148,22 @@ class MenuViewController: UIViewController {
     }
 }
 
+// expandable menu cell delegate
 extension MenuViewController: ExpandableDelegate {
     
+     // called when cell is selected; returns expanded cells
      func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCellsForRowAt indexPath: IndexPath) -> [UITableViewCell]? {
         if (menuOptions![indexPath.row].name == "Invites" ) {
             let fbCell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as! MenuViewCell
             let phoneCell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as! MenuViewCell
             fbCell.itemNameLabel.text = "Facebook Invites"
-            phoneCell.itemNameLabel.text = "Phone Invites"
+            phoneCell.itemNameLabel.text = "Text Invites"
             return [fbCell, phoneCell]
         }
                 return nil
     }
     
+    // called when cell is selected; returns expanded heights
     func expandableTableView(_ expandableTableView: ExpandableTableView, heightsForExpandedRowAt indexPath: IndexPath) -> [CGFloat]? {
         if (menuOptions![indexPath.row].name == "Invites" ) {
             return Array(repeating: expandableTableView.rowHeight, count: 2)
@@ -174,6 +179,7 @@ extension MenuViewController: ExpandableDelegate {
         return (menuOptions != nil) ? menuOptions!.count : 0
     }
     
+    // called when any row is selected
     func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectRowAt indexPath: IndexPath) {
         //performSegue(withIdentifier: item!.segueID, sender: nil)
         let item = menuOptions![indexPath.row]
@@ -190,12 +196,31 @@ extension MenuViewController: ExpandableDelegate {
     func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectExpandedRowAt indexPath: IndexPath) {
     }
     
+    // called when expanded row is selected
     func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCell: UITableViewCell, didSelectExpandedRowAt indexPath: IndexPath) {
         if let cell = expandedCell as? MenuViewCell {
-            print("\(cell.itemNameLabel.text ?? "")")
+            if cell.itemNameLabel.text == "Facebook Invites" {
+                let inviteDialog:FBSDKAppInviteDialog = FBSDKAppInviteDialog()
+                if(inviteDialog.canShow()){
+                    let appLinkUrl = NSURL(string: "https://fb.me/161411357746168")!
+                    let previewImageUrl = NSURL(string: "https://yt3.ggpht.com/-wWokYDYoBLo/AAAAAAAAAAI/AAAAAAAAAAA/BobFfDIDo6o/s900-c-k-no-mo-rj-c0xffffff/photo.jpg")!
+                    let inviteContent:FBSDKAppInviteContent = FBSDKAppInviteContent()
+                    inviteContent.appLinkURL = appLinkUrl as URL!
+                    inviteContent.appInvitePreviewImageURL = previewImageUrl as URL!
+                    inviteDialog.content = inviteContent
+                    inviteDialog.delegate = self
+                    inviteDialog.show()
+                }
+            }
+            if cell.itemNameLabel.text == "Text Invites" {
+                let controller = TextMessageViewController()
+                present(controller, animated: true, completion: nil)
+            }
+
         }
     }
     
+    // called to get all cells
     func expandableTableView(_ expandableTableView: ExpandableTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = menuOptions![indexPath.row]
         if (item.name == "Invites" ) {
@@ -207,6 +232,7 @@ extension MenuViewController: ExpandableDelegate {
             cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
             cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
             expandedCell = cell
+<<<<<<< HEAD
             return cell
         }
         else if (item.name == "Notifications") {
@@ -239,6 +265,9 @@ extension MenuViewController: ExpandableDelegate {
             cell.itemIcon.image = item.icon
             return cell
 
+=======
+            expandedCell?.isExpanded = false
+>>>>>>> 4d30acaf8ec6cbb5a36c929c6c86abbf50a25e79
         }
     }
     
@@ -246,5 +275,30 @@ extension MenuViewController: ExpandableDelegate {
         return expandableTableView.rowHeight
     }
 }
+
+extension MenuViewController: FBSDKAppInviteDialogDelegate {
+
+    // callback after invite dialog appears
+    func appInviteDialog (_ appInviteDialog: FBSDKAppInviteDialog!, didCompleteWithResults results: [AnyHashable : Any]!) {
+        let results = results ??  [AnyHashable : Any]()
+        let resultObject = NSDictionary(dictionary: results)
+        if let didCancel = resultObject.value(forKey: "completionGesture")
+        {
+            if (didCancel as AnyObject).caseInsensitiveCompare("Cancel") == ComparisonResult.orderedSame
+            {
+                print("User Canceled invitation dialog")
+            }
+        }
+    }
+    
+    // callback on failure to show dialog
+    func appInviteDialog(_ appInviteDialog: FBSDKAppInviteDialog!, didFailWithError error: Error!) {
+        print("Error tool place in appInviteDialog \(error)")
+    }
+    
+}
+
+
+
 
 
