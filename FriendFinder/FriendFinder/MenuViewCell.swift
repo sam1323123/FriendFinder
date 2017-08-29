@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ExpandableCell
 
 class MenuViewCell: UITableViewCell {
     
@@ -14,6 +15,9 @@ class MenuViewCell: UITableViewCell {
     
     @IBOutlet weak var itemNameLabel: UILabel!
 
+    @IBOutlet weak var arrowLabel: UILabel!
+    
+    var isExpanded = false
     
     override func awakeFromNib() {
         super.awakeFromNib()

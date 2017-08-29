@@ -10,19 +10,28 @@ import UIKit
 import SideMenu
 import FBSDKCoreKit
 import FBSDKShareKit
+import ExpandableCell
+import FontAwesome_swift
 
-class MenuViewController: UITableViewController {
+class MenuViewController: UIViewController {
 
     var menuOptions: [MenuItem]?
+    
     var notificationCellRef: NotificationTableViewCell? //used for async updates of notif count
-
+    
+    var expandedCell: MenuViewCell?
+    
+    @IBOutlet var tableView: ExpandableTableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("LOADED")
         initOptions()
+        tableView.expandableDelegate = self
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +55,8 @@ class MenuViewController: UITableViewController {
         MapViewController.disableMapPanning = false
     }
     
-    // MARK: - Table view data source
+
+    /* MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -98,40 +108,15 @@ class MenuViewController: UITableViewController {
         let item = menuOptions?[indexPath.row]
         performSegue(withIdentifier: item!.segueID, sender: nil)
     }
-    
+    */
+
     func initOptions() {
         let pals = MenuItem(name: "Pals", segueID: "PalMenu")
         let connections = MenuItem(name: "Connections", segueID: "Connection Menu")
-        let notif = MenuItem(name: "Notifications", segueID: "Notifications Menu")
-        menuOptions = [pals, connections, notif]
+        let notifs = MenuItem(name: "Notifications", segueID: "Notifications Menu")
+        let invites = MenuItem(name: "Invites", segueID: "Invite Menu")
+        menuOptions = [pals, connections, notifs, invites]
     }
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -161,5 +146,105 @@ class MenuViewController: UITableViewController {
     }
 }
 
+extension MenuViewController: ExpandableDelegate {
+    
+     func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCellsForRowAt indexPath: IndexPath) -> [UITableViewCell]? {
+        if (menuOptions![indexPath.row].name == "Invites" ) {
+            let fbCell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as! MenuViewCell
+            let phoneCell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as! MenuViewCell
+            fbCell.itemNameLabel.text = "Facebook Invites"
+            phoneCell.itemNameLabel.text = "Phone Invites"
+            return [fbCell, phoneCell]
+        }
+                return nil
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, heightsForExpandedRowAt indexPath: IndexPath) -> [CGFloat]? {
+        if (menuOptions![indexPath.row].name == "Invites" ) {
+            return Array(repeating: expandableTableView.rowHeight, count: 2)
+        }
+        return nil
+    }
+    
+    func numberOfSections(in tableView: ExpandableTableView) -> Int {
+        return 1
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, numberOfRowsInSection section: Int) -> Int {
+        return (menuOptions != nil) ? menuOptions!.count : 0
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectRowAt indexPath: IndexPath) {
+        //performSegue(withIdentifier: item!.segueID, sender: nil)
+        let item = menuOptions![indexPath.row]
+        if (item.name == "Invites" ) {
+            expandedCell!.isExpanded = !(expandedCell!.isExpanded)
+            expandedCell!.arrowLabel.text = String.fontAwesomeIcon(name: (expandedCell!.isExpanded) ? .minus : .chevronRight)
+        }
+        else if(item.name == "Notifications") {
+            performSegue(withIdentifier: item.segueID, sender: self)
+        }
+        
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectExpandedRowAt indexPath: IndexPath) {
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCell: UITableViewCell, didSelectExpandedRowAt indexPath: IndexPath) {
+        if let cell = expandedCell as? MenuViewCell {
+            print("\(cell.itemNameLabel.text ?? "")")
+        }
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = menuOptions![indexPath.row]
+        if (item.name == "Invites" ) {
+            guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as? MenuViewCell else {
+                return UITableViewCell()
+            }
+            cell.itemNameLabel.text = item.name
+            cell.itemIcon.image = item.icon
+            cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
+            cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
+            expandedCell = cell
+            return cell
+        }
+        else if (item.name == "Notifications") {
+            guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "NotificationMenuCell", for: indexPath) as? NotificationTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.itemNameLabel.text = item.name
+            cell.itemIcon.image = item.icon
+            cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
+            let pendingNotifs = PendingNotificationObject.sharedInstance.numberOfPendingRequests()
+            if( pendingNotifs == 0) {
+                //make invisible
+                cell.countLabel.backgroundColor = UIColor.clear
+                cell.countLabel.text = nil
+            }
+            else {
+                cell.countLabel.backgroundColor = UIColor.red
+                cell.countLabel.text = String(pendingNotifs) // set text to number of pending notifs
+            }
+            cell.recalibrateComponents()
+            notificationCellRef = cell
+            return cell
+        }
+        else {
+            // default case i.e all other menu options
+            guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "MenuCell") as? MenuViewCell else {
+                return UITableViewCell()
+            }
+            cell.itemNameLabel.text = item.name
+            cell.itemIcon.image = item.icon
+            return cell
+
+        }
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return expandableTableView.rowHeight
+    }
+}
 
 

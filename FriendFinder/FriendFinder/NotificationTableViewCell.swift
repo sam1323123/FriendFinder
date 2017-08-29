@@ -16,6 +16,9 @@ class NotificationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var countLabel: UILabel!
     
+    @IBOutlet weak var arrowLabel: UILabel!
+    
+    var isExpanded = false
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -7,7 +7,7 @@ project 'Frameworks/External/PXGoogleDirections/PXGoogleDirections.xcodeproj' # 
 target 'FriendFinder' do
 
   project 'FriendFinder.xcodeproj'
-  platform :ios, '9.0'
+  platform :ios, '10.0'
   use_frameworks!
   
   # Pods for FriendFinder
@@ -21,9 +21,9 @@ target 'FriendFinder' do
   pod 'GooglePlacePicker'
 
   #Authentication libraries
+
   #pod 'FirebaseUI/Twitter'
 
-  pod 'FacebookLogin'
   pod 'FirebaseUI/Phone'
 
   # Only pull in FirebaseUI Auth features
@@ -31,6 +31,11 @@ target 'FriendFinder' do
 
   # Only pull in Facebook login features
   pod 'FirebaseUI/Facebook', '~> 4.0'
+
+  #Facebook
+  pod 'FacebookLogin'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKShareKit'  
   pod 'FBSDKLoginKit' 
 
   # Only pull in Google login features
@@ -39,9 +44,17 @@ target 'FriendFinder' do
   # Only pull in database
   pod 'Firebase/Database'
 
+  # For icons
   pod 'FontAwesome.swift'
   
-  pod 'PubNub', '~>4.0'
+  # For session semantics
+  pod 'PubNub', '~>4.6'
+
+  # For slide view
+  pod 'SideMenu'
+
+  # For expandable cell
+  # pod 'ExpandableCell'
 
   target 'FriendFinderTests' do
     inherit! :search_paths
