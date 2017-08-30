@@ -19,7 +19,7 @@ class MenuViewController: UIViewController {
     
     var notificationCellRef: NotificationTableViewCell? //used for async updates of notif count
     
-    var expandedCell: MenuViewCell?
+    var expandedInviteCell: MenuViewCell?
     
     @IBOutlet var tableView: ExpandableTableView!
     
@@ -52,8 +52,8 @@ class MenuViewController: UIViewController {
         super.viewDidDisappear(animated)
         // reenable map panning
         MapViewController.disableMapPanning = false
-        expandedCell?.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
-        expandedCell?.isExpanded = false
+        expandedInviteCell?.arrowLabel.text = String.fontAwesomeIcon(name: .chevronDown)
+        expandedInviteCell?.isExpanded = false
         tableView.closeAll()
     }
     
@@ -184,8 +184,8 @@ extension MenuViewController: ExpandableDelegate {
         //performSegue(withIdentifier: item!.segueID, sender: nil)
         let item = menuOptions![indexPath.row]
         if (item.name == "Invites" ) {
-            expandedCell!.isExpanded = !(expandedCell!.isExpanded)
-            expandedCell!.arrowLabel.text = String.fontAwesomeIcon(name: (expandedCell!.isExpanded) ? .minus : .chevronRight)
+            expandedInviteCell!.isExpanded = !(expandedInviteCell!.isExpanded)
+            expandedInviteCell!.arrowLabel.text = String.fontAwesomeIcon(name: (expandedInviteCell!.isExpanded) ? .minus : .chevronDown)
         }
         else if(item.name == "Notifications") {
             performSegue(withIdentifier: item.segueID, sender: self)
@@ -230,9 +230,9 @@ extension MenuViewController: ExpandableDelegate {
             cell.itemNameLabel.text = item.name
             cell.itemIcon.image = item.icon
             cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
-            cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
-            expandedCell = cell
-<<<<<<< HEAD
+            cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronDown)
+            expandedInviteCell = cell
+            expandedInviteCell?.isExpanded = false
             return cell
         }
         else if (item.name == "Notifications") {
@@ -240,7 +240,9 @@ extension MenuViewController: ExpandableDelegate {
                 return UITableViewCell()
             }
             cell.itemNameLabel.text = item.name
+            print("Notif" + item.name)
             cell.itemIcon.image = item.icon
+            cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
             cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
             let pendingNotifs = PendingNotificationObject.sharedInstance.numberOfPendingRequests()
             if( pendingNotifs == 0) {
@@ -264,10 +266,6 @@ extension MenuViewController: ExpandableDelegate {
             cell.itemNameLabel.text = item.name
             cell.itemIcon.image = item.icon
             return cell
-
-=======
-            expandedCell?.isExpanded = false
->>>>>>> 4d30acaf8ec6cbb5a36c929c6c86abbf50a25e79
         }
     }
     
