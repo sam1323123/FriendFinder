@@ -232,7 +232,7 @@ extension MenuViewController: ExpandableDelegate {
             cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
             cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
             expandedCell = cell
-<<<<<<< HEAD
+            expandedCell?.isExpanded = false
             return cell
         }
         else if (item.name == "Notifications") {
@@ -264,10 +264,7 @@ extension MenuViewController: ExpandableDelegate {
             cell.itemNameLabel.text = item.name
             cell.itemIcon.image = item.icon
             return cell
-
-=======
-            expandedCell?.isExpanded = false
->>>>>>> 4d30acaf8ec6cbb5a36c929c6c86abbf50a25e79
+    
         }
     }
     

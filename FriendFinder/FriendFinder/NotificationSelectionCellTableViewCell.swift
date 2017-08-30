@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ExpandableCell
 
-class NotificationSelectionCell: UITableViewCell {
+class NotificationSelectionCell: ExpandableCell {
     
     @IBOutlet weak var itemNameLabel: UILabel!
     
