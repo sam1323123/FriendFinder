@@ -41,6 +41,7 @@ class MenuViewController: UIViewController {
         tableView.expandableDelegate = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.rowHeight = UITableViewAutomaticDimension
+        SideMenuManager.menuPushStyle = .defaultBehavior
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
     }
@@ -198,8 +199,12 @@ extension MenuViewController: ExpandableDelegate {
             expandedInviteCell!.isExpanded = !(expandedInviteCell!.isExpanded)
             expandedInviteCell!.arrowLabel.text = String.fontAwesomeIcon(name: (expandedInviteCell!.isExpanded) ? .minus : .chevronDown)
         }
+        else if (item.name == "Notifications") {
+            //performSegue(withIdentifier: item.segueID, sender: self)
+        }
         else {
-            performSegue(withIdentifier: item.segueID, sender: self)
+            SideMenuManager.menuPushStyle = .defaultBehavior
+            //performSegue(withIdentifier: item.segueID, sender: self)
         }
         
     }
@@ -241,6 +246,7 @@ extension MenuViewController: ExpandableDelegate {
             cell.itemNameLabel.text = item.name
             cell.itemIcon.image = item.icon
             cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
+
             cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronDown)
             expandedInviteCell = cell
             expandedInviteCell?.isExpanded = false

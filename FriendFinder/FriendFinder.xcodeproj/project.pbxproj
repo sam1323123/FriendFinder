@@ -22,6 +22,7 @@
 		42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EDBAF91F1A346600C40DAE /* Utils.swift */; };
 		42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92131F05014100A6421B /* BottomBorderTextField.swift */; };
 		42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42FF92161F0F7B0800A6421B /* Default-568h@2x.png */; };
+		982258721F57704E00CE735B /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982258711F57704E00CE735B /* TestTableViewController.swift */; };
 		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
 		9823B0691F08AB7D00982623 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B0681F08AB7D00982623 /* Errors.swift */; };
 		9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B06B1F08D5EB00982623 /* MapViewController.swift */; };
@@ -92,6 +93,7 @@
 		42FF92151F08F65B00A6421B /* FriendFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FriendFinder.entitlements; sourceTree = "<group>"; };
 		42FF92161F0F7B0800A6421B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		982258711F57704E00CE735B /* TestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9823B0681F08AB7D00982623 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		9823B06B1F08D5EB00982623 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				42AB1D461F406E6B0022B88F /* MenuViewController.swift */,
 				98A4A00F1F5274B600416215 /* NotificationDetailViewController.swift */,
 				427521E71F4D6E720098FFB0 /* TextMessageViewController.swift */,
+				982258711F57704E00CE735B /* TestTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				42AB1D4F1F419FFC0022B88F /* SubtitleTableViewCell.swift in Sources */,
 				98587B781F2F2AC900E4452D /* SwipeInteractor.swift in Sources */,
 				427521E01F4A9C450098FFB0 /* ConnectionViewController.swift in Sources */,
+				982258721F57704E00CE735B /* TestTableViewController.swift in Sources */,
 				9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */,
 				425DF9D61F576C0800A500C1 /* UserViewCell.swift in Sources */,
 				98587B761F2F23CD00E4452D /* DragDismissAnimator.swift in Sources */,

@@ -218,7 +218,7 @@ class MapViewController: UIViewController {
     private func animateUserInputScreen() {
         view.addSubview(userView)
         let displayText = (displayName == nil) ? "" : ", " + displayName!.components(separatedBy: " ")[0]
-        userViewLabel.text = "Welcome\(displayText)! Please enter your preferred name and username."
+        userViewLabel.text = "Welcome\(displayText)! Please enter your full name and username."
         //userButton.addTarget(self, action: #selector(animateOutUserInputScreen), for: .touchUpInside)
         userView.center = view.center
         userView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
@@ -703,6 +703,10 @@ extension MapViewController: GMSMapViewDelegate {
 
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         handleTapOnInfoWindow()
+    }
+    
+    func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
+        marker.map = nil
     }
     
     

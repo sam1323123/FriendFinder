@@ -12,6 +12,7 @@ import FirebaseAuth
 
 class ConnectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var backButton: UIBarButtonItem!
     
     @IBOutlet var tableView: UITableView!
     
@@ -24,12 +25,16 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        backButton.action = #selector(onBackPress)
         initData()
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+    }
+    
+    func onBackPress() {
+        dismiss(animated: true)
     }
     
     private func initData() {
