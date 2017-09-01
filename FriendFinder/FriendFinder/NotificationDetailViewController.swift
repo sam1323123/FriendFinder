@@ -23,6 +23,7 @@ class NotificationDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.expandableDelegate = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.rowHeight = UITableViewAutomaticDimension

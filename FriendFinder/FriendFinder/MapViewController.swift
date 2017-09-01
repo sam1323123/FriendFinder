@@ -172,7 +172,6 @@ class MapViewController: UIViewController {
         visualEffect = visualEffectView.effect
         visualEffectView.effect = nil
         visualEffectView.alpha = 0.8
-        print(MapViewController.staticMap, mapView, "COMP" )
         initializeUserInfo()
         
     }
@@ -238,8 +237,6 @@ class MapViewController: UIViewController {
         if (userName!.characters.count == 0 || preferredName!.characters.count == 0) {
             return
         }
-        print(preferredName)
-        print(userName)
         UIView.animate(withDuration: 0.8, animations: {
             [weak self] in
             self!.userView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
@@ -378,12 +375,8 @@ class MapViewController: UIViewController {
         vc.rating = "\n\n\(place.rating) \(getStars(from: place.rating))\n"
 
         
-        if (place.openNowStatus == GMSPlacesOpenNowStatus.yes) {print ("OPEEEEEN")}
-        else if (place.openNowStatus == GMSPlacesOpenNowStatus.no) { print("CLOSEEED")}
-        else if (place.openNowStatus == GMSPlacesOpenNowStatus.unknown) { print("NOOOOOO") }
-        
         var price: String?
-        var color: UIColor = Utils.gold
+        let color: UIColor = Utils.gold
         
         switch(place.priceLevel) {
         case(GMSPlacesPriceLevel.free):
