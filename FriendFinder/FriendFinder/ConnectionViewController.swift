@@ -7,15 +7,43 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
-class InvitesViewController: UITableViewController {
+class ConnectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    
+    @IBOutlet var tableView: UITableView!
+    
+    private let ref = Database.database().reference()
+    private var users: [FFUser]!
+    private var usernames: [String]!
+    private var names: [String]!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        initData()
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
+    }
+    
+    private func initData() {
+        ref.child("usernames").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+            let data = snapshot.value as! [String:AnyObject]
+            self?.usernames = Array(data.keys)
+            self?.names = data.keys.map({ (username) -> String in
+                return ((data[username] as! [String:AnyObject])["name"]) as! String
+            })
+            self?.users = Array(0..<(self?.usernames.count ?? 0)).map( { [weak self] (index) -> FFUser in
+                return FFUser(name: (self?.names![index])!, username: (self?.usernames![index])!)
+            })
+            self?.tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,22 +53,24 @@ class InvitesViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return (users?.count ?? 0)
     }
 
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath)
 
         // Configure the cell...
-
+        let userCell = cell as! UserViewCell
+        userCell.nameLabel.text = users[indexPath.row].name
+        userCell.usernameLabel.text = users[indexPath.row].username
         return cell
     }
 

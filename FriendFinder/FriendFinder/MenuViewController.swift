@@ -14,8 +14,20 @@ import ExpandableCell
 import FontAwesome_swift
 
 class MenuViewController: UIViewController {
+    
+    struct MenuItem {
+        var name: String
+        var icon: UIImage?
+        var segueID: String
+        
+        public init(name: String, segueID: String, icon: UIImage? = nil) {
+            self.name = name
+            self.segueID = segueID
+            self.icon = icon
+        }
+    }
 
-    var menuOptions: [MenuItem]?
+    var menuOptions: [MenuItem]!
     
     var notificationCellRef: NotificationTableViewCell? //used for async updates of notif count
     
@@ -114,7 +126,7 @@ class MenuViewController: UIViewController {
 
     func initOptions() {
         let pals = MenuItem(name: "Pals", segueID: "PalMenu")
-        let connections = MenuItem(name: "Connections", segueID: "Connection Menu")
+        let connections = MenuItem(name: "Connections", segueID: "Connections Menu")
         let notifs = MenuItem(name: "Notifications", segueID: "Notifications Menu")
         let invites = MenuItem(name: "Invites", segueID: "Invite Menu")
         menuOptions = [pals, connections, notifs, invites]
@@ -181,13 +193,12 @@ extension MenuViewController: ExpandableDelegate {
     
     // called when any row is selected
     func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectRowAt indexPath: IndexPath) {
-        //performSegue(withIdentifier: item!.segueID, sender: nil)
         let item = menuOptions![indexPath.row]
         if (item.name == "Invites" ) {
             expandedInviteCell!.isExpanded = !(expandedInviteCell!.isExpanded)
             expandedInviteCell!.arrowLabel.text = String.fontAwesomeIcon(name: (expandedInviteCell!.isExpanded) ? .minus : .chevronDown)
         }
-        else if(item.name == "Notifications") {
+        else {
             performSegue(withIdentifier: item.segueID, sender: self)
         }
         
