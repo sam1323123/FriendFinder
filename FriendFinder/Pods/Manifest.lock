@@ -29,6 +29,9 @@ PODS:
   - Firebase/Database (4.1.0):
     - Firebase/Core
     - FirebaseDatabase (= 4.0.1)
+  - Firebase/Storage (4.1.0):
+    - Firebase/Core
+    - FirebaseStorage (= 2.0.1)
   - FirebaseAnalytics (4.0.3):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
@@ -47,6 +50,10 @@ PODS:
     - leveldb-library (~> 1.18)
   - FirebaseInstanceID (2.0.1):
     - FirebaseCore (~> 4.0)
+  - FirebaseStorage (2.0.1):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseUI/Auth (4.1.1):
     - Firebase/Auth
   - FirebaseUI/Facebook (4.1.1):
@@ -109,6 +116,7 @@ DEPENDENCIES:
   - FBSDKShareKit
   - Firebase/Core
   - Firebase/Database
+  - Firebase/Storage
   - FirebaseUI/Auth (~> 4.0)
   - FirebaseUI/Facebook (~> 4.0)
   - FirebaseUI/Google (~> 4.0)
@@ -134,6 +142,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 7d876ea97a830cbe62ba7fbbe7670c833a324ba0
   FirebaseDatabase: 94c38c783d23dc6679441050772d42e801d06e9e
   FirebaseInstanceID: 0500e3cb54a1a4e01a8cffcc09323b8bb8fc7e1e
+  FirebaseStorage: 661fc1f8d4131891d256b62e82a45ace8b3f0c3b
   FirebaseUI: 5ebebe2c096c71f20abd1d43d0388958373bdaa0
   FontAwesome.swift: 60063e3f19ba4801155d4b0f2334ab7585763ab3
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
@@ -148,6 +157,6 @@ SPEC CHECKSUMS:
   PubNub: 9a5f55e4c6668162db52a987a8e5d051393e991e
   SideMenu: a447554ae5c982e8077666389e1c8b0c8656e065
 
-PODFILE CHECKSUM: d5e094987ce7a87389e6430dcbdc39aaebde776c
+PODFILE CHECKSUM: 151fdda4986ad791d7d3865570786cf7f730d4e6
 
 COCOAPODS: 1.2.1

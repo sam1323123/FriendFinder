@@ -9,10 +9,9 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import SideMenu
 
 class ConnectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    @IBOutlet weak var backButton: UIBarButtonItem!
     
     @IBOutlet var tableView: UITableView!
     
@@ -25,16 +24,20 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        backButton.action = #selector(onBackPress)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
         initData()
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
     }
     
-    func onBackPress() {
-        dismiss(animated: true)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.visibleViewController?.present(SideMenuManager.menuLeftNavigationController!, animated: true)
     }
     
     private func initData() {
@@ -76,6 +79,7 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         let userCell = cell as! UserViewCell
         userCell.nameLabel.text = users[indexPath.row].name
         userCell.usernameLabel.text = users[indexPath.row].username
+        userCell.userIcon.image = #imageLiteral(resourceName: "no_image")
         return cell
     }
 

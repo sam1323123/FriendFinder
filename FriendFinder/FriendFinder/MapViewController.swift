@@ -28,6 +28,8 @@ class MapViewController: UIViewController {
    
     @IBOutlet weak var userButton: UIButton!
    
+    @IBOutlet weak var uploadButton: UIButton!
+    
     @IBOutlet var userView: UIView!
     
     @IBOutlet weak var mapView: GMSMapView!
@@ -70,7 +72,9 @@ class MapViewController: UIViewController {
     
     static var currentController: UIViewController?
     
-    var ref: DatabaseReference!
+    let ref = Database.database().reference()
+    
+    let storageRef = Storage.storage().reference()
     
     var currentLocation: CLLocation? {
         didSet {
@@ -96,7 +100,7 @@ class MapViewController: UIViewController {
     
     var preferredName: String?
     
-    var displayName: String?
+    var userIcon: UIImage?
     
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
@@ -147,13 +151,14 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        MapViewController.currentController = self
         MapViewController.staticMap = mapView
+        MapViewController.currentController = self
+        navigationController?.setNavigationBarHidden(true, animated: false)
         let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "LeftMenuViewController") as! UISideMenuNavigationController
         SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
         // Enable gestures. The left and/or right menus must be set up above for these to work.
         // Note that these continue to work on the Navigation Controller independent of the view controller it displays!
-        SideMenuManager.menuPushStyle = SideMenuManager.MenuPushStyle.subMenu //required to prevent need to embed self in a NavigationController
+        SideMenuManager.menuPushStyle = .subMenu //required to prevent need to embed self in a NavigationController
         SideMenuManager.menuPresentMode = .menuSlideIn
         SideMenuManager.menuAnimationFadeStrength = 0.6
         SideMenuManager.menuAnimationBackgroundColor = .clear
@@ -161,19 +166,24 @@ class MapViewController: UIViewController {
         let edgeGesture = SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: mapView, forMenu: .left)
         edgeGesture[0].addTarget(self, action: #selector(onEdgeGesture(_:)))
         menuButton.addTarget(self, action: #selector(onMenuClick), for: .touchUpInside)
-        ref = Database.database().reference()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         mapView.accessibilityElementsHidden = false
         mapView.delegate = self
         mapView.mapType = GMSMapViewType.normal
         marker.map = mapView
-        displayName = Auth.auth().currentUser?.providerData.first?.displayName
         visualEffect = visualEffectView.effect
         visualEffectView.effect = nil
         visualEffectView.alpha = 0.8
+        let backImage = UIImage.fontAwesomeIcon(name: .chevronLeft, textColor: Utils.orange, size: CGSize(width: 30, height: 30))
+        navigationController?.navigationBar.backIndicatorImage = backImage
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+        navigationController?.navigationBar.tintColor = Utils.orange
+        let barButton = UIBarButtonItem()
+        barButton.title = " "
+        navigationItem.backBarButtonItem = barButton
         initializeUserInfo()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -217,9 +227,9 @@ class MapViewController: UIViewController {
     
     private func animateUserInputScreen() {
         view.addSubview(userView)
+        let displayName = Auth.auth().currentUser?.providerData.first?.displayName
         let displayText = (displayName == nil) ? "" : ", " + displayName!.components(separatedBy: " ")[0]
-        userViewLabel.text = "Welcome\(displayText)! Please enter your full name and username."
-        //userButton.addTarget(self, action: #selector(animateOutUserInputScreen), for: .touchUpInside)
+        userViewLabel.text = "Welcome\(displayText)! Please enter your full name, username and (optional) upload a profile picture."
         userView.center = view.center
         userView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         userView.alpha = 0
@@ -267,6 +277,7 @@ class MapViewController: UIViewController {
         let state = sender.state
         let startStates: [UIGestureRecognizerState] = [.possible, .recognized, .changed, .began]
         if startStates.contains(state) {
+            SideMenuManager.menuPresentMode =  .menuDissolveIn
             MapViewController.disableMapPanning = true
         }
     }

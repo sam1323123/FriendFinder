@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
      func application(_ application: UIApplication,
                               willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         var dict: NSDictionary?
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 15)], for: .normal)
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
             dict = NSDictionary(contentsOfFile: path)
             if dict != nil {
