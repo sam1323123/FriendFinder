@@ -282,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfT-QD-Vr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="q0P-g2-cxb">
-                    <rect key="frame" x="0.0" y="0.0" width="256" height="140"/>
+                    <rect key="frame" x="0.0" y="0.0" width="256" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WnY-OP-5Lf">
@@ -292,7 +292,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vSs-ki-aeS" customClass="BottomBorderTextField" customModule="FriendFinder" customModuleProvider="target">
-                            <rect key="frame" x="35" y="62" width="186" height="20"/>
+                            <rect key="frame" x="35" y="56" width="186" height="17"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -309,7 +309,7 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XAi-lU-2Rc" customClass="BottomBorderTextField" customModule="FriendFinder" customModuleProvider="target">
-                            <rect key="frame" x="35" y="90" width="186" height="20"/>
+                            <rect key="frame" x="35" y="81" width="186" height="17"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -326,14 +326,14 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="siz-68-UQk">
-                            <rect key="frame" x="78" y="110" width="100" height="30"/>
+                            <rect key="frame" x="78" y="86" width="100" height="42"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIn-Sh-5tU">
-                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="30" height="42"/>
                                     <state key="normal" title="OK"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXO-FV-v94">
-                                    <rect key="frame" x="50" y="0.0" width="50" height="30"/>
+                                    <rect key="frame" x="50" y="0.0" width="50" height="42"/>
                                     <state key="normal" title="Upload"/>
                                 </button>
                             </subviews>
@@ -354,7 +354,7 @@
                         <constraint firstItem="XAi-lU-2Rc" firstAttribute="leading" secondItem="WnY-OP-5Lf" secondAttribute="leading" constant="30" id="qlr-q6-o6L"/>
                         <constraint firstItem="WnY-OP-5Lf" firstAttribute="top" secondItem="q0P-g2-cxb" secondAttribute="top" constant="5" id="tUd-Zs-8Eu"/>
                         <constraint firstItem="XAi-lU-2Rc" firstAttribute="trailing" secondItem="WnY-OP-5Lf" secondAttribute="trailing" constant="-30" id="uJZ-H3-odk"/>
-                        <constraint firstItem="siz-68-UQk" firstAttribute="top" secondItem="XAi-lU-2Rc" secondAttribute="top" constant="20" id="x33-rd-nwQ"/>
+                        <constraint firstItem="siz-68-UQk" firstAttribute="top" secondItem="XAi-lU-2Rc" secondAttribute="top" constant="5" id="x33-rd-nwQ"/>
                         <constraint firstAttribute="trailing" secondItem="WnY-OP-5Lf" secondAttribute="trailing" constant="5" id="znl-Hw-yUS"/>
                     </constraints>
                 </view>
@@ -730,7 +730,7 @@
                     <navigationItem key="navigationItem" title="Menu" id="AsD-WT-tJd"/>
                     <connections>
                         <outlet property="tableView" destination="9p6-gf-xf6" id="1RA-7Z-LBf"/>
-                        <segue destination="zkL-YM-C6r" kind="show" identifier="Connections Menu" id="jfK-8a-if0"/>
+                        <segue destination="zkL-YM-C6r" kind="show" identifier="Make Pals Menu" id="jfK-8a-if0"/>
                         <segue destination="QZv-o9-0l6" kind="show" identifier="Notifications Menu" id="fZT-At-Yf4"/>
                     </connections>
                 </tableViewController>
@@ -738,10 +738,10 @@
             </objects>
             <point key="canvasLocation" x="1634.4000000000001" y="2105.3973013493255"/>
         </scene>
-        <!--Connection View Controller-->
+        <!--Make Pals View Controller-->
         <scene sceneID="umg-Vm-kgK">
             <objects>
-                <tableViewController id="zkL-YM-C6r" customClass="ConnectionViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="zkL-YM-C6r" customClass="MakePalsViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="87" sectionHeaderHeight="28" sectionFooterHeight="28" id="OXf-wd-zGQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -769,14 +769,14 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vD9-he-VHk">
                                                             <rect key="frame" x="0.0" y="0.0" width="181" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="BodoniSvtyTwoITCTT-Bold" family="Bodoni 72" pointSize="17"/>
+                                                            <color key="textColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tN5-ev-qig">
                                                             <rect key="frame" x="0.0" y="20.5" width="181" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="BodoniSvtyTwoITCTT-Bold" family="Bodoni 72" pointSize="17"/>
+                                                            <color key="textColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -786,7 +786,7 @@
                                                 <constraint firstItem="sQv-mc-wCH" firstAttribute="top" secondItem="VlR-cR-MwY" secondAttribute="top" id="smN-G8-98q"/>
                                             </constraints>
                                         </stackView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkl-iv-XY1">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkl-iv-XY1" customClass="UserSelectionButton" customModule="FriendFinder" customModuleProvider="target">
                                             <rect key="frame" x="283" y="26.5" width="64" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="lkl-iv-XY1" secondAttribute="height" multiplier="1:1" constant="16" id="CAt-wj-fuD"/>
@@ -813,6 +813,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="nameLabel" destination="vD9-he-VHk" id="Cte-GG-cjf"/>
+                                    <outlet property="userButton" destination="lkl-iv-XY1" id="pKZ-uH-tmI"/>
                                     <outlet property="userIcon" destination="VlR-cR-MwY" id="I1z-Md-88E"/>
                                     <outlet property="usernameLabel" destination="tN5-ev-qig" id="RAh-8T-OUi"/>
                                 </connections>
@@ -878,7 +879,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Xr3-Ne-okN" userLabel="Buttons Stack">
                                             <rect key="frame" x="187.5" y="0.0" width="187.5" height="43.5"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPm-ml-rxk" customClass="NotificationSelectionButton" customModule="FriendFinder" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPm-ml-rxk" customClass="UserSelectionButton" customModule="FriendFinder" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="94" height="43.5"/>
                                                     <color key="backgroundColor" red="0.1121144513" green="0.82521049219999998" blue="0.1999063794" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -886,7 +887,7 @@
                                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoA-5E-QpB" customClass="NotificationSelectionButton" customModule="FriendFinder" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoA-5E-QpB" customClass="UserSelectionButton" customModule="FriendFinder" customModuleProvider="target">
                                                     <rect key="frame" x="94" y="0.0" width="93.5" height="43.5"/>
                                                     <color key="backgroundColor" red="1" green="0.076092547580000003" blue="0.1995526275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>

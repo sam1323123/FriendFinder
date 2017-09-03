@@ -14,12 +14,7 @@ class NotificationDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: ExpandableTableView!
     
-    struct notificationDetails {
-        var name: String
-        var icon: UIImage?
-    }
-    
-    var data: [notificationDetails] = Array()
+    var data: [FFUser] = Array()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +25,7 @@ class NotificationDetailViewController: UIViewController {
         let names = PendingNotificationObject.sharedInstance.getAllPendingRequests()
         for name in names {
             //populate data array
-            let elem = notificationDetails(name: name, icon: nil)
+            let elem = FFUser(name: name, username: "")
             data.append(elem)
         }
     }
@@ -52,9 +47,9 @@ class NotificationDetailViewController: UIViewController {
     
     func handleNotification(_ notification: NSNotification) {
         let names = PendingNotificationObject.sharedInstance.getAllPendingRequests()
-        var newData: [notificationDetails] = []
+        var newData = [FFUser]()
         for name in names {
-            newData.append(notificationDetails(name: name, icon: nil))
+            newData.append(FFUser(name: name, username: ""))
         }
         data = newData
         tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
@@ -73,18 +68,18 @@ class NotificationDetailViewController: UIViewController {
     
     //TODO add logic to send accept notif to counterparty
     func handleAcceptNotification(sender: UIButton) {
-        guard let sender = sender as? NotificationSelectionButton else {
+        guard let sender = sender as? UserSelectionButton else {
             return
         }
-        PendingNotificationObject.sharedInstance.removeRequest(username: sender.username ?? "")
+        PendingNotificationObject.sharedInstance.removeRequest(username: sender.user?.username ?? "")
     }
 
     //TODO add logic to send decline notif to counterparty
     func handleDeclineNotification(sender: UIButton) {
-        guard let sender = sender as? NotificationSelectionButton else {
+        guard let sender = sender as? UserSelectionButton else {
             return
         }
-        PendingNotificationObject.sharedInstance.removeRequest(username: sender.username ?? "")
+        PendingNotificationObject.sharedInstance.removeRequest(username: sender.user?.username ?? "")
     }
 }
 
@@ -122,8 +117,8 @@ extension NotificationDetailViewController: ExpandableDelegate {
             return UITableViewCell()
         }
         cell.itemNameLabel.text = item.name
-        cell.acceptButton.username = item.name
-        cell.declineButton.username = item.name
+        cell.acceptButton.user = item
+        cell.declineButton.user = item
         cell.acceptButton.addTarget(self, action: #selector(handleAcceptNotification(sender:)), for: .touchUpInside)
         cell.declineButton.addTarget(self, action: #selector(handleDeclineNotification(sender:)), for: .touchUpInside)
         return cell

@@ -16,6 +16,7 @@ class UserViewCell: UITableViewCell {
     
     @IBOutlet weak var usernameLabel: UILabel!
     
+    @IBOutlet weak var userButton: UserSelectionButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

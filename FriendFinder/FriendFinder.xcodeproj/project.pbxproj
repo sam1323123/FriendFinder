@@ -11,7 +11,7 @@
 		3933236A940E4DB523CE55A7 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
 		42568A4B1F3DC763007E0B05 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */; };
 		425DF9D61F576C0800A500C1 /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425DF9D51F576C0800A500C1 /* UserViewCell.swift */; };
-		427521E01F4A9C450098FFB0 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521DF1F4A9C450098FFB0 /* ConnectionViewController.swift */; };
+		427521E01F4A9C450098FFB0 /* MakePalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521DF1F4A9C450098FFB0 /* MakePalsViewController.swift */; };
 		427521E41F4AF2E60098FFB0 /* FirebasePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521E31F4AF2E60098FFB0 /* FirebasePaths.swift */; };
 		427521E81F4D6E720098FFB0 /* TextMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427521E71F4D6E720098FFB0 /* TextMessageViewController.swift */; };
 		42AB1D471F406E6B0022B88F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AB1D461F406E6B0022B88F /* MenuViewController.swift */; };
@@ -28,7 +28,7 @@
 		9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B06B1F08D5EB00982623 /* MapViewController.swift */; };
 		9823B0711F0B931700982623 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9823B0701F0B931700982623 /* Roboto-Medium.ttf */; };
 		9828947D1F554CBE0058592F /* NotificationSelectionCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9828947C1F554CBE0058592F /* NotificationSelectionCellTableViewCell.swift */; };
-		982894801F5552400058592F /* NotificationSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9828947F1F5552400058592F /* NotificationSelectionButton.swift */; };
+		982894801F5552400058592F /* UserSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9828947F1F5552400058592F /* UserSelectionButton.swift */; };
 		98587B761F2F23CD00E4452D /* DragDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587B751F2F23CD00E4452D /* DragDismissAnimator.swift */; };
 		98587B781F2F2AC900E4452D /* SwipeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587B771F2F2AC900E4452D /* SwipeInteractor.swift */; };
 		98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D521EFA53F2007050E4 /* AppDelegate.swift */; };
@@ -78,7 +78,7 @@
 		01F4749EBE82D52B2E3A3229 /* Pods-FriendFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		425DF9D51F576C0800A500C1 /* UserViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
-		427521DF1F4A9C450098FFB0 /* ConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionViewController.swift; sourceTree = "<group>"; };
+		427521DF1F4A9C450098FFB0 /* MakePalsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakePalsViewController.swift; sourceTree = "<group>"; };
 		427521E31F4AF2E60098FFB0 /* FirebasePaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebasePaths.swift; sourceTree = "<group>"; };
 		427521E71F4D6E720098FFB0 /* TextMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessageViewController.swift; sourceTree = "<group>"; };
 		42AB1D461F406E6B0022B88F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 		9823B06B1F08D5EB00982623 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9823B0701F0B931700982623 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		9828947C1F554CBE0058592F /* NotificationSelectionCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSelectionCellTableViewCell.swift; sourceTree = "<group>"; };
-		9828947F1F5552400058592F /* NotificationSelectionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSelectionButton.swift; sourceTree = "<group>"; };
+		9828947F1F5552400058592F /* UserSelectionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionButton.swift; sourceTree = "<group>"; };
 		98587B751F2F23CD00E4452D /* DragDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragDismissAnimator.swift; sourceTree = "<group>"; };
 		98587B771F2F2AC900E4452D /* SwipeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeInteractor.swift; sourceTree = "<group>"; };
 		98A11D4F1EFA53F2007050E4 /* FriendFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,7 +186,7 @@
 		9823B06A1F08D57900982623 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				427521DF1F4A9C450098FFB0 /* ConnectionViewController.swift */,
+				427521DF1F4A9C450098FFB0 /* MakePalsViewController.swift */,
 				98A11D721EFA5439007050E4 /* LoginController.swift */,
 				98A11D541EFA53F2007050E4 /* LaunchController.swift */,
 				98A11D741EFE0287007050E4 /* NextViewController.swift */,
@@ -214,7 +214,7 @@
 		9828947E1F55521A0058592F /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				9828947F1F5552400058592F /* NotificationSelectionButton.swift */,
+				9828947F1F5552400058592F /* UserSelectionButton.swift */,
 			);
 			name = Buttons;
 			path = ..;
@@ -516,7 +516,7 @@
 				42AB1D471F406E6B0022B88F /* MenuViewController.swift in Sources */,
 				427521E81F4D6E720098FFB0 /* TextMessageViewController.swift in Sources */,
 				42AB1D491F406EE70022B88F /* FFUser.swift in Sources */,
-				982894801F5552400058592F /* NotificationSelectionButton.swift in Sources */,
+				982894801F5552400058592F /* UserSelectionButton.swift in Sources */,
 				98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */,
 				427521E41F4AF2E60098FFB0 /* FirebasePaths.swift in Sources */,
 				98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */,
@@ -533,7 +533,7 @@
 				42AB1D4D1F419F9B0022B88F /* MenuViewCell.swift in Sources */,
 				42AB1D4F1F419FFC0022B88F /* SubtitleTableViewCell.swift in Sources */,
 				98587B781F2F2AC900E4452D /* SwipeInteractor.swift in Sources */,
-				427521E01F4A9C450098FFB0 /* ConnectionViewController.swift in Sources */,
+				427521E01F4A9C450098FFB0 /* MakePalsViewController.swift in Sources */,
 				982258721F57704E00CE735B /* TestTableViewController.swift in Sources */,
 				9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */,
 				425DF9D61F576C0800A500C1 /* UserViewCell.swift in Sources */,

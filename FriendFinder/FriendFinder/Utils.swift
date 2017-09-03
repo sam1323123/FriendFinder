@@ -13,9 +13,6 @@ import ContactsUI
 // utility class containing useful methods
 class Utils {
     
-    static let gold = UIColor(colorLiteralRed: 212.0/255.0, green: 175.0/255.0, blue: 55.0/255.0, alpha: 1)
-    static let orange = UIColor(colorLiteralRed: 255.0/255.0, green: 144.0/255.0, blue: 71.0/255.0, alpha: 1)
-    
     struct firebasePaths {
         static func uidProfile(uid: String) -> String {
             return "users/\(uid)"
@@ -90,6 +87,16 @@ class Utils {
         }
         return nil
     }
+    
+}
+
+// custom colors
+extension UIColor {
+    
+    static let gold = UIColor(colorLiteralRed: 212.0/255.0, green: 175.0/255.0, blue: 55.0/255.0, alpha: 1)
+    static let orange = UIColor(colorLiteralRed: 255.0/255.0, green: 144.0/255.0, blue: 71.0/255.0, alpha: 1)
+    static let teal = UIColor(colorLiteralRed: 56/255.0, green: 114.0/255.0, blue: 108.0/255.0, alpha: 1)
+    static let lightTeal = UIColor(colorLiteralRed: 79/255.0, green: 162.0/255.0, blue: 154.0/255.0, alpha: 1)
     
 }
 
