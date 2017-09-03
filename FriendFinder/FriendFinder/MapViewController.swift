@@ -71,7 +71,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    static var currentController: UIViewController?
+    static var currentController: MapViewController?
     
     let ref = Database.database().reference()
     

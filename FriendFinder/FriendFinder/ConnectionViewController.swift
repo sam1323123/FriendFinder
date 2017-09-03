@@ -53,10 +53,13 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     private func initData() {
         dbRef.child("usernames").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             let data = snapshot.value as! [String:AnyObject]
-            self?.usernames = Array(data.keys)
+            self!.usernames = Array(data.keys)
+            if let index = self!.usernames.index(of: MapViewController.currentController!.userName!) {
+                self!.usernames.remove(at: index)
+            }
             for username in self!.usernames {
                 self!.nameMap[username] = (((data[username] as! [String:AnyObject])["name"])! as! String)
-                self?.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
                     var image: UIImage
                     if let error = error {
                         // Uh-oh, an error occurred!
