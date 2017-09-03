@@ -11,6 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import PXGoogleDirections
 import FirebaseDatabase
+import FirebaseStorage
 import FirebaseAuth
 import FontAwesome_swift
 import SideMenu
@@ -211,6 +212,7 @@ class MapViewController: UIViewController {
             }
             else {
                 self?.userButton.addTarget(self, action: #selector(self?.createUsernameButtonAction(sender:)), for: .touchUpInside)
+                self?.uploadButton.addTarget(self, action: #selector(self?.onUpload), for: .touchUpInside)
                 self?.animateUserInputScreen()
             }
             
@@ -263,6 +265,42 @@ class MapViewController: UIViewController {
                     comp_fn()
                 }
         })
+    }
+    
+    func onUpload() {
+        var types = [UIImagePickerControllerSourceType]()
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            types.append(.camera)
+        }
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            types.append(.photoLibrary)
+        }
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            types.append(.camera)
+        }
+        var mediaTypes = [String]()
+        for type in types {
+            mediaTypes += UIImagePickerController.availableMediaTypes(for: type) ?? []
+        }
+        let supportsImageTypes = mediaTypes.filter { (item) -> Bool in
+            return item.contains("image")
+        }
+        if supportsImageTypes.count != 0  {
+            let imagePicker = UIImagePickerController()
+            imagePicker.mediaTypes = supportsImageTypes
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = self
+            let deviceIdiom = UIScreen.main.traitCollection.userInterfaceIdiom
+            if deviceIdiom == .pad {
+                imagePicker.modalPresentationStyle = .popover
+                imagePicker.popoverPresentationController?.delegate = self
+                imagePicker.popoverPresentationController?.sourceView = view
+            }
+            present(imagePicker, animated: true)
+        }
+        else {
+            Utils.displayAlert(with: self, title: "Sorry!", message: "Your device does not support photos.", text: "OK")
+        }
     }
     
     func onMenuClick() {
@@ -729,7 +767,9 @@ extension MapViewController {
     
     //performs callback(true) and add to db if username given is valid else callback(false)
     func addUsernameToFirebase(username: String, callback: @escaping (Bool)->Void) {
-        let dbRef = self.ref!
+        let fullname = preferredName
+        let dbRef = ref
+        let iconRef = storageRef.child(FirebasePaths.userIcons(username: username))
         let usernamePath = FirebasePaths.usernameProfileUid(username: username)
         dbRef.child(usernamePath).observeSingleEvent(of: .value, with: {[weak self] (snap) in
             
@@ -740,6 +780,7 @@ extension MapViewController {
             }
             //set username and uid map
             dbRef.child(usernamePath).setValue(Auth.auth().currentUser!.uid, withCompletionBlock: {
+                [weak self]
                 (err, _) in
                 if let err = err {
                     print("ERROR ON WRITING TO DB \(err.localizedDescription)")
@@ -747,6 +788,20 @@ extension MapViewController {
                 }
                 else {
                     print("NO ERROR ON WRITE")
+                    if let icon = self!.userIcon {
+                        let data = UIImagePNGRepresentation(icon)
+                        let metadata = StorageMetadata()
+                        metadata.contentType = "image/jpg"
+                        iconRef.putData(data!, metadata: metadata) { metadata, error in
+                            if let error = error {
+                                print(error)
+                            } else {
+                                let downloadURL = metadata!.downloadURL()
+                                print(metadata)
+                            }
+                        }
+                    }
+                    dbRef.child(FirebasePaths.usernameProfileName(username: username)).setValue(self!.preferredNameField.text ?? "")
                     dbRef.child(FirebasePaths.uidProfileUsername(uid: Auth.auth().currentUser!.uid)).setValue(username)
                     //add username to uid field
                     dbRef.child(FirebasePaths.uidProfilePreferredName(uid: Auth.auth().currentUser!.uid)).setValue(self!.preferredNameField.text ?? "") //add preferred to uid field
@@ -766,7 +821,9 @@ extension MapViewController {
     func addUsernameAttemptHandler(created: Bool) {
         if created {
             //dismiss userview, print welcome message via alert vc
-            self.animateOutUserInputScreen(completion: {Utils.displayAlert(with: self, title: "Welcome", message: "You are now registered with FriendFinder", text: "Ok")})
+            self.animateOutUserInputScreen(completion:   {
+                [weak self] in
+                Utils.displayAlert(with: self!, title: "Welcome, \(self!.preferredName!.components(separatedBy: " ")[0])", message: "You are now registered with FriendFinder!", text: "OK")})
         }
         else {
             userViewLabel.text = "Username already taken. Please try again"
@@ -797,6 +854,31 @@ extension MapViewController {
     }
 }
 
+extension MapViewController: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+    didFinishPickingMediaWithInfo info: [String : Any]) {
+        var image: UIImage!
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            image = editedImage
+        }
+        else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            image = originalImage
+        }
+        userIcon = image
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+}
+
+extension MapViewController: UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
+   
+    //no code needed yet
+    
+}
 
 
 
