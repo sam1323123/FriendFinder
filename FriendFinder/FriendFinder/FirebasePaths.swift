@@ -25,5 +25,11 @@ struct FirebasePaths {
     static func connectionRequests(uid: String) -> String {
         return "users/\(uid)/connectionRequests"
     }
+    static func usernameProfileImage(username: String) -> String {
+        return "usernames/\(username)/profileImage"
+    }
+    static func uidProfileConnections(uid: String) -> String {
+        return "users/\(uid)/connections"
+    }
 }
 

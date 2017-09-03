@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="fontawesome-webfont.ttf">
+        <array key="FontAwesome.otf">
             <string>FontAwesome</string>
         </array>
     </customFonts>
@@ -660,7 +660,6 @@
                                     <outlet property="countLabel" destination="JYk-kZ-lDM" id="gWm-Wf-aKU"/>
                                     <outlet property="itemIcon" destination="P7o-Kt-Nil" id="RXN-Ly-ev5"/>
                                     <outlet property="itemNameLabel" destination="8xI-Sv-VeW" id="0DG-EZ-Dp6"/>
-                                    <segue destination="QZv-o9-0l6" kind="show" id="Byu-LY-9hs"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NotificationCell" rowHeight="90" id="GVa-xG-myI" userLabel="NotificationCell" customClass="NotificationTableViewCell" customModule="FriendFinder" customModuleProvider="target">
@@ -722,6 +721,7 @@
                     <navigationItem key="navigationItem" title="Menu" id="AsD-WT-tJd"/>
                     <connections>
                         <outlet property="tableView" destination="9p6-gf-xf6" id="1RA-7Z-LBf"/>
+                        <segue destination="QZv-o9-0l6" kind="show" identifier="Notifications Menu" id="18d-2G-Hud"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6d-IX-OhP" userLabel="First Responder" sceneMemberID="firstResponder"/>

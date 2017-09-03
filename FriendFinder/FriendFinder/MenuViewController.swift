@@ -200,7 +200,8 @@ extension MenuViewController: ExpandableDelegate {
             expandedInviteCell!.arrowLabel.text = String.fontAwesomeIcon(name: (expandedInviteCell!.isExpanded) ? .minus : .chevronDown)
         }
         else if (item.name == "Notifications") {
-            //performSegue(withIdentifier: item.segueID, sender: self)
+            SideMenuManager.menuPushStyle = .subMenu
+            performSegue(withIdentifier: item.segueID, sender: self)
         }
         else {
             SideMenuManager.menuPushStyle = .defaultBehavior

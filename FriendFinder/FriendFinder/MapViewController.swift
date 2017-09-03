@@ -717,9 +717,9 @@ extension MapViewController: GMSMapViewDelegate {
 extension MapViewController {
     
     //performs callback(true) and add to db if username given is valid else callback(false)
-    func addUsernameToFirebase(username: String, callback: @escaping (Bool)->Void) {
+    func addUsernameToFirebase(username: String, preferredName: String, callback: @escaping (Bool)->Void) {
         let dbRef = self.ref!
-        let usernamePath = FirebasePaths.usernameProfileUid(username: username)
+        let usernamePath = FirebasePaths.usernameProfile(username: username)
         dbRef.child(usernamePath).observeSingleEvent(of: .value, with: {[weak self] (snap) in
             
             if snap.exists() {
@@ -728,7 +728,8 @@ extension MapViewController {
                 return
             }
             //set username and uid map
-            dbRef.child(usernamePath).setValue(Auth.auth().currentUser!.uid, withCompletionBlock: {
+            let valueToSet = ["user_id":Auth.auth().currentUser!.uid, "name": preferredName]
+            dbRef.child(usernamePath).setValue(valueToSet, withCompletionBlock: {
                 (err, _) in
                 if let err = err {
                     print("ERROR ON WRITING TO DB \(err.localizedDescription)")
@@ -768,7 +769,10 @@ extension MapViewController {
         guard let username = userNameField.text else {
             return //username empty
         }
-        addUsernameToFirebase(username: username, callback: {[weak self] (created) in
+        guard let preferredName = preferredNameField.text else {
+            return
+        }
+        addUsernameToFirebase(username: username, preferredName: preferredName, callback: {[weak self] (created) in
             DispatchQueue.main.async { self?.addUsernameAttemptHandler(created: created) }
         })
         

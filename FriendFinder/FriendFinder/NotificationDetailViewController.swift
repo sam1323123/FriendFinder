@@ -8,6 +8,7 @@
 
 import UIKit
 import ExpandableCell
+import SideMenu
 
 class NotificationDetailViewController: UIViewController {
 
@@ -43,6 +44,7 @@ class NotificationDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         PendingNotificationObject.sharedInstance.removeObserver(observer: self)
+    
     }
 
     override func didReceiveMemoryWarning() {
