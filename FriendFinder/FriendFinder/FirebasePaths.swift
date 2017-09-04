@@ -22,14 +22,17 @@ struct FirebasePaths {
     static func usernameProfileUid(username: String) -> String {
         return "usernames/\(username)/user_id"
     }
+    static func usernameProfileName(username: String) -> String {
+        return "usernames/\(username)/name"
+    }
     static func connectionRequests(uid: String) -> String {
         return "users/\(uid)/connectionRequests"
     }
-    static func usernameProfileImage(username: String) -> String {
-        return "usernames/\(username)/profileImage"
-    }
     static func uidProfileConnections(uid: String) -> String {
         return "users/\(uid)/connections"
+    }
+    static func userIcons(username: String) -> String {
+        return "users/icons/\(username)"
     }
 }
 

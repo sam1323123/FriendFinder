@@ -37,11 +37,21 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        let backImage = UIImage.fontAwesomeIcon(name: .chevronLeft, textColor: Utils.orange, size: CGSize(width: 30, height: 30))
+        navigationController?.navigationBar.backIndicatorImage = backImage
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
+        navigationController?.navigationBar.tintColor = Utils.orange
+        let barButton = UIBarButtonItem()
+        barButton.title = " "
+        navigationItem.backBarButtonItem = barButton
         initOptions()
         tableView.expandableDelegate = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.rowHeight = UITableViewAutomaticDimension
-        SideMenuManager.menuPushStyle = .defaultBehavior
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
     }
@@ -205,7 +215,7 @@ extension MenuViewController: ExpandableDelegate {
         }
         else {
             SideMenuManager.menuPushStyle = .defaultBehavior
-            //performSegue(withIdentifier: item.segueID, sender: self)
+            performSegue(withIdentifier: item.segueID, sender: self)
         }
         
     }

@@ -8,47 +8,81 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseStorage
 import FirebaseAuth
+import SideMenu
 
 class ConnectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    @IBOutlet weak var backButton: UIBarButtonItem!
     
     @IBOutlet var tableView: UITableView!
     
-    private let ref = Database.database().reference()
-    private var users: [FFUser]!
-    private var usernames: [String]!
-    private var names: [String]!
+    private let dbRef = Database.database().reference()
+    private let storageRef = Storage.storage().reference()
     
+    private var users = [FFUser]()
+    private var usernames: [String]!
+    private var nameMap = [String:String]()
+    private var iconMap = [String:UIImage]()
+    
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    
+    private var timer: Timer?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        backButton.action = #selector(onBackPress)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
         initData()
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
     }
     
-    func onBackPress() {
-        dismiss(animated: true)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.visibleViewController?.present(SideMenuManager.menuLeftNavigationController!, animated: true)
     }
     
     private func initData() {
-        ref.child("usernames").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+        dbRef.child("usernames").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             let data = snapshot.value as! [String:AnyObject]
             self?.usernames = Array(data.keys)
-            self?.names = data.keys.map({ (username) -> String in
-                return ((data[username] as! [String:AnyObject])["name"]) as! String
-            })
-            self?.users = Array(0..<(self?.usernames.count ?? 0)).map( { [weak self] (index) -> FFUser in
-                return FFUser(name: (self?.names![index])!, username: (self?.usernames![index])!)
-            })
-            self?.tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
+            for username in self!.usernames {
+                self!.nameMap[username] = (((data[username] as! [String:AnyObject])["name"])! as! String)
+                self?.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    var image: UIImage
+                    if let error = error {
+                        // Uh-oh, an error occurred!
+                        print(error)
+                        image = #imageLiteral(resourceName: "no_image")
+                    } else {
+                        image = UIImage(data: data!)!
+                    }
+                    self?.iconMap[username] = image
+                    self?.users.append(FFUser(name: self!.nameMap[username]!, username: username, picture: image))
+                }
+            }
+            self?.spinner.center = self!.tableView.center
+            self?.tableView.addSubview(self!.spinner)
+            self?.tableView.bringSubview(toFront: self!.spinner)
+            self?.spinner.startAnimating()
+            self?.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self!, selector: #selector(self?.checkDone), userInfo: nil, repeats: true)
         })
+    }
+    
+    func checkDone() {
+        if (users.count == usernames.count) {
+            timer?.invalidate()
+            spinner.stopAnimating()
+            tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,7 +99,7 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (users?.count ?? 0)
+        return (users.count)
     }
 
 
@@ -74,8 +108,10 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
 
         // Configure the cell...
         let userCell = cell as! UserViewCell
-        userCell.nameLabel.text = users[indexPath.row].name
-        userCell.usernameLabel.text = users[indexPath.row].username
+        let user = users[indexPath.row]
+        userCell.nameLabel.text = user.name
+        userCell.usernameLabel.text = user.username
+        userCell.userIcon.image = user.picture
         return cell
     }
 
