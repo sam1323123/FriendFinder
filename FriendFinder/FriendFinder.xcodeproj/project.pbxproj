@@ -41,7 +41,6 @@
 		98A11D681EFA53F2007050E4 /* FriendFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D671EFA53F2007050E4 /* FriendFinderTests.swift */; };
 		98A11D731EFA5439007050E4 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D721EFA5439007050E4 /* LoginController.swift */; };
 		98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D741EFE0287007050E4 /* NextViewController.swift */; };
-		98A4A0101F5274B600416215 /* UnusedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A4A00F1F5274B600416215 /* UnusedViewController.swift */; };
 		98B48AAE1F18A15000099AF2 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
 		98B48AAF1F18A15000099AF2 /* Pods_FriendFinder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		98B48AB71F1C94DD00099AF2 /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */; };
@@ -119,7 +118,6 @@
 		98A11D691EFA53F2007050E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A11D721EFA5439007050E4 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		98A11D741EFE0287007050E4 /* NextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
-		98A4A00F1F5274B600416215 /* UnusedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnusedViewController.swift; sourceTree = "<group>"; };
 		98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
 		98B48AB81F1C950400099AF2 /* InfoWindowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		98B48ABA1F1DEF5A00099AF2 /* ProportionalLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProportionalLabel.swift; sourceTree = "<group>"; };
@@ -198,7 +196,6 @@
 				9823B06B1F08D5EB00982623 /* MapViewController.swift */,
 				98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */,
 				42AB1D461F406E6B0022B88F /* MenuViewController.swift */,
-				98A4A00F1F5274B600416215 /* UnusedViewController.swift */,
 				427521E71F4D6E720098FFB0 /* TextMessageViewController.swift */,
 				982258711F57704E00CE735B /* NotificationDetailViewController.swift */,
 			);
@@ -546,7 +543,6 @@
 				425DF9D61F576C0800A500C1 /* UserViewCell.swift in Sources */,
 				982258791F5D0E5800CE735B /* AcceptedConnectionsObject.swift in Sources */,
 				98587B761F2F23CD00E4452D /* DragDismissAnimator.swift in Sources */,
-				98A4A0101F5274B600416215 /* UnusedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

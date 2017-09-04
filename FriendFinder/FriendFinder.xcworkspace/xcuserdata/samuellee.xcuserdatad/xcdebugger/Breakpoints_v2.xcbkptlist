@@ -138,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FriendFinder/NotificationDetailViewController.swift"
-            timestampString = "526204722.794086"
+            timestampString = "526233222.5075"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "TestTableViewController"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "NotificationDetailViewController"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>

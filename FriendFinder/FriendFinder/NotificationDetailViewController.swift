@@ -14,14 +14,9 @@ class NotificationDetailViewController: UITableViewController {
     var ref: DatabaseReference! = Database.database().reference()
     var username = UserDefaults.standard.value(forKey: "username") as? String
     var preferredName = UserDefaults.standard.value(forKey: "name") as? String
+
     
-    struct notificationDetails {
-        var username: String
-        var name: String
-        var icon: UIImage?
-    }
-    
-    var data: [notificationDetails] = Array()
+    var data: [FFUser] = Array()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +25,7 @@ class NotificationDetailViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         for username in usernames.keys {
             //populate data array
-            let elem = notificationDetails(username: username, name: usernames[username]!, icon: nil)
+            let elem = FFUser(name: usernames[username]!, username: username)
             data.append(elem)
         }
     }
@@ -52,9 +47,9 @@ class NotificationDetailViewController: UITableViewController {
     
     func handleNotification(_ notification: NSNotification) {
         let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
-        var newData: [notificationDetails] = []
+        var newData: [FFUser] = []
         for username in usernames.keys {
-            newData.append(notificationDetails(username: username, name: usernames[username]!, icon: nil))
+            newData.append(FFUser(name: usernames[username]!, username: username))
         }
         data = newData
         tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
