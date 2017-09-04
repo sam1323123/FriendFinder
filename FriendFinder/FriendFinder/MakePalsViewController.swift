@@ -65,7 +65,6 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
         initData()
-        tableView.tableFooterView = UIView(frame: .zero)
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
