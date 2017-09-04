@@ -5,7 +5,7 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - ExpandableCell (0.3.0)
+  - ExpandableCell (1.0.0)
   - FacebookCore (0.2.0):
     - Bolts (~> 1.8)
     - FBSDKCoreKit (~> 4.15)
@@ -20,16 +20,16 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.26.0):
     - FBSDKCoreKit
-  - Firebase/Auth (4.1.0):
+  - Firebase/Auth (4.1.1):
     - Firebase/Core
-    - FirebaseAuth (= 4.1.0)
-  - Firebase/Core (4.1.0):
+    - FirebaseAuth (= 4.1.1)
+  - Firebase/Core (4.1.1):
     - FirebaseAnalytics (= 4.0.3)
-    - FirebaseCore (= 4.0.5)
-  - Firebase/Database (4.1.0):
+    - FirebaseCore (= 4.0.6)
+  - Firebase/Database (4.1.1):
     - Firebase/Core
-    - FirebaseDatabase (= 4.0.1)
-  - Firebase/Storage (4.1.0):
+    - FirebaseDatabase (= 4.0.2)
+  - Firebase/Storage (4.1.1):
     - Firebase/Core
     - FirebaseStorage (= 2.0.1)
   - FirebaseAnalytics (4.0.3):
@@ -37,32 +37,32 @@ PODS:
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseAuth (4.1.0):
+  - FirebaseAuth (4.1.1):
     - FirebaseAnalytics (~> 4.0)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.5):
+  - FirebaseCore (4.0.6):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseDatabase (4.0.1):
+  - FirebaseDatabase (4.0.2):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (2.0.1):
+  - FirebaseInstanceID (2.0.2):
     - FirebaseCore (~> 4.0)
   - FirebaseStorage (2.0.1):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseUI/Auth (4.1.1):
-    - Firebase/Auth
-  - FirebaseUI/Facebook (4.1.1):
+  - FirebaseUI/Auth (4.2.0):
+    - Firebase/Auth (~> 4.0)
+  - FirebaseUI/Facebook (4.2.0):
     - FBSDKLoginKit (~> 4.0)
     - FirebaseUI/Auth
-  - FirebaseUI/Google (4.1.1):
+  - FirebaseUI/Google (4.2.0):
     - FirebaseUI/Auth
     - GoogleSignIn (~> 4.0)
-  - FirebaseUI/Phone (4.1.1):
+  - FirebaseUI/Phone (4.2.0):
     - FirebaseUI/Auth
   - FontAwesome.swift (1.2.0)
   - GoogleMaps (2.4.0):
@@ -103,9 +103,9 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - PubNub (4.6.3):
-    - PubNub/Core (= 4.6.3)
-  - PubNub/Core (4.6.3)
+  - PubNub (4.7.0):
+    - PubNub/Core (= 4.7.0)
+  - PubNub/Core (4.7.0)
   - SideMenu (2.3.3)
 
 DEPENDENCIES:
@@ -130,20 +130,20 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  ExpandableCell: 696e3a4b6ac688b974191a28cc31950d4ec53416
+  ExpandableCell: 534bdf6a229148719ecf1f0bc02f5bcec3b29029
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
   FBSDKCoreKit: c8b8582311ec11b145451d8b9717dc6cc2ae5a76
   FBSDKLoginKit: f3f03b94c21eb834af243c0a881d48641f47ca60
   FBSDKShareKit: 320712d8293fde6392872c91eb80ef0da5d73cc3
-  Firebase: ebebf41db7f10e0c7668b6eaaa857fbe599aa478
+  Firebase: 052c0de688fc87b414996eea13e223dd9fee3fa2
   FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
-  FirebaseAuth: 8d1d2389cf82f891048d6d50d27d044f55ae09a6
-  FirebaseCore: 7d876ea97a830cbe62ba7fbbe7670c833a324ba0
-  FirebaseDatabase: 94c38c783d23dc6679441050772d42e801d06e9e
-  FirebaseInstanceID: 0500e3cb54a1a4e01a8cffcc09323b8bb8fc7e1e
+  FirebaseAuth: f8b07aa83de60d606b4eadd81484b3ac2097ea3e
+  FirebaseCore: 28def3c643989c97ea5a69ea5000f5fa9902b9fd
+  FirebaseDatabase: 4d1a10639a42cae26e094296951b53c689e5e191
+  FirebaseInstanceID: c4c7fca62c7b7330caee5da04f19a37ea37bb1c1
   FirebaseStorage: 661fc1f8d4131891d256b62e82a45ace8b3f0c3b
-  FirebaseUI: 5ebebe2c096c71f20abd1d43d0388958373bdaa0
+  FirebaseUI: 76877afa8aa122ea135aa51a10fc7d622a82d096
   FontAwesome.swift: 60063e3f19ba4801155d4b0f2334ab7585763ab3
   GoogleMaps: 8436ab5d1c25e36915b2f7416d0c8e3fa2e76c61
   GooglePlacePicker: 755f10343d71280c7b016823e73fbae9625dfa8a
@@ -154,7 +154,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5ad62e8200fa00ed011fe5e08d27fef72c5b1429
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  PubNub: 9a5f55e4c6668162db52a987a8e5d051393e991e
+  PubNub: 366d711a1f188a349b8c745cf3c2860111748b9f
   SideMenu: a447554ae5c982e8077666389e1c8b0c8656e065
 
 PODFILE CHECKSUM: 151fdda4986ad791d7d3865570786cf7f730d4e6
