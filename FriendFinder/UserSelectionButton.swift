@@ -8,10 +8,11 @@
 
 import UIKit
 
-class NotificationSelectionButton: UIButton {
+class UserSelectionButton: UIButton {
 
-    var username: String?
 
+    var user: FFUser?
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

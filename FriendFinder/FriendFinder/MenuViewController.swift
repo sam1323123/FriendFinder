@@ -41,10 +41,10 @@ class MenuViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-        let backImage = UIImage.fontAwesomeIcon(name: .chevronLeft, textColor: Utils.orange, size: CGSize(width: 30, height: 30))
+        let backImage = UIImage.fontAwesomeIcon(name: .chevronLeft, textColor: .orange, size: CGSize(width: 30, height: 30))
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
-        navigationController?.navigationBar.tintColor = Utils.orange
+        navigationController?.navigationBar.tintColor = .orange
         let barButton = UIBarButtonItem()
         barButton.title = " "
         navigationItem.backBarButtonItem = barButton
@@ -155,7 +155,7 @@ class MenuViewController: UIViewController {
 
     func initOptions() {
         let pals = MenuItem(name: "Pals", segueID: "PalMenu")
-        let connections = MenuItem(name: "Connections", segueID: "Connections Menu")
+        let connections = MenuItem(name: "Make Pals", segueID: "Make Pals Menu")
         let notifs = MenuItem(name: "Notifications", segueID: "Notifications Menu")
         let invites = MenuItem(name: "Invites", segueID: "Invite Menu")
         menuOptions = [pals, connections, notifs, invites]

@@ -12,9 +12,16 @@ import FirebaseStorage
 import FirebaseAuth
 import SideMenu
 
-class ConnectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+infix operator ||=
+func ||=(lhs: inout Bool, rhs: Bool) { lhs = (lhs || rhs) }
+
+class MakePalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet var searchFooter: SearchFooter!
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     private let dbRef = Database.database().reference()
     private let storageRef = Storage.storage().reference()
@@ -24,20 +31,40 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     private var nameMap = [String:String]()
     private var iconMap = [String:UIImage]()
     
+    private var filteredUsers = [FFUser]()
+    
+    
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     private var timer: Timer?
     
+    enum Scope: String {
+        case all
+        case username
+        case name
+    }
+    
+    let scopeMap: [String:Scope] = ["All": .all, "Username": .username, "Name": .name]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        searchController.searchBar.scopeButtonTitles = ["All", "Name", "Username"]
+        searchController.searchBar.delegate = self
+        tableView.tableHeaderView = searchController.searchBar
+        // Setup the search footer
+        tableView.tableFooterView = searchFooter
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
         initData()
-        tableView.tableFooterView = UIView(frame: .zero)
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations
@@ -50,14 +77,50 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         navigationController?.visibleViewController?.present(SideMenuManager.menuLeftNavigationController!, animated: true)
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    fileprivate func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    fileprivate func filterContentForSearchText(_ searchText: String, scope: Scope = .all) {
+        let usernameMatch = (scope == .all) || (scope == .username)
+        let nameMatch = (scope == .all) || (scope == .name)
+        filteredUsers = users.filter({( user : FFUser) -> Bool in
+            var filter = false
+            if (nameMatch) {
+                filter ||= user.name.lowercased().contains(searchText.lowercased())
+            }
+            if (usernameMatch) {
+                filter ||= user.username.lowercased().contains(searchText.lowercased())
+            }
+            return filter
+        })
+        
+        tableView.reloadData()
+    }
+    
+    fileprivate func isFiltering() -> Bool {
+        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+    }
+    
     private func initData() {
         dbRef.child("usernames").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             let data = snapshot.value as! [String:AnyObject]
-            self?.usernames = Array(data.keys)
+            self!.usernames = Array(data.keys)
+            // remove self from other users
+            /*if let index = self!.usernames.index(of: MapViewController.currentController!.userName!) {
+                self!.usernames.remove(at: index)
+            }*/
             for username in self!.usernames {
                 self!.nameMap[username] = (((data[username] as! [String:AnyObject])["name"])! as! String)
-                self?.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
-                    var image: UIImage
+                self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    let image: UIImage
                     if let error = error {
                         // Uh-oh, an error occurred!
                         print(error)
@@ -85,21 +148,26 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func onButtonClick(sender: UserSelectionButton) {
+        if (sender.titleLabel?.text == String.fontAwesomeIcon(name: .plus)) {
+            print(sender.user)
+        }
     }
 
     // MARK: - Table view data source
 
      func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return (users.count)
+        if isFiltering() {
+            searchFooter.setIsFilteringToShow(filteredItemCount: filteredUsers.count, of: users.count)
+        }
+        else {
+            searchFooter.setNotFiltering()
+        }
+        return isFiltering() ? filteredUsers.count : users.count
     }
 
 
@@ -108,10 +176,17 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
 
         // Configure the cell...
         let userCell = cell as! UserViewCell
-        let user = users[indexPath.row]
+        let user: FFUser
+        if isFiltering() {
+            user = filteredUsers[indexPath.row]
+        } else {
+            user = users[indexPath.row]
+        }
         userCell.nameLabel.text = user.name
         userCell.usernameLabel.text = user.username
         userCell.userIcon.image = user.picture
+        userCell.userButton.addTarget(self, action: #selector(onButtonClick(sender:)), for: .touchUpInside)
+        userCell.userButton.user = user
         return cell
     }
 
@@ -160,4 +235,22 @@ class ConnectionViewController: UIViewController, UITableViewDataSource, UITable
     }
     */
 
+}
+
+
+extension MakePalsViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        let scope = scopeMap[searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]]!
+        filterContentForSearchText(searchBar.text!, scope: scope)
+    }
+}
+
+extension MakePalsViewController: UISearchBarDelegate {
+    // MARK: - UISearchBar Delegate
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        let scope = scopeMap[searchBar.scopeButtonTitles![selectedScope]]!
+        filterContentForSearchText(searchBar.text!, scope: scope)
+    }
 }

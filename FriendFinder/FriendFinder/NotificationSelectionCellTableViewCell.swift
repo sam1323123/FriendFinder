@@ -13,9 +13,9 @@ class NotificationSelectionCell: ExpandableCell {
     
     @IBOutlet weak var itemNameLabel: UILabel!
     
-    @IBOutlet weak var acceptButton: NotificationSelectionButton!
+    @IBOutlet weak var acceptButton: UserSelectionButton!
     
-    @IBOutlet weak var declineButton: NotificationSelectionButton!
+    @IBOutlet weak var declineButton: UserSelectionButton!
     
     
     var manualConstraints: [NSLayoutConstraint] = []

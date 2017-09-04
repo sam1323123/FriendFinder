@@ -104,7 +104,7 @@ class LocationDetailViewController: UIViewController {
 
         ratingLabel.font = UIFont.fontAwesome(ofSize: ratingLabel.font.pointSize)
         ratingLabel.text = rating
-        ratingLabel.textColor = Utils.gold
+        ratingLabel.textColor = .gold
         
         priceLabel.font = UIFont.fontAwesome(ofSize: priceLabel.font.pointSize)
         priceLabel.text = price

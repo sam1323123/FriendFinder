@@ -7,25 +7,19 @@
 //
 
 import UIKit
-import FirebaseDatabase
 
-class NotificationDetailViewController: UITableViewController {
-
-    var ref: DatabaseReference! = Database.database().reference()
-    var username = UserDefaults.standard.value(forKey: "username") as? String
-    var preferredName = UserDefaults.standard.value(forKey: "name") as? String
-
+class TestTableViewController: UITableViewController {
     
-    var data: [FFUser] = Array()
+    var data = [FFUser]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
+        let names = PendingNotificationObject.sharedInstance.getAllPendingRequests()
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.rowHeight = UITableViewAutomaticDimension
-        for username in usernames.keys {
+        for name in names {
             //populate data array
-            let elem = FFUser(name: usernames[username]!, username: username)
+            let elem = FFUser(name: name, username: "")
             data.append(elem)
         }
     }
@@ -46,10 +40,10 @@ class NotificationDetailViewController: UITableViewController {
     }
     
     func handleNotification(_ notification: NSNotification) {
-        let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
+        let names = PendingNotificationObject.sharedInstance.getAllPendingRequests()
         var newData: [FFUser] = []
-        for username in usernames.keys {
-            newData.append(FFUser(name: usernames[username]!, username: username))
+        for name in names {
+            newData.append(FFUser(name: name, username: ""))
         }
         data = newData
         tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
@@ -66,51 +60,23 @@ class NotificationDetailViewController: UITableViewController {
      }
      */
     
+    //TODO add logic to send accept notif to counterparty
     func handleAcceptNotification(sender: UIButton) {
-        guard let username = self.username, let preferredName = self.preferredName else {
-            print("USERNAME AND PREFERREDNAME NOT SET IN NotificatioDetail VC")
-            return //error case should not happen
-        }
         guard let sender = sender as? UserSelectionButton else {
             return
         }
-        //insert accept message to counter party's connections field
-        let user = sender.user
-        let acceptMessage = ["\(username)":["name": preferredName, "accepted": "true"]]
-        ref.child(FirebasePaths.connections(username: user!.username)).updateChildValues(acceptMessage, withCompletionBlock: {(err, dbRef) in
-            if let err = err {
-                print("Cannot Write Accept Message: \(acceptMessage) because of \(err)")
-                return
-            }
-            //no error so remove entry. Following call automatically reloads data due to listener
-            PendingNotificationObject.sharedInstance.removeRequest(username: user!.username ?? "")
-        })
-
+        PendingNotificationObject.sharedInstance.removeRequest(username: sender.user?.username ?? "")
     }
     
-    
+    //TODO add logic to send decline notif to counterparty
     func handleDeclineNotification(sender: UIButton) {
-        guard let username = self.username else {
-            print("USERNAME AND PREFERREDNAME NOT SET IN NotificatioDetail VC")
-            return //error case should not happen
-        }
         guard let sender = sender as? UserSelectionButton else {
             return
         }
-        //insert accept message to counter party's connections field
-        let user = sender.user
-        let declineMessage = ["\(username)":["name": preferredName, "accepted": "false"]]
-        ref.child(FirebasePaths.connections(username: user!.username)).updateChildValues(declineMessage, withCompletionBlock: {(err, dbRef) in
-            if let err = err {
-                print("Cannot Decline because of \(err)")
-                return
-            }
-            //no error so remove entry. Following call automatically reloads data due to listener
-            PendingNotificationObject.sharedInstance.removeRequest(username: user!.username ?? "")
-        })
-        
+        PendingNotificationObject.sharedInstance.removeRequest(username: sender.user?.username ?? "")
     }
     // MARK: - Table view data source
+
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -130,9 +96,8 @@ class NotificationDetailViewController: UITableViewController {
             return UITableViewCell()
         }
         cell.itemNameLabel.text = item.name
-        let user = FFUser(name: "", username: item.username)
-        cell.acceptButton.user = user
-        cell.declineButton.user = user
+        cell.acceptButton.user = item
+        cell.declineButton.user = item
         cell.acceptButton.addTarget(self, action: #selector(handleAcceptNotification(sender:)), for: .touchUpInside)
         cell.declineButton.addTarget(self, action: #selector(handleDeclineNotification(sender:)), for: .touchUpInside)
         return cell

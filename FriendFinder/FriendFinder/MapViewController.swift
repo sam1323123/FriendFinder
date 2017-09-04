@@ -71,7 +71,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    static var currentController: UIViewController?
+    static var currentController: MapViewController?
     
     let ref = Database.database().reference()
     
@@ -177,10 +177,10 @@ class MapViewController: UIViewController {
         visualEffect = visualEffectView.effect
         visualEffectView.effect = nil
         visualEffectView.alpha = 0.8
-        let backImage = UIImage.fontAwesomeIcon(name: .chevronLeft, textColor: Utils.orange, size: CGSize(width: 30, height: 30))
+        let backImage = UIImage.fontAwesomeIcon(name: .chevronLeft, textColor: .orange, size: CGSize(width: 30, height: 30))
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
-        navigationController?.navigationBar.tintColor = Utils.orange
+        navigationController?.navigationBar.tintColor = .orange
         let barButton = UIBarButtonItem()
         barButton.title = " "
         navigationItem.backBarButtonItem = barButton
@@ -444,7 +444,7 @@ class MapViewController: UIViewController {
 
         
         var price: String?
-        let color: UIColor = Utils.gold
+        let color: UIColor = .gold
         
         switch(place.priceLevel) {
         case(GMSPlacesPriceLevel.free):

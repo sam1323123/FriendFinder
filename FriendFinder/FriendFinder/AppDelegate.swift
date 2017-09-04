@@ -30,6 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
                               willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         var dict: NSDictionary?
         UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 15)], for: .normal)
+        UISearchBar.appearance().barTintColor = .lightTeal
+        UISearchBar.appearance().tintColor = .white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .teal
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).alpha = 0.6
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
             dict = NSDictionary(contentsOfFile: path)
             if dict != nil {
