@@ -37,6 +37,7 @@ class SearchFooter: UIView {
   }
   
   func configureView() {
+    print("CONFIGURED")
     self.backgroundColor = .teal
     self.alpha = 0.0
     

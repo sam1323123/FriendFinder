@@ -22,6 +22,7 @@
 #import "PNAPNSAPICallBuilder.h"
 #import "PNAPNSAuditAPICallBuilder.h"
 #import "PNAPNSModificationAPICallBuilder.h"
+#import "PNDeleteMessageAPICallBuilder.h"
 #import "PNHistoryAPICallBuilder.h"
 #import "PNPresenceAPICallBuilder.h"
 #import "PNPresenceChannelGroupHereNowAPICallBuilder.h"

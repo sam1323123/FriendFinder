@@ -17,7 +17,9 @@ func ||=(lhs: inout Bool, rhs: Bool) { lhs = (lhs || rhs) }
 
 class MakePalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet var searchFooter: SearchFooter!
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -46,6 +48,8 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -53,6 +57,8 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         searchController.searchBar.scopeButtonTitles = ["All", "Name", "Username"]
         searchController.searchBar.delegate = self
         tableView.tableHeaderView = searchController.searchBar
+        // Setup the search footer
+        tableView.tableFooterView = searchFooter
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -156,6 +162,12 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+            searchFooter.setIsFilteringToShow(filteredItemCount: filteredUsers.count, of: users.count)
+        }
+        else {
+            searchFooter.setNotFiltering()
+        }
         return isFiltering() ? filteredUsers.count : users.count
     }
 
