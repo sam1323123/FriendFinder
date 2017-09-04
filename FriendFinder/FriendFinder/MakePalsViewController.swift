@@ -23,7 +23,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    private let dbRef = Database.database().reference()
+    fileprivate let dbRef = Database.database().reference()
     private let storageRef = Storage.storage().reference()
     
     private var users = [FFUser]()
@@ -150,7 +150,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func onButtonClick(sender: UserSelectionButton) {
         if (sender.titleLabel?.text == String.fontAwesomeIcon(name: .plus)) {
-            print(sender.user)
+            requestConnection(username: sender.user!.username)
         }
     }
 
@@ -252,5 +252,42 @@ extension MakePalsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         let scope = scopeMap[searchBar.scopeButtonTitles![selectedScope]]!
         filterContentForSearchText(searchBar.text!, scope: scope)
+    }
+}
+
+//extension for connecting to friend
+extension MakePalsViewController {
+    
+    //perfomrs write to connectionRequest table of target user
+    func writeToConnectionRequest(targetUid: String, myUsername: String, myName: String) {
+        dbRef.child(FirebasePaths.connectionRequests(uid: targetUid)).updateChildValues([myUsername: myName], withCompletionBlock: {(err, ref) in
+            if let err = err {
+                print("Failed to make connection due to \(err)")
+                Utils.displayAlert(with: self, title: "Make Pal Failed", message: "Cannot request for connection due to: \(err)", text: "OK")
+            }
+            else {
+                //TODO show some change to reflect connection added
+                return
+            }
+        })
+    }
+    
+    func requestConnection(username: String) {
+        let ownNames = UserDefaults.standard.dictionaryWithValues(forKeys: ["username", "name"])
+        let (un, name) = (ownNames["username"] as? String, ownNames["name"] as? String)
+        guard let myUsername = un, let myPreferredName = name else {
+            return //cannot make connection
+        }
+        dbRef.child(FirebasePaths.usernameProfileUid(username: username)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+            if(snapshot.exists()) {
+                self?.writeToConnectionRequest(targetUid: snapshot.value as! String, myUsername: myUsername, myName: myPreferredName)
+                }
+            else {
+                print("Should not happen in requestConnection")
+            }
+            }, withCancel: {(err) in
+                print("Failed to make connection due to \(err)")
+                Utils.displayAlert(with: self, title: "Make Pal Failed", message: "Cannot request for connection due to: \(err)", text: "OK")
+        })
     }
 }
