@@ -21,9 +21,10 @@
 		42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EDBAF91F1A346600C40DAE /* Utils.swift */; };
 		42FF92141F05014100A6421B /* BottomBorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FF92131F05014100A6421B /* BottomBorderTextField.swift */; };
 		42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42FF92161F0F7B0800A6421B /* Default-568h@2x.png */; };
-		982258721F57704E00CE735B /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982258711F57704E00CE735B /* TestTableViewController.swift */; };
+		982258721F57704E00CE735B /* NotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982258711F57704E00CE735B /* NotificationDetailViewController.swift */; };
 		982258761F5D02B400CE735B /* PXGoogleDirections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982258731F5D025A00CE735B /* PXGoogleDirections.framework */; };
 		982258771F5D02B400CE735B /* PXGoogleDirections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 982258731F5D025A00CE735B /* PXGoogleDirections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		982258791F5D0E5800CE735B /* AcceptedConnectionsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982258781F5D0E5800CE735B /* AcceptedConnectionsObject.swift */; };
 		982351231F036A58005F853F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 982351221F036A58005F853F /* GoogleService-Info.plist */; };
 		9823B0691F08AB7D00982623 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B0681F08AB7D00982623 /* Errors.swift */; };
 		9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9823B06B1F08D5EB00982623 /* MapViewController.swift */; };
@@ -40,7 +41,7 @@
 		98A11D681EFA53F2007050E4 /* FriendFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D671EFA53F2007050E4 /* FriendFinderTests.swift */; };
 		98A11D731EFA5439007050E4 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D721EFA5439007050E4 /* LoginController.swift */; };
 		98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D741EFE0287007050E4 /* NextViewController.swift */; };
-		98A4A0101F5274B600416215 /* NotificationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A4A00F1F5274B600416215 /* NotificationDetailViewController.swift */; };
+		98A4A0101F5274B600416215 /* UnusedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A4A00F1F5274B600416215 /* UnusedViewController.swift */; };
 		98B48AAE1F18A15000099AF2 /* Pods_FriendFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; };
 		98B48AAF1F18A15000099AF2 /* Pods_FriendFinder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F585BB3615AC2957E8378E09 /* Pods_FriendFinder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		98B48AB71F1C94DD00099AF2 /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */; };
@@ -95,8 +96,9 @@
 		42FF92151F08F65B00A6421B /* FriendFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FriendFinder.entitlements; sourceTree = "<group>"; };
 		42FF92161F0F7B0800A6421B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		80E8F0C2B437A967A5CA5170 /* Pods-FriendFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
-		982258711F57704E00CE735B /* TestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
+		982258711F57704E00CE735B /* NotificationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailViewController.swift; sourceTree = "<group>"; };
 		982258731F5D025A00CE735B /* PXGoogleDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PXGoogleDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		982258781F5D0E5800CE735B /* AcceptedConnectionsObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptedConnectionsObject.swift; sourceTree = "<group>"; };
 		982351221F036A58005F853F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9823B0681F08AB7D00982623 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		9823B06B1F08D5EB00982623 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -117,7 +119,7 @@
 		98A11D691EFA53F2007050E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A11D721EFA5439007050E4 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		98A11D741EFE0287007050E4 /* NextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
-		98A4A00F1F5274B600416215 /* NotificationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailViewController.swift; sourceTree = "<group>"; };
+		98A4A00F1F5274B600416215 /* UnusedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnusedViewController.swift; sourceTree = "<group>"; };
 		98B48AB61F1C94DD00099AF2 /* InfoWindowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
 		98B48AB81F1C950400099AF2 /* InfoWindowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		98B48ABA1F1DEF5A00099AF2 /* ProportionalLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProportionalLabel.swift; sourceTree = "<group>"; };
@@ -196,9 +198,9 @@
 				9823B06B1F08D5EB00982623 /* MapViewController.swift */,
 				98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */,
 				42AB1D461F406E6B0022B88F /* MenuViewController.swift */,
-				98A4A00F1F5274B600416215 /* NotificationDetailViewController.swift */,
+				98A4A00F1F5274B600416215 /* UnusedViewController.swift */,
 				427521E71F4D6E720098FFB0 /* TextMessageViewController.swift */,
-				982258711F57704E00CE735B /* TestTableViewController.swift */,
+				982258711F57704E00CE735B /* NotificationDetailViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -296,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				98D846381F44508F00EF3BED /* PendingNotificationObject.swift */,
+				982258781F5D0E5800CE735B /* AcceptedConnectionsObject.swift */,
 			);
 			name = SharedResources;
 			sourceTree = "<group>";
@@ -538,11 +541,12 @@
 				42AB1D4F1F419FFC0022B88F /* SubtitleTableViewCell.swift in Sources */,
 				98587B781F2F2AC900E4452D /* SwipeInteractor.swift in Sources */,
 				427521E01F4A9C450098FFB0 /* ConnectionViewController.swift in Sources */,
-				982258721F57704E00CE735B /* TestTableViewController.swift in Sources */,
+				982258721F57704E00CE735B /* NotificationDetailViewController.swift in Sources */,
 				9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */,
 				425DF9D61F576C0800A500C1 /* UserViewCell.swift in Sources */,
+				982258791F5D0E5800CE735B /* AcceptedConnectionsObject.swift in Sources */,
 				98587B761F2F23CD00E4452D /* DragDismissAnimator.swift in Sources */,
-				98A4A0101F5274B600416215 /* NotificationDetailViewController.swift in Sources */,
+				98A4A0101F5274B600416215 /* UnusedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

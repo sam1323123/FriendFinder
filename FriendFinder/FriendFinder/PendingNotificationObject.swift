@@ -22,7 +22,7 @@ class PendingNotificationObject: NSObject {
     private let notificationIdentifier: Notification.Name = Notification.Name("connectionRequest")
     private var observerID: UInt?
     
-    override init() {
+    private override init() {
         super.init()
         let path = FirebasePaths.connectionRequests(uid: Auth.auth().currentUser!.uid)
         ref = Database.database().reference().child(path)
@@ -53,8 +53,8 @@ class PendingNotificationObject: NSObject {
     }
     
     
-    func getAllPendingRequests() -> [String] {
-        return Array(data.keys)
+    func getAllPendingRequests() -> [String:String] {
+        return data
     }
     
     //registers an object to handle changes to number of Pending notifications

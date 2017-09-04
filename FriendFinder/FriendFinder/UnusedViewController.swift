@@ -1,16 +1,22 @@
 //
-//  TestTableViewController.swift
+//  NotificationDetailViewController.swift
 //  FriendFinder
 //
-//  Created by Samuel Lee on 8/30/17.
+//  Created by Samuel Lee on 8/26/17.
 //  Copyright © 2017 Samuel Lee and Avishek Ganguli. All rights reserved.
 //
 
 import UIKit
+import ExpandableCell
+import SideMenu
+import FirebaseAuth
 import FirebaseDatabase
 
-class NotificationDetailViewController: UITableViewController {
+class NotificationDetailViewController: UIViewController {
 
+    
+    @IBOutlet weak var tableView: ExpandableTableView!
+    
     var ref: DatabaseReference! = Database.database().reference()
     var username = UserDefaults.standard.value(forKey: "username") as? String
     var preferredName = UserDefaults.standard.value(forKey: "name") as? String
@@ -25,9 +31,11 @@ class NotificationDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.expandableDelegate = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.rowHeight = UITableViewAutomaticDimension
+        let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
         for username in usernames.keys {
             //populate data array
             let elem = notificationDetails(username: username, name: usernames[username]!, icon: nil)
@@ -43,8 +51,9 @@ class NotificationDetailViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         PendingNotificationObject.sharedInstance.removeObserver(observer: self)
-    }
     
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -60,17 +69,18 @@ class NotificationDetailViewController: UITableViewController {
         tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
     }
     
-    
+
     /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
     
+
     func handleAcceptNotification(sender: UIButton) {
         guard let username = self.username, let preferredName = self.preferredName else {
             print("USERNAME AND PREFERREDNAME NOT SET IN NotificatioDetail VC")
@@ -83,14 +93,14 @@ class NotificationDetailViewController: UITableViewController {
         let acceptMessage = ["\(username)":["name": preferredName, "accepted": "true"]]
         ref.child(FirebasePaths.connections(username: sender.username!)).updateChildValues(acceptMessage, withCompletionBlock: {(err, dbRef) in
             if let err = err {
-                print("Cannot Write Accept Message: \(acceptMessage) because of \(err)")
+                print("Cannot Accept because of \(err)")
                 return
             }
             //no error so remove entry. Following call automatically reloads data due to listener
             PendingNotificationObject.sharedInstance.removeRequest(username: sender.username ?? "")
         })
     }
-    
+
     
     func handleDeclineNotification(sender: UIButton) {
         guard let username = self.username else {
@@ -110,80 +120,55 @@ class NotificationDetailViewController: UITableViewController {
             //no error so remove entry. Following call automatically reloads data due to listener
             PendingNotificationObject.sharedInstance.removeRequest(username: sender.username ?? "")
         })
-        
-    }
-    // MARK: - Table view data source
 
+    }
+}
+
+
+extension NotificationDetailViewController: ExpandableDelegate {
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+    func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCellsForRowAt indexPath: IndexPath) -> [UITableViewCell]? {
+        return nil
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, heightsForExpandedRowAt indexPath: IndexPath) -> [CGFloat]? {
+        return nil
+    }
+    
+    func numberOfSections(in tableView: ExpandableTableView) -> Int {
         return 1
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectRowAt indexPath: IndexPath) {
+    }
     
+    func expandableTableView(_ expandableTableView: ExpandableTableView, didSelectExpandedRowAt indexPath: IndexPath) {
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, expandedCell: UITableViewCell, didSelectExpandedRowAt indexPath: IndexPath) {
+    }
+    
+    func expandableTableView(_ expandableTableView: ExpandableTableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = data[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "testCell1") as? NotificationSelectionCell else {
+        guard let cell = expandableTableView.dequeueReusableCell(withIdentifier: "notificationCell") as? NotificationSelectionCell else {
             return UITableViewCell()
         }
         cell.itemNameLabel.text = item.name
-        cell.acceptButton.username = item.username
-        cell.declineButton.username = item.username
+        cell.acceptButton.username = item.name
+        cell.declineButton.username = item.name
         cell.acceptButton.addTarget(self, action: #selector(handleAcceptNotification(sender:)), for: .touchUpInside)
         cell.declineButton.addTarget(self, action: #selector(handleDeclineNotification(sender:)), for: .touchUpInside)
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func expandableTableView(_ expandableTableView: ExpandableTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return expandableTableView.rowHeight
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+
+

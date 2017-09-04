@@ -831,10 +831,10 @@
             </objects>
             <point key="canvasLocation" x="1592.8" y="3099.400299850075"/>
         </scene>
-        <!--Test Table View Controller-->
+        <!--Notification Detail View Controller-->
         <scene sceneID="QyW-LQ-meE">
             <objects>
-                <tableViewController id="QZv-o9-0l6" customClass="TestTableViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="QZv-o9-0l6" customClass="NotificationDetailViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wkf-ef-P1x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -34,5 +34,8 @@ struct FirebasePaths {
     static func userIcons(username: String) -> String {
         return "users/icons/\(username)"
     }
+    static func connections(username: String) -> String {
+        return "usernames/\(username)/connections"
+    }
 }
 

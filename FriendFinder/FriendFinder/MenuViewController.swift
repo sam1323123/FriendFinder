@@ -59,6 +59,24 @@ class MenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         PendingNotificationObject.sharedInstance.registerObserver(observer: self, action: #selector(notificationHandler(_:)) )
+        
+        //reupdate view if necessary
+        guard let cell = notificationCellRef else {
+            return
+        }
+        let numNotifs = PendingNotificationObject.sharedInstance.numberOfPendingRequests()
+        if(numNotifs == 0) {
+            //make notif box invisible
+            cell.countLabel.backgroundColor = UIColor.clear
+            cell.countLabel.text = nil
+            //don't have to recalibrate
+        }
+        else {
+            cell.countLabel.backgroundColor = UIColor.red
+            cell.countLabel.text = String(numNotifs)
+            cell.recalibrateComponents()
+        }
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -160,13 +178,14 @@ class MenuViewController: UIViewController {
         let numNotifs = PendingNotificationObject.sharedInstance.numberOfPendingRequests()
         if(numNotifs == 0) {
             //make notif box invisible
-            cell.backgroundColor = UIColor.clear
+            cell.countLabel.backgroundColor = UIColor.clear
             cell.countLabel.text = nil
             //don't have to recalibrate
         }
         else {
-            cell.backgroundColor = UIColor.red
+            cell.countLabel.backgroundColor = UIColor.red
             cell.countLabel.text = String(numNotifs)
+            cell.recalibrateComponents()
         }
     }
 }

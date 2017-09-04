@@ -201,30 +201,49 @@ class MapViewController: UIViewController {
     
     //Call this method to initializ all user profile info like username and preferred name
     private func initializeUserInfo() {
-        ref.child(FirebasePaths.uidProfile(uid: Auth.auth().currentUser!.uid)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
-            if snapshot.hasChild("username") && snapshot.hasChild("name") {
-                let data = snapshot.value as! [String:AnyObject]
-                self?.userName = data["username"] as? String
-                self?.preferredName = data["name"] as? String
-                self?.visualEffectView.removeFromSuperview()
-                self?.visualEffectView = nil
-                return
-            }
-            else {
-                self?.userButton.addTarget(self, action: #selector(self?.createUsernameButtonAction(sender:)), for: .touchUpInside)
-                self?.uploadButton.addTarget(self, action: #selector(self?.onUpload), for: .touchUpInside)
-                self?.animateUserInputScreen()
-            }
+        let username = UserDefaults.standard.string(forKey: "username")
+        let preferredName = UserDefaults.standard.string(forKey: "name")
+        if(username != nil && preferredName != nil) {
+            self.userName = username
+            self.preferredName = preferredName
+            AcceptedConnectionsObject.sharedInstance.start(username: username!)
+            //start listening for new connections. Only need to start here, effect seen in all subsequent VCs
+            visualEffectView.removeFromSuperview()
+            visualEffectView = nil
+            return
             
-            }, withCancel: {(err) in
-                print("Network Error with Firebase with type: \(err)")
-                Utils.displayAlert(with: self, title: "Error", message: "Cannot connect to server. Please check network settings or try again later.", text: "OK", callback: {
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                    
-                    })
-            })
+        }
+        else {
+        
+            ref.child(FirebasePaths.uidProfile(uid: Auth.auth().currentUser!.uid)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+                if snapshot.hasChild("username") && snapshot.hasChild("name") {
+                    let data = snapshot.value as! [String:AnyObject]
+                    self?.userName = data["username"] as? String
+                    self?.preferredName = data["name"] as? String
+                    UserDefaults.standard.setValue(self?.userName, forKey: "username")
+                    UserDefaults.standard.setValue(self?.preferredName, forKey: "name")
+                    AcceptedConnectionsObject.sharedInstance.start(username: (self?.userName)!)
+                    //start listening for new connections. Only need to start here, effect seen in all subsequent VCs
+                    self?.visualEffectView.removeFromSuperview()
+                    self?.visualEffectView = nil
+                    return
+                }
+                else {
+                    self?.userButton.addTarget(self, action: #selector(self?.createUsernameButtonAction(sender:)), for: .touchUpInside)
+                    self?.uploadButton.addTarget(self, action: #selector(self?.onUpload), for: .touchUpInside)
+                    self?.animateUserInputScreen()
+                }
+                
+                }, withCancel: {(err) in
+                    print("Network Error with Firebase with type: \(err)")
+                    Utils.displayAlert(with: self, title: "Error", message: "Cannot connect to server. Please check network settings or try again later.", text: "OK", callback: {
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                        
+                        })
+                })
+        }
     }
     
     private func animateUserInputScreen() {
@@ -839,6 +858,8 @@ extension MapViewController {
         guard let preferredName = preferredNameField.text else {
             return
         }
+        UserDefaults.standard.setValue(username, forKey: "username")
+        UserDefaults.standard.setValue(preferredName, forKey: "name")
         addUsernameToFirebase(username: username, preferredName: preferredName, callback: {[weak self] (created) in
             DispatchQueue.main.async { self?.addUsernameAttemptHandler(created: created) }
         })
