@@ -35,13 +35,13 @@ class AcceptedConnectionsObject: NSObject {
     /*! @brief Call this to start listening to objects */
     func start(username: String) {
         self.username = username
-        let path = FirebasePaths.connections(username: username)
+        let path = FirebasePaths.connectionRequestReply(username: username)
         ref = Database.database().reference().child(path)
         //attache an event observer
         observerID = ref.observe(.childAdded, with: {(snapshot) in
             //set data field then alert all observers
-            let newValues = (snapshot.exists()) ? snapshot.value as! [String: [String:String]] : [:]
-            self.newConnectionHandler(newChildren: newValues)
+            let newValues = (snapshot.exists()) ? snapshot.value as! [String:String] : [:]
+            self.newConnectionHandler(user: snapshot.key, response: newValues)
         }
             , withCancel: {(err) in
                 print(err)
@@ -62,47 +62,45 @@ class AcceptedConnectionsObject: NSObject {
         return acceptedConnections
     }
     
-    func newConnectionHandler(newChildren: [String:[String:String]]) {
-        let users = newChildren.keys
-        for user in users {
-            if(newChildren[user]!["accepted"] == "true") {
-                //add to accepted and bring up alert if is a new Connection
-                if(!acceptedConnections.contains(where: {(key, val) in return key == user})) {
-                    //if is a new connection
-                    acceptedConnections[user] = newChildren[user]
-                    UserDefaults.standard.setValue(acceptedConnections, forKey: "connections")
-                    //save persistent data locally
+    func newConnectionHandler(user: String, response: [String:String]) {
+        
+        if(response["accepted"] == "true") {
+            //add to accepted and bring up alert if is a new Connection
+            if(!acceptedConnections.contains(where: {(key, val) in return key == user})) {
+                //if is a new connection
+                acceptedConnections[user] = response
+                UserDefaults.standard.setValue(acceptedConnections, forKey: "connections")
+                //save persistent data locally
+                DispatchQueue.main.async {
+                    guard let presentedVC = Utils.getVisibleViewController() else {
+                        return //might want to do something if app is in background
+                    }
+                    Utils.displayAlert(with: presentedVC, title: "Connection Request Accepted", message: "\(user) Accepted your request to connect", text: "OK")
+                }
+            }
+            else {
+                acceptedConnections[user] = response //just in case it is an update
+            }
+            
+            
+        }
+        else {
+            //don't add to acceptedConnections, raise alert and remove from DB
+            ref.child(FirebasePaths.connectionRequestReply(username: username!)).child(user).removeValue(completionBlock: {(err, dbRef) in
+                if let err = err {
+                    print(err)
+                    return
+                }
+                else {
+                    //no error so data is deleted
                     DispatchQueue.main.async {
                         guard let presentedVC = Utils.getVisibleViewController() else {
                             return //might want to do something if app is in background
                         }
-                        Utils.displayAlert(with: presentedVC, title: "Connection Request Accepted", message: "\(user) Accepted your request to connect", text: "OK")
+                        Utils.displayAlert(with: presentedVC, title: "Connection Request Denied", message: "\(user) denied your request to connect", text: "OK")
                     }
                 }
-                else {
-                    acceptedConnections[user] = newChildren[user] //just in case it is an update
-                }
-                
-                
-            }
-            else {
-                //don't add to acceptedConnections, raise alert and remove from DB
-                ref.child(FirebasePaths.connections(username: username!)).child(user).removeValue(completionBlock: {(err, dbRef) in
-                    if let err = err {
-                        print(err)
-                        return
-                    }
-                    else {
-                        //no error so data is deleted
-                        DispatchQueue.main.async {
-                            guard let presentedVC = Utils.getVisibleViewController() else {
-                                return //might want to do something if app is in background
-                            }
-                            Utils.displayAlert(with: presentedVC, title: "Connection Request Denied", message: "\(user) denied your request to connect", text: "OK")
-                        }
-                    }
-                })
-            }
+            })
         }
         
         
@@ -122,13 +120,13 @@ class AcceptedConnectionsObject: NSObject {
         }
         
         //retry connection to firebase
-        let path = FirebasePaths.connections(username: self.username!) //username must have been set
+        let path = FirebasePaths.connectionRequestReply(username: self.username!) //username must have been set
         ref = Database.database().reference().child(path)
         //attach an event observer
         observerID = ref.observe(.childAdded, with: {(snapshot) in
             //set data field then alert all observers
-            let newValues = (snapshot.exists()) ? snapshot.value as! [String: [String:String]] : [:]
-            self.newConnectionHandler(newChildren: newValues)
+            let newValues = (snapshot.exists()) ? snapshot.value as! [String:String] : [:]
+            self.newConnectionHandler(user: snapshot.key, response: newValues)
         }
             , withCancel: {(err) in
                 print(err)

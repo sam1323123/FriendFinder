@@ -34,8 +34,19 @@ struct FirebasePaths {
     static func userIcons(username: String) -> String {
         return "users/icons/\(username)"
     }
-    static func connections(username: String) -> String {
-        return "usernames/\(username)/connections"
+    //used for checking request reply
+    static func connectionRequestReply(username: String) -> String {
+        return "usernames/\(username)/connectionRequestReply"
     }
+    //get all users who are receiving locations from uid
+    static func locationReceivers(uid: String) ->String {
+        return "users/\(uid)/locationTo"
+    }
+    //get all users who are broadcasting to uid
+    static func locationTransmitters(uid: String) ->String {
+        return "users/\(uid)/locationFrom"
+    }
+    
+    
 }
 
