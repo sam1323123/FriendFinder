@@ -32,6 +32,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     private var iconMap = [String:UIImage]()
     
     private var filteredUsers = [FFUser]()
+    private var sentUsernames = [String]()
     
     
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -65,8 +66,10 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
         initData()
+        filterData()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.allowsSelection = false
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
     }
@@ -112,11 +115,11 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     private func initData() {
         dbRef.child("usernames").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             let data = snapshot.value as! [String:AnyObject]
-            self!.usernames = Array(data.keys)
             // remove self from other users
             /*if let index = self!.usernames.index(of: MapViewController.currentController!.userName!) {
-                self!.usernames.remove(at: index)
-            }*/
+             self!.usernames.remove(at: index)
+             }*/
+            self!.usernames = Array(data.keys)
             for username in self!.usernames {
                 self!.nameMap[username] = (((data[username] as! [String:AnyObject])["name"])! as! String)
                 self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
@@ -140,17 +143,31 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
+    private func filterData()  {
+        if sentUsernames.isEmpty {
+            dbRef.child(FirebasePaths.connectionRequested(uid: (Auth.auth().currentUser?.uid)!)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+                if snapshot.exists() {
+                    let data = snapshot.value as! [String:String]
+                    self!.sentUsernames = Array(data.keys)
+                }
+            })
+        }
+    }
+    
     func checkDone() {
         if (users.count == usernames.count) {
             timer?.invalidate()
             spinner.stopAnimating()
-            tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
+            tableView.reloadData()
         }
     }
 
     func onButtonClick(sender: UserSelectionButton) {
+        print("clicked!")
         if (sender.titleLabel?.text == String.fontAwesomeIcon(name: .plus)) {
-            requestConnection(username: sender.user!.username)
+            requestConnection(user: sender.user!)
+            sentUsernames.append(sender.user!.username)
+            tableView.reloadData()
         }
     }
 
@@ -185,8 +202,16 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         userCell.nameLabel.text = user.name
         userCell.usernameLabel.text = user.username
         userCell.userIcon.image = user.picture
-        userCell.userButton.addTarget(self, action: #selector(onButtonClick(sender:)), for: .touchUpInside)
         userCell.userButton.user = user
+        if sentUsernames.contains(user.username) {
+            userCell.userButton.titleLabel?.font = UIFont(name: "Bodoni 72", size: (userCell.userButton.titleLabel?.font.pointSize)!)?.setBold()
+            userCell.userButton.setTitle("Pending", for: .normal)
+            userCell.userButton.removeTarget(self, action: #selector(onButtonClick(sender:)), for: .touchUpInside)
+        }
+        else {
+            userCell.userButton.addTarget(self, action: #selector(onButtonClick(sender:)), for: .touchUpInside)
+            userCell.userButton.setTitle(String.fontAwesomeIcon(name: .plus), for: .normal)
+        }
         return cell
     }
 
@@ -272,22 +297,31 @@ extension MakePalsViewController {
         })
     }
     
-    func requestConnection(username: String) {
+    func requestConnection(user: FFUser) {
+        let username = user.username
         let ownNames = UserDefaults.standard.dictionaryWithValues(forKeys: ["username", "name"])
         let (un, name) = (ownNames["username"] as? String, ownNames["name"] as? String)
         guard let myUsername = un, let myPreferredName = name else {
             return //cannot make connection
         }
-        dbRef.child(FirebasePaths.usernameProfileUid(username: username)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
-            if(snapshot.exists()) {
-                self?.writeToConnectionRequest(targetUid: snapshot.value as! String, myUsername: myUsername, myName: myPreferredName)
-                }
-            else {
-                print("Should not happen in requestConnection")
-            }
-            }, withCancel: {(err) in
+        dbRef.child(FirebasePaths.connectionRequested(uid: (Auth.auth().currentUser?.uid)!)).updateChildValues([username : user.name]) {[weak self] (err, ref) in
+            if let err = err {
                 print("Failed to make connection due to \(err)")
-                Utils.displayAlert(with: self, title: "Make Pal Failed", message: "Cannot request for connection due to: \(err)", text: "OK")
-        })
+                Utils.displayAlert(with: self!, title: "Make Pal Failed", message: "Cannot request for connection due to: \(err)", text: "OK")
+            }
+            else {
+                self?.dbRef.child(FirebasePaths.usernameProfileUid(username: username)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+                    if(snapshot.exists()) {
+                        self?.writeToConnectionRequest(targetUid: snapshot.value as! String, myUsername: myUsername, myName: myPreferredName)
+                    }
+                    else {
+                        print("Should not happen in requestConnection")
+                    }
+                    }, withCancel: {(err) in
+                        print("Failed to make connection due to \(err)")
+                        Utils.displayAlert(with: self!, title: "Make Pal Failed", message: "Cannot request for connection due to: \(err)", text: "OK")
+                })
+            }
+        }
     }
 }

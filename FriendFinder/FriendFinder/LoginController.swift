@@ -29,8 +29,8 @@ class LoginController: UIViewController {
     var isLargeScreen: Bool?
     
     var isBackPressed: Bool = false
-    
-    fileprivate let usernameSemaphore = DispatchSemaphore(value: 1)
+
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
 
     
     //dictionary mapping errors to error messages
@@ -56,7 +56,31 @@ class LoginController: UIViewController {
         if (Auth.auth().currentUser != nil && !isBackPressed) {
             performSegue(withIdentifier: "Login" , sender: nil)
         }
+        else {
+            spinner.stopAnimating()
+            view.removeFromSuperview()
+        }
+    
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let view = UIView(frame: self.view.frame)
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        #imageLiteral(resourceName: "high-five-sunset-portrait").draw(in: self.view.bounds)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        view.backgroundColor = UIColor(patternImage: image)
+        self.view.addSubview(view)
+        self.view.bringSubview(toFront: view)
+        spinner.center = view.center
+        view.addSubview(spinner)
+        view.bringSubview(toFront: spinner)
+        spinner.startAnimating()
+
+    }
+    
     
 
     //sets and loads background

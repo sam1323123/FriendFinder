@@ -28,6 +28,9 @@ struct FirebasePaths {
     static func connectionRequests(uid: String) -> String {
         return "users/\(uid)/connectionRequests"
     }
+    static func connectionRequested(uid: String) -> String {
+        return "users/\(uid)/connectionRequested"
+    }
     static func uidProfileConnections(uid: String) -> String {
         return "users/\(uid)/connections"
     }
@@ -46,7 +49,7 @@ struct FirebasePaths {
     static func locationTransmitters(uid: String) ->String {
         return "users/\(uid)/locationFrom"
     }
-    
+
     
 }
 

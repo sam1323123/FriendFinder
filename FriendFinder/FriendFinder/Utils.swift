@@ -9,30 +9,11 @@
 import Foundation
 import UIKit
 import ContactsUI
+import FirebaseStorage
+import FirebaseDatabase
 
 // utility class containing useful methods
 class Utils {
-    
-    struct firebasePaths {
-        static func uidProfile(uid: String) -> String {
-            return "users/\(uid)"
-        }
-        static func uidProfileUsername(uid: String) -> String {
-            return "users/\(uid)/username"
-        }
-        static func uidProfilePreferredName(uid: String) -> String {
-            return "users/\(uid)/name"
-        }
-        static func usernameProfile(username: String) -> String {
-            return "usernames/\(username)"
-        }
-        static func usernameProfileUid(username: String) -> String {
-            return "usernames/\(username)/user_id"
-        }
-        static func connectionRequests(uid: String) -> String {
-            return "users/\(uid)/connectionRequests"
-        }
-    }
     
     //displays alert with given message and text
     static func displayAlert(with controller: UIViewController, title: String, message: String, text: String, callback: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
@@ -98,5 +79,23 @@ extension UIColor {
     static let teal = UIColor(colorLiteralRed: 56/255.0, green: 114.0/255.0, blue: 108.0/255.0, alpha: 1)
     static let lightTeal = UIColor(colorLiteralRed: 79/255.0, green: 162.0/255.0, blue: 154.0/255.0, alpha: 1)
     
+}
+
+extension UIFont {
+    
+    var isBold: Bool {
+        return fontDescriptor.symbolicTraits.contains(.traitBold)
+    }
+    
+    func setBold() -> UIFont {
+        if isBold {
+            return self
+        } else {
+            var symTraits = fontDescriptor.symbolicTraits
+            symTraits.insert([.traitBold])
+            let newDescriptor = fontDescriptor.withSymbolicTraits(symTraits)
+            return UIFont(descriptor: newDescriptor!, size: 0)
+        }
+    }
 }
 

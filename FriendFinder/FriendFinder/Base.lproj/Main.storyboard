@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -762,7 +762,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nbZ-Yw-7Ug">
-                                                    <rect key="frame" x="18" y="7" width="265" height="64"/>
+                                                    <rect key="frame" x="18" y="7" width="153" height="64"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5LD-RE-xMf">
                                                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -772,16 +772,16 @@
                                                             </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="14q-vU-eIE">
-                                                            <rect key="frame" x="84" y="0.0" width="181" height="41"/>
+                                                            <rect key="frame" x="84" y="0.0" width="69" height="41"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WhK-76-Jgb">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="181" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="69" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="BodoniSvtyTwoITCTT-Bold" family="Bodoni 72" pointSize="17"/>
                                                                     <color key="textColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2u0-6F-wO7">
-                                                                    <rect key="frame" x="0.0" y="20.5" width="181" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="20.5" width="69" height="20.5"/>
                                                                     <fontDescription key="fontDescription" name="BodoniSvtyTwoITCTT-Bold" family="Bodoni 72" pointSize="17"/>
                                                                     <color key="textColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -793,14 +793,10 @@
                                                         <constraint firstItem="14q-vU-eIE" firstAttribute="top" secondItem="5LD-RE-xMf" secondAttribute="top" id="ffS-Hk-94D"/>
                                                     </constraints>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMA-Qh-Ihi" customClass="UserSelectionButton" customModule="FriendFinder" customModuleProvider="target">
-                                                    <rect key="frame" x="283" y="26.5" width="64" height="48"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="64" id="0sL-xn-4J1"/>
-                                                        <constraint firstAttribute="width" secondItem="FMA-Qh-Ihi" secondAttribute="height" multiplier="1:1" constant="16" id="DH0-i1-Rhu"/>
-                                                    </constraints>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FMA-Qh-Ihi" customClass="UserSelectionButton" customModule="FriendFinder" customModuleProvider="target">
+                                                    <rect key="frame" x="171" y="0.5" width="176" height="100"/>
                                                     <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="20"/>
-                                                    <state key="normal" title="">
+                                                    <state key="normal">
                                                         <color key="titleColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                 </button>
@@ -809,6 +805,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="5LD-RE-xMf" secondAttribute="bottom" constant="10" id="CgM-eF-1F2"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="FMA-Qh-Ihi" secondAttribute="trailing" constant="20" id="GQK-uC-YKI"/>
                                                 <constraint firstItem="5LD-RE-xMf" firstAttribute="top" secondItem="Jol-7i-BDx" secondAttribute="topMargin" constant="10" id="Lsj-EF-B41"/>
+                                                <constraint firstItem="FMA-Qh-Ihi" firstAttribute="height" secondItem="Jol-7i-BDx" secondAttribute="height" id="QJy-xg-i8y"/>
                                                 <constraint firstItem="5LD-RE-xMf" firstAttribute="centerY" secondItem="Jol-7i-BDx" secondAttribute="centerY" id="SPY-be-jVv"/>
                                                 <constraint firstItem="5LD-RE-xMf" firstAttribute="leading" secondItem="Jol-7i-BDx" secondAttribute="leadingMargin" constant="10" id="xwB-FL-Rnp"/>
                                                 <constraint firstItem="FMA-Qh-Ihi" firstAttribute="leading" secondItem="nbZ-Yw-7Ug" secondAttribute="trailing" id="zdM-5B-pYg"/>
