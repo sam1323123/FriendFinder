@@ -154,7 +154,7 @@ class MenuViewController: UIViewController {
     */
 
     func initOptions() {
-        let pals = MenuItem(name: "Pals", segueID: "PalMenu")
+        let pals = MenuItem(name: "Pals", segueID: "Current Pals Menu")
         let connections = MenuItem(name: "Make Pals", segueID: "Make Pals Menu")
         let notifs = MenuItem(name: "Notifications", segueID: "Notifications Menu")
         let invites = MenuItem(name: "Invites", segueID: "Invite Menu")

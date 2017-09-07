@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class UserViewCell: UITableViewCell {
+class UserViewCell: SwipeTableViewCell {
 
     @IBOutlet weak var userIcon: UIImageView!
     

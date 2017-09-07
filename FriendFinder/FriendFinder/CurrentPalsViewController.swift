@@ -11,8 +11,10 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
 import SideMenu
+import SwipeCellKit
 
-class MakePalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -29,7 +31,6 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     private var iconMap = [String:UIImage]()
     
     private var filteredUsers = [FFUser]()
-    private var sentUsernames = [String]()
     
     
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -63,7 +64,6 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
         initData()
-        filterData()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.allowsSelection = false
@@ -112,10 +112,6 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     private func initData() {
         dbRef.child("usernames").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
             let data = snapshot.value as! [String:AnyObject]
-            // remove self from other users
-            /*if let index = self!.usernames.index(of: MapViewController.currentController!.userName!) {
-             self!.usernames.remove(at: index)
-             }*/
             self!.usernames = Array(data.keys)
             for username in self!.usernames {
                 self!.nameMap[username] = (((data[username] as! [String:AnyObject])["name"])! as! String)
@@ -140,17 +136,6 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
-    private func filterData()  {
-        if sentUsernames.isEmpty {
-            dbRef.child(FirebasePaths.connectionRequested(uid: (Auth.auth().currentUser?.uid)!)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
-                if snapshot.exists() {
-                    let data = snapshot.value as! [String:String]
-                    self!.sentUsernames = Array(data.keys)
-                }
-            })
-        }
-    }
-    
     func checkDone() {
         if (users.count == usernames.count) {
             timer?.invalidate()
@@ -161,9 +146,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func onButtonClick(sender: UserSelectionButton) {
         if (sender.titleLabel?.text == String.fontAwesomeIcon(name: .plus)) {
-            requestConnection(user: sender.user!)
-            sentUsernames.append(sender.user!.username)
-            tableView.reloadData()
+            
         }
     }
 
@@ -189,6 +172,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         // Configure the cell...
         let userCell = cell as! UserViewCell
+        userCell.delegate = self
         let user: FFUser
         if isFiltering() {
             user = filteredUsers[indexPath.row]
@@ -198,17 +182,20 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         userCell.nameLabel.text = user.name
         userCell.usernameLabel.text = user.username
         userCell.userIcon.image = user.picture
-        userCell.userButton.user = user
-        if sentUsernames.contains(user.username) {
-            userCell.userButton.titleLabel?.font = UIFont(name: "Bodoni 72", size: (userCell.userButton.titleLabel?.font.pointSize)!)?.setBold()
-            userCell.userButton.setTitle("Pending", for: .normal)
-            userCell.userButton.removeTarget(self, action: #selector(onButtonClick(sender:)), for: .touchUpInside)
-        }
-        else {
-            userCell.userButton.addTarget(self, action: #selector(onButtonClick(sender:)), for: .touchUpInside)
-            userCell.userButton.setTitle(String.fontAwesomeIcon(name: .plus), for: .normal)
-        }
         return cell
+    }
+    
+     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let stop = UITableViewRowAction(style: .normal, title: String.fontAwesomeIcon(name: .stop)) { action, index in
+            print("stop button tapped")
+        }
+        stop.backgroundColor = .lightGray
+        
+        let block = UITableViewRowAction(style: .normal, title: String.fontAwesomeIcon(name: .minus)) { action, index in
+            print("block button tapped")
+        }
+        stop.backgroundColor = .orange
+        return [stop, block]
     }
 
     /*
@@ -259,7 +246,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
 }
 
 
-extension MakePalsViewController: UISearchResultsUpdating {
+extension CurrentPalsViewController: UISearchResultsUpdating {
     // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
@@ -268,7 +255,7 @@ extension MakePalsViewController: UISearchResultsUpdating {
     }
 }
 
-extension MakePalsViewController: UISearchBarDelegate {
+extension CurrentPalsViewController: UISearchBarDelegate {
     // MARK: - UISearchBar Delegate
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         let scope = scopeMap[searchBar.scopeButtonTitles![selectedScope]]!
@@ -277,47 +264,33 @@ extension MakePalsViewController: UISearchBarDelegate {
 }
 
 //extension for connecting to friend
-extension MakePalsViewController {
+extension CurrentPalsViewController: SwipeTableViewCellDelegate {
     
-    //perfomrs write to connectionRequest table of target user
-    func writeToConnectionRequest(targetUid: String, myUsername: String, myName: String) {
-        dbRef.child(FirebasePaths.connectionRequests(uid: targetUid)).updateChildValues([myUsername: myName], withCompletionBlock: {(err, ref) in
-            if let err = err {
-                print("Failed to make connection due to \(err)")
-                Utils.displayAlert(with: self, title: "Make Pal Failed", message: "Cannot request for connection due to: \(err)", text: "OK")
-            }
-            else {
-                //TODO show some change to reflect connection added
-                return
-            }
-        })
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        /*let stopAction = SwipeAction(style: .default, title: "Stop") { action, indexPath in
+            // handle action by updating model with deletion
+            print("STOP")
+        }
+        stopAction.image = UIImage.fontAwesomeIcon(name: .stop, textColor: .orange, size: CGSize(width: 30, height: 30))
+        stopAction.backgroundColor = .teal */
+        let blockAction = SwipeAction(style: .default, title: "Block") { action, indexPath in
+            // handle action by updating model with deletion
+            print("BLOCK")
+        }
+        blockAction.image = UIImage.fontAwesomeIcon(name: .minus, textColor: .red, size: CGSize(width: 30, height: 30))
+        blockAction.backgroundColor = .lightTeal
+        return [blockAction]
     }
     
-    func requestConnection(user: FFUser) {
-        let username = user.username
-        let ownNames = UserDefaults.standard.dictionaryWithValues(forKeys: ["username", "name"])
-        let (un, name) = (ownNames["username"] as? String, ownNames["name"] as? String)
-        guard let myUsername = un, let myPreferredName = name else {
-            return //cannot make connection
-        }
-        dbRef.child(FirebasePaths.connectionRequested(uid: (Auth.auth().currentUser?.uid)!)).updateChildValues([username : user.name]) {[weak self] (err, ref) in
-            if let err = err {
-                print("Failed to make connection due to \(err)")
-                Utils.displayAlert(with: self!, title: "Make Pal Failed", message: "Cannot request for connection due to: \(err)", text: "OK")
-            }
-            else {
-                self?.dbRef.child(FirebasePaths.usernameProfileUid(username: username)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
-                    if(snapshot.exists()) {
-                        self?.writeToConnectionRequest(targetUid: snapshot.value as! String, myUsername: myUsername, myName: myPreferredName)
-                    }
-                    else {
-                        print("Should not happen in requestConnection")
-                    }
-                    }, withCancel: {(err) in
-                        print("Failed to make connection due to \(err)")
-                        Utils.displayAlert(with: self!, title: "Make Pal Failed", message: "Cannot request for connection due to: \(err)", text: "OK")
-                })
-            }
-        }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+        var options = SwipeTableOptions()
+        options.expansionStyle = .selection
+        options.transitionStyle = .border
+        options.backgroundColor = .teal
+        return options
     }
+    
+    
 }

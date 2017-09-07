@@ -12,6 +12,10 @@ import ContactsUI
 import FirebaseStorage
 import FirebaseDatabase
 
+infix operator ||=
+func ||=(lhs: inout Bool, rhs: Bool) { lhs = (lhs || rhs) }
+
+
 // utility class containing useful methods
 class Utils {
     
