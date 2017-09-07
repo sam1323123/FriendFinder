@@ -40,7 +40,7 @@ class AcceptedConnectionsObject: NSObject {
         //attache an event observer
         observerID = ref.observe(.childAdded, with: {(snapshot) in
             //set data field then alert all observers
-            let newValues = (snapshot.exists()) ? snapshot.value as! [String: [String:String]] : [:]
+            let newValues = [snapshot.key: (snapshot.exists()) ? snapshot.value! as! [String:String] : [:]]
             self.newConnectionHandler(newChildren: newValues)
         }
             , withCancel: {(err) in

@@ -287,7 +287,6 @@ extension MenuViewController: ExpandableDelegate {
                 return UITableViewCell()
             }
             cell.itemNameLabel.text = item.name
-            print("Notif" + item.name)
             cell.itemIcon.image = item.icon
             cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
             cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
@@ -312,6 +311,8 @@ extension MenuViewController: ExpandableDelegate {
             }
             cell.itemNameLabel.text = item.name
             cell.itemIcon.image = item.icon
+            cell.arrowLabel.font = UIFont.fontAwesome(ofSize: cell.itemNameLabel.font.pointSize)
+            cell.arrowLabel.text = String.fontAwesomeIcon(name: .chevronRight)
             return cell
         }
     }
