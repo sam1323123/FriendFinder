@@ -45,6 +45,8 @@ class MenuViewController: UIViewController {
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         navigationController?.navigationBar.tintColor = .orange
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.orange]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.orange, NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline).setBold()]
         let barButton = UIBarButtonItem()
         barButton.title = " "
         navigationItem.backBarButtonItem = barButton

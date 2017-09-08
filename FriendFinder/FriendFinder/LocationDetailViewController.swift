@@ -300,7 +300,7 @@ extension LocationDetailViewController {
     // web link open handler
     func clickOnWeb() {
         guard let url = web else {
-            Utils.displayAlert(with: self, title: "Sorry", message: "No website available!", text: "OK")
+            Utils.displayAlert(with: self, title: "Sorry", message: "No website available.", text: "OK")
             return
         }
         if UIApplication.shared.canOpenURL(url) {

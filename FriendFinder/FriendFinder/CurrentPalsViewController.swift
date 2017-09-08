@@ -25,13 +25,19 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
     fileprivate let dbRef = Database.database().reference()
     private let storageRef = Storage.storage().reference()
     
-    private var users = [FFUser]()
-    private var usernames: [String]!
-    private var nameMap = [String:String]()
-    private var iconMap = [String:UIImage]()
+    fileprivate var broadcastingUsers = [FFUser]()
+    private var broadcastingUsernames: [String]!
+    private var broadcastingNameMap = [String:String]()
+    private var broadcastingIconMap = [String:UIImage]()
     
-    private var filteredUsers = [FFUser]()
+    fileprivate var receivingUsers = [FFUser]()
+    private var receivingUsernames: [String]!
+    private var receivingNameMap = [String:String]()
+    private var receivingIconMap = [String:UIImage]()
     
+    fileprivate var filteredUsers = [FFUser]()
+    
+    fileprivate var users = [FFUser]()
     
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
@@ -39,11 +45,11 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
     
     enum Scope: String {
         case all
-        case username
-        case name
+        case receive
+        case broadcast
     }
     
-    let scopeMap: [String:Scope] = ["All": .all, "Username": .username, "Name": .name]
+    let scopeMap: [String:Scope] = ["Receive From": .receive, "Broadcasting To": .broadcast]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +59,9 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
-        searchController.searchBar.scopeButtonTitles = ["All", "Name", "Username"]
+        searchController.searchBar.scopeButtonTitles = Array(scopeMap.keys)
         searchController.searchBar.delegate = self
+        searchController.searchBar.enablesReturnKeyAutomatically = true
         tableView.tableHeaderView = searchController.searchBar
         // Setup the search footer
         tableView.tableFooterView = searchFooter
@@ -63,6 +70,7 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
+        title = "Current Pals"
         initData()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -88,45 +96,43 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     fileprivate func filterContentForSearchText(_ searchText: String, scope: Scope = .all) {
-        let usernameMatch = (scope == .all) || (scope == .username)
-        let nameMatch = (scope == .all) || (scope == .name)
+        let broadcastMatch =  (scope == .broadcast)
+        users = broadcastMatch ? broadcastingUsers : receivingUsers
         filteredUsers = users.filter({( user : FFUser) -> Bool in
             var filter = false
-            if (nameMatch) {
-                filter ||= user.name.lowercased().contains(searchText.lowercased())
-            }
-            if (usernameMatch) {
-                filter ||= user.username.lowercased().contains(searchText.lowercased())
-            }
+            filter ||= user.name.lowercased().contains(searchText.lowercased())
+            filter ||= user.username.lowercased().contains(searchText.lowercased())
             return filter
         })
-        
         tableView.reloadData()
     }
     
     fileprivate func isFiltering() -> Bool {
-        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+        return searchController.isActive && !searchBarIsEmpty()
     }
     
     private func initData() {
-        dbRef.child("usernames").observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
-            let data = snapshot.value as! [String:AnyObject]
-            self!.usernames = Array(data.keys)
-            for username in self!.usernames {
-                self!.nameMap[username] = (((data[username] as! [String:AnyObject])["name"])! as! String)
-                self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
-                    let image: UIImage
-                    if let error = error {
-                        // Uh-oh, an error occurred!
-                        print(error)
-                        image = #imageLiteral(resourceName: "no_image")
-                    } else {
-                        image = UIImage(data: data!)!
+        // broadcast to receivers
+        dbRef.child(FirebasePaths.locationReceivers(uid: (Auth.auth().currentUser?.uid)!)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+            let data = snapshot.value as? [String:AnyObject] ?? [:]
+            self!.receivingUsernames = Array(data.keys)
+            for username in self!.receivingUsernames {
+                self!.dbRef.child(FirebasePaths.usernameProfileName(username: username)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+                    let name = snapshot.value as! String
+                    self!.receivingNameMap[username] = name
+                    self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                        let image: UIImage
+                        if let error = error {
+                            // Uh-oh, an error occurred!
+                            print(error)
+                            image = #imageLiteral(resourceName: "no_image")
+                        } else {
+                            image = UIImage(data: data!)!
+                        }
+                        self?.receivingIconMap[username] = image
+                        self?.receivingUsers.append(FFUser(name: self!.receivingNameMap[username]!, username: username, picture: image))
                     }
-                    self?.iconMap[username] = image
-                    self?.users.append(FFUser(name: self!.nameMap[username]!, username: username, picture: image))
-                }
+                })
             }
             self?.spinner.center = self!.tableView.center
             self?.tableView.addSubview(self!.spinner)
@@ -134,19 +140,37 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
             self?.spinner.startAnimating()
             self?.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self!, selector: #selector(self?.checkDone), userInfo: nil, repeats: true)
         })
+        // receive from broadcasters
+        dbRef.child(FirebasePaths.locationBroadcasters(uid: (Auth.auth().currentUser?.uid)!)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+            let data = snapshot.value as? [String:AnyObject] ?? [:]
+            self!.broadcastingUsernames = Array(data.keys)
+            for username in self!.broadcastingUsernames {
+                self!.dbRef.child(FirebasePaths.usernameProfileName(username: username)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
+                    let name = snapshot.value as! String
+                    self!.broadcastingNameMap[username] = name
+                    self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                        let image: UIImage
+                        if let error = error {
+                            // Uh-oh, an error occurred!
+                            print(error)
+                            image = #imageLiteral(resourceName: "no_image")
+                        } else {
+                            image = UIImage(data: data!)!
+                        }
+                        self?.broadcastingIconMap[username] = image
+                        self?.broadcastingUsers.append(FFUser(name: self!.broadcastingNameMap[username]!, username: username, picture: image))
+                    }
+                })
+            }
+        })
     }
     
     func checkDone() {
-        if (users.count == usernames.count) {
+        if (broadcastingUsers.count == broadcastingUsernames.count && receivingUsers.count == receivingUsernames.count) {
             timer?.invalidate()
             spinner.stopAnimating()
             tableView.reloadData()
-        }
-    }
-
-    func onButtonClick(sender: UserSelectionButton) {
-        if (sender.titleLabel?.text == String.fontAwesomeIcon(name: .plus)) {
-            
+            searchController.isActive = true
         }
     }
 
@@ -185,19 +209,6 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
-     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let stop = UITableViewRowAction(style: .normal, title: String.fontAwesomeIcon(name: .stop)) { action, index in
-            print("stop button tapped")
-        }
-        stop.backgroundColor = .lightGray
-        
-        let block = UITableViewRowAction(style: .normal, title: String.fontAwesomeIcon(name: .minus)) { action, index in
-            print("block button tapped")
-        }
-        stop.backgroundColor = .orange
-        return [stop, block]
-    }
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -274,9 +285,41 @@ extension CurrentPalsViewController: SwipeTableViewCellDelegate {
         }
         stopAction.image = UIImage.fontAwesomeIcon(name: .stop, textColor: .orange, size: CGSize(width: 30, height: 30))
         stopAction.backgroundColor = .teal */
-        let blockAction = SwipeAction(style: .default, title: "Block") { action, indexPath in
-            // handle action by updating model with deletion
-            print("BLOCK")
+        let blockAction = SwipeAction(style: .destructive, title: "Block") {
+            [weak self] action, indexPath in
+            Utils.displayAlertWithCancel(with: self!, title: "Warning!", message: "Are you sure you want to do this?", text: "Yes", style: .destructive, callback: {
+                let path: String
+                let scope = self!.scopeMap[(Array(self!.scopeMap.keys))[self!.searchController.searchBar.selectedScopeButtonIndex]]!
+                if scope == .broadcast {
+                    path = FirebasePaths.locationBroadcasters(uid: (Auth.auth().currentUser?.uid)!)
+                }
+                else {
+                    path = FirebasePaths.locationReceivers(uid: (Auth.auth().currentUser?.uid)!)
+                }
+                self!.dbRef.child(path).removeValue(completionBlock: { [weak self](error, ref) in
+                    if let error = error {
+                        print(error)
+                        Utils.displayAlert(with: self!, title: "Sorry!", message: "Server could not be reached.", text: "OK")
+                    }
+                    else {
+                        // remove user
+                        if self!.isFiltering() {
+                            self!.filteredUsers.remove(at: indexPath.row)
+                        } else {
+                            self!.users.remove(at: indexPath.row)
+                        }
+                        if scope == .broadcast {
+                            self!.broadcastingUsers.remove(at: indexPath.row)
+                        }
+                        else {
+                            self!.receivingUsers.remove(at: indexPath.row)
+                        }
+                        self!.tableView.beginUpdates()
+                        self!.tableView.deleteRows(at: [indexPath], with: .left)
+                        self!.tableView.endUpdates()
+                    }
+                })
+            })
         }
         blockAction.image = UIImage.fontAwesomeIcon(name: .minus, textColor: .red, size: CGSize(width: 30, height: 30))
         blockAction.backgroundColor = .lightTeal
@@ -286,7 +329,7 @@ extension CurrentPalsViewController: SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
         var options = SwipeTableOptions()
-        options.expansionStyle = .selection
+        options.expansionStyle = .none
         options.transitionStyle = .border
         options.backgroundColor = .teal
         return options

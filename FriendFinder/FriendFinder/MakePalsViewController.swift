@@ -52,8 +52,9 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
-        searchController.searchBar.scopeButtonTitles = ["All", "Name", "Username"]
+        searchController.searchBar.scopeButtonTitles = Array(scopeMap.keys)
         searchController.searchBar.delegate = self
+        searchController.searchBar.enablesReturnKeyAutomatically = true
         tableView.tableHeaderView = searchController.searchBar
         // Setup the search footer
         tableView.tableFooterView = searchFooter
@@ -62,6 +63,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
+        title = "Make Pals"
         initData()
         filterData()
         tableView.estimatedRowHeight = tableView.rowHeight

@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class NotificationDetailViewController: UITableViewController {
 
@@ -20,8 +21,10 @@ class NotificationDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Notifications"
         let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         for username in usernames.keys {
             //populate data array
@@ -66,7 +69,7 @@ class NotificationDetailViewController: UITableViewController {
      }
      */
     
-    func handleAcceptNotification(sender: UIButton) {
+    func handleAcceptPressed(sender: UIButton) {
         guard let username = self.username, let preferredName = self.preferredName else {
             print("USERNAME AND PREFERREDNAME NOT SET IN NotificatioDetail VC")
             return //error case should not happen
@@ -77,19 +80,26 @@ class NotificationDetailViewController: UITableViewController {
         //insert accept message to counter party's connections field
         let user = sender.user
         let acceptMessage = ["\(username)":["name": preferredName, "accepted": "true"]]
-        ref.child(FirebasePaths.connections(username: user!.username)).updateChildValues(acceptMessage, withCompletionBlock: {(err, dbRef) in
+        ref.child(FirebasePaths.connectionRequestReply(username: user!.username)).updateChildValues(acceptMessage, withCompletionBlock: {(err, dbRef) in
             if let err = err {
                 print("Cannot Write Accept Message: \(acceptMessage) because of \(err)")
                 return
             }
             //no error so remove entry. Following call automatically reloads data due to listener
-            PendingNotificationObject.sharedInstance.removeRequest(username: user!.username ?? "")
+            PendingNotificationObject.sharedInstance.removeRequest(username: user!.username)
+            
+            //insert into locationTo table
+            self.ref.child(FirebasePaths.locationReceivers(uid: Auth.auth().currentUser!.uid)).updateChildValues([user!.username: "Placeholder for pubnub"], withCompletionBlock: {(err, dbref) in
+                if let err = err {
+                    print("locationsTo update failed due to \(err)")
+                    return
+                }})
         })
 
     }
     
     
-    func handleDeclineNotification(sender: UIButton) {
+    func handleDeclinePressed(sender: UIButton) {
         guard let username = self.username else {
             print("USERNAME AND PREFERREDNAME NOT SET IN NotificatioDetail VC")
             return //error case should not happen
@@ -100,7 +110,7 @@ class NotificationDetailViewController: UITableViewController {
         //insert accept message to counter party's connections field
         let user = sender.user
         let declineMessage = ["\(username)":["name": preferredName, "accepted": "false"]]
-        ref.child(FirebasePaths.connections(username: user!.username)).updateChildValues(declineMessage, withCompletionBlock: {(err, dbRef) in
+        ref.child(FirebasePaths.connectionRequestReply(username: user!.username)).updateChildValues(declineMessage, withCompletionBlock: {(err, dbRef) in
             if let err = err {
                 print("Cannot Decline because of \(err)")
                 return
@@ -133,8 +143,8 @@ class NotificationDetailViewController: UITableViewController {
         let user = FFUser(name: "", username: item.username)
         cell.acceptButton.user = user
         cell.declineButton.user = user
-        cell.acceptButton.addTarget(self, action: #selector(handleAcceptNotification(sender:)), for: .touchUpInside)
-        cell.declineButton.addTarget(self, action: #selector(handleDeclineNotification(sender:)), for: .touchUpInside)
+        cell.acceptButton.addTarget(self, action: #selector(handleAcceptPressed(sender:)), for: .touchUpInside)
+        cell.declineButton.addTarget(self, action: #selector(handleDeclinePressed(sender:)), for: .touchUpInside)
         return cell
     }
     
