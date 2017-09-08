@@ -281,6 +281,7 @@ extension LoginController: GIDSignInDelegate, GIDSignInUIDelegate {
     
     //required local wrapper for google sigin
     func googleSignInPressed() {
+        print(Auth.auth().currentUser)
         GIDSignIn.sharedInstance().signIn()
     }
     

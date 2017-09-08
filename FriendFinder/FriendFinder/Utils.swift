@@ -106,8 +106,14 @@ class Utils {
                 let message = tuple.1
                 Utils.displayAlert(with: controller, title: title, message: message, text: "OK")
             }
+            else if code == .accountExistsWithDifferentCredential && (error.debugDescription.components(separatedBy: "FIRAuthErrorUserInfoEmailKey").count) > 1 {
+                    let text = error.debugDescription.components(separatedBy: "FIRAuthErrorUserInfoEmailKey")
+                var email = text.last!
+                email = email.trimmingCharacters(in:  NSCharacterSet.alphanumerics.inverted)
+                Utils.displayAlert(with: controller, title: "Account Error" , message: "Please use signed in account with email: \(email)", text: "OK")
+            }
             else {
-                Utils.displayAlert(with: controller, title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
+                Utils.displayAlert(with: controller, title: "Unexpected Error in Login" , message: "Please try again later due to error = \(error!)", text: "OK")
             }
         }
         
