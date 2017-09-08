@@ -52,6 +52,7 @@ class MenuViewController: UIViewController {
         tableView.expandableDelegate = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.rowHeight = UITableViewAutomaticDimension
+        initializeNavbar()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
     }
@@ -98,6 +99,31 @@ class MenuViewController: UIViewController {
         tableView.closeAll()
     }
     
+    
+    func initializeNavbar() {
+        let username = UserDefaults.standard.value(forKey: "username") as! String
+        let imageData = UserDefaults.standard.value(forKey: "profileImage") as? Data
+        let navbarNib = UINib(nibName: "navbarView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? SideMenuNavbar
+        if(navbarNib == nil) {
+            print("COULD NOT FIND NIB FILE")
+            return
+        }
+        let navView = navbarNib!
+        var image: UIImage? = nil
+        if let imageData = imageData {
+            image = UIImage(data: imageData)
+        }
+        navView.awakeAndInitialize(image: image, title: username)
+        
+        //navigationController?.navigationItem.titleView = navView
+        navigationItem.titleView = navView
+        
+        print("initialized!!!!!!")
+        /*print((navigationController?.navigationItem.titleView as! SideMenuNavbar).titleLabel.text)
+        print((navigationController?.navigationItem.titleView as! SideMenuNavbar).bounds.size)
+        */
+        
+    }
 
     /* MARK: - Table view data source
 

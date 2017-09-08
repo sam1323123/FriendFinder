@@ -30,6 +30,7 @@ class NotificationDetailViewController: UITableViewController {
             let elem = FFUser(name: usernames[username]!, username: username)
             data.append(elem)
         }
+        initializeNavbar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +48,27 @@ class NotificationDetailViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func initializeNavbar() {
+        let username = UserDefaults.standard.value(forKey: "username") as! String
+        let imageData = UserDefaults.standard.value(forKey: "profileImage") as? Data
+        let navbarNib = UINib(nibName: "navbarView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? SideMenuNavbar
+        if(navbarNib == nil) {
+            print("COULD NOT FIND NIB FILE")
+            return
+        }
+        let navView = navbarNib!
+        var image: UIImage?
+        if let imageData = imageData {
+            print("Retrieved imagedata")
+            image = UIImage(data: imageData)
+        }
+        navView.awakeAndInitialize(image: image, title: username)
+        navigationItem.titleView = navView
+        
+        print("initialized!!!!!!")
+        
+    }
+    
     func handleNotification(_ notification: NSNotification) {
         let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
         var newData: [FFUser] = []
@@ -55,6 +77,7 @@ class NotificationDetailViewController: UITableViewController {
         }
         data = newData
         tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
+        
     }
     
     

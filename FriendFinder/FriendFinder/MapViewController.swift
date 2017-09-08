@@ -203,18 +203,19 @@ class MapViewController: UIViewController {
     private func initializeUserInfo() {
         let username = UserDefaults.standard.string(forKey: "username")
         let preferredName = UserDefaults.standard.string(forKey: "name")
+        let profileImageData = UserDefaults.standard.value(forKey: "profileImage")
         if(username != nil && preferredName != nil) {
+            if(profileImageData == nil) {
+                fetchAndSaveProfileImage(username: username!)
+            }
             self.userName = username
             self.preferredName = preferredName
             AcceptedConnectionsObject.sharedInstance.start(username: username!)
             //start listening for new connections. Only need to start here, effect seen in all subsequent VCs
             visualEffectView.removeFromSuperview()
             visualEffectView = nil
-            return
-            
         }
         else {
-        
             ref.child(FirebasePaths.uidProfile(uid: Auth.auth().currentUser!.uid)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
                 if snapshot.hasChild("username") && snapshot.hasChild("name") {
                     let data = snapshot.value as! [String:AnyObject]
@@ -224,6 +225,7 @@ class MapViewController: UIViewController {
                     UserDefaults.standard.setValue(self?.preferredName, forKey: "name")
                     AcceptedConnectionsObject.sharedInstance.start(username: (self?.userName)!)
                     //start listening for new connections. Only need to start here, effect seen in all subsequent VCs
+                    self?.fetchAndSaveProfileImage(username: (self?.userName)!)
                     self?.visualEffectView.removeFromSuperview()
                     self?.visualEffectView = nil
                     return
@@ -244,6 +246,26 @@ class MapViewController: UIViewController {
                         })
                 })
         }
+        
+    }
+    
+
+    
+    func fetchAndSaveProfileImage(username: String) {
+        
+        //fetch and save profileImage
+        let storageRef = Storage.storage().reference()
+        storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error)
+            } else {
+                print("SETTING PROFILE IMAGE")
+                UserDefaults.standard.set(data! , forKey: "profileImage")
+                //store the image as Data object in userdefaults
+            }
+        
+        }
     }
     
     private func animateUserInputScreen() {
@@ -259,6 +281,7 @@ class MapViewController: UIViewController {
             self!.visualEffectView.effect = self!.visualEffect
             self!.userView.alpha = 1
             self!.userView.transform = CGAffineTransform.identity
+            
         })
     }
     

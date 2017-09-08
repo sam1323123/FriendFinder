@@ -34,6 +34,8 @@
 		982894801F5552400058592F /* UserSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9828947F1F5552400058592F /* UserSelectionButton.swift */; };
 		98587B761F2F23CD00E4452D /* DragDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587B751F2F23CD00E4452D /* DragDismissAnimator.swift */; };
 		98587B781F2F2AC900E4452D /* SwipeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587B771F2F2AC900E4452D /* SwipeInteractor.swift */; };
+		9858CBFF1F61C1E9007F37B8 /* navbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9858CBFE1F61C1E9007F37B8 /* navbarView.xib */; };
+		9858CC011F61C499007F37B8 /* SideMenuNavbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858CC001F61C499007F37B8 /* SideMenuNavbar.swift */; };
 		98A11D531EFA53F2007050E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D521EFA53F2007050E4 /* AppDelegate.swift */; };
 		98A11D551EFA53F2007050E4 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A11D541EFA53F2007050E4 /* LaunchController.swift */; };
 		98A11D581EFA53F2007050E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98A11D561EFA53F2007050E4 /* Main.storyboard */; };
@@ -106,6 +108,8 @@
 		9828947F1F5552400058592F /* UserSelectionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectionButton.swift; sourceTree = "<group>"; };
 		98587B751F2F23CD00E4452D /* DragDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragDismissAnimator.swift; sourceTree = "<group>"; };
 		98587B771F2F2AC900E4452D /* SwipeInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeInteractor.swift; sourceTree = "<group>"; };
+		9858CBFE1F61C1E9007F37B8 /* navbarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = navbarView.xib; sourceTree = "<group>"; };
+		9858CC001F61C499007F37B8 /* SideMenuNavbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuNavbar.swift; sourceTree = "<group>"; };
 		98A11D4F1EFA53F2007050E4 /* FriendFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FriendFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A11D521EFA53F2007050E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98A11D541EFA53F2007050E4 /* LaunchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 				98B48AB81F1C950400099AF2 /* InfoWindowView.swift */,
 				426E15DF1F5D088E000F4200 /* SearchFooter.swift */,
 				98B48ABA1F1DEF5A00099AF2 /* ProportionalLabel.swift */,
+				9858CBFE1F61C1E9007F37B8 /* navbarView.xib */,
+				9858CC001F61C499007F37B8 /* SideMenuNavbar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -402,6 +408,7 @@
 				982351231F036A58005F853F /* GoogleService-Info.plist in Resources */,
 				98A11D5A1EFA53F2007050E4 /* Assets.xcassets in Resources */,
 				98B48AB71F1C94DD00099AF2 /* InfoWindowView.xib in Resources */,
+				9858CBFF1F61C1E9007F37B8 /* navbarView.xib in Resources */,
 				42568A4B1F3DC763007E0B05 /* fontawesome-webfont.ttf in Resources */,
 				98A11D581EFA53F2007050E4 /* Main.storyboard in Resources */,
 				42FF92171F0F7B0800A6421B /* Default-568h@2x.png in Resources */,
@@ -589,6 +596,7 @@
 				9823B06C1F08D5EB00982623 /* MapViewController.swift in Sources */,
 				425DF9D61F576C0800A500C1 /* UserViewCell.swift in Sources */,
 				982258791F5D0E5800CE735B /* AcceptedConnectionsObject.swift in Sources */,
+				9858CC011F61C499007F37B8 /* SideMenuNavbar.swift in Sources */,
 				98587B761F2F23CD00E4452D /* DragDismissAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -72,6 +72,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.allowsSelection = false
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,6 +90,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
+    
     
     fileprivate func filterContentForSearchText(_ searchText: String, scope: Scope = .all) {
         let usernameMatch = (scope == .all) || (scope == .username)
