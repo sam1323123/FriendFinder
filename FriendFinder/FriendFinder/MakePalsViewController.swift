@@ -23,7 +23,21 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     fileprivate let dbRef = Database.database().reference()
     private let storageRef = Storage.storage().reference()
     
-    private var users = [FFUser]()
+    private var hasLoaded = false
+    
+    private var users = [FFUser]() {
+        didSet {
+            if users.isEmpty && hasLoaded {
+                Utils.displayFiller(for: tableView)
+            }
+            else if oldValue.isEmpty && !users.isEmpty && hasLoaded {
+                if let viewWithTag = view.viewWithTag(Utils.imageViewFillerTag) {
+                    viewWithTag.removeFromSuperview()
+                }
+            }
+        }
+    }
+
     private var usernames: [String]!
     private var nameMap = [String:String]()
     private var iconMap = [String:UIImage]()
@@ -92,6 +106,14 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     fileprivate func filterContentForSearchText(_ searchText: String, scope: Scope = .all) {
         let usernameMatch = (scope == .all) || (scope == .username)
         let nameMatch = (scope == .all) || (scope == .name)
+        
+        // No input from user yet
+        if searchText.isEmpty {
+            filteredUsers = users
+            tableView.reloadData()
+            return
+        }
+        
         filteredUsers = users.filter({( user : FFUser) -> Bool in
             var filter = false
             if (nameMatch) {
@@ -158,6 +180,10 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
             timer?.invalidate()
             spinner.stopAnimating()
             tableView.reloadData()
+            hasLoaded = true
+            if users.isEmpty {
+                users = []
+            }
         }
     }
 

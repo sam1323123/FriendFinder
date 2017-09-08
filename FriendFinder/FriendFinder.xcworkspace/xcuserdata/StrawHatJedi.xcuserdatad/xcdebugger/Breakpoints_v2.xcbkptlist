@@ -2,4 +2,84 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FriendFinder/Utils.swift"
+            timestampString = "526569778.822531"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "Utils"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.Utils.__deallocating_deinit"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/Utils.swift"
+                  timestampString = "526569779.697327"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.Utils.deinit"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/Utils.swift"
+                  timestampString = "526569779.701734"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.Utils.init () -&gt; FriendFinder.Utils"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/Utils.swift"
+                  timestampString = "526569779.70428"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FriendFinder.Utils.__allocating_init () -&gt; FriendFinder.Utils"
+                  moduleName = "FriendFinder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ganguli/FriendFinder/FriendFinder/FriendFinder/Utils.swift"
+                  timestampString = "526569779.706582"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

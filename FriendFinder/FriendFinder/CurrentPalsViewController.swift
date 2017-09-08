@@ -25,6 +25,8 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
     fileprivate let dbRef = Database.database().reference()
     private let storageRef = Storage.storage().reference()
     
+    private var hasLoaded = false
+    
     fileprivate var broadcastingUsers = [FFUser]()
     private var broadcastingUsernames: [String]!
     private var broadcastingNameMap = [String:String]()
@@ -37,7 +39,18 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
     
     fileprivate var filteredUsers = [FFUser]()
     
-    fileprivate var users = [FFUser]()
+    fileprivate var users = [FFUser]() {
+        didSet {
+            if users.isEmpty && hasLoaded {
+                Utils.displayFiller(for: tableView)
+            }
+            else if oldValue.isEmpty && !users.isEmpty && hasLoaded {
+                if let viewWithTag = view.viewWithTag(Utils.imageViewFillerTag) {
+                    viewWithTag.removeFromSuperview()
+                }
+            }
+        }
+    }
     
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
@@ -171,6 +184,10 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
             spinner.stopAnimating()
             tableView.reloadData()
             searchController.isActive = true
+            hasLoaded = true
+            if users.isEmpty {
+                users = []
+            }
         }
     }
 

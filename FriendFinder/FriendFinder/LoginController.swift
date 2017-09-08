@@ -58,7 +58,9 @@ class LoginController: UIViewController {
         }
         else {
             spinner.stopAnimating()
-            view.removeFromSuperview()
+            if let viewWithTag = view.viewWithTag(Utils.loginStartupTag) {
+                viewWithTag.removeFromSuperview()
+            }
         }
     
     }
@@ -67,6 +69,7 @@ class LoginController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let view = UIView(frame: self.view.frame)
+        view.tag = Utils.loginStartupTag
         UIGraphicsBeginImageContext(self.view.frame.size)
         #imageLiteral(resourceName: "high-five-sunset-portrait").draw(in: self.view.bounds)
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
