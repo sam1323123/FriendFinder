@@ -72,6 +72,9 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.backgroundColor = .teal
+        textFieldInsideSearchBar?.textColor = .white
         searchController.searchBar.scopeButtonTitles = Array(scopeMap.keys)
         searchController.searchBar.delegate = self
         searchController.searchBar.enablesReturnKeyAutomatically = true

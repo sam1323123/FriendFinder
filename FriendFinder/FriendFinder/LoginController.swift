@@ -435,28 +435,10 @@ extension LoginController {
         }
             
         else {
-            handleSignInError(error: error)
+            Utils.handleSignInError(error: error, controller: self)
         }
     }
     
-    //helper to handle sign in errors
-    private func handleSignInError(error: Error?) {
-        if(error == nil) {
-            //nil check
-            return
-        }
-        if let code = AuthErrorCode(rawValue: error!._code) {
-            if let tuple = errorDict[code] {
-                let title = tuple.0
-                let message = tuple.1
-                Utils.displayAlert(with: self, title: title, message: message, text: "OK")
-            }
-            else {
-                Utils.displayAlert(with: self, title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
-            }
-        }
-        
-    }
 }
 
 

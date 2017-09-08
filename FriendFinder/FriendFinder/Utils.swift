@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 import ContactsUI
-import FirebaseStorage
-import FirebaseDatabase
+import FirebaseAuth
 
 infix operator ||=
 func ||=(lhs: inout Bool, rhs: Bool) { lhs = (lhs || rhs) }
@@ -93,6 +92,27 @@ class Utils {
         emptyView.bringSubview(toFront: imageView)
     }
     
+    
+    // Helper to handle sign in errors
+    static func handleSignInError(error: Error?, controller: UIViewController) {
+        if(error == nil) {
+            //nil check
+            return
+        }
+        let errorDict = Errors.firebaseErrors
+        if let code = AuthErrorCode(rawValue: error!._code) {
+            if let tuple = errorDict[code] {
+                let title = tuple.0
+                let message = tuple.1
+                Utils.displayAlert(with: controller, title: title, message: message, text: "OK")
+            }
+            else {
+                Utils.displayAlert(with: controller, title: "Unexpected Error in Login" , message: "Pleas try again later due to error = \(error!)", text: "OK")
+            }
+        }
+        
+    }
+
     
 }
 
