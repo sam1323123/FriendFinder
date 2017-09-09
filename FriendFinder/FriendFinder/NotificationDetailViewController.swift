@@ -12,15 +12,29 @@ import FirebaseAuth
 
 class NotificationDetailViewController: UITableViewController {
 
-    var ref: DatabaseReference! = Database.database().reference()
-    var username = UserDefaults.standard.value(forKey: "username") as? String
-    var preferredName = UserDefaults.standard.value(forKey: "name") as? String
+    private var ref: DatabaseReference! = Database.database().reference()
+    private var username = UserDefaults.standard.value(forKey: "username") as? String
+    private var preferredName = UserDefaults.standard.value(forKey: "name") as? String
 
+    private var hasLoaded = false
     
-    var data: [FFUser] = Array()
+    private var data = [FFUser]() {
+        didSet {
+            if data.isEmpty && hasLoaded {
+                Utils.displayFiller(for: tableView, width: tableView.frame.width * 0.75)
+            }
+            else if oldValue.isEmpty && !data.isEmpty && hasLoaded {
+                if let viewWithTag = view.viewWithTag(Utils.imageViewFillerTag) {
+                    viewWithTag.removeFromSuperview()
+                }
+            }
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Notifications"
         let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.estimatedRowHeight = tableView.rowHeight
@@ -31,16 +45,22 @@ class NotificationDetailViewController: UITableViewController {
             data.append(elem)
         }
         initializeNavbar()
+        print(tableView.center, tableView.frame.minX, tableView.frame.maxX )
+        if data.isEmpty {
+            Utils.displayFiller(for: tableView, width: tableView.frame.width * 0.75, center: CGPoint(x: (tableView.frame.minX + tableView.frame.width * 0.75) * 0.5, y: tableView.center.y))
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         PendingNotificationObject.sharedInstance.registerObserver(observer: self, action: #selector(handleNotification(_:)))
+        AcceptedConnectionsObject.sharedInstance.registerObserver(observer: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         PendingNotificationObject.sharedInstance.removeObserver(observer: self)
+        AcceptedConnectionsObject.sharedInstance.removeObserver(observer: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,6 +95,7 @@ class NotificationDetailViewController: UITableViewController {
         for username in usernames.keys {
             newData.append(FFUser(name: usernames[username]!, username: username))
         }
+        hasLoaded = true
         data = newData
         tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
         

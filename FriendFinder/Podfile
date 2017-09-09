@@ -59,6 +59,10 @@ target 'FriendFinder' do
   # For expandable cell
   pod 'ExpandableCell'
 
+  # Latest release in CocoaPods
+  pod 'SwipeCellKit'
+
+
   target 'FriendFinderTests' do
     inherit! :search_paths
     # Pods for testing

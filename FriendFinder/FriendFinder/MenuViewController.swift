@@ -45,6 +45,8 @@ class MenuViewController: UIViewController {
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         navigationController?.navigationBar.tintColor = .orange
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.orange]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.orange, NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline).setBold()]
         let barButton = UIBarButtonItem()
         barButton.title = " "
         navigationItem.backBarButtonItem = barButton
@@ -60,6 +62,7 @@ class MenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         PendingNotificationObject.sharedInstance.registerObserver(observer: self, action: #selector(notificationHandler(_:)) )
+        AcceptedConnectionsObject.sharedInstance.registerObserver(observer: self)
         
         //reupdate view if necessary
         guard let cell = notificationCellRef else {
@@ -83,6 +86,7 @@ class MenuViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         PendingNotificationObject.sharedInstance.removeObserver(observer: self)
+        AcceptedConnectionsObject.sharedInstance.removeObserver(observer: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -180,7 +184,7 @@ class MenuViewController: UIViewController {
     */
 
     func initOptions() {
-        let pals = MenuItem(name: "Pals", segueID: "PalMenu")
+        let pals = MenuItem(name: "Pals", segueID: "Current Pals Menu")
         let connections = MenuItem(name: "Make Pals", segueID: "Make Pals Menu")
         let notifs = MenuItem(name: "Notifications", segueID: "Notifications Menu")
         let invites = MenuItem(name: "Invites", segueID: "Invite Menu")

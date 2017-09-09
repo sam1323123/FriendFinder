@@ -135,6 +135,13 @@ class LocationDetailViewController: UIViewController {
         webButton.addTarget(self, action: #selector(clickOnWeb), for: .touchUpInside)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        AcceptedConnectionsObject.sharedInstance.registerObserver(observer: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+            AcceptedConnectionsObject.sharedInstance.removeObserver(observer: self)
+    }
     
 
     override func didReceiveMemoryWarning() {
@@ -300,7 +307,7 @@ extension LocationDetailViewController {
     // web link open handler
     func clickOnWeb() {
         guard let url = web else {
-            Utils.displayAlert(with: self, title: "Sorry", message: "No website available!", text: "OK")
+            Utils.displayAlert(with: self, title: "Sorry", message: "No website available.", text: "OK")
             return
         }
         if UIApplication.shared.canOpenURL(url) {

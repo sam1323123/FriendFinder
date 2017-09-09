@@ -181,6 +181,7 @@ class MapViewController: UIViewController {
         navigationController?.navigationBar.backIndicatorImage = backImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = backImage
         navigationController?.navigationBar.tintColor = .orange
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.orange, NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline).setBold()]
         let barButton = UIBarButtonItem()
         barButton.title = " "
         navigationItem.backBarButtonItem = barButton
@@ -197,6 +198,7 @@ class MapViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         PendingNotificationObject.sharedInstance.removeObserver(observer: self)
+        AcceptedConnectionsObject.sharedInstance.removeObserver(observer: self)
     }
     
     //Call this method to initializ all user profile info like username and preferred name
@@ -210,6 +212,7 @@ class MapViewController: UIViewController {
             }
             self.userName = username
             self.preferredName = preferredName
+            AcceptedConnectionsObject.sharedInstance.registerObserver(observer: self)
             AcceptedConnectionsObject.sharedInstance.start(username: username!)
             //start listening for new connections. Only need to start here, effect seen in all subsequent VCs
             visualEffectView.removeFromSuperview()
@@ -223,6 +226,7 @@ class MapViewController: UIViewController {
                     self?.preferredName = data["name"] as? String
                     UserDefaults.standard.setValue(self?.userName, forKey: "username")
                     UserDefaults.standard.setValue(self?.preferredName, forKey: "name")
+                    AcceptedConnectionsObject.sharedInstance.registerObserver(observer: self!)
                     AcceptedConnectionsObject.sharedInstance.start(username: (self?.userName)!)
                     //start listening for new connections. Only need to start here, effect seen in all subsequent VCs
                     self?.fetchAndSaveProfileImage(username: (self?.userName)!)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		111B8F1B3ED00CDC52DA2843 /* Pods_FriendFinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE84B12AA706F1B764A408 /* Pods_FriendFinderTests.framework */; };
+		42334CBF1F616A5000AFBCFF /* CurrentPalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42334CBE1F616A5000AFBCFF /* CurrentPalsViewController.swift */; };
 		42557F401F5D053C00153AFE /* PXGoogleDirections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42557F3F1F5D053C00153AFE /* PXGoogleDirections.framework */; };
 		42557F411F5D053C00153AFE /* PXGoogleDirections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42557F3F1F5D053C00153AFE /* PXGoogleDirections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42568A4B1F3DC763007E0B05 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */; };
@@ -81,6 +82,7 @@
 
 /* Begin PBXFileReference section */
 		01F4749EBE82D52B2E3A3229 /* Pods-FriendFinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FriendFinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FriendFinderTests/Pods-FriendFinderTests.release.xcconfig"; sourceTree = "<group>"; };
+		42334CBE1F616A5000AFBCFF /* CurrentPalsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentPalsViewController.swift; sourceTree = "<group>"; };
 		42557F3F1F5D053C00153AFE /* PXGoogleDirections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PXGoogleDirections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42568A4A1F3DC762007E0B05 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		425DF9D51F576C0800A500C1 /* UserViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				98B48ABC1F236AD800099AF2 /* LocationDetailViewController.swift */,
 				42AB1D461F406E6B0022B88F /* MenuViewController.swift */,
 				427521E71F4D6E720098FFB0 /* TextMessageViewController.swift */,
+				42334CBE1F616A5000AFBCFF /* CurrentPalsViewController.swift */,
 				427521DF1F4A9C450098FFB0 /* MakePalsViewController.swift */,
 				982258711F57704E00CE735B /* NotificationDetailViewController.swift */,
 			);
@@ -440,7 +443,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4F6674CAD088B3ED4979AC14 /* [CP] Copy Pods Resources */ = {
@@ -498,7 +501,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DC0571731B0E542E1D354FF1 /* [CP] Embed Pods Frameworks */ = {
@@ -521,6 +524,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/PubNub/PubNub.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -539,6 +543,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PubNub.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -580,6 +585,7 @@
 				98B48AB91F1C950400099AF2 /* InfoWindowView.swift in Sources */,
 				42EDBAFA1F1A346600C40DAE /* Utils.swift in Sources */,
 				98B48ABD1F236AD800099AF2 /* LocationDetailViewController.swift in Sources */,
+				42334CBF1F616A5000AFBCFF /* CurrentPalsViewController.swift in Sources */,
 				98D846391F44508F00EF3BED /* PendingNotificationObject.swift in Sources */,
 				98A11D751EFE0287007050E4 /* NextViewController.swift in Sources */,
 				98A11D731EFA5439007050E4 /* LoginController.swift in Sources */,

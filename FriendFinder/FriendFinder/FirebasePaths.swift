@@ -46,7 +46,7 @@ struct FirebasePaths {
         return "users/\(uid)/locationTo"
     }
     //get all users who are broadcasting to uid
-    static func locationTransmitters(uid: String) ->String {
+    static func locationBroadcasters(uid: String) ->String {
         return "users/\(uid)/locationFrom"
     }
 

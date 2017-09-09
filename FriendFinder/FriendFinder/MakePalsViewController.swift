@@ -12,9 +12,6 @@ import FirebaseStorage
 import FirebaseAuth
 import SideMenu
 
-infix operator ||=
-func ||=(lhs: inout Bool, rhs: Bool) { lhs = (lhs || rhs) }
-
 class MakePalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
@@ -26,7 +23,21 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     fileprivate let dbRef = Database.database().reference()
     private let storageRef = Storage.storage().reference()
     
-    private var users = [FFUser]()
+    private var hasLoaded = false
+    
+    private var users = [FFUser]() {
+        didSet {
+            if users.isEmpty && hasLoaded {
+                Utils.displayFiller(for: tableView)
+            }
+            else if oldValue.isEmpty && !users.isEmpty && hasLoaded {
+                if let viewWithTag = view.viewWithTag(Utils.imageViewFillerTag) {
+                    viewWithTag.removeFromSuperview()
+                }
+            }
+        }
+    }
+
     private var usernames: [String]!
     private var nameMap = [String:String]()
     private var iconMap = [String:UIImage]()
@@ -55,8 +66,9 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
-        searchController.searchBar.scopeButtonTitles = ["All", "Name", "Username"]
+        searchController.searchBar.scopeButtonTitles = Array(scopeMap.keys)
         searchController.searchBar.delegate = self
+        searchController.searchBar.enablesReturnKeyAutomatically = true
         tableView.tableHeaderView = searchController.searchBar
         // Setup the search footer
         tableView.tableFooterView = searchFooter
@@ -65,6 +77,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.backBarButtonItem?.title = String.fontAwesomeIcon(name: .chevronLeft)
+        title = "Make Pals"
         initData()
         filterData()
         tableView.estimatedRowHeight = tableView.rowHeight
@@ -75,10 +88,15 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        AcceptedConnectionsObject.sharedInstance.registerObserver(observer: self)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.visibleViewController?.present(SideMenuManager.menuLeftNavigationController!, animated: true)
+        AcceptedConnectionsObject.sharedInstance.removeObserver(observer: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,6 +113,14 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     fileprivate func filterContentForSearchText(_ searchText: String, scope: Scope = .all) {
         let usernameMatch = (scope == .all) || (scope == .username)
         let nameMatch = (scope == .all) || (scope == .name)
+        
+        // No input from user yet
+        if searchText.isEmpty {
+            filteredUsers = users
+            tableView.reloadData()
+            return
+        }
+        
         filteredUsers = users.filter({( user : FFUser) -> Bool in
             var filter = false
             if (nameMatch) {
@@ -161,11 +187,14 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
             timer?.invalidate()
             spinner.stopAnimating()
             tableView.reloadData()
+            hasLoaded = true
+            if users.isEmpty {
+                users = []
+            }
         }
     }
 
     func onButtonClick(sender: UserSelectionButton) {
-        print("clicked!")
         if (sender.titleLabel?.text == String.fontAwesomeIcon(name: .plus)) {
             requestConnection(user: sender.user!)
             sentUsernames.append(sender.user!.username)
