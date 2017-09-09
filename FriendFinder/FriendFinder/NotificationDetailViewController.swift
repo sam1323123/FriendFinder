@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import SideMenu
 
 class NotificationDetailViewController: UITableViewController {
 
@@ -21,7 +22,7 @@ class NotificationDetailViewController: UITableViewController {
     private var data = [FFUser]() {
         didSet {
             if data.isEmpty && hasLoaded {
-                Utils.displayFiller(for: tableView, width: tableView.frame.width * 0.75)
+                Utils.displayFiller(for: tableView, width: SideMenuManager.menuWidth, center: CGPoint(x: (tableView.frame.minX + SideMenuManager.menuWidth) * 0.5, y: tableView.center.y))
             }
             else if oldValue.isEmpty && !data.isEmpty && hasLoaded {
                 if let viewWithTag = view.viewWithTag(Utils.imageViewFillerTag) {
@@ -46,6 +47,7 @@ class NotificationDetailViewController: UITableViewController {
         }
         initializeNavbar()
         print(tableView.center, tableView.frame.minX, tableView.frame.maxX )
+
         if data.isEmpty {
             Utils.displayFiller(for: tableView, width: tableView.frame.width * 0.75, center: CGPoint(x: (tableView.frame.minX + tableView.frame.width * 0.75) * 0.5, y: tableView.center.y))
         }

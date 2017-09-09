@@ -12,6 +12,9 @@ import FBSDKCoreKit
 import FBSDKShareKit
 import ExpandableCell
 import FontAwesome_swift
+import FirebaseAuth
+import GoogleSignIn
+import FBSDKLoginKit
 
 class MenuViewController: UIViewController {
     
@@ -26,7 +29,27 @@ class MenuViewController: UIViewController {
             self.icon = icon
         }
     }
+    
+    
+    enum Provider {
+        case facebook
+        case google
+        case email
+        
+        func logOut() {
+            switch self {
+                case .facebook:
+                    FBSDKLoginManager().logOut()
+                case .google:
+                    GIDSignIn.sharedInstance().signOut()
+                default:
+                    break
+            }
+        }
+    }
 
+
+    fileprivate let providerMap: [String:Provider] = ["facebook.com": .facebook, "google.com": .google, "password": .email]
     var menuOptions: [MenuItem]!
     
     var notificationCellRef: NotificationTableViewCell? //used for async updates of notif count
@@ -188,7 +211,8 @@ class MenuViewController: UIViewController {
         let connections = MenuItem(name: "Make Pals", segueID: "Make Pals Menu")
         let notifs = MenuItem(name: "Notifications", segueID: "Notifications Menu")
         let invites = MenuItem(name: "Invites", segueID: "Invite Menu")
-        menuOptions = [pals, connections, notifs, invites]
+        let logOut = MenuItem(name: "Log Out", segueID: "Log Out")
+        menuOptions = [pals, connections, notifs, invites, logOut]
     }
 
     /*
@@ -261,6 +285,19 @@ extension MenuViewController: ExpandableDelegate {
         else if (item.name == "Notifications") {
             SideMenuManager.menuPushStyle = .subMenu
             performSegue(withIdentifier: item.segueID, sender: self)
+        }
+        else if (item.name == "Log Out") {
+            SideMenuManager.menuPushStyle = .defaultBehavior
+            Utils.displayAlertWithCancel(with: self, title: "Log Out", message: "Are you sure you want to do this?", text: "Yes", style: .destructive,callback: { [weak self] in
+                do {
+                    let provider = (self?.providerMap[(Auth.auth().currentUser?.providerData.first?.providerID)!]!)!
+                    try Auth.auth().signOut()
+                    provider.logOut()
+                    self!.performSegue(withIdentifier: "Back To Login", sender: self)
+                } catch let error as NSError {
+                    Utils.handleSignInError(error: error, controller: self!)
+                }
+            })
         }
         else {
             SideMenuManager.menuPushStyle = .defaultBehavior

@@ -24,7 +24,8 @@ public class Errors {
         .userDisabled: (title: "Account has been disabled!", message: "Please check email for instructions."),
         .wrongPassword: (title: "Wrong Password entered!", message: "Please try again."),
         .invalidUserToken: (tile: "Session has expired!", message: "Please login again."),
-        .operationNotAllowed: (title: "Email sign in not enabled!", message: "Check Firebase Config.")
+        .operationNotAllowed: (title: "Email sign in not enabled!", message: "Shouldn't happen!"),
+        .keychainError: (title: "Error occurred while accessing keychain.", message: "Please try again later.")
     ]
     
     public static let placeErrors : [GMSPlacesErrorCode:(String, String)] =

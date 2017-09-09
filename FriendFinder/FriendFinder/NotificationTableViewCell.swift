@@ -36,7 +36,6 @@ class NotificationTableViewCell: UITableViewCell {
     
     //ensures formatting is correct after setting properties of the labels like text...
     func recalibrateComponents() {
-        print("HEIGHT OF THE COUNTLABeL IS \(countLabel.frame.width)")
         countLabel.layer.cornerRadius = countLabel.frame.width/2  //makes it into circle
         countLabel.clipsToBounds = true
 

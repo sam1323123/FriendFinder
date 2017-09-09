@@ -733,6 +733,7 @@
                         <segue destination="QZv-o9-0l6" kind="show" identifier="Notifications Menu" id="fZT-At-Yf4"/>
                         <segue destination="GXe-4Z-xXc" kind="show" identifier="Make Pals Menu" id="IqL-eB-NfB"/>
                         <segue destination="gfb-5I-su3" kind="show" identifier="Current Pals Menu" id="txZ-M2-tST"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Back To Login" id="LEH-Mn-ifv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6d-IX-OhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1118,6 +1119,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vke-Oj-9hd"/>
+        <segue reference="DjO-CX-QdB"/>
     </inferredMetricsTieBreakers>
 </document>
