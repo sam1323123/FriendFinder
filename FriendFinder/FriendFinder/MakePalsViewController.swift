@@ -67,6 +67,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        searchController.searchBar.barTintColor = .lightTeal
         textFieldInsideSearchBar?.backgroundColor = .teal
         textFieldInsideSearchBar?.textColor = .white
         searchController.searchBar.scopeButtonTitles = Array(scopeMap.keys)

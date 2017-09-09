@@ -10,7 +10,9 @@ import UIKit
 
 class SideMenuNavbar: UIView {
 
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    
+    @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var iconImageView: UIImageView!
     
@@ -30,15 +32,16 @@ class SideMenuNavbar: UIView {
         frame.size = CGSize(width: defaultWidth, height: defaultHeight)
     }
     
-    func initializeContent(image: UIImage?, title: String) {
-        titleLabel.text = title
+    func initializeContent(image: UIImage?, name: String, username: String) {
+        usernameLabel.text = username
         iconImageView.image = image
+        nameLabel.text = name
         sizeToFit()
     }
     
-    func awakeAndInitialize(image: UIImage?, title: String) {
+    func awakeAndInitialize(image: UIImage?, name: String, username: String) {
         awakeFromNib()
-        initializeContent(image: image, title: title)
+        initializeContent(image: image, name: name, username: username)
     }
 
 }

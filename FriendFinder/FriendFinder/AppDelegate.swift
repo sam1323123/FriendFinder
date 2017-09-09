@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
                               willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         var dict: NSDictionary?
         UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.fontAwesome(ofSize: 15)], for: .normal)
-        UISearchBar.appearance().barTintColor = .lightTeal
         UISearchBar.appearance().tintColor = .white
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).alpha = 0.6
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
@@ -78,9 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
                                                      annotation: [:])
         
         let parsedUrl = BFURL(inboundURL: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String)
-        let alertController = UIAlertController(title: "Welcome!", message: "Thanks for coming back to FriendFinder!", preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: String.fontAwesomeIcon(name: .smileO), style: .default))
-        window?.rootViewController?.present(alertController, animated: true)
         return FBSDKApplicationDelegate.sharedInstance().application(
             app,
             open: url as URL!,

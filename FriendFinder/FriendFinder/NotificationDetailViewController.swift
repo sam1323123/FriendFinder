@@ -71,6 +71,7 @@ class NotificationDetailViewController: UITableViewController {
     }
     
     func initializeNavbar() {
+        let name = UserDefaults.standard.value(forKey: "name") as! String
         let username = UserDefaults.standard.value(forKey: "username") as! String
         let imageData = UserDefaults.standard.value(forKey: "profileImage") as? Data
         let navbarNib = UINib(nibName: "navbarView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? SideMenuNavbar
@@ -84,7 +85,7 @@ class NotificationDetailViewController: UITableViewController {
             print("Retrieved imagedata")
             image = UIImage(data: imageData)
         }
-        navView.awakeAndInitialize(image: image, title: username)
+        navView.awakeAndInitialize(image: image, name: name, username: username)
         navigationItem.titleView = navView
         
         print("initialized!!!!!!")
