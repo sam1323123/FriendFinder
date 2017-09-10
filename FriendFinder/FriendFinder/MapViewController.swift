@@ -191,7 +191,6 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //register vc to listen to notifications
-        /*ref.child(Utils.firebasePaths.connectionRequests(uid:Auth.auth().currentUser!.uid)).setValue(["samuell1": "sam", "avi":"avi"])*/
         PendingNotificationObject.sharedInstance.registerObserver(observer: self, action: #selector(pendingNotificationHandler(_:)))
     }
     
@@ -259,7 +258,7 @@ class MapViewController: UIViewController {
         
         //fetch and save profileImage
         let storageRef = Storage.storage().reference()
-        storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+        storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: Utils.maximumImageSize) { data, error in
             if let error = error {
                 // Uh-oh, an error occurred!
                 print(error)

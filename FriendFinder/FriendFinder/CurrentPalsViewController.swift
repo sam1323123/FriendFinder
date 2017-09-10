@@ -142,7 +142,7 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
                 self!.dbRef.child(FirebasePaths.usernameProfileName(username: username)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
                     let name = snapshot.value as! String
                     self!.receivingNameMap[username] = name
-                    self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: Utils.maximumImageSize) { data, error in
                         let image: UIImage
                         if let error = error {
                             // Uh-oh, an error occurred!
@@ -170,7 +170,7 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
                 self!.dbRef.child(FirebasePaths.usernameProfileName(username: username)).observeSingleEvent(of: .value, with: {[weak self] (snapshot) in
                     let name = snapshot.value as! String
                     self!.broadcastingNameMap[username] = name
-                    self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: Utils.maximumImageSize) { data, error in
                         let image: UIImage
                         if let error = error {
                             // Uh-oh, an error occurred!

@@ -154,7 +154,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
             self!.usernames = Array(data.keys)
             for username in self!.usernames {
                 self!.nameMap[username] = (((data[username] as! [String:AnyObject])["name"])! as! String)
-                self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { data, error in
+                self!.storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: Utils.maximumImageSize) { data, error in
                     let image: UIImage
                     if let error = error {
                         // Uh-oh, an error occurred!

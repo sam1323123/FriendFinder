@@ -147,60 +147,9 @@ class MenuViewController: UIViewController {
         
     }
 
-    /* MARK: - Table view data source
+    /* MARK: - Table view data source */
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (menuOptions != nil) ? menuOptions!.count : 0
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let item = menuOptions?[indexPath.row]
-        if(indexPath.row == 2) { //index of notification option
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath)
-            notificationCellRef = (cell as! NotificationTableViewCell)
-            notificationCellRef!.itemNameLabel.text = item?.name
-            notificationCellRef!.itemIcon.image = item?.icon
-            let pendingNotifs = PendingNotificationObject.sharedInstance.numberOfPendingRequests()
-            if( pendingNotifs == 0) {
-                //make invisible
-                notificationCellRef!.countLabel.backgroundColor = UIColor.clear
-                notificationCellRef!.countLabel.text = nil
-            }
-            else {
-                notificationCellRef!.countLabel.backgroundColor = UIColor.red
-                notificationCellRef!.countLabel.text = String(pendingNotifs) // set text to number of pending notifs
-            }
-            notificationCellRef!.recalibrateComponents()
-            return notificationCellRef!
-
-        }
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath)
-            let menuCell = cell as! MenuViewCell
-            menuCell.itemNameLabel.text = item?.name
-            menuCell.itemIcon.image = item?.icon
-            return menuCell
-        }
-        
-    }
-
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return false
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = menuOptions?[indexPath.row]
-        performSegue(withIdentifier: item!.segueID, sender: nil)
-    }
-    */
-
+ 
     func initOptions() {
         let pals = MenuItem(name: "Pals", segueID: "Current Pals Menu")
         let connections = MenuItem(name: "Make Pals", segueID: "Make Pals Menu")
@@ -288,6 +237,9 @@ extension MenuViewController: ExpandableDelegate {
                     let provider = (self?.providerMap[(Auth.auth().currentUser?.providerData.first?.providerID)!]!)!
                     try Auth.auth().signOut()
                     provider.logOut()
+                    UserDefaults.standard.setValue(nil, forKey: "username")
+                    UserDefaults.standard.setValue(nil, forKey: "name")
+                    UserDefaults.standard.setValue(nil, forKey: "profileImage")
                     self!.performSegue(withIdentifier: "Back To Login", sender: self)
                 } catch let error as NSError {
                     Utils.handleSignInError(error: error, controller: self!)

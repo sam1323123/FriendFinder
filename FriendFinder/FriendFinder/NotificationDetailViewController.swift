@@ -54,7 +54,7 @@ class NotificationDetailViewController: UITableViewController {
         userCount = usernames.count
         for username in usernames.keys {
             //populate data array
-            storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { [weak self] data, error in
+            storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: Utils.maximumImageSize) { [weak self] data, error in
                 let image: UIImage
                 if let error = error {
                     // Uh-oh, an error occurred!
@@ -134,7 +134,7 @@ class NotificationDetailViewController: UITableViewController {
         newUsers = []
         userCount = usernames.count
         for username in usernames.keys {
-            storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { [weak self] data, error in
+            storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: Utils.maximumImageSize) { [weak self] data, error in
                 let image: UIImage
                 if let error = error {
                     // Uh-oh, an error occurred!

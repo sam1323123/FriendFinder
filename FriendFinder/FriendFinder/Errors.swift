@@ -16,7 +16,7 @@ public class Errors {
     public static let firebaseErrors : [AuthErrorCode:(String, String)] =
         [
         .networkError: (title: "No network!", message: "Please try again after connecting to the network."),
-        .userNotFound: (title: "User account not found!", message: "It appears your account has been deleted."),
+        .userNotFound: (title: "User account not found!", message: "There is no account with this email. Your account could have been deleted."),
         .userTokenExpired: (title: "You have been logged out.", message: "Please login again."),
         .tooManyRequests: (title: "Login error!", message: "Please try again later."),
         .invalidEmail: (title: "Invalid email address!", message: "Please enter a valid email address."),
