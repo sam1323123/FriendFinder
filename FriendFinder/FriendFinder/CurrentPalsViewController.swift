@@ -25,7 +25,7 @@ class CurrentPalsViewController: UIViewController, UITableViewDataSource, UITabl
     fileprivate let dbRef = Database.database().reference()
     private let storageRef = Storage.storage().reference()
     
-    private var hasLoaded = false
+    fileprivate var hasLoaded = false
     
     fileprivate var broadcastingUsers = [FFUser]()
     private var broadcastingUsernames: [String]!

@@ -8,30 +8,41 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseStorage
 import FirebaseAuth
 import SideMenu
 
 class NotificationDetailViewController: UITableViewController {
 
-    private var ref: DatabaseReference! = Database.database().reference()
+    private let dbRef = Database.database().reference()
+    
+    private let storageRef = Storage.storage().reference()
+    
     private var username = UserDefaults.standard.value(forKey: "username") as? String
     private var preferredName = UserDefaults.standard.value(forKey: "name") as? String
-
+    
     private var hasLoaded = false
     
-    private var data = [FFUser]() {
+    private var users = [FFUser]() {
         didSet {
-            if data.isEmpty && hasLoaded {
+            if users.isEmpty && hasLoaded {
                 Utils.displayFiller(for: tableView, width: SideMenuManager.menuWidth, center: CGPoint(x: (tableView.frame.minX + SideMenuManager.menuWidth) * 0.5, y: tableView.center.y))
             }
-            else if oldValue.isEmpty && !data.isEmpty && hasLoaded {
+            else if oldValue.isEmpty && !users.isEmpty && hasLoaded {
                 if let viewWithTag = view.viewWithTag(Utils.imageViewFillerTag) {
                     viewWithTag.removeFromSuperview()
                 }
             }
         }
     }
+    
+    private var newUsers = [FFUser]()
+    
+    private var userCount: Int?
 
+    private var timer: Timer?
+    
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,17 +51,27 @@ class NotificationDetailViewController: UITableViewController {
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        userCount = usernames.count
         for username in usernames.keys {
             //populate data array
-            let elem = FFUser(name: usernames[username]!, username: username)
-            data.append(elem)
+            storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { [weak self] data, error in
+                let image: UIImage
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                    print(error)
+                    image = #imageLiteral(resourceName: "no_image")
+                } else {
+                    image = UIImage(data: data!)!
+                }
+                self?.users.append(FFUser(name: usernames[username]!, username: username, picture: image))
+            }
         }
         initializeNavbar()
-        print(tableView.center, tableView.frame.minX, tableView.frame.maxX )
-
-        if data.isEmpty {
-            Utils.displayFiller(for: tableView, width: tableView.frame.width * 0.75, center: CGPoint(x: (tableView.frame.minX + tableView.frame.width * 0.75) * 0.5, y: tableView.center.y))
-        }
+        spinner.center = CGPoint(x: (tableView.frame.minX + SideMenuManager.menuWidth) * 0.5, y: tableView.center.y)
+        tableView.addSubview(spinner)
+        tableView.bringSubview(toFront: spinner)
+        spinner.startAnimating()
+        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(checkDone), userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +91,25 @@ class NotificationDetailViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func checkDone() {
+        if users.count == userCount! {
+            timer?.invalidate()
+            spinner.stopAnimating()
+            tableView.reloadData()
+            hasLoaded = true
+            if users.isEmpty {
+                users = []
+            }
+        }
+        else if newUsers.count == userCount! {
+            timer?.invalidate()
+            spinner.stopAnimating()
+            users = newUsers
+            tableView.reloadData()
+            hasLoaded = true
+        }
+    }
+    
     func initializeNavbar() {
         let name = UserDefaults.standard.value(forKey: "name") as! String
         let username = UserDefaults.standard.value(forKey: "username") as! String
@@ -87,21 +127,30 @@ class NotificationDetailViewController: UITableViewController {
         }
         navView.awakeAndInitialize(image: image, name: name, username: username)
         navigationItem.titleView = navView
-        
-        print("initialized!!!!!!")
-        
     }
     
     func handleNotification(_ notification: NSNotification) {
         let usernames = PendingNotificationObject.sharedInstance.getAllPendingRequests()
-        var newData: [FFUser] = []
+        newUsers = []
+        userCount = usernames.count
         for username in usernames.keys {
-            newData.append(FFUser(name: usernames[username]!, username: username))
+            storageRef.child(FirebasePaths.userIcons(username: username)).getData(maxSize: 1 * 1024 * 1024) { [weak self] data, error in
+                let image: UIImage
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                    print(error)
+                    image = #imageLiteral(resourceName: "no_image")
+                } else {
+                    image = UIImage(data: data!)!
+                }
+                self?.newUsers.append(FFUser(name: usernames[username]!, username: username, picture: image))
+            }
         }
-        hasLoaded = true
-        data = newData
-        tableView.reloadSections(IndexSet(0...0), with: UITableViewRowAnimation.left)
-        
+        spinner.center = CGPoint(x: (tableView.frame.minX + SideMenuManager.menuWidth) * 0.5, y: tableView.center.y)
+        tableView.addSubview(spinner)
+        tableView.bringSubview(toFront: spinner)
+        spinner.startAnimating()
+        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(checkDone), userInfo: nil, repeats: true)
     }
     
     
@@ -126,7 +175,7 @@ class NotificationDetailViewController: UITableViewController {
         //insert accept message to counter party's connections field
         let user = sender.user
         let acceptMessage = ["\(username)":["name": preferredName, "accepted": "true"]]
-        ref.child(FirebasePaths.connectionRequestReply(username: user!.username)).updateChildValues(acceptMessage, withCompletionBlock: {(err, dbRef) in
+        dbRef.child(FirebasePaths.connectionRequestReply(username: user!.username)).updateChildValues(acceptMessage, withCompletionBlock: {[weak self] (err, dbRef) in
             if let err = err {
                 print("Cannot Write Accept Message: \(acceptMessage) because of \(err)")
                 return
@@ -135,7 +184,7 @@ class NotificationDetailViewController: UITableViewController {
             PendingNotificationObject.sharedInstance.removeRequest(username: user!.username)
             
             //insert into locationTo table
-            self.ref.child(FirebasePaths.locationReceivers(uid: Auth.auth().currentUser!.uid)).updateChildValues([user!.username: "Placeholder for pubnub"], withCompletionBlock: {(err, dbref) in
+            self?.dbRef.child(FirebasePaths.locationReceivers(uid: Auth.auth().currentUser!.uid)).updateChildValues([user!.username: "Placeholder for pubnub"], withCompletionBlock: {(err, dbref) in
                 if let err = err {
                     print("locationsTo update failed due to \(err)")
                     return
@@ -156,7 +205,7 @@ class NotificationDetailViewController: UITableViewController {
         //insert accept message to counter party's connections field
         let user = sender.user
         let declineMessage = ["\(username)":["name": preferredName, "accepted": "false"]]
-        ref.child(FirebasePaths.connectionRequestReply(username: user!.username)).updateChildValues(declineMessage, withCompletionBlock: {(err, dbRef) in
+        dbRef.child(FirebasePaths.connectionRequestReply(username: user!.username)).updateChildValues(declineMessage, withCompletionBlock: {(err, dbRef) in
             if let err = err {
                 print("Cannot Decline because of \(err)")
                 return
@@ -175,20 +224,21 @@ class NotificationDetailViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return data.count
+        return users.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-        let item = data[indexPath.row]
+        let item = users[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "testCell1") as? NotificationSelectionCell else {
             return UITableViewCell()
         }
-        cell.itemNameLabel.text = item.name
-        let user = FFUser(name: "", username: item.username)
-        cell.acceptButton.user = user
-        cell.declineButton.user = user
+        cell.nameLabel.text = item.name
+        cell.usernameLabel.text = item.username
+        cell.userIcon.image = item.picture
+        cell.acceptButton.user = item
+        cell.declineButton.user = item
         cell.acceptButton.addTarget(self, action: #selector(handleAcceptPressed(sender:)), for: .touchUpInside)
         cell.declineButton.addTarget(self, action: #selector(handleDeclinePressed(sender:)), for: .touchUpInside)
         return cell

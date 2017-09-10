@@ -21,7 +21,7 @@ class MakePalsViewController: UIViewController, UITableViewDataSource, UITableVi
     let searchController = UISearchController(searchResultsController: nil)
     
     fileprivate let dbRef = Database.database().reference()
-    private let storageRef = Storage.storage().reference()
+    fileprivate let storageRef = Storage.storage().reference()
     
     private var hasLoaded = false
     

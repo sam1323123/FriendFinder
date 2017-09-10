@@ -11,7 +11,11 @@ import ExpandableCell
 
 class NotificationSelectionCell: ExpandableCell {
     
-    @IBOutlet weak var itemNameLabel: UILabel!
+    @IBOutlet weak var userIcon: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var usernameLabel: UILabel!
     
     @IBOutlet weak var acceptButton: UserSelectionButton!
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -859,29 +859,56 @@
         <scene sceneID="QyW-LQ-meE">
             <objects>
                 <tableViewController id="QZv-o9-0l6" customClass="NotificationDetailViewController" customModule="FriendFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wkf-ef-P1x">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="83" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wkf-ef-P1x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="testCell1" id="D8k-s7-FFB" userLabel="Notification Detail Cell" customClass="NotificationSelectionCell" customModule="FriendFinder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="testCell1" rowHeight="83" id="D8k-s7-FFB" userLabel="Notification Detail Cell" customClass="NotificationSelectionCell" customModule="FriendFinder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D8k-s7-FFB" id="obl-kn-EJI">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="82.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="itemName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6EH-pq-8Zy">
-                                            <rect key="frame" x="10" y="11.5" width="84" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="KaX-jw-Se0">
+                                            <rect key="frame" x="18" y="-4" width="282" height="64"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zaz-BH-scc" userLabel="userIcon">
+                                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="cH8-Wf-THY"/>
+                                                        <constraint firstAttribute="width" secondItem="Zaz-BH-scc" secondAttribute="height" multiplier="1:1" id="oJQ-5g-HUD"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DGZ-AT-N6I">
+                                                    <rect key="frame" x="84" y="0.0" width="198" height="64"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="itemName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6EH-pq-8Zy" userLabel="nameLabel">
+                                                            <rect key="frame" x="0.0" y="0.0" width="198" height="43.5"/>
+                                                            <fontDescription key="fontDescription" name="BodoniSvtyTwoOSITCTT-Bold" family="Bodoni 72 Oldstyle" pointSize="17"/>
+                                                            <color key="textColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccR-Th-vpq" userLabel="usernameLabel">
+                                                            <rect key="frame" x="0.0" y="43.5" width="198" height="20.5"/>
+                                                            <fontDescription key="fontDescription" name="BodoniSvtyTwoOSITCTT-Bold" family="Bodoni 72 Oldstyle" pointSize="17"/>
+                                                            <color key="textColor" red="0.21960784310000001" green="0.44705882349999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DGZ-AT-N6I" firstAttribute="top" secondItem="Zaz-BH-scc" secondAttribute="top" id="wgG-DZ-ABo"/>
+                                            </constraints>
+                                        </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Xr3-Ne-okN" userLabel="Buttons Stack">
-                                            <rect key="frame" x="187.5" y="0.0" width="187.5" height="43.5"/>
+                                            <rect key="frame" x="300" y="0.0" width="75" height="100.5"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPm-ml-rxk" customClass="UserSelectionButton" customModule="FriendFinder" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="94" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="37.5" height="100.5"/>
                                                     <color key="backgroundColor" red="0.1121144513" green="0.82521049219999998" blue="0.1999063794" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal" title="Accept">
@@ -889,7 +916,7 @@
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoA-5E-QpB" customClass="UserSelectionButton" customModule="FriendFinder" customModuleProvider="target">
-                                                    <rect key="frame" x="94" y="0.0" width="93.5" height="43.5"/>
+                                                    <rect key="frame" x="37.5" y="0.0" width="37.5" height="100.5"/>
                                                     <color key="backgroundColor" red="1" green="0.076092547580000003" blue="0.1995526275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal" title="Decline">
@@ -901,18 +928,23 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Xr3-Ne-okN" secondAttribute="trailing" id="5xB-aO-hjX"/>
-                                        <constraint firstItem="6EH-pq-8Zy" firstAttribute="leading" secondItem="obl-kn-EJI" secondAttribute="leading" constant="10" id="Aw0-NI-Dw3"/>
-                                        <constraint firstItem="6EH-pq-8Zy" firstAttribute="centerY" secondItem="obl-kn-EJI" secondAttribute="centerY" id="BGa-Fk-0jy"/>
+                                        <constraint firstItem="Zaz-BH-scc" firstAttribute="leading" secondItem="obl-kn-EJI" secondAttribute="leadingMargin" constant="10" id="7KT-b0-M5Q"/>
+                                        <constraint firstItem="Zaz-BH-scc" firstAttribute="top" secondItem="obl-kn-EJI" secondAttribute="topMargin" constant="10" id="9tk-Q8-teg"/>
                                         <constraint firstItem="Xr3-Ne-okN" firstAttribute="height" secondItem="obl-kn-EJI" secondAttribute="height" id="C5c-JM-2tx"/>
+                                        <constraint firstItem="Xr3-Ne-okN" firstAttribute="leading" secondItem="DGZ-AT-N6I" secondAttribute="trailing" id="Dh6-c0-9WD"/>
                                         <constraint firstItem="Xr3-Ne-okN" firstAttribute="top" secondItem="obl-kn-EJI" secondAttribute="top" id="Rba-IB-crk"/>
-                                        <constraint firstItem="Xr3-Ne-okN" firstAttribute="width" secondItem="obl-kn-EJI" secondAttribute="width" multiplier="0.5" id="n7N-qR-mqR"/>
+                                        <constraint firstItem="Zaz-BH-scc" firstAttribute="centerY" secondItem="obl-kn-EJI" secondAttribute="centerY" id="eh8-fx-k3c"/>
+                                        <constraint firstItem="Xr3-Ne-okN" firstAttribute="width" secondItem="obl-kn-EJI" secondAttribute="width" multiplier="0.2" id="n7N-qR-mqR"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Zaz-BH-scc" secondAttribute="bottom" constant="10" id="rjD-Ip-cfg"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="0.56470588239999997" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="acceptButton" destination="XPm-ml-rxk" id="hIX-Au-30r"/>
                                     <outlet property="declineButton" destination="HoA-5E-QpB" id="n5I-tc-EOd"/>
-                                    <outlet property="itemNameLabel" destination="6EH-pq-8Zy" id="D4E-fE-oTi"/>
+                                    <outlet property="nameLabel" destination="6EH-pq-8Zy" id="EhA-QB-duU"/>
+                                    <outlet property="userIcon" destination="Zaz-BH-scc" id="2pR-Ku-akh"/>
+                                    <outlet property="usernameLabel" destination="ccR-Th-vpq" id="pm8-hA-9Fu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -930,7 +962,7 @@
         <scene sceneID="gjd-Sy-HcB">
             <objects>
                 <navigationController storyboardIdentifier="LeftMenuViewController" id="Sxz-zD-L2b" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="q6d-7T-aen">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="q6d-7T-aen">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1002,7 +1034,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ve1-12-3nf" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O6L-3t-Wx9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="O6L-3t-Wx9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

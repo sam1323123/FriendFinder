@@ -32,13 +32,13 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="800" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPd-dk-dld" userLabel="nameLabel">
                                     <rect key="frame" x="0.0" y="0.0" width="42.5" height="24.5"/>
                                     <fontDescription key="fontDescription" name="BodoniSvtyTwoOSITCTT-Book" family="Bodoni 72 Oldstyle" pointSize="20"/>
-                                    <color key="textColor" red="0.30980392156862746" green="0.63529411764705879" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.56470588239999997" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9Z-EC-s8K" userLabel="usernameLabel">
                                     <rect key="frame" x="0.0" y="24.5" width="42.5" height="18.5"/>
                                     <fontDescription key="fontDescription" name="BodoniSvtyTwoOSITCTT-Book" family="Bodoni 72 Oldstyle" pointSize="15"/>
-                                    <color key="textColor" red="0.30980392156862746" green="0.63529411764705879" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.56470588239999997" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
